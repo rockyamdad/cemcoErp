@@ -100,6 +100,27 @@ class ImportController extends Controller{
             return Redirect::to('imports/index');
         }
     }
+    public function postUpdateBankCost($id)
+    {
+        $ruless = array(
+            'lc_no' => 'required',
+            'bank_name' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('imports/editCost',$id)
+                ->withErrors($validate);
+        }
+        else{
+            $bankCost =  BankCost::find($id);
+            $this->setBankCostData($bankCost);
+            $bankCost->save();
+            Session::flash('message', 'Bank Cost has been Successfully Updated.');
+            return Redirect::to('imports/index');
+        }
+    }
     public function postSaveCnfCost()
     {
         $ruless = array(
@@ -120,6 +141,26 @@ class ImportController extends Controller{
             return Redirect::to('imports/index');
         }
     }
+    public function postUpdateCnfCost($id)
+    {
+        $ruless = array(
+            'clearing_agent_name' => 'required'
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('imports/editCost',$id)
+                ->withErrors($validate);
+        }
+        else{
+            $cnfCost = CnfCost::find($id);
+            $this->setCnfCostData($cnfCost);
+            $cnfCost->save();
+            Session::flash('message', 'CNF Cost has been Successfully Updated.');
+            return Redirect::to('imports/index');
+        }
+    }
     public function postProformaInvoice()
     {
         $ruless = array(
@@ -137,6 +178,26 @@ class ImportController extends Controller{
             $this->setProformaInvoiceData($pi);
             $pi->save();
             Session::flash('message', 'Proforma Invoice has been Successfully Created.');
+            return Redirect::to('imports/index');
+        }
+    }
+    public function postUpdateProformaInvoice($id)
+    {
+        $ruless = array(
+            'invoice_no' => 'required'
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('imports/editCost',$id)
+                ->withErrors($validate);
+        }
+        else{
+            $pi = ProformaInvoice::find($id);
+            $this->setProformaInvoiceData($pi);
+            $pi->save();
+            Session::flash('message', 'Proforma Invoice has been Successfully Updated.');
             return Redirect::to('imports/index');
         }
     }
@@ -161,15 +222,38 @@ class ImportController extends Controller{
             return Redirect::to('imports/index');
         }
     }
+    public function postUpdateOtherCost($id)
+    {
+        $ruless = array(
+            'tt_charge' => 'required',
+            'dollar_to_bd_rate' => 'required'
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('imports/editCost',$id)
+                ->withErrors($validate);
+        }
+        else{
+            $otherCost = OtherCost::find($id);
+            $this->setOtherCostData($otherCost);
+            $otherCost->save();
+            Session::flash('message', 'Others Cost has been Successfully Updated.');
+            return Redirect::to('imports/index');
+        }
+    }
     public function getDetails($id)
     {
-        $imports = ImportDetail::where('import_id','=',$id)->get();
+        $imports  = ImportDetail::where('import_id','=',$id)->get();
         $bankCost = BankCost::where('import_id','=',$id)->get();
         $cnfCost  = CnfCost::where('import_id','=',$id)->get();
-        $pi      =  ProformaInvoice::where('import_id','=',$id)->get();
+        $pi       =  ProformaInvoice::where('import_id','=',$id)->get();
+        $otherCost     = OtherCost::where('import_id','=',$id)->get();
         return view('Imports.details',compact('imports'))
             ->with('bankCost',$bankCost)
             ->with('pi',$pi)
+            ->with('otherCost',$otherCost)
             ->with('cnfCost',$cnfCost);
     }
     public function getLandingcost($id)
@@ -192,7 +276,6 @@ class ImportController extends Controller{
         $importCnfCost = CnfCost::where('import_id','=',$id)->get();
         $importOtherCost = OtherCost::where('import_id','=',$id)->get();
         $importProformaInvoice = ProformaInvoice::where('import_id','=',$id)->get();
-        //var_dump($importCnfCost);exit;
         return view('Imports.costs',compact('imports'))
             ->with('importBankCost',$importBankCost)
             ->with('importCnfCost',$importCnfCost)
@@ -206,6 +289,19 @@ class ImportController extends Controller{
         $import = Import::find($id);
         return view('Imports.edit',compact('import'))
             ->with('branchAll',$branchAll);
+    }
+    public function getEditcost($id)
+    {
+        $imports = Import::find($id);
+        $proformaInvoice = ProformaInvoice::where('import_id','=',$id)->get();
+        $bankCost    = BankCost::where('import_id','=',$id)->get();
+        $cnfCost     = CnfCost::where('import_id','=',$id)->get();
+        $otherCost   = OtherCost::where('import_id','=',$id)->get();
+        return view('Imports.editCost',compact('imports'))
+            ->with('importProformaInvoice',$proformaInvoice)
+            ->with('importBankCost',$bankCost)
+            ->with('importCnfCost',$cnfCost)
+            ->with('importOtherCost',$otherCost);
     }
     public function postUpdate($id)
     {
