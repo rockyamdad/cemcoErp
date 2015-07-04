@@ -1,0 +1,52 @@
+<div class="tab-pane fade" id="ImportDetailsAdd">
+    {!!Form::open(array('url' => '/saveImportDetails', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'imports_details_form'))!!}
+    <div class="form-body">
+        <div class="alert alert-danger display-hide">
+            <button data-close="alert" class="close"></button>
+            You have some form errors. Please check below.
+        </div>
+        <div class="alert alert-success display-hide">
+            <button data-close="alert" class="close"></button>
+            Your form validation is successful!
+        </div>
+        <div class="form-group">
+            {!!HTML::decode(Form::label('import_id','Choose Import <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
+            <div class="col-md-4">
+                {!!Form::select('import_id',[null=>'Please Select Import'] +$importAll,'null', array('class'=>'form-control ','id'=>'import_id') )!!}
+            </div>
+        </div>
+        <div class="form-group">
+            {!!HTML::decode(Form::label('product_id','Choose Product <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
+            <div class="col-md-4">
+                {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
+            </div>
+        </div>
+        <div class="form-group">
+            {!! HTML::decode(Form::label('quantity','Quantity<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
+            <div class="col-md-4">
+                {!!Form::text('quantity',null,array('placeholder' => 'Quantity', 'class' => 'form-control','id' => 'quantity'))!!}
+            </div>
+        </div>
+        <div class="form-group">
+            {!! HTML::decode(Form::label('total_booking_price','Total Booking Price',array('class' => 'control-label col-md-3'))) !!}
+            <div class="col-md-4">
+                {!!Form::text('total_booking_price',null,array('placeholder' => 'Total Booking Price', 'class' => 'form-control','id' => 'total_booking_price'))!!}
+            </div>
+        </div>
+        <div class="form-group">
+            {!! HTML::decode(Form::label('total_cfr_price','Total CFR Price',array('class' => 'control-label col-md-3'))) !!}
+            <div class="col-md-4">
+                {!!Form::text('total_cfr_price',null,array('placeholder' => 'Total CFR Price', 'class' => 'form-control','id' => 'total_cfr_price'))!!}
+            </div>
+        </div>
+
+        <div class="form-actions fluid">
+            <div class="col-md-offset-3 col-md-9">
+                {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
+                {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
+
+            </div>
+        </div>
+        {!!Form::close()!!}
+    </div>
+</div>
