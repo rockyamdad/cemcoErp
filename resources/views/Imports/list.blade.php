@@ -14,7 +14,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('imports/index')}}">Import List</a></li>
+            <li><a href="{{URL::to('imports/index')}}">Imports List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
