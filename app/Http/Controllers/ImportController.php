@@ -28,7 +28,7 @@ class ImportController extends Controller{
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
         $products = new Product();
-        $productAll = $products->getProductsDropDown();
+        $productAll = $products->getProductsDropDownForeign();
         $imports = new Import();
         $importAll = $imports->getImportsDropDown();
 
