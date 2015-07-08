@@ -43,8 +43,9 @@
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
                             <td>{{$importt->total_cfr_price}}</td>
-                            <td>{{$importt->created_by}}</td>
-                            <td>
+                            <td>{{$importt->import->branch->user->name}}</td>
+                            <td><a href="{{ URL::to('imports/editdetails/'. $importt->id ) }}"><i
+                                        class="fa fa-edit"></i>Edit </a>
                             </td>
                         </tr>
                         @endforeach

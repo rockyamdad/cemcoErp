@@ -290,6 +290,18 @@ class ImportController extends Controller{
         return view('Imports.edit',compact('import'))
             ->with('branchAll',$branchAll);
     }
+    public function getEditdetails($id)
+    {
+        $import = ImportDetail::find($id);
+        $products = new Product();
+        $productAll = $products->getProductsDropDownForeign();
+        $imports = new Import();
+        $importAll = $imports->getImportsDropDown();
+
+        return view('Imports.editDetails',compact('import'))
+            ->with('productAll',$productAll)
+            ->with('importAll',$importAll);
+    }
     public function getEditcost($id)
     {
         $imports = Import::find($id);
