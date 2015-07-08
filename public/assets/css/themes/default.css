@@ -45,7 +45,7 @@ ul.page-sidebar-menu > li a i {
 ul.page-sidebar-menu > li.open > a,
 ul.page-sidebar-menu > li > a:hover,
 ul.page-sidebar-menu > li:hover > a {
-  background: #303030;
+  background: indianred;
 }
 ul.page-sidebar-menu > li.active > a {
   background: #e02222 !important;
