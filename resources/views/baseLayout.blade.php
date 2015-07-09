@@ -219,6 +219,23 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
+        <li class="@if (Request::is('stocks/*'))active @endif">
+            <a href="javascript:;">
+                <i class="fa fa-puzzle-piece"></i>
+                <span class="title">Stock</span>
+                @if (Request::is('stocks/*'))<span class="selected"></span>@endif
+                <span class="arrow @if (Request::is('stocks/*'))open @endif"></span>
+            </a>
+
+            <ul class="sub-menu">
+                <li
+                @if (Request::is('stocks/create'))class="active"@endif>
+                <a href="{{ URL::to('stocks/create') }}">Add Stock </a>
+        </li>
+
+        </ul>
+        </li>
+
 
         <li class="@if (Request::is('settings/'))active @endif">
                     <a href="javascript:;">
@@ -232,10 +249,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <li
                         @if (Request::is('settings/partylist'))class="active"@endif>
                         <a href="{{ URL::to('settings') }}">Party Info</a>
-                </li>
+                        </li>
 
-                </ul>
-                </li>
+                     </ul>
+        </li>
 
 
         </ul>

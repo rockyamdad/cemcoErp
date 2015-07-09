@@ -49,6 +49,15 @@ Route::post('saveProformaInvoice','ImportController@postProformaInvoice');
 Route::post('saveOtherCost','ImportController@postOtherCost');
 Route::get('changeStatus/{status}/{id}','ImportController@getChange');
 
+//Stock Controller
+Route::controller('stocks','StockController');
+Route::get('products/{type}','StockController@getProducts');
+Route::get('imports/','StockController@getImports');
+Route::post('saveStocks','StockController@postSaveStock');
+
+Route::get('stocks/add', [
+    'as' => 'stock_add', 'uses' => 'StockController@getCreateStock'
+]);
 
 //Settings Controller
 Route::controller('settings','SettingsController');
