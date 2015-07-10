@@ -5,5 +5,9 @@ use Illuminate\Support\Facades\DB;
 class Stock extends Eloquent
 {
     protected $table = 'stocks';
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 
 }

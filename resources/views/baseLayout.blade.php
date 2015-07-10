@@ -231,7 +231,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <li
                 @if (Request::is('stocks/create'))class="active"@endif>
                 <a href="{{ URL::to('stocks/create') }}">Add Stock </a>
-        </li>
+                 </li>
+                <li
+                @if (Request::is('stocks/index'))class="active"@endif>
+                <a href="{{ URL::to('stocks/index') }}">Stock List </a>
+                </li>
 
         </ul>
         </li>

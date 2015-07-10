@@ -67,7 +67,7 @@ jQuery(document).ready(function() {
         var product_type = $('#edit_product_type').val();
         $.ajax({
             type: "get",
-            url: "products/"+product_type,
+            url: "../products/"+product_type,
             success: function (html) {
                 $('#edit_product_id').html(html);
 
@@ -90,6 +90,24 @@ jQuery(document).ready(function() {
 
         }else{
             $('.import_num_section').html("");
+        }
+
+    });
+    $('#edit_entry_type').live("change", function () {
+        var entry_type = $('#edit_entry_type').val();
+        if(entry_type==1)
+        {
+            $.ajax({
+                type: "get",
+                url: "../imports/",
+                success: function (html) {
+                    $('.edit_import_num_section').html(html);
+
+                }
+            });
+
+        }else{
+            $('.edit_import_num_section').html("");
         }
 
     });

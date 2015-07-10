@@ -54,6 +54,8 @@ Route::controller('stocks','StockController');
 Route::get('products/{type}','StockController@getProducts');
 Route::get('imports/','StockController@getImports');
 Route::post('saveStocks','StockController@postSaveStock');
+Route::post('updateStocks/{id}','StockController@postUpdateStock');
+
 
 Route::get('stocks/add', [
     'as' => 'stock_add', 'uses' => 'StockController@getCreateStock'

@@ -1,0 +1,129 @@
+@extends('baseLayout')
+@section('styles')
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
+
+@stop
+@section('content')
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Stock Section
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="{{URL::to('dashboard')}}">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+
+            <li>Edit Stock</li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="col-md-16">
+    <!-- BEGIN VALIDATION STATES-->
+    <div class="portlet box purple">
+        <div class="portlet-title">
+            <div class="caption"><i class="fa fa-reorder"></i>Edit Stock</div>
+            <div class="actions">
+                <a class="btn dark" href="{{ URL::to('stocks/index') }}">Stock List</a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            {!!Form::model($stock,array('action' => array('StockController@postUpdateStock', $stock->id),
+            'method' => 'POST', 'class'=>'form-horizontal', 'id'=>'stock_form'))!!}
+            <div class="form-body">
+                <div style="float: left;width: 80%; margin-left: 20px">
+                    @if (Session::has('message'))
+                    <div class="alert alert-success">
+                        <button data-close="alert" class="close"></button>
+                        {{ Session::get('message') }}
+                    </div>
+                    @endif
+                </div>
+                <div class="alert alert-danger display-hide">
+                    <button data-close="alert" class="close"></button>
+                    You have some form errors. Please check below.
+                </div>
+                <div class="alert alert-success display-hide">
+                    <button data-close="alert" class="close"></button>
+                    Your form validation is successful!
+                </div>
+
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('product_type','Product Type<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                        'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'edit_product_type'))!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Choose Product<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        <select id="edit_product_id" name="product_id" class="form-control">
+                            <option value="">Select Product</option>
+                        </select>
+
+                    </div>
+                </div>
+               <!-- <div class="form-group">
+                    <label class="control-label col-md-3">Choose Sub Category<span class="required">*</span></label>
+
+                    <div class="col-md-4">
+                        <select id="products_sub_category_id" name="sub_category_id" class="form-control">
+                            <option value="">Select Sub Category</option>
+                        </select>
+
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('entry_type',[null=>'Please Select Type'] + array('1' => 'StockIn', '0' =>
+                        'StockOut'),'null', array('class'=>'form-control','id'=>'edit_entry_type'))!!}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                     {!! HTML::decode(Form::label('product_quantity','Product Quantity<span class="required">*</span>',array('class'
+                     => 'control-label col-md-3'))) !!}
+                     <div class="col-md-4">
+                         {!!Form::text('product_quantity',null,array('placeholder' => 'Product Quantity', 'class' =>
+                         'form-control'))!!}
+                     </div>
+                 </div>
+                <div class="form-group edit_import_num_section">
+
+                </div>
+
+
+                <div class="form-actions fluid">
+                    <div class="col-md-offset-3 col-md-9">
+                        {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
+                        {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
+
+                    </div>
+                </div>
+                {!!Form::close()!!}
+                <!-- END FORM-->
+            </div>
+        </div>
+        <!-- END VALIDATION STATES-->
+    </div>
+    @stop
+    @section('javascript')
+    {!! HTML::script('js/stock.js') !!}
+    {!! HTML::script('assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js') !!}
+    {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
+
+    @stop
+
+

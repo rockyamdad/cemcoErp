@@ -13,6 +13,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class StockController extends Controller{
 
+    public function getIndex()
+    {
+        $stocks = Stock::all();
+        return view('Stocks.list',compact('stocks'));
+    }
+
     public function getCreate()
     {
         return view('Stocks.addSubtract');
@@ -61,6 +67,33 @@ class StockController extends Controller{
             return Redirect::to('stocks/create');
         }
     }
+    public function getEdit($id)
+    {
+        $stock = Stock::find($id);
+        return view('Stocks.edit',compact('stock'));
+
+    }
+    public function postUpdateStock($id)
+    {
+        $ruless = array(
+            'product_id' => 'required',
+            'product_quantity' => 'required',
+            'entry_type' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('stocks/edit',$id)
+                ->withErrors($validate);
+        }
+        else{
+            $stock = Stock::find($id);
+            $this->updateStockData($stock);
+            $stock->save();
+            return Redirect::to('stocks/index');
+        }
+    }
     private function setStockData($stock)
     {
         $stock->product_id = Input::get('product_id');
@@ -80,6 +113,33 @@ class StockController extends Controller{
 
         }
         $product->save();
+    }
+    private function updateStockData($stock)
+    {
+        $stock->product_id = Input::get('product_id');
+        $stock->product_quantity = Input::get('product_quantity');
+        $stock->entry_type = Input::get('entry_type');
+        $stock->created_by = Session::get('user_id');
+        $stock->status = "Activate";
+        $product = Product::find(Input::get('product_id'));
+        if(Input::get('entry_type') == 1)
+        {
+            $stock->import_num = Input::get('import_num');
+            $product->total_quantity = ($product->total_quantity - $stock->product_quantity) + Input::get('product_quantity');
+            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
+        }else{
+            $product->total_quantity = ($product->total_quantity + $stock->product_quantity) - Input::get('product_quantity');
+            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
+
+        }
+        $product->save();
+    }
+    public function getDelete($id)
+    {
+        $stock = Stock::find($id);
+        $stock->delete();
+        Session::flash('message', 'Stock  has been Successfully Deleted.');
+        return Redirect::to('stocks/index');
     }
 
 }

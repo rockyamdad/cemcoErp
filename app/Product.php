@@ -45,5 +45,9 @@ class Product extends Eloquent
     {
         return $this->belongsToMany('App\importDetail');
     }
+    public function stock()
+    {
+        return $this->hasOne('App\Stock');
+    }
 
 }
