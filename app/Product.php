@@ -25,11 +25,11 @@ class Product extends Eloquent
     public function getProducts()
     {
 
-        $products = DB::table('products')->get();
+        $products = DB::table('products')->where('product_type', 'Foreign')->get();
         return $products;
     }
 
-    public function getProductsDropDown()
+    public function getProductsDropDownForeign()
     {
         $products = $this->getProducts();
 

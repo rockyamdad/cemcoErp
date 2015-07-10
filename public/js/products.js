@@ -22,10 +22,7 @@ jQuery(document).ready(function() {
             sub_category_id: {
                 required: true
             },
-            hs_code: {
-                required: true
-            },
-            total_quantity: {
+            product_type: {
                 required: true
             }
 

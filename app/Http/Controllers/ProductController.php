@@ -30,8 +30,7 @@ class ProductController extends Controller{
             'branch_id' => 'required',
             'category_id' => 'required',
             'sub_category_id' => 'required',
-            'hs_code' => 'required',
-            'total_quantity' => 'required',
+            'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -89,8 +88,7 @@ class ProductController extends Controller{
             'branch_id' => 'required',
             'category_id' => 'required',
             'sub_category_id' => 'required',
-            'hs_code' => 'required',
-            'total_quantity' => 'required',
+            'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -116,7 +114,8 @@ class ProductController extends Controller{
         $prodcuts->sub_category_id = Input::get('sub_category_id');
         $prodcuts->origin = Input::get('origin');
         $prodcuts->hs_code = Input::get('hs_code');
-        $prodcuts->total_quantity = Input::get('total_quantity');
+        $prodcuts->product_type = Input::get('product_type');
+        $prodcuts->total_quantity = 0;
         $prodcuts->created_by = Session::get('user_id');
 
     }

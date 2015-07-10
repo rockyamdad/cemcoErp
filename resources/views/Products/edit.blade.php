@@ -80,6 +80,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!!HTML::decode(Form::label('product_type','Product Type<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                        'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control'))!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!! HTML::decode(Form::label('hs_code','HS Code<span class="required">*</span>',array('class' =>
                     'control-label col-md-3'))) !!}
                     <div class="col-md-4">
@@ -92,14 +100,14 @@
                         {!!Form::text('origin',null,array('placeholder' => 'Origin Name', 'class' => 'form-control'))!!}
                     </div>
                 </div>
-                <div class="form-group">
+               <!-- <div class="form-group">
                     {!! HTML::decode(Form::label('total_quantity','Total Quantity<span class="required">*</span>',array('class'
                     => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('total_quantity',null,array('placeholder' => 'Total Quantity', 'class' =>
                         'form-control'))!!}
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-actions fluid">
                     <div class="col-md-offset-3 col-md-9">
