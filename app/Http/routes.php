@@ -48,3 +48,7 @@ Route::post('saveImportCnfCost','ImportController@postSaveCnfCost');
 Route::post('saveProformaInvoice','ImportController@postProformaInvoice');
 Route::post('saveOtherCost','ImportController@postOtherCost');
 Route::get('changeStatus/{status}/{id}','ImportController@getChange');
+
+
+//Settings Controller
+Route::controller('settings','SettingsController');
