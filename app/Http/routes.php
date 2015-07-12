@@ -61,5 +61,8 @@ Route::get('stocks/add', [
     'as' => 'stock_add', 'uses' => 'StockController@getCreateStock'
 ]);
 
-//Settings Controller
-Route::controller('settings','SettingsController');
+//Party Controller
+Route::controller('parties','PartyController');
+Route::post('saveParty','PartyController@postSaveParty');
+Route::get('changeStatusParty/{status}/{id}','PartyController@getChangeStatus');
+

@@ -241,21 +241,22 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </li>
 
 
-        <li class="@if (Request::is('settings/'))active @endif">
-                    <a href="javascript:;">
-                        <i class="fa fa-cogs"></i>
-                        <span class="title">Settings</span>
-                        @if (Request::is('settings/'))<span class="selected"></span>@endif
-                        <span class="arrow @if (Request::is('settings/'))open @endif"></span>
-                    </a>
+        <li class="@if (Request::is('parties/'))active @endif">
+            <a href="javascript:;">
+                <i class="fa fa-barcode"></i>
+                <span class="title">Settings</span>
+                @if (Request::is('parties/'))<span class="selected"></span>@endif
+                <span class="arrow @if (Request::is('parties/'))open @endif"></span>
+            </a>
 
-                    <ul class="sub-menu">
-                        <li
-                        @if (Request::is('settings/partylist'))class="active"@endif>
-                        <a href="{{ URL::to('settings') }}">Party Info</a>
-                        </li>
+            <ul class="sub-menu">
+                <li
+                @if (Request::is('parties/index/'))class="active"@endif>
+                <a href="{{ URL::to('parties/index/') }}"><i class="fa fa-sitemap"></i>Party Section                    Section </a>
+        </li>
 
-                     </ul>
+
+        </ul>
         </li>
 
 
