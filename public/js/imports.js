@@ -66,7 +66,7 @@ jQuery(document).ready(function() {
                     .addClass("label-" + labelClass[data.status]);
 
                 el
-                    .attr('href', "changeStatus/" + data.status + "/" + data.id)
+                    .attr('href', "changeStatusImport/" + data.status + "/" + data.id)
 
             }
         });
