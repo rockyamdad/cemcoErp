@@ -91,7 +91,7 @@ class UserController extends Controller{
             return Redirect::to('list/');
         }
     }
-    public function postChangeStatus($status,$id)
+    public function getChangeStatus($status,$id)
     {
         $user = User::find($id);
         if($user['status'] == $status) {

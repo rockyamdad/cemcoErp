@@ -11,7 +11,7 @@ Route::get('list/','UserController@getIndex');
 Route::get('profile','UserController@getProfile');
 Route::get('/edit/{id}','UserController@getEdit');
 Route::put('/update/{id}','UserController@putCheckupdate');
-Route::get('changeStatus/{status}/{id}','UserController@postChangeStatus');
+Route::get('changeStatus/{status}/{id}','UserController@getChangeStatus');
 //Branch Controller
 Route::controller('branches','BranchController');
 Route::get('branchAdd','BranchController@getAddBranch');
@@ -47,7 +47,7 @@ Route::post('saveImportBankCost','ImportController@postSaveBankCost');
 Route::post('saveImportCnfCost','ImportController@postSaveCnfCost');
 Route::post('saveProformaInvoice','ImportController@postProformaInvoice');
 Route::post('saveOtherCost','ImportController@postOtherCost');
-Route::get('changeStatus/{status}/{id}','ImportController@getChange');
+Route::get('changeStatusImport/{status}/{id}','ImportController@getChangeStatus');
 
 //Stock Controller
 Route::controller('stocks','StockController');
