@@ -100,5 +100,5 @@
 
 @stop
 @section('javascript')
-{!! HTML::script('js/branches.js') !!}
+{!! HTML::script('js/party.js') !!}
 @stop

@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
                     .addClass("label-" + labelClass[data.status]);
 
                 el
-                    .attr('href', "changeStatusParty/" + data.status + "/" + data.id)
+                    .attr('href', "../changeStatusParty/" + data.status + "/" + data.id)
 
             }
         });
