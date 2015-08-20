@@ -9,5 +9,21 @@ class Party extends Eloquent
     {
         return $this->belongsTo('App\Product');
     }
+    public function getParties()
+    {
+        $parties = DB::table('parties')->where('status', 'Activate')->get();
+        return $parties;
+    }
+    public function getPartiesDropDown()
+    {
+        $parties = $this->getParties();
 
+        $array = array();
+
+        foreach($parties as $party){
+            $array[$party->id] = $party->name;
+        }
+
+        return $array;
+    }
 }

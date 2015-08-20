@@ -1,7 +1,67 @@
 jQuery(document).ready(function() {
-    // Put page-specific javascript here
+    $("#saveRequisition").live("click", function () {
+        if(requisitionFormValidation()){
+            $.ajax({
+                type: "POST",
+                url: "/saveRequisition",
+                data :  $('#stock_requisition_form').serialize(),
+                dataType:'json',
+                success:function(requisition)
+                {
+                    $("#stock_requisition_form")[0].reset();
 
-    var form = $('#stock_form');
+                  var html = [];
+                    html.push('<td>' + requisition.party + '</td>');
+                    html.push('<td>' + requisition.product + '</td>');
+                    html.push('<td>' + requisition.quantity + '</td>');
+                    if( requisition.remarks == ''){
+                        html.push('<td>' + "Not Available" + '</td>');
+                    }else{
+                        html.push('<td>' + requisition.remarks + '</td>');
+                    }
+                    html.push('<td><input type="button"  id="deleteRequisition" style="width:127px;" value="delete" class="btn red deleteRequisition" rel=' + requisition.id + ' ></td>');
+
+                    html = '<tr>' + html.join('') + '<tr>';
+                    $('#requisitionTable  > tbody:first').append(html);
+                }
+            });
+        } else {
+            alert('You forgot to fill something out');
+        }
+    });
+
+    $('.deleteRequisition').live("click", function() {
+
+        var requisitionId = $(this).attr('rel');
+        var parent = $(this).closest('tr');
+        var answer     = confirm("Are you sure you want to delete this Requisition?");
+        if(answer) {
+            $.ajax({
+                type: "Get",
+                url: "/delete/"+requisitionId,
+                dateType: 'json',
+                success: function (data) {
+                    parent.remove();
+                }
+            });
+        }
+    });
+
+    function requisitionFormValidation() {
+
+        var party = $.trim($('#party_id').val());
+        var product = $.trim($('#product_id').val());
+        var quantity = $.trim($('#requisition_quantity').val());
+
+        if (party === '' || (product === '') || (quantity === '')) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    var form = $('#issued_requisition_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
@@ -11,16 +71,7 @@ jQuery(document).ready(function() {
         focusInvalid: false, // do not focus the last invalid input
         ignore: "",
         rules: {
-            product_type: {
-                required: true
-            },
-            product_id: {
-                required: true
-            },
-            entry_type: {
-                required: true
-            },
-            product_quantity: {
+            issued_quantity: {
                 required: true
             }
         },
@@ -52,65 +103,11 @@ jQuery(document).ready(function() {
          }*/
     });
 
-    $('#product_type').live("change", function () {
-        var product_type = $('#product_type').val();
-        $.ajax({
-            type: "get",
-            url: "products/"+product_type,
-            success: function (html) {
-                $('#product_id').html(html);
-
-            }
-        });
-    });
-    $('#edit_product_type').live("change", function () {
-        var product_type = $('#edit_product_type').val();
-        $.ajax({
-            type: "get",
-            url: "../products/"+product_type,
-            success: function (html) {
-                $('#edit_product_id').html(html);
-
-            }
-        });
-    });
-
-    $('#entry_type').live("change", function () {
-        var entry_type = $('#entry_type').val();
-        if(entry_type==1)
-        {
-            $.ajax({
-                type: "get",
-                url: "imports/",
-                success: function (html) {
-                    $('.import_num_section').html(html);
-
-                }
-            });
-
-        }else{
-            $('.import_num_section').html("");
-        }
-
-    });
-    $('#edit_entry_type').live("change", function () {
-        var entry_type = $('#edit_entry_type').val();
-        if(entry_type==1)
-        {
-            $.ajax({
-                type: "get",
-                url: "../imports/",
-                success: function (html) {
-                    $('.edit_import_num_section').html(html);
-
-                }
-            });
-
-        }else{
-            $('.edit_import_num_section').html("");
-        }
-
-    });
-
     $('select').select2();
+    $('.issued').live("click", function() {
+        var id =$(this).attr('rel');
+        $('#requisitionId').val(id);
+
+    });
+
 })

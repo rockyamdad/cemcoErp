@@ -66,3 +66,13 @@ Route::controller('parties','PartyController');
 Route::post('saveParty','PartyController@postSaveParty');
 Route::get('changeStatusParty/{status}/{id}','PartyController@getChangeStatus');
 
+//Requisition Controller
+Route::controller('requisitions','StockRequisitionController');
+Route::post('/saveRequisition','StockRequisitionController@postSaveRequisition');
+Route::get('/delete/{id}','StockRequisitionController@getDelete');
+Route::post('updateRequisition/{id}','StockRequisitionController@postUpdateRequisition');
+Route::post('/updateIssuedRequisition','StockRequisitionController@postUpdateIssuedRequisition');
+Route::get('/del/{id}','StockRequisitionController@getDel');
+
+
+

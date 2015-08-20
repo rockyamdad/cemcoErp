@@ -26,6 +26,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link href="{{URL::asset('assets/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet"
           type="text/css"/>
     <link href="{{ URL::asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ URL::asset('assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ URL::asset('assets/plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
@@ -240,6 +241,27 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
+        <li class="@if (Request::is('requisitions/*'))active @endif">
+            <a href="javascript:;">
+                <i class="fa fa-puzzle-piece"></i>
+                <span class="title">Stock Requisition</span>
+                @if (Request::is('requisitions/*'))<span class="selected"></span>@endif
+                <span class="arrow @if (Request::is('requisitions/*'))open @endif"></span>
+            </a>
+
+            <ul class="sub-menu">
+                <li
+                @if (Request::is('requisitions/create'))class="active"@endif>
+                <a href="{{ URL::to('requisitions/create') }}">Add Stock Requisition </a>
+        </li>
+        <li
+        @if (Request::is('requisitions/index'))class="active"@endif>
+        <a href="{{ URL::to('requisitions/index') }}">StockRequisition List </a>
+        </li>
+
+        </ul>
+        </li>
+
 
         <li class="@if (Request::is('parties/'))active @endif">
             <a href="javascript:;">
@@ -325,7 +347,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
 <script src="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js') }}"
         type="text/javascript"></script>
-<script src="{{ URL::asset('assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"
+<script src="{{ URL::asset('assets/scripts/ui-modals.js') }}"
         type="text/javascript"></script>
 <script src="{{ URL::asset('assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/select2/select2.min.js') }}"></script>

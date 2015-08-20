@@ -28,6 +28,20 @@ class Product extends Eloquent
         $products = DB::table('products')->where('product_type', 'Foreign')->get();
         return $products;
     }
+    public function getProductsWithCategories()
+    {
+        $products =Product::all();
+
+        $array = array();
+
+        foreach($products as $product){
+            $category = $product->category->name;
+            $subCategory = $product->subCategory->name;
+            $array[$product->id] = $product->name."($category)"."($subCategory)";
+        }
+
+        return $array;
+    }
 
     public function getProductsDropDownForeign()
     {
