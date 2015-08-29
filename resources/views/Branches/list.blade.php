@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('branchList')}}">Branch List</a></li>
+            <li><a href="{{URL::to('branchList')}}">Branch Listt</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
