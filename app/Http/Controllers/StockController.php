@@ -36,13 +36,13 @@ class StockController extends Controller{
     }
     public  function getImports()
     {
-        $importsNum = Import::where('status','=','Activate')
+        $imports = Import::where('status','=','Activate')
             ->get();
 
-        echo "<label class='control-label col-md-3'>Choose Import</label>";
-        echo " <div class='col-md-4'> <select class='form-control' name='import_num'><option value ='N/A' >N/A </option>";
-        foreach ($importsNum as $importNum) {
-            echo "<option value = $importNum->import_num > $importNum->import_num</option> ";
+        echo "<label class='control-label col-md-3'>Choose Consignment Name</label>";
+        echo " <div class='col-md-4'> <select class='form-control' name='consignment_name'><option value ='N/A' >N/A </option>";
+        foreach ($imports as $import) {
+            echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
         }
         echo "</select> </div>";
     }
@@ -99,18 +99,26 @@ class StockController extends Controller{
         $stock->product_id = Input::get('product_id');
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
+        $stock->remarks = Input::get('remarks');
         $stock->created_by = Session::get('user_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 1)
+        if(Input::get('entry_type') == 'StockIn')
         {
-            $stock->import_num = Input::get('import_num');
+            $stock->consignment_name = Input::get('consignment_name');
             $product->total_quantity = $product->total_quantity + Input::get('product_quantity');
             Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
-        }else{
-            $product->total_quantity = $product->total_quantity - Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
+        }elseif(Input::get('entry_type') == 'StockOut'){
+            if($product->total_quantity >= Input::get('product_quantity'))
+            {
+                $product->total_quantity = $product->total_quantity - Input::get('product_quantity');
+                Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
+            }else{
+                Session::flash('message', 'You Dont have enough products in Stock');
+            }
 
+        }else{
+            Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
         }
         $product->save();
     }
@@ -119,18 +127,21 @@ class StockController extends Controller{
         $stock->product_id = Input::get('product_id');
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
+        $stock->remarks = Input::get('remarks');
         $stock->created_by = Session::get('user_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 1)
+        if(Input::get('entry_type') == 'StockIn')
         {
-            $stock->import_num = Input::get('import_num');
+            $stock->consignment_name = Input::get('consignment_name');
             $product->total_quantity = ($product->total_quantity - $stock->product_quantity) + Input::get('product_quantity');
             Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
-        }else{
+        }elseif(Input::get('entry_type') == 'StockOut'){
             $product->total_quantity = ($product->total_quantity + $stock->product_quantity) - Input::get('product_quantity');
             Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
 
+        }else{
+            Session::flash('message', 'Stock has been Successfully Created && Wastage Product Updated');
         }
         $product->save();
     }

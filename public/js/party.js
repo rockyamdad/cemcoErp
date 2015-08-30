@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-    $('#party_table').DataTable();
+
     var form = $('#party_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
@@ -81,5 +81,6 @@ jQuery(document).ready(function() {
             }
         });
     });
+    $('select').select2();
 
-})
+});

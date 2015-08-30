@@ -17,6 +17,7 @@ class CreatePartiesTables extends Migration {
 			$table->increments('id');
             $table->string('name',255);
             $table->string('contact_person_name',255);
+            $table->string('type',255);
             $table->string('phone',255);
             $table->string('email',255);
             $table->string('status',255);

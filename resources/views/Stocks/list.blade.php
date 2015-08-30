@@ -59,7 +59,8 @@
                         <th>Product Name</th>
                         <th>Product Quantity</th>
                         <th>Entry Type</th>
-                        <th>Import Number</th>
+                        <th>Remarks</th>
+                        <th>Consignment Name</th>
                         <th>Created By</th>
                        <!-- <th>Status</th>-->
                         <th>Action</th>
@@ -71,13 +72,16 @@
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$stock->product->name}}</td>
                         <td>{{$stock->product_quantity}}</td>
-                        <td>@if($stock->entry_type == 1)
-                            <span class="label label-sm label-success">StockIn</span>
+                        <td>@if($stock->entry_type == 'StockIn')
+                                <span class="label label-sm label-success">StockIn</span>
+                            @elseif($stock->entry_type == 'StockOut')
+                                <span class="label label-sm label-danger">StockOut</span>
                             @else
-                            <span class="label label-sm label-danger">StockOut</span>
+                                <span class="label label-sm ">Wastage</span>
                             @endif
                         </td>
-                        <td>{{$stock->import_num}}</td>
+                        <td>{{$stock->remarks}}</td>
+                        <td>{{$stock->consignment_name}}</td>
                         <td>{{$stock->product->branch->user->name}}</td>
                       <!--  <td>{{$stock->status}}</td>-->
                         <td>

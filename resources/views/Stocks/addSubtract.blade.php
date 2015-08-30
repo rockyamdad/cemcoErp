@@ -87,8 +87,16 @@
                     {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!! Form::select('entry_type',[null=>'Please Select Type'] + array('1' => 'StockIn', '0' =>
-                        'StockOut'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
+                        {!! Form::select('entry_type',[null=>'Please Select Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
+                        'StockOut','Wastage'=>'Wastage'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('remarks','Remarks',array('class' => 'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!!Form::textarea('remarks',null,array('class' => 'form-control','id' => 'remarks', 'rows'=>'3'))!!}
                     </div>
                 </div>
 
@@ -100,7 +108,7 @@
                          'form-control'))!!}
                      </div>
                  </div>
-                <div class="form-group import_num_section">
+                <div class="form-group consignment_name_section">
 
                 </div>
 

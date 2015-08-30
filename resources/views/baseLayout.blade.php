@@ -375,7 +375,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         $('#user_table').DataTable();
         $('#sub_category_table').DataTable();
         $('#product_table').DataTable();
-
+        $('#party_table').DataTable();
         $('#imports_table').DataTable();
         Tasks.initDashboardWidget();
 
