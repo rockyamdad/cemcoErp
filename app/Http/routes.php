@@ -74,5 +74,10 @@ Route::post('updateRequisition/{id}','StockRequisitionController@postUpdateRequi
 Route::post('/updateIssuedRequisition','StockRequisitionController@postUpdateIssuedRequisition');
 Route::get('/del/{id}','StockRequisitionController@getDel');
 
+//AccountCategory Controller
+Route::controller('accountcategory','AccountCategoryController');
+Route::post('saveAccountCategory','AccountCategoryController@postSaveAccountCategory');
+Route::post('updateAccountCategory','AccountCategoryController@postUpdate');
+
 
 

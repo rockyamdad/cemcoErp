@@ -261,6 +261,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
+            <li class="@if (Request::is('partilizers/*'))active @endif">
+                <a href="javascript:;">
+                    <i class="fa fa-puzzle-piece"></i>
+                    <span class="title">PartiLizer Section</span>
+                    @if (Request::is('partilizers/*'))<span class="selected"></span>@endif
+                    <span class="arrow @if (Request::is('partilizers/*'))open @endif"></span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li
+                            @if (Request::is('accountcategory/index'))class="active"@endif>
+                        <a href="{{ URL::to('accountcategory/index') }}"> Account category List</a>
+                    </li>
+                    <li
+                            @if (Request::is('accountname/index'))class="active"@endif>
+                        <a href="{{ URL::to('accountname/index') }}"> Account Name List </a>
+                    </li>
+
+                </ul>
+            </li>
 
 
         <li class="@if (Request::is('parties/'))active @endif">
