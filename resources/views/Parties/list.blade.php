@@ -55,6 +55,7 @@
                     <tr>
                         <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#user_table .checkboxes" /></th>
                         <th>Name</th>
+                        <th>Type</th>
                         <th >Contact Person</th>
                         <th >Email</th>
                         <th >phone</th>
@@ -69,6 +70,7 @@
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1" /></td>
                         <td>{{$party->name}}</td>
+                        <td>{{$party->type}}</td>
                         <td>{{$party->contact_person_name}}</td>
                         <td>{{$party->email}}</td>
                         <td>{{$party->phone}}</td>

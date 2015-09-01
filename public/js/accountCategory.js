@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
 
-    var form = $('#party_form');
+    var form = $('.account_category_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
@@ -13,13 +13,8 @@ jQuery(document).ready(function() {
         rules: {
             name: {
                 required: true
-            },
-            email: {
-                required: true
-            },
-            phone: {
-                required: true
             }
+
         },
 
         invalidHandler: function (event, validator) { //display error alert on form submit
@@ -49,37 +44,12 @@ jQuery(document).ready(function() {
          }*/
     });
 
-    function ucfirst(str) {
 
-        str += '';
-        var f = str.charAt(0)
-            .toUpperCase();
-        return f + str.substr(1);
-    }
 
-    var labelClass = {
-        'Deactivate' : 'danger',
-        'Activate' : 'success'
-    };
-    $('body').on('click', ".changeStatus", function (e) {
-        e.preventDefault();
-        var el = $(this);
-        $.ajax({
-            url: el.attr('href'),
-            dateType: 'json',
-            success: function (data) {
-                var span = el.closest('tr').find('.party-status > span');
-                span
-                    .html(ucfirst(data.status))
-                    .removeClass("label-success")
-                    .removeClass("label-danger")
-                    .addClass("label-" + labelClass[data.status]);
+    $('.editAccount').live("click", function() {
+        var id =$(this).attr('rel');
+        $('#accountCategoryId').val(id);
 
-                el
-                    .attr('href', "../changeStatusParty/" + data.status + "/" + data.id)
-
-            }
-        });
     });
     $('select').select2();
 

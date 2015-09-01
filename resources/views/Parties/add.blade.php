@@ -51,6 +51,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!!HTML::decode(Form::label('type','Party Type<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('type',[null=>'Please Select Type'] + array('Supplier' => 'Supplier', 'Buyer' =>
+                        'Buyer'),'null', array('class'=>'form-control','id'=>'type'))!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!! HTML::decode(Form::label('contact_person_name','Contact Person Name',array('class' => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('contact_person_name',null,array('placeholder' => 'Contact Person', 'class' => 'form-control','id' => 'contact_person_name'))!!}
@@ -92,6 +100,8 @@
     @stop
     @section('javascript')
     {!! HTML::script('js/party.js') !!}
+    {!! HTML::script('assets/plugins/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js') !!}
+    {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
     @stop
 
 

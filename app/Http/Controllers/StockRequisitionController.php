@@ -1,8 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-use App\Import;
+use App\Party;
 use App\Product;
 use App\Stock;
+use App\StockRequisition;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -11,135 +12,116 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class StockController extends Controller{
+class StockRequisitionController extends Controller{
 
     public function getIndex()
     {
-        $stocks = Stock::all();
-        return view('Stocks.list',compact('stocks'));
+        $requisitions = StockRequisition::where('status','=','Activate')->get();
+        return view('StockRequisition.list',compact('requisitions'));
     }
 
     public function getCreate()
     {
-        return view('Stocks.addSubtract');
+        $products = new Product();
+        $productAll = $products->getProductsWithCategories();
+        $parties = new Party();
+        $partyAll = $parties->getPartiesDropDown();
+        return view('StockRequisition.add',compact('productAll'))
+            ->with('partyAll',$partyAll);
     }
-    public  function getProducts($type)
-    {
-        $productsName = Product::where('product_type','=',$type)
-            ->get();
-
-        foreach ($productsName as $productName) {
-            $category = $productName->category->name;
-            $subCategory = $productName->subCategory->name;
-            echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
-        }
-    }
-    public  function getImports()
-    {
-        $importsNum = Import::where('status','=','Activate')
-            ->get();
-
-        echo "<label class='control-label col-md-3'>Choose Import</label>";
-        echo " <div class='col-md-4'> <select class='form-control' name='import_num'><option value ='N/A' >N/A </option>";
-        foreach ($importsNum as $importNum) {
-            echo "<option value = $importNum->import_num > $importNum->import_num</option> ";
-        }
-        echo "</select> </div>";
-    }
-    public function postSaveStock()
+    public function postSaveRequisition()
     {
         $ruless = array(
             'product_id' => 'required',
-            'product_quantity' => 'required',
-            'entry_type' => 'required',
+            'requisition_quantity' => 'required',
+            'party_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
         if($validate->fails())
         {
-            return Redirect::to('stocks/create')
+            return Redirect::to('requisitions/create')
                 ->withErrors($validate);
         }
         else{
-            $stock = new Stock();
-            $this->setStockData($stock);
-            $stock->save();
-            return Redirect::to('stocks/create');
+            $requisition = new StockRequisition();
+            $list = $this->setStockRequisitionData($requisition);
+            return new JsonResponse($list);
         }
     }
     public function getEdit($id)
     {
-        $stock = Stock::find($id);
-        return view('Stocks.edit',compact('stock'));
-
+        $stockRequisition = StockRequisition::find($id);
+        $products = new Product();
+        $productAll = $products->getProductsWithCategories();
+        $parties = new Party();
+        $partyAll = $parties->getPartiesDropDown();
+        return view('StockRequisition.edit',compact('stockRequisition'))
+            ->with('partyAll',$partyAll)
+            ->with('productAll',$productAll);
     }
-    public function postUpdateStock($id)
+
+    public function postUpdateIssuedRequisition()
     {
         $ruless = array(
-            'product_id' => 'required',
-            'product_quantity' => 'required',
-            'entry_type' => 'required',
+            'issued_quantity' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
         if($validate->fails())
         {
-            return Redirect::to('stocks/edit',$id)
+            return Redirect::to('requisitions/index')
                 ->withErrors($validate);
         }
         else{
-            $stock = Stock::find($id);
-            $this->updateStockData($stock);
-            $stock->save();
-            return Redirect::to('stocks/index');
-        }
-    }
-    private function setStockData($stock)
-    {
-        $stock->product_id = Input::get('product_id');
-        $stock->product_quantity = Input::get('product_quantity');
-        $stock->entry_type = Input::get('entry_type');
-        $stock->created_by = Session::get('user_id');
-        $stock->status = "Activate";
-        $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 1)
-        {
-            $stock->import_num = Input::get('import_num');
-            $product->total_quantity = $product->total_quantity + Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
-        }else{
-            $product->total_quantity = $product->total_quantity - Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
+            $issuedRequisition = StockRequisition::find(Input::get('id'));
+            $issuedRequisition->issued_quantity = Input::get('issued_quantity');;
+            $issuedRequisition->save();
+            Session::flash('message', 'Stock Requisition Quantity Issued');
 
+            return Redirect::to('requisitions/index');
         }
-        $product->save();
     }
-    private function updateStockData($stock)
+    private function setStockRequisitionData($requisition)
     {
-        $stock->product_id = Input::get('product_id');
-        $stock->product_quantity = Input::get('product_quantity');
-        $stock->entry_type = Input::get('entry_type');
-        $stock->created_by = Session::get('user_id');
-        $stock->status = "Activate";
-        $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 1)
-        {
-            $stock->import_num = Input::get('import_num');
-            $product->total_quantity = ($product->total_quantity - $stock->product_quantity) + Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
-        }else{
-            $product->total_quantity = ($product->total_quantity + $stock->product_quantity) - Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
-
-        }
-        $product->save();
+        $requisition->product_id = Input::get('product_id');
+        $requisition->party_id = Input::get('party_id');
+        $requisition->requisition_quantity = Input::get('requisition_quantity');
+        $requisition->remarks = Input::get('remarks');
+        $requisition->requisition_id = Input::get('remarks');
+        $requisition->issued_quantity = 0;
+        $requisition->created_by = Session::get('user_id');
+        $requisition->status = "Activate";
+        $requisition->save();
+        $requisition = StockRequisition::find($requisition->id);
+        $list = $this->requisitionInfoConvertToArray($requisition);
+        return $list;
     }
+
     public function getDelete($id)
     {
-        $stock = Stock::find($id);
+        $requisition = StockRequisition::find($id);
+        $requisition->delete();
+        $message = array('Stock Requisition  Successfully Deleted');
+        return new JsonResponse($message);
+    }
+    private function requisitionInfoConvertToArray($requisitions)
+    {
+        $array = array();
+
+        $array['id'] = $requisitions->id;
+        $array['product'] = $requisitions->product->name;
+        $array['party'] = $requisitions->party->name;
+        $array['quantity']   = $requisitions->requisition_quantity;
+        $array['remarks'] = $requisitions->remarks;
+        return $array;
+    }
+    public function getDel($id)
+    {
+        $stock = StockRequisition::find($id);
         $stock->delete();
-        Session::flash('message', 'Stock  has been Successfully Deleted.');
-        return Redirect::to('stocks/index');
+        Session::flash('message', 'Stock Requisition has been Successfully Deleted.');
+        return Redirect::to('requisitions/index');
     }
 
 }

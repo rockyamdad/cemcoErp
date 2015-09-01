@@ -18,9 +18,10 @@ class CreateStocksTables extends Migration {
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('product_quantity');
-            $table->boolean('entry_type');
+            $table->string('entry_type',255);
             $table->string('status',255);
-            $table->string('import_num',255);
+            $table->text('remarks');
+            $table->string('consignment_name',255);
             $table->unsignedInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
 			$table->timestamps();

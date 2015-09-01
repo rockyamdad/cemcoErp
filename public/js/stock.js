@@ -77,37 +77,37 @@ jQuery(document).ready(function() {
 
     $('#entry_type').live("change", function () {
         var entry_type = $('#entry_type').val();
-        if(entry_type==1)
+        if(entry_type=='StockIn')
         {
             $.ajax({
                 type: "get",
                 url: "imports/",
                 success: function (html) {
-                    $('.import_num_section').html(html);
+                    $('.consignment_name_section').html(html);
 
                 }
             });
 
         }else{
-            $('.import_num_section').html("");
+            $('.consignment_name_section').html("");
         }
 
     });
     $('#edit_entry_type').live("change", function () {
         var entry_type = $('#edit_entry_type').val();
-        if(entry_type==1)
+        if(entry_type=='StockIn')
         {
             $.ajax({
                 type: "get",
                 url: "../imports/",
                 success: function (html) {
-                    $('.edit_import_num_section').html(html);
+                    $('.edit_consignment_name_section').html(html);
 
                 }
             });
 
         }else{
-            $('.edit_import_num_section').html("");
+            $('.edit_consignment_name_section').html("");
         }
 
     });
