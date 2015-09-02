@@ -101,6 +101,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <div class="clearfix"></div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
+
+    <div id="ajax" class="modal fade" tabindex="-1" >
+
+
+        </div>
+    <div id="ajax2" class="modal fade" tabindex="-1" >
+
+
+    </div>
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
         <!-- BEGIN SIDEBAR MENU -->
@@ -275,8 +284,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="{{ URL::to('accountcategory/index') }}"> Account category List</a>
                     </li>
                     <li
-                            @if (Request::is('accountname/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountname/index') }}"> Account Name List </a>
+                            @if (Request::is('accountnames/index'))class="active"@endif>
+                        <a href="{{ URL::to('accountnames/index') }}"> Account Name List </a>
                     </li>
 
                 </ul>

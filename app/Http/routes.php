@@ -79,5 +79,10 @@ Route::controller('accountcategory','AccountCategoryController');
 Route::post('saveAccountCategory','AccountCategoryController@postSaveAccountCategory');
 Route::post('updateAccountCategory','AccountCategoryController@postUpdate');
 
+//AccountName Controller
+Route::controller('accountnames','AccountNameController');
+Route::post('saveAccountName','AccountNameController@postSaveAccountName');
+Route::post('updateAccountName/{id}','AccountNameController@postUpdate');
+
 
 
