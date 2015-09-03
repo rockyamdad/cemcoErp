@@ -84,5 +84,10 @@ Route::controller('accountnames','AccountNameController');
 Route::post('saveAccountName','AccountNameController@postSaveAccountName');
 Route::post('updateAccountName/{id}','AccountNameController@postUpdate');
 
+//AccountName Controller
+Route::controller('purchases','PurchaseInvoiceController');
+Route::post('savePurchases','PurchaseInvoiceController@postSavePurchaseInvoice');
+Route::post('updatePurchases/{id}','PurchaseInvoiceController@postUpdate');
+
 
 

@@ -281,11 +281,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <ul class="sub-menu">
                     <li
                             @if (Request::is('accountcategory/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountcategory/index') }}"> Account category List</a>
+                        <a href="{{ URL::to('accountcategory/index') }}"> Account category</a>
                     </li>
                     <li
                             @if (Request::is('accountnames/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountnames/index') }}"> Account Name List </a>
+                        <a href="{{ URL::to('accountnames/index') }}"> Account Names </a>
+                    </li>
+                    <li
+                            @if (Request::is('puchases/index'))class="active"@endif>
+                        <a href="{{ URL::to('puchases/index') }}"> Purchase Invoices </a>
                     </li>
 
                 </ul>
