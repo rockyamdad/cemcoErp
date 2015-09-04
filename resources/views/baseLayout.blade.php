@@ -101,6 +101,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <div class="clearfix"></div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
+
+    <div id="ajax" class="modal fade" tabindex="-1" >
+
+
+        </div>
+    <div id="ajax2" class="modal fade" tabindex="-1" >
+
+
+    </div>
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
         <!-- BEGIN SIDEBAR MENU -->
@@ -272,11 +281,15 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <ul class="sub-menu">
                     <li
                             @if (Request::is('accountcategory/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountcategory/index') }}"> Account category List</a>
+                        <a href="{{ URL::to('accountcategory/index') }}"> Account category</a>
                     </li>
                     <li
-                            @if (Request::is('accountname/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountname/index') }}"> Account Name List </a>
+                            @if (Request::is('accountnames/index'))class="active"@endif>
+                        <a href="{{ URL::to('accountnames/index') }}"> Account Names </a>
+                    </li>
+                    <li
+                            @if (Request::is('puchases/index'))class="active"@endif>
+                        <a href="{{ URL::to('puchases/index') }}"> Purchase Invoices </a>
                     </li>
 
                 </ul>
