@@ -1,53 +1,70 @@
 jQuery(document).ready(function() {
-    // Put page-specific javascript here
 
-    var form = $('.account_name_form');
-    var error1 = $('.alert-danger', form);
-    var success1 = $('.alert-success', form);
+    $("#savePurchaseInvoice").live("click", function () {
+        if(purchaseFormValidation()){
+            $.ajax({
+                type: "POST",
+                url: "/savePurchases",
+                data :  $('#purchase_form').serialize(),
+                dataType:'json',
+                success:function(purchase)
+                {
+                    $("#product_id").val('');
+                    $("#price").val('');
+                    $("#quantity").val('');
+                    $("#remarks").val('');
 
-    form.validate({
-        errorElement: 'span', //default input error message container
-        errorClass: 'help-block', // default input error message class
-        focusInvalid: false, // do not focus the last invalid input
-        ignore: "",
-        rules: {
-            name: {
-                required: true
-            },
-            opening_balance: {
-                required: true
-            },
-            account_category_id: {
-                required: true
-            }
+                    var html = [];
+                    html.push('<td>' + purchase.product_id + '</td>');
+                    html.push('<td>' + purchase.price + '</td>');
+                    html.push('<td>' + purchase.quantity + '</td>');
+                    if( purchase.remarks == ''){
+                        html.push('<td>' + "Not Available" + '</td>');
+                    }else{
+                        html.push('<td>' + purchase.remarks + '</td>');
+                    }
+                    html.push('<td><input type="button"  id="deletePurchase" style="width:127px;" value="delete" class="btn red deletePurchase" rel=' + purchase.id + ' ></td>');
 
-        },
-
-        invalidHandler: function (event, validator) { //display error alert on form submit
-            success1.hide();
-            error1.show();
-            App.scrollTo(error1, -200);
-        },
-
-        highlight: function (element) { // hightlight error inputs
-            $(element)
-                .closest('.form-group').addClass('has-error'); // set error class to the control group
-        },
-
-        unhighlight: function (element) { // revert the change done by hightlight
-            $(element)
-                .closest('.form-group').removeClass('has-error'); // set error class to the control group
-        },
-
-        success: function (label) {
-            label
-                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    html = '<tr>' + html.join('') + '<tr>';
+                    $('#purchaseTable  > tbody:first').append(html);
+                }
+            });
+        } else {
+            alert('You forgot to fill something out');
         }
+    });
+    function purchaseFormValidation() {
 
-        /* submitHandler: function (form) {
-         success1.show();
-         error1.hide();
-         }*/
+        var party = $.trim($('#party_id').val());
+        var product = $.trim($('#product_id').val());
+        var quantity = $.trim($('#quantity').val());
+        var price = $.trim($('#price').val());
+
+        if (party === '' || (product === '') || (quantity === '' || price==='')) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $('.deletePurchase').live("click", function() {
+
+        var purchaseId = $(this).attr('rel');
+        var parent = $(this).closest('tr');
+        var answer     = confirm("Are you sure you want to delete this Purchase Invoice?");
+        if(answer) {
+            $.ajax({
+                type: "Get",
+                url: "/delete/"+purchaseId,
+                dateType: 'json',
+                success: function (data) {
+                    parent.remove();
+                }
+            });
+        }
+    });
+    $('#party_id').live("change", function () {
+       $('#invoice_id').val(Math.floor(Math.random()*9999999999));
+        $("#party_id").attr('readonly','readonly');
     });
 
 

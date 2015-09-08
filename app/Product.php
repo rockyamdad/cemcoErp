@@ -55,6 +55,18 @@ class Product extends Eloquent
 
         return $array;
     }
+    public function getLocalProductsDropDown()
+    {
+        $localProducts = Product::where('product_type','Local')->get();
+
+        $array = array();
+
+        foreach($localProducts as $product){
+            $array[$product->id] = $product->name;
+        }
+
+        return $array;
+    }
     public function importdetails()
     {
         return $this->belongsToMany('App\importDetail');

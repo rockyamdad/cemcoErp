@@ -88,6 +88,7 @@ Route::post('updateAccountName/{id}','AccountNameController@postUpdate');
 Route::controller('purchases','PurchaseInvoiceController');
 Route::post('savePurchases','PurchaseInvoiceController@postSavePurchaseInvoice');
 Route::post('updatePurchases/{id}','PurchaseInvoiceController@postUpdate');
+Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
 
 
 

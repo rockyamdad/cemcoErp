@@ -15,7 +15,7 @@ class CreatePurchaseInvoicesTable extends Migration {
 		Schema::create('purchase_invoices', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('invoice_id',255);
+			$table->unsignedInteger('invoice_id');
 			$table->unsignedInteger('party_id');
 			$table->foreign('party_id')->references('id')->on('parties');
 			$table->string('status',255);

@@ -17,14 +17,13 @@ class CreatePurchaseInvoiceDetailsTable extends Migration {
 			$table->increments('id');
 			$table->unsignedInteger('product_id');
 			$table->foreign('product_id')->references('id')->on('products');
-			$table->unsignedInteger('purchase_invoice_id');
-			$table->foreign('purchase_invoice_id')->references('id')->on('purchase_invoices');
+			$table->unsignedInteger('invoice_id');
+			$table->foreign('invoice_id')->references('invoice_id')->on('purchase_invoices');
 			$table->integer('quantity');
 			$table->float('price');
 			$table->text('remarks');
-			$table->unsignedInteger('created_by');
-			$table->foreign('created_by')->references('id')->on('users');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
