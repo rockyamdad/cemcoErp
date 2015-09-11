@@ -103,12 +103,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <div class="page-container">
 
     <div id="ajax" class="modal fade" tabindex="-1" >
-
-
-        </div>
+    </div>
     <div id="ajax2" class="modal fade" tabindex="-1" >
-
-
+    </div>
+    <div id="purchaseInvoice" class="modal fade" tabindex="-1" >
     </div>
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">

@@ -2,11 +2,12 @@
 
 use App\AccountCategory;
 
-use App\NameOfAccount;
+
 use App\Party;
 use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
+use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -19,7 +20,7 @@ class PurchaseInvoiceController extends Controller{
 
     public function getIndex()
     {
-       $purchases = NameOfAccount::all();
+       $purchases = PurchaseInvoice::all();
 
         return view('PurchaseInvoice.list',compact('purchases'));
     }
@@ -34,6 +35,27 @@ class PurchaseInvoiceController extends Controller{
             ->with('localProducts',$localProducts);
     }
     public function postSavePurchaseInvoice()
+    {
+        $ruless = array(
+            'party_id' => 'required',
+            'product_id' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('purchases/index/')
+                ->withErrors($validate);
+        }
+        else{
+            $list = $this->setPurchaseInvoiceData();
+            return new JsonResponse($list);
+
+        }
+    }
+    public function updatePurchaseInvoiceData($id)
     {
         $ruless = array(
             'party_id' => 'required',
@@ -83,18 +105,59 @@ class PurchaseInvoiceController extends Controller{
         $array = array();
 
         $array['id'] = $purchaseInvoiceDetails->id;
-        $array['product_id'] = $purchaseInvoiceDetails->product_id;
+        $array['product_id'] = $purchaseInvoiceDetails->product->name;
         $array['price'] = $purchaseInvoiceDetails->price;
         $array['quantity']   = $purchaseInvoiceDetails->quantity;
         $array['remarks'] = $purchaseInvoiceDetails->remarks;
         return $array;
     }
+    public function getDetails($invoiceId)
+    {
+        $purchaseInvoiceDetails = PurchaseInvoiceDetail::where('invoice_id','=',$invoiceId)->get();
+        return view('PurchaseInvoice.details',compact('purchaseInvoiceDetails'));
+
+    }
+    public function getEdit($id)
+    {
+        $suppliers = new Party();
+        $suppliersAll = $suppliers->getSuppliersDropDown();
+        $products = new Product();
+        $localProducts = $products->getLocalProductsDropDown();
+        $purchase = PurchaseInvoice::find($id);
+        $var = (int)$purchase->invoice_id;
+        $purchaseDetails = PurchaseInvoiceDetail::where('invoice_id','=',$var)->get();
+       // var_dump($purchaseDetails);exit;
+        return view('PurchaseInvoice.edit',compact('suppliersAll'))
+            ->with('localProducts',$localProducts)
+            ->with('purchaseDetails',$purchaseDetails)
+            ->with('purchase',$purchase);
+
+    }
     public function getDelete($id)
     {
-        $puchase = PurchaseInvoiceDetail::find($id);
-        $puchase->delete();
+        $purchase = PurchaseInvoiceDetail::find($id);
+        $purchase->delete();
         $message = array('Purchase Invoice  Successfully Deleted');
         return new JsonResponse($message);
+    }
+    public function getDeleteDetail($id)
+    {
+        $purchaseDetail = PurchaseInvoiceDetail::find($id);
+        $purchaseDetail->delete();
+        $message = array('Purchase Invoice  Successfully Deleted');
+        return new JsonResponse($message);
+    }
+    public function getDel($id)
+    {
+        $del = PurchaseInvoice::find($id);
+        try {
+            $del->deletee();
+            Session::flash('message', 'Purchase Invoice has been Successfully Deleted.');
+        } catch (Exception $e) {
+            Session::flash('message', 'This Purchase Invoice can\'t delete because it  is used to file');
+        }
+
+        return Redirect::to('purchases/index');
     }
   /*  public function getEdit($id)
     {

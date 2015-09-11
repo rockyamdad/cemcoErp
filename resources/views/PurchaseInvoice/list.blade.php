@@ -58,12 +58,8 @@
                                                           data-set="#user_table .checkboxes"/></th>
                         <th>Purchase Invoice Id</th>
                         <th>Party Name</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Remarks</th>
-                        <th>Created By</th>
                         <th>Status</th>
+                        <th>Created By</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -71,29 +67,26 @@
                     @foreach($purchases as $purchase )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$purchase->invoice_id}}</td>
+                        <td>{{$purchase->party->name}}</td>
+                        <td>{{$purchase->status}}</td>
+                        <td>{{$purchase->created_by}}</td>
 
-                      {{--  <td>
+
+
+                       <td>
                             @if( Session::get('user_role') == "admin")
-                            <a class="btn blue btn-sm" href="{{ URL::to('requisitions/edit/'. $requisition->id ) }}"><i
+                            <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>
-                            <a class="btn red btn-sm" href="{{ URL::to('requisitions/del/'.$requisition->id)}}"
+                            <a class="btn blue btn-sm details" rel="{{ $purchase->id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                                <i class="fa fa-eye"></i> Detail</a>
+
+                            <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
-                            @else
-
-                            <a class="btn blue btn-sm issued" rel="{{ $requisition->id }}" data-toggle="modal" href="#issuedRequisition" >
-                                   Issued Requisition</a>
                             @endif
 
-                        </td>--}}
+                        </td>
 
                     </tr>
                     @endforeach
