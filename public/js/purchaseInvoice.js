@@ -205,7 +205,7 @@ jQuery(document).ready(function() {
 
         var transactionId = $(this).attr('rel');
         var parent = $(this).closest('tr');
-        var answer     = confirm("Are you sure you want to delete this Purchase Invoice Detail?");
+        var answer     = confirm("Are you sure you want to delete this Purchase Transaction?");
         if(answer) {
             $.ajax({
                 type: "Get",

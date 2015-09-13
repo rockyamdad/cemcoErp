@@ -97,6 +97,14 @@ Route::post('/saveMake','PurchaseInvoiceController@postSaveMake');
 Route::get('/categories/{id}','PurchaseInvoiceController@getCategories');
 Route::get('/deleteTransaction/{id}','PurchaseInvoiceController@getDeleteTransaction');
 
+//Expense Controller
+Route::controller('expenses','ExpenseController');
+Route::post('saveExpense','ExpenseController@postSaveExpense');
+Route::post('updateExpense/{id}','ExpenseController@postUpdateExpense');
+Route::get('/make','ExpenseController@getMake');
+Route::post('/saveMake','ExpenseController@postSaveMake');
+Route::get('/deleteTransaction/{id}','ExpenseController@getDeleteTransaction');
+
 
 
 
