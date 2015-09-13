@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePurchaseInvoicesTable extends Migration {
 
@@ -15,7 +16,7 @@ class CreatePurchaseInvoicesTable extends Migration {
 		Schema::create('purchase_invoices', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->unsignedInteger('invoice_id');
+			$table->bigInteger('invoice_id');
 			$table->unsignedInteger('party_id');
 			$table->foreign('party_id')->references('id')->on('parties');
 			$table->string('status',255);

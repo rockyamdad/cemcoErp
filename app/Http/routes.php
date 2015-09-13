@@ -92,6 +92,12 @@ Route::get('/details/{id}','PurchaseInvoiceController@getDetails');
 Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
 Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
 Route::get('/deleteDetail/{id}','PurchaseInvoiceController@getDeleteDetail');
+Route::get('/make','PurchaseInvoiceController@getMake');
+Route::post('/saveMake','PurchaseInvoiceController@postSaveMake');
+Route::get('/categories/{id}','PurchaseInvoiceController@getCategories');
+Route::get('/deleteTransaction/{id}','PurchaseInvoiceController@getDeleteTransaction');
+
+
 
 
 

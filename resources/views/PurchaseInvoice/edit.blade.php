@@ -22,7 +22,6 @@
             <!-- END PAGE TITLE & BREADCRUMB-->
         </div>
     </div>
-
     <div class="col-md-16">
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet box purple">
@@ -34,8 +33,8 @@
             </div>
             <div class="portlet-body form">
 
-                {!!Form::model($purchase,array('action' => array('PurchaseInvoiceController@updatePurchaseInvoiceData',
-           $purchase->id), 'method' => 'POST', 'class'=>'form-horizontal', 'id'=>'purchase_form'))!!}
+               {!!Form::model($purchase[0],array('action' => array('PurchaseInvoiceController@updatePurchaseInvoiceData',
+           $purchase[0]->invoice_id), 'method' => 'POST', 'class'=>'form-horizontal', 'id'=>'purchase_form'))!!}
                 <div class="form-body">
                     <div style="float: left;width: 80%; margin-left: 20px">
                         @if (Session::has('message'))
@@ -58,12 +57,12 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <div class="col-md-5">
-                                    {!!Form::select('party_id',[null=>'Please Select Party'] + $suppliersAll,$purchase->party_id, array('class'=>'form-control ','id'=>'party_id') )!!}
+                                    {!!Form::select('party_id',[null=>'Please Select Party'] + $suppliersAll,$purchase[0]->party_id, array('class'=>'form-control ','id'=>'party_id') )!!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5">
-                                    {!!Form::hidden('invoice_id',null,array('class' => 'form-control','id'=>'invoice_id'))!!}
+                                    {!!Form::hidden('invoice_id',null,array('class' => 'form-control','id'=>'detail_invoice_id'))!!}
                                 </div>
                             </div>
 
@@ -133,7 +132,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {!!Form::button('Add Product',array('type' => 'button','class' => 'btn blue editPurchaseInvoice' ,'rel'=> $purchase->id ))!!}
+                                            {!!Form::button('Add Product',array('type' => 'button','class' => 'btn blue editPurchaseInvoice' ,'rel'=>$purchase[0]->invoice_id))!!}
                                         </td>
                                     </tr>
                                 </table>
@@ -150,6 +149,7 @@
             </div>
             <!-- END VALIDATION STATES-->
         </div>
+    </div>
 @stop
 @section('javascript')
     {!! HTML::script('js/purchaseInvoice.js') !!}

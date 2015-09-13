@@ -72,19 +72,22 @@
                         <td>{{$purchase->status}}</td>
                         <td>{{$purchase->created_by}}</td>
 
-
-
                        <td>
                             @if( Session::get('user_role') == "admin")
-                            <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->id ) }}"><i
+                            <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->invoice_id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>
-                            <a class="btn blue btn-sm details" rel="{{ $purchase->id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                            <a class="btn blue btn-sm details" rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
 
-                            <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->id)}}"
+                                   <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make') }}" >
+                                       <i class="fa fa-usd"></i> Payment</a>
+
+                            <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
+
                             @endif
+
 
                         </td>
 

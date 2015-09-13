@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePurchaseInvoiceDetailsTable extends Migration {
 
@@ -17,8 +18,7 @@ class CreatePurchaseInvoiceDetailsTable extends Migration {
 			$table->increments('id');
 			$table->unsignedInteger('product_id');
 			$table->foreign('product_id')->references('id')->on('products');
-			$table->unsignedInteger('invoice_id');
-			$table->foreign('invoice_id')->references('invoice_id')->on('purchase_invoices');
+			$table->bigInteger('detail_invoice_id');
 			$table->integer('quantity');
 			$table->float('price');
 			$table->text('remarks');

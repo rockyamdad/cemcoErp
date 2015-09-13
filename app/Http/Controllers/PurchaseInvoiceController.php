@@ -3,17 +3,18 @@
 use App\AccountCategory;
 
 
+use App\NameOfAccount;
 use App\Party;
 use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
+use App\Transaction;
 use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PurchaseInvoiceController extends Controller{
@@ -82,12 +83,11 @@ class PurchaseInvoiceController extends Controller{
         $purchaseDetails = new PurchaseInvoiceDetail();
         $purchaseDetails->quantity = Input::get('quantity');
         $purchaseDetails->price = Input::get('price');
-        $purchaseDetails->invoice_id = (int)Input::get('invoice_id');
+        $purchaseDetails->detail_invoice_id = Input::get('invoice_id');
         $purchaseDetails->product_id = Input::get('product_id');
         $purchaseDetails->remarks = Input::get('remarks');
         $purchaseDetails->save();
-
-        $hasInvoice = PurchaseInvoice::where('invoice_id','=',(int)Input::get('invoice_id'))->get();
+        $hasInvoice = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
         if(empty($hasInvoice[0])){
             $purchases->party_id = Input::get('party_id');
             $purchases->status = "Activate";
@@ -113,24 +113,104 @@ class PurchaseInvoiceController extends Controller{
     }
     public function getDetails($invoiceId)
     {
-        $purchaseInvoiceDetails = PurchaseInvoiceDetail::where('invoice_id','=',$invoiceId)->get();
-        return view('PurchaseInvoice.details',compact('purchaseInvoiceDetails'));
+        $purchaseInvoiceDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$invoiceId)->get();
+        $purchaseInvoiceTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
+        return view('PurchaseInvoice.details',compact('purchaseInvoiceDetails'))
+            ->with('purchaseInvoiceTransactions',$purchaseInvoiceTransactions);
 
     }
+    public function getMake()
+    {
+        $accountCategories = new AccountCategory();
+        $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
+        return view('PurchaseInvoice.paymentAdd',compact('accountCategoriesAll'));
+    }
+    public function postSaveMake()
+    {
+       // var_dump("sss");exit;
+        $ruless = array(
+            'account_category_id' => 'required',
+            'account_name_id' => 'required',
+            'amount' => 'required',
+            'payment_method' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('purchases/index/')
+                ->withErrors($validate);
+        }
+        else{
+
+            $this->setPurchasePayment();
+
+            return Redirect::to('purchases/index');
+
+        }
+    }
+    private function setPurchasePayment()
+    {
+
+        $purchases[0] = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
+        $purchaseTransaction = new Transaction();
+        $purchaseTransaction->account_category_id = Input::get('account_category_id');
+        $purchaseTransaction->account_name_id = Input::get('account_name_id');
+        $purchaseTransaction->amount = Input::get('amount');
+        $purchaseTransaction->remarks = Input::get('remarks');
+        $purchaseTransaction->type = "Payment";
+        $purchaseTransaction->payment_method = Input::get('payment_method');
+        $purchaseTransaction->invoice_id = Input::get('invoice_id');
+
+
+        $totalAmount = 0;
+        $totalPrice = 0;
+        $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchaseTransaction->invoice_id)->get();
+        $transactions = Transaction::where('invoice_id','=',$purchaseTransaction->invoice_id)->get();
+        foreach($purchaseDetails as $purchaseDetail)
+        {
+            $totalPrice =$totalPrice + ($purchaseDetail->price * $purchaseDetail->quantity);
+        }
+        foreach($transactions as $transaction)
+        {
+            $totalAmount =$totalAmount + ($transaction->amount);
+        }
+        $purchaseInvoice = PurchaseInvoice::find( $purchases[0][0]['id']);
+        if($totalAmount == $totalPrice)
+        {
+            $purchaseInvoice->status = "Completed";
+        }else{
+            $purchaseInvoice->status = "Partial";
+        }
+
+        $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+        if($accountPayment->opening_balance >= Input::get('amount')){
+            $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
+            $purchaseTransaction->save();
+            $purchaseInvoice->save();
+            $accountPayment->save();
+            Session::flash('message', 'Payment has been Successfully Cleared.');
+        }else{
+            Session::flash('message', 'You dont have Enough Balance');
+        }
+
+
+    }
+
     public function getEdit($id)
     {
         $suppliers = new Party();
         $suppliersAll = $suppliers->getSuppliersDropDown();
         $products = new Product();
         $localProducts = $products->getLocalProductsDropDown();
-        $purchase = PurchaseInvoice::find($id);
-        $var = (int)$purchase->invoice_id;
-        $purchaseDetails = PurchaseInvoiceDetail::where('invoice_id','=',$var)->get();
-       // var_dump($purchaseDetails);exit;
+        $purchase[0] = PurchaseInvoice::where('invoice_id','=',$id)->get();
+        $var = $purchase[0];
+        $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->get();
+         //var_dump($var);exit;
         return view('PurchaseInvoice.edit',compact('suppliersAll'))
             ->with('localProducts',$localProducts)
             ->with('purchaseDetails',$purchaseDetails)
-            ->with('purchase',$purchase);
+            ->with('purchase',$var);
 
     }
     public function getDelete($id)
@@ -147,61 +227,33 @@ class PurchaseInvoiceController extends Controller{
         $message = array('Purchase Invoice  Successfully Deleted');
         return new JsonResponse($message);
     }
+    public function getDeleteTransaction($id)
+    {
+        $transaction = Transaction::find($id);
+        $transaction->delete();
+        $message = array('Transaction Successfully Deleted');
+        return new JsonResponse($message);
+    }
     public function getDel($id)
     {
-        $del = PurchaseInvoice::find($id);
+        $del = PurchaseInvoice::where('invoice_id','=',$id)->get();
         try {
-            $del->deletee();
+            $del[0]->deletee();
             Session::flash('message', 'Purchase Invoice has been Successfully Deleted.');
         } catch (Exception $e) {
             Session::flash('message', 'This Purchase Invoice can\'t delete because it  is used to file');
         }
-
         return Redirect::to('purchases/index');
     }
-  /*  public function getEdit($id)
+    public function getCategories($category_id)
     {
-        $account = NameOfAccount::find($id);
-        $accountCategories = new AccountCategory();
-        $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        return view('AccountName.edit',compact('account'))
-            ->with('accountCategoriesAll',$accountCategoriesAll);
-
-    }
-    public function postUpdate($id)
-    {
-        $ruless = array(
-            'name' => 'required',
-        );
-        $validate = Validator::make(Input::all(), $ruless);
-
-        if($validate->fails())
-        {
-            return Redirect::to('accountnames/index/')
-                ->withErrors($validate);
-        }
-        else{
-            $accountNames = NameOfAccount::find($id);
-            $this->setAccountNameData($accountNames);
-            $accountNames->save();
-            Session::flash('message', 'Account Name  has been Successfully Updated.');
-            return Redirect::to('accountnames/index');
+        $categoriesName = NameOfAccount::where('account_category_id','=',$category_id)
+            ->get();
+        foreach ($categoriesName as $categoryName) {
+            echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
     }
 
-    private function setAccountNameData($accountNames)
-    {
-        $accountNames->name = Input::get('name');
-        $accountNames->account_category_id = Input::get('account_category_id');
-        $accountNames->opening_balance = Input::get('opening_balance');
-        $accountNames->created_by = Session::get('user_id');
-    }
-    public function getDelete($id)
-    {
-        $accountNames = NameOfAccount::find($id);
-        $accountNames->delete();
-        Session::flash('message', 'Account Name  has been Successfully Deleted.');
-        return Redirect::to('accountnames/index');
-    }*/
+
 
 }

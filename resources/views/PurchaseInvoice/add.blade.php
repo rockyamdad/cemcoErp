@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-5">
-                                {!!Form::hidden('invoice_id',null,array('class' => 'form-control','id'=>'invoice_id'))!!}
+                                {!!Form::hidden('invoice_id',null,array('class' => 'form-control','id'=>'detail_invoice_id'))!!}
                             </div>
                         </div>
 
