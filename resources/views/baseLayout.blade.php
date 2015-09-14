@@ -102,13 +102,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 
-    <div id="ajax" class="modal fade" tabindex="-1" >
-
-
-        </div>
-    <div id="ajax2" class="modal fade" tabindex="-1" >
-
-
+    <div id="ajax" class="modal fade" tabindex="-1" > </div>
+    <div id="ajax2" class="modal fade" tabindex="-1" > </div>
+    <div id="purchaseInvoice" class="modal fade" tabindex="-1" > </div>
+    <div id="purchasePayment" class="modal fade" tabindex="-1" > </div>
+    <div id="expensePayment" class="modal fade" tabindex="-1" > </div>
+    <div id="Expense" class="modal fade" tabindex="-1" > </div>
     </div>
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
@@ -288,8 +287,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="{{ URL::to('accountnames/index') }}"> Account Names </a>
                     </li>
                     <li
-                            @if (Request::is('puchases/index'))class="active"@endif>
-                        <a href="{{ URL::to('puchases/index') }}"> Purchase Invoices </a>
+                            @if (Request::is('purchases/index'))class="active"@endif>
+                        <a href="{{ URL::to('purchases/index') }}"> Purchase Invoices </a>
+                    </li>
+                    <li
+                            @if (Request::is('expenses/index'))class="active"@endif>
+                        <a href="{{ URL::to('expenses/index') }}"> Expenses </a>
                     </li>
 
                 </ul>
@@ -409,6 +412,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         $('#sub_category_table').DataTable();
         $('#product_table').DataTable();
         $('#party_table').DataTable();
+       // $('#Expensetable').DataTable();
         $('#imports_table').DataTable();
         Tasks.initDashboardWidget();
 

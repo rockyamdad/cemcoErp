@@ -87,7 +87,25 @@ Route::post('updateAccountName/{id}','AccountNameController@postUpdate');
 //AccountName Controller
 Route::controller('purchases','PurchaseInvoiceController');
 Route::post('savePurchases','PurchaseInvoiceController@postSavePurchaseInvoice');
-Route::post('updatePurchases/{id}','PurchaseInvoiceController@postUpdate');
+Route::post('updatePurchases/{id}','PurchaseInvoiceController@updatePurchaseInvoiceData');
+Route::get('/details/{id}','PurchaseInvoiceController@getDetails');
+Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
+Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
+Route::get('/deleteDetail/{id}','PurchaseInvoiceController@getDeleteDetail');
+Route::get('/make','PurchaseInvoiceController@getMake');
+Route::post('/saveMake','PurchaseInvoiceController@postSaveMake');
+Route::get('/categories/{id}','PurchaseInvoiceController@getCategories');
+Route::get('/deleteTransaction/{id}','PurchaseInvoiceController@getDeleteTransaction');
+
+//Expense Controller
+Route::controller('expenses','ExpenseController');
+Route::post('saveExpense','ExpenseController@postSaveExpense');
+Route::post('updateExpense/{id}','ExpenseController@postUpdateExpense');
+Route::get('/make','ExpenseController@getMake');
+Route::post('/saveMake','ExpenseController@postSaveMake');
+Route::get('/deleteTransaction/{id}','ExpenseController@getDeleteTransaction');
+
+
 
 
 
