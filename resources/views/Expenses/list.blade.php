@@ -73,11 +73,33 @@
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$expense->invoice_id}}</td>
                         <td>{{$expense->category}}</td>
-                        <td>{{$expense->particular}}</td>
-                        <td>{{$expense->purpose}}</td>
+                        @if($expense->particular)
+                            <td>{{$expense->particular}}</td>
+                        @else
+                            <td>{{"Not Available"}}</td>
+                        @endif
+                        @if($expense->purpose)
+                            <td>{{$expense->purpose}}</td>
+                        @else
+                            <td>{{"Not Available"}}</td>
+                        @endif
+
                         <td>{{$expense->amount}}</td>
-                        <td>{{$expense->remarks}}</td>
-                        <td>{{$expense->status}}</td>
+                        @if($expense->remarks)
+                            <td>{{$expense->remarks}}</td>
+                        @else
+                            <td>{{"Not Available"}}</td>
+                        @endif
+
+                        @if($expense->status == 'Activate')
+                            <td><span class="label label-sm label-danger">Due</span></td>
+                        @elseif($expense->status == 'Partial')
+                            <td><span class="label label-sm label-warning">Partial</span></td>
+                        @elseif($expense->status == 'Completed')
+                            <td><span class="label label-sm label-success">Completed</span></td>
+                        @endif
+
+
                         <td>{{$expense->created_by}}</td>
 
                        <td>
@@ -114,7 +136,7 @@
 
 @stop
 @section('javascript')
-{!! HTML::script('js/purchaseInvoice.js') !!}
+{!! HTML::script('js/expenses.js') !!}
 {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
 
 @stop

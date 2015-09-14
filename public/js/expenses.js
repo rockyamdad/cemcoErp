@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-    $('#branch_table').DataTable();
-    var form = $('#branch_form');
+
+    var form = $('#expense_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
@@ -11,10 +11,10 @@ jQuery(document).ready(function() {
         focusInvalid: false, // do not focus the last invalid input
         ignore: "",
         rules: {
-            name: {
+            category: {
                 required: true
             },
-            location: {
+            amount: {
                 required: true
             }
         },
@@ -74,7 +74,6 @@ jQuery(document).ready(function() {
         $('#invoice_id').val(Math.floor(Math.random()*9999999999));
     });
     $('.deleteExpenseTransaction').live("click", function() {
-alert("ss");
         var transactionId = $(this).attr('rel');
         var parent = $(this).closest('tr');
         var answer     = confirm("Are you sure you want to delete this Expense Transaction?");
