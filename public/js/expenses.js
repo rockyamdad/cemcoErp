@@ -46,29 +46,6 @@ jQuery(document).ready(function() {
          }*/
     });
 
-    $('[data-toggle="modal"]').click(function(e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-        var invoice = $(this).attr('rel');
-        $.get(url, function(data) {
-            $(data).modal();
-            $('#invoice_id').val(invoice);
-        });
-    });
-    $('select').select2();
-
-    $('#account_category_id').live("change", function () {
-        var account_category = $('#account_category_id').val();
-
-        $.ajax({
-            type: "get",
-            url: "categories/"+account_category,
-            success: function (html) {
-                $('#account_name_id').html(html);
-
-            }
-        });
-    });
 
     $('#category').live("change", function () {
         $('#invoice_id').val(Math.floor(Math.random()*9999999999));
