@@ -2,10 +2,10 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h3>Purchase Invoice Detail</h3>
+            <h3>Sales Detail</h3>
         </div>
         <div class="modal-body">
-            <table class="table table-striped table-bordered table-hover"  id="PurchaseDetailtable">
+            <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">
                 <thead style="background-color: #68bbec">
                 <tr>
                     <th class="table-checkbox"><input type="checkbox" class="group-checkable"
@@ -19,15 +19,15 @@
                 </thead>
                 <tbody>
                 <?php $total = 0; ?>
-                @foreach($purchaseInvoiceDetails as $purchaseInvoiceDetail )
+                @foreach($saleDetails as $saleDetail )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
-                        <td>{{$purchaseInvoiceDetail->product->name}}</td>
-                        <td>{{$purchaseInvoiceDetail->price}}</td>
-                        <td>{{$purchaseInvoiceDetail->quantity}}</td>
+                        <td>{{$saleDetail->product->name}}</td>
+                        <td>{{$saleDetail->price}}</td>
+                        <td>{{$saleDetail->quantity}}</td>
                         <td>
-                            @if($purchaseInvoiceDetail->remarks)
-                                {{ $purchaseInvoiceDetail->remarks }}
+                            @if($saleDetail->remarks)
+                                {{ $saleDetail->remarks }}
                             @else
                                 {{"Not Available"}}
                             @endif
@@ -35,26 +35,28 @@
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deletePurchaseDetail" style="width:127px;" value="delete"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deletePurchaseDetail" rel={{$purchaseInvoiceDetail->id}}  />
+                                <input type="button"  id="deleteSaleDetail" style="width:127px;" value="delete"   class="btn red deleteSaleDetail" rel={{$saleDetail->id}}  />
                             @endif
 
                         </td>
-                    <?php $total = $total + ($purchaseInvoiceDetail->price * $purchaseInvoiceDetail->quantity); ?>
+                    <?php $total = $total + ($saleDetail->price*$saleDetail->quantity); ?>
+
                     </tr>
                 @endforeach
-                <tr style="background-color:#b2b2b2">
-                    <td>Total Amount</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> {{ $total }}</td>
+                <tr style="background-color:#b2b2b2;">
+                   <td>Total Amount</td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                   <td> {{ $total }}</td>
                 </tr>
+
                 </tbody>
             </table>
             <br>
-            <h3>Purchase Invoice Transaction</h3>
-            <table class="table table-striped table-bordered table-hover"  id="PurchaseTransactiontable">
+            <h3>Sales Transaction</h3>
+            <table class="table table-striped table-bordered table-hover"  id="saleTransactiontable">
                 <thead style="background-color:darkslateblue">
                 <tr>
                     <th class="table-checkbox"><input type="checkbox" class="group-checkable"
@@ -68,17 +70,16 @@
                 </tr>
                 </thead>
                 <tbody>
-
-                @foreach($purchaseInvoiceTransactions as $purchaseInvoiceTransaction )
+                @foreach($saleTransactions as $saleTransaction )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
-                        <td>{{$purchaseInvoiceTransaction->accountCategory->name}}</td>
-                        <td>{{$purchaseInvoiceTransaction->accountName->name}}</td>
-                        <td>{{$purchaseInvoiceTransaction->payment_method}}</td>
-                        <td>{{$purchaseInvoiceTransaction->amount}}</td>
+                        <td>{{$saleTransaction->accountCategory->name}}</td>
+                        <td>{{$saleTransaction->accountName->name}}</td>
+                        <td>{{$saleTransaction->payment_method}}</td>
+                        <td>{{$saleTransaction->amount}}</td>
                         <td>
-                            @if($purchaseInvoiceTransaction->remarks)
-                                {{ $purchaseInvoiceTransaction->remarks }}
+                            @if($saleTransaction->remarks)
+                                {{ $saleTransaction->remarks }}
                             @else
                                 {{"Not Available"}}
                             @endif
@@ -86,15 +87,13 @@
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deletePurchaseTransaction" style="width:127px;" value="delete"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deletePurchaseTransaction" rel={{$purchaseInvoiceTransaction->id}}  />
+                                <input type="button"  id="deleteSaleTransaction" style="width:127px;" value="delete"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
                             @endif
 
                         </td>
 
                     </tr>
                 @endforeach
-
-
 
                 </tbody>
             </table>

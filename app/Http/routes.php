@@ -84,7 +84,7 @@ Route::controller('accountnames','AccountNameController');
 Route::post('saveAccountName','AccountNameController@postSaveAccountName');
 Route::post('updateAccountName/{id}','AccountNameController@postUpdate');
 
-//AccountName Controller
+//Purchase Controller
 Route::controller('purchases','PurchaseInvoiceController');
 Route::post('savePurchases','PurchaseInvoiceController@postSavePurchaseInvoice');
 Route::post('updatePurchases/{id}','PurchaseInvoiceController@updatePurchaseInvoiceData');
@@ -93,7 +93,7 @@ Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
 Route::get('/delete/{id}','PurchaseInvoiceController@getDelete');
 Route::get('/deleteDetail/{id}','PurchaseInvoiceController@getDeleteDetail');
 Route::get('/make','PurchaseInvoiceController@getMake');
-Route::post('/saveMake','PurchaseInvoiceController@postSaveMake');
+Route::post('/saveMakePurchase','PurchaseInvoiceController@postSaveMake');
 Route::get('/categories/{id}','PurchaseInvoiceController@getCategories');
 Route::get('/deleteTransaction/{id}','PurchaseInvoiceController@getDeleteTransaction');
 
@@ -104,6 +104,18 @@ Route::post('updateExpense/{id}','ExpenseController@postUpdateExpense');
 Route::get('/make','ExpenseController@getMake');
 Route::post('/saveMake','ExpenseController@postSaveMake');
 Route::get('/deleteTransaction/{id}','ExpenseController@getDeleteTransaction');
+
+//Sale Controller
+Route::controller('sales','SaleController');
+Route::post('saveSale','SaleController@postSaveSales');
+Route::post('updatePurchases/{id}','SaleController@updateSaleData');
+Route::get('/details/{id}','SaleController@getDetails');
+Route::get('/delete/{id}','SaleController@getDelete');
+Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
+Route::get('/make','SaleController@getMake');
+Route::post('/saveReceive','SaleController@postSaveReceive');
+Route::get('/categories/{id}','SaleController@getCategories');
+Route::get('/deleteTransaction/{id}','SaleController@getDeleteTransaction');
 
 
 

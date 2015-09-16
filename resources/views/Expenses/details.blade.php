@@ -20,6 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @foreach($expenseTransactions as $expenseTransaction )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
@@ -42,7 +43,6 @@
                             @endif
 
                         </td>
-
                     </tr>
                 @endforeach
 

@@ -127,7 +127,6 @@ class PurchaseInvoiceController extends Controller{
     }
     public function postSaveMake()
     {
-       // var_dump("sss");exit;
         $ruless = array(
             'account_category_id' => 'required',
             'account_name_id' => 'required',
@@ -151,6 +150,7 @@ class PurchaseInvoiceController extends Controller{
     }
     private function setPurchasePayment()
     {
+
 
         $purchases[0] = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
         $purchaseTransaction = new Transaction();

@@ -108,6 +108,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <div id="purchasePayment" class="modal fade" tabindex="-1" > </div>
     <div id="expensePayment" class="modal fade" tabindex="-1" > </div>
     <div id="Expense" class="modal fade" tabindex="-1" > </div>
+    <div id="salePayment" class="modal fade" tabindex="-1" > </div>
+    <div id="sale" class="modal fade" tabindex="-1" > </div>
     </div>
     <!-- BEGIN SIDEBAR -->
     <div class="page-sidebar navbar-collapse collapse">
@@ -294,7 +296,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('expenses/index'))class="active"@endif>
                         <a href="{{ URL::to('expenses/index') }}"> Expenses </a>
                     </li>
-
+                    <li
+                            @if (Request::is('sales/index'))class="active"@endif>
+                        <a href="{{ URL::to('sales/index') }}"> Sales </a>
+                    </li>
                 </ul>
             </li>
 

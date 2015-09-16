@@ -67,6 +67,18 @@ class Product extends Eloquent
 
         return $array;
     }
+    public function getFinishGoodsDropDown()
+    {
+        $finishGoods = Product::where('product_type','Finish Goods')->get();
+
+        $array = array();
+
+        foreach($finishGoods as $finishGood){
+            $array[$finishGood->id] = $finishGood->name;
+        }
+
+        return $array;
+    }
     public function importdetails()
     {
         return $this->belongsToMany('App\importDetail');
