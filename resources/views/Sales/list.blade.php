@@ -114,6 +114,7 @@
 @stop
 @section('javascript')
 {!! HTML::script('js/sales.js') !!}
+{!! HTML::script('js/partilizer.js') !!}
 {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
 
 @stop
