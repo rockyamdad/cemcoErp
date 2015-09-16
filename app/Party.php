@@ -21,6 +21,13 @@ class Party extends Eloquent
             ->get();
         return $parties;
     }
+    public function getBuyers()
+    {
+        $parties = DB::table('parties')->where('status','=', 'Activate')
+            ->where('type','=','Buyer')
+            ->get();
+        return $parties;
+    }
     public function getPartiesDropDown()
     {
         $parties = $this->getParties();
@@ -41,6 +48,18 @@ class Party extends Eloquent
 
         foreach($suppliers as $supplier){
             $array[$supplier->id] = $supplier->name;
+        }
+
+        return $array;
+    }
+    public function getBuyersDropDown()
+    {
+        $buyers = $this->getBuyers();
+
+        $array = array();
+
+        foreach($buyers as $buyer){
+            $array[$buyer->id] = $buyer->name;
         }
 
         return $array;
