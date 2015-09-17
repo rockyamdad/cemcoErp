@@ -1,7 +1,9 @@
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
+
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
             <h3>Purchase Invoice Detail</h3>
         </div>
         <div class="modal-body">
@@ -43,8 +45,8 @@
                     </tr>
                 @endforeach
                 <tr style="background-color:#b2b2b2">
-                    <td>Total Amount</td>
                     <td></td>
+                    <td>Total Amount</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -55,7 +57,7 @@
             <br>
             <h3>Purchase Invoice Transaction</h3>
             <table class="table table-striped table-bordered table-hover"  id="PurchaseTransactiontable">
-                <thead style="background-color:darkslateblue">
+                <thead style="background-color:lightskyblue">
                 <tr>
                     <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                       data-set="#user_table .checkboxes"/></th>
@@ -68,7 +70,7 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <?php $totalTransaction = 0; ?>
                 @foreach($purchaseInvoiceTransactions as $purchaseInvoiceTransaction )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
@@ -90,14 +92,28 @@
                             @endif
 
                         </td>
-
+                        <?php $totalTransaction = $totalTransaction + $purchaseInvoiceTransaction->amount; ?>
                     </tr>
                 @endforeach
 
-
+                <tr style="background-color:#b2b2b2">
+                    <td></td>
+                    <td>Total Amount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> {{ $totalTransaction }}</td>
+                </tr>
 
                 </tbody>
             </table>
+            <?php $result = $total-$totalTransaction;?>
+            @if($total == $totalTransaction)
+                <h4 style="color: green;margin-left: 260px;">You don't have any due</h4>
+            @else
+                <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>
+            @endif
 
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn">Close</button>

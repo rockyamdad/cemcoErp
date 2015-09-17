@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <?php $totalTransaction = 0; ?>
                 @foreach($expenseTransactions as $expenseTransaction )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
@@ -43,8 +43,18 @@
                             @endif
 
                         </td>
+                        <?php $totalTransaction = $totalTransaction + $expenseTransaction->amount; ?>
                     </tr>
                 @endforeach
+                <tr style="background-color:#b2b2b2">
+                    <td></td>
+                    <td>Total Amount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> {{ $totalTransaction }}</td>
+                </tr>
 
                 </tbody>
             </table>
