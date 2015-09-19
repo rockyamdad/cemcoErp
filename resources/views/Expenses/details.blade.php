@@ -58,7 +58,12 @@
 
                 </tbody>
             </table>
-
+            <?php $result = $expense-$totalTransaction;?>
+            @if($result <=0)
+                <h4 style="color: green;margin-left: 260px;">You don't have any due</h4>
+            @else
+                <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>
+            @endif
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn">Close</button>
                 <button type="button" class="btn blue">Save changes</button>

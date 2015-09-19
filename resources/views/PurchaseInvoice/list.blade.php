@@ -52,7 +52,7 @@
 
                 </div>
                 <table class="table table-striped table-bordered table-hover" id="Purchasetable">
-                    <thead>
+                    <thead  style="background-color: #557386">
                     <tr>
                         <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                           data-set="#user_table .checkboxes"/></th>

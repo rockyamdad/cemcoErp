@@ -117,8 +117,10 @@ class ExpenseController extends Controller{
 
      public function getDetails($invoiceId)
     {
+        $expense =  Expense::where('invoice_id','=',$invoiceId)->get();
         $expenseTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
-        return view('Expenses.details',compact('expenseTransactions'));
+        return view('Expenses.details',compact('expenseTransactions'))
+            ->with('expense',$expense[0]['amount']);
 
     }
     public function getMake()
@@ -152,39 +154,38 @@ class ExpenseController extends Controller{
     }
     private function setPurchasePayment()
     {
-
-        $expense[0] = Expense::where('invoice_id','=',Input::get('invoice_id'))->get();
-        $expenseTransaction = new Transaction();
-        $expenseTransaction->account_category_id = Input::get('account_category_id');
-        $expenseTransaction->account_name_id = Input::get('account_name_id');
-        $expenseTransaction->amount = Input::get('amount');
-        $expenseTransaction->remarks = Input::get('remarks');
-        $expenseTransaction->type = "Expense";
-        $expenseTransaction->payment_method = Input::get('payment_method');
-        $expenseTransaction->invoice_id = Input::get('invoice_id');
-
-
-        $totalAmount = 0;
-
-        $transactions = Transaction::where('invoice_id','=',$expenseTransaction->invoice_id)->get();
-
-        foreach($transactions as $transaction)
-        {
-            $totalAmount =$totalAmount + ($transaction->amount);
-        }
-        $expense = Expense::find( $expense[0][0]['id']);
-        if($totalAmount == $expense->amount)
-        {
-            $expense->status = "Completed";
-        }else{
-            $expense->status = "Partial";
-        }
-
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
         if($accountPayment->opening_balance >= Input::get('amount')){
-            $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
+
+            $expense[0] = Expense::where('invoice_id','=',Input::get('invoice_id'))->get();
+            $expenseTransaction = new Transaction();
+            $expenseTransaction->account_category_id = Input::get('account_category_id');
+            $expenseTransaction->account_name_id = Input::get('account_name_id');
+            $expenseTransaction->amount = Input::get('amount');
+            $expenseTransaction->remarks = Input::get('remarks');
+            $expenseTransaction->type = "Expense";
+            $expenseTransaction->payment_method = Input::get('payment_method');
+            $expenseTransaction->invoice_id = Input::get('invoice_id');
             $expenseTransaction->save();
+
+            $totalAmount = 0;
+
+            $transactions = Transaction::where('invoice_id','=',$expenseTransaction->invoice_id)->get();
+
+            foreach($transactions as $transaction)
+            {
+                $totalAmount =$totalAmount + ($transaction->amount);
+            }
+            $expense = Expense::find( $expense[0][0]['id']);
+            if($totalAmount == $expense->amount)
+            {
+                $expense->status = "Completed";
+            }else{
+                $expense->status = "Partial";
+            }
             $expense->save();
+
+            $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
             $accountPayment->save();
             Session::flash('message', 'Expense has been Successfully Cleared.');
         }else{

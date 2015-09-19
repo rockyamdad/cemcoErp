@@ -109,7 +109,7 @@
                 </tbody>
             </table>
             <?php $result = $total-$totalTransaction;?>
-            @if($total == $totalTransaction)
+            @if($result <=0)
                 <h4 style="color: green;margin-left: 260px;">You don't have any due</h4>
             @else
                 <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>

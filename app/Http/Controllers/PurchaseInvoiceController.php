@@ -150,46 +150,44 @@ class PurchaseInvoiceController extends Controller{
     }
     private function setPurchasePayment()
     {
-
-
-        $purchases[0] = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
-        $purchaseTransaction = new Transaction();
-        $purchaseTransaction->account_category_id = Input::get('account_category_id');
-        $purchaseTransaction->account_name_id = Input::get('account_name_id');
-        $purchaseTransaction->amount = Input::get('amount');
-        $purchaseTransaction->remarks = Input::get('remarks');
-        $purchaseTransaction->type = "Payment";
-        $purchaseTransaction->payment_method = Input::get('payment_method');
-        $purchaseTransaction->invoice_id = Input::get('invoice_id');
-
-
-        $totalAmount = 0;
-        $totalPrice = 0;
-        $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchaseTransaction->invoice_id)->get();
-        $transactions = Transaction::where('invoice_id','=',$purchaseTransaction->invoice_id)->get();
-        foreach($purchaseDetails as $purchaseDetail)
-        {
-            $totalPrice =$totalPrice + ($purchaseDetail->price * $purchaseDetail->quantity);
-        }
-        foreach($transactions as $transaction)
-        {
-            $totalAmount =$totalAmount + ($transaction->amount);
-        }
-        $purchaseInvoice = PurchaseInvoice::find( $purchases[0][0]['id']);
-        if($totalAmount == $totalPrice)
-        {
-            $purchaseInvoice->status = "Completed";
-        }else{
-            $purchaseInvoice->status = "Partial";
-        }
-
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
         if($accountPayment->opening_balance >= Input::get('amount')){
-            $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
-            $purchaseTransaction->save();
-            $purchaseInvoice->save();
-            $accountPayment->save();
-            Session::flash('message', 'Payment has been Successfully Cleared.');
+
+                $purchases[0] = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
+                $purchaseTransaction = new Transaction();
+                $purchaseTransaction->account_category_id = Input::get('account_category_id');
+                $purchaseTransaction->account_name_id = Input::get('account_name_id');
+                $purchaseTransaction->amount = Input::get('amount');
+                $purchaseTransaction->remarks = Input::get('remarks');
+                $purchaseTransaction->type = "Payment";
+                $purchaseTransaction->payment_method = Input::get('payment_method');
+                $purchaseTransaction->invoice_id = Input::get('invoice_id');
+                $purchaseTransaction->save();
+
+                $totalAmount = 0;
+                $totalPrice = 0;
+                $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchaseTransaction->invoice_id)->get();
+                $transactions = Transaction::where('invoice_id','=',$purchaseTransaction->invoice_id)->get();
+                foreach($purchaseDetails as $purchaseDetail)
+                {
+                    $totalPrice =$totalPrice + ($purchaseDetail->price * $purchaseDetail->quantity);
+                }
+                foreach($transactions as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+                $purchaseInvoice = PurchaseInvoice::find( $purchases[0][0]['id']);
+                if($totalAmount == $totalPrice)
+                {
+                    $purchaseInvoice->status = "Completed";
+                }else{
+                    $purchaseInvoice->status = "Partial";
+                }
+                $purchaseInvoice->save();
+
+                $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
+                $accountPayment->save();
+                Session::flash('message', 'Payment has been Successfully Cleared.');
         }else{
             Session::flash('message', 'You dont have Enough Balance');
         }

@@ -52,7 +52,7 @@
 
                 </div>
                 <table class="table table-striped table-bordered table-hover" id="salestable">
-                    <thead>
+                    <thead  style="background-color: #557386">
                     <tr>
                         <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                           data-set="#user_table .checkboxes"/></th>
@@ -82,7 +82,7 @@
                             @if( Session::get('user_role') == "admin")
                             <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
                                     class="fa fa-edit"></i>Edit </a>
-                            <a class="btn blue btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                            <a class="btn dark btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
                                @if($sale->status != 'Completed')
                                    <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make') }}" >
