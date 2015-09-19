@@ -15,7 +15,7 @@ class PurchaseInvoice extends Eloquent
     }
     public function user()
     {
-        return $this->hasOne('App\User','foreign_key');
+        return $this->belongsTo('App\User');
     }
 
     public function deletee()

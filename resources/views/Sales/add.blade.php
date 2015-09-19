@@ -29,7 +29,7 @@
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-reorder"></i>Make Sales</div>
             <div class="actions">
-                <a class="btn dark" href="{{ URL::to('sales/index') }}">Sales List</a>
+                <a class="btn" style="background-color: limegreen" href="{{ URL::to('sales/index') }}">Sales List</a>
             </div>
         </div>
         <div class="portlet-body form">

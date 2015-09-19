@@ -70,6 +70,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php $totalTransaction = 0; ?>
                 @foreach($saleTransactions as $saleTransaction )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
@@ -91,13 +92,26 @@
                             @endif
 
                         </td>
-
+                        <?php $totalTransaction = $totalTransaction + $saleTransaction->amount; ?>
                     </tr>
                 @endforeach
-
+                <tr style="background-color:#b2b2b2">
+                    <td></td>
+                    <td>Total Amount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td> {{ $totalTransaction }}</td>
+                </tr>
                 </tbody>
             </table>
-
+            <?php $result = $total-$totalTransaction;?>
+            @if($total == $totalTransaction)
+                <h4 style="color: green;margin-left: 260px;">You don't have any due</h4>
+            @else
+                <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>
+            @endif
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn">Close</button>
                 <button type="button" class="btn blue">Save changes</button>
