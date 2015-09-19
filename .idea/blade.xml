@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BladeInjectionConfiguration" escapedTextEnd="!!}" escapedTextStart="{!!">
+  <component name="BladeInjectionConfiguration">
     <customDirectives>
       <data directive="@forelse" injection="true" prefix="&lt;?php foreach(" suffix="): ?&gt;" />
       <data directive="@foreach" injection="true" prefix="&lt;?php foreach(" suffix="): ?&gt;" />
@@ -33,3 +33,4 @@
     </customDirectives>
   </component>
 </project>
+
