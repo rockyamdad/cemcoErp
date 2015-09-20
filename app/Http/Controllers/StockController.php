@@ -100,7 +100,7 @@ class StockController extends Controller{
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
-        $stock->created_by = Session::get('user_id');
+        $stock->user_id = Session::get('user_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')
@@ -128,7 +128,7 @@ class StockController extends Controller{
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
-        $stock->created_by = Session::get('user_id');
+        $stock->user_id = Session::get('user_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')

@@ -31,10 +31,10 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    public function branch()
+ /*   public function branch()
     {
         return $this->belongsTo('App\Branch');
-    }
+    }*/
     public function category()
     {
         return $this->belongsTo('App\Category');

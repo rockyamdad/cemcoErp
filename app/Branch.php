@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 
 class Branch extends Eloquent
 {
-   // protected $table = 'branches';
+    protected $table = 'branches';
     public function user()
     {
         return $this->hasOne('App\User');

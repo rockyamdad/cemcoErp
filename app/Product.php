@@ -17,9 +17,9 @@ class Product extends Eloquent
     {
         return $this->belongsTo('App\SubCategory');
     }
-    public function user()
+    public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->hasMany('App\User');
     }
 
     public function getProducts()
