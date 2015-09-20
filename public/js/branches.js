@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+
     // Put page-specific javascript here
     $('#branch_table').DataTable();
     var form = $('#branch_form');
