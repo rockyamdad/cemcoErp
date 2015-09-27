@@ -24,7 +24,10 @@ class CreateTransactionsTable extends Migration {
 			$table->text('remarks');
 			$table->unsignedInteger('account_name_id');
 			$table->foreign('account_name_id')->references('id')->on('name_of_accounts');
+			$table->unsignedInteger('user_id');
+			$table->foreign('user_id')->references('id')->on('users');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

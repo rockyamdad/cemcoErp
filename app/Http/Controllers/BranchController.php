@@ -84,7 +84,7 @@ class BranchController extends Controller{
         $branch->name = Input::get('name');
         $branch->location = Input::get('location');
         $branch->description = Input::get('description');
-        $branch->created_by = Session::get('user_id');
+        $branch->user_id = Session::get('user_id');
         $branch->status = "Activate";
     }
 }

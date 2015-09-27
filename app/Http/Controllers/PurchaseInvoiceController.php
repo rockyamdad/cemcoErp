@@ -92,7 +92,7 @@ class PurchaseInvoiceController extends Controller{
             $purchases->party_id = Input::get('party_id');
             $purchases->status = "Activate";
             $purchases->invoice_id = (int)Input::get('invoice_id');
-            $purchases->created_by = Session::get('user_id');
+            $purchases->user_id = Session::get('user_id');
             $purchases->save();
         }
 
@@ -159,6 +159,7 @@ class PurchaseInvoiceController extends Controller{
                 $purchaseTransaction->account_name_id = Input::get('account_name_id');
                 $purchaseTransaction->amount = Input::get('amount');
                 $purchaseTransaction->remarks = Input::get('remarks');
+                $purchaseTransaction->user_id = Session::get('user_id');
                 $purchaseTransaction->type = "Payment";
                 $purchaseTransaction->payment_method = Input::get('payment_method');
                 $purchaseTransaction->invoice_id = Input::get('invoice_id');

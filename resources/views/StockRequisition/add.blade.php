@@ -56,6 +56,7 @@
                 <div class="portlet-body form" id="testt">
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        {!!Form::hidden('requisition_id',null,array('class' => 'form-control','id'=>'requisition_id'))!!}
 
                         <div class="row">
                             <table class="table table-striped table-bordered table-primary table-condensed" id="requisitionTable">
@@ -108,13 +109,6 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-                    </div>
-
-                    <div class="form-actions fluid">
-                        <div class="col-md-offset-3 col-md-9">
-                            {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
-                            {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
                         </div>
                     </div>
 

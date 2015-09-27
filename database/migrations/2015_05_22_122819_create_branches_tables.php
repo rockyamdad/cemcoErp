@@ -18,8 +18,8 @@ class CreateBranchesTables extends Migration {
             $table->string('name',255);
             $table->text('location');
             $table->text('description');
-            $table->integer('created_by');
             $table->string('status');
+			$table->integer('user_id');
 			$table->timestamps();
             $table->softDeletes();
 		});

@@ -68,7 +68,7 @@
                         <td>{{$accountName->name}}</td>
                         <td>{{$accountName->account_category_id}}</td>
                         <td>{{$accountName->opening_balance}}</td>
-                        <td>{{$accountName->created_by}}</td>
+                        <td>{{$accountName->user_id}}</td>
                      <td>
                             <a class="btn blue btn-sm editAccountName" data-toggle="modal"  data-target="#ajax2" href="{{URL::to('accountnames/edit',$accountName->id )}}" >
                                 <i class="fa fa-edit"></i> Edit Account Name</a>

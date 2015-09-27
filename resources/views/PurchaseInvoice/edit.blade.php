@@ -1,4 +1,5 @@
 @extends('baseLayout')
+@extends('baseLayout')
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
 

@@ -23,8 +23,6 @@ class CreateUsersTable extends Migration {
 			$table->string('role', 255);
 			$table->text('address');
 			$table->string('sex', 255);
-            $table->unsignedInteger('branch_id');
-            $table->foreign('branch_id')->references('id')->on('branches');
 			$table->string('status');
             $table->softDeletes();
 			$table->timestamps();

@@ -93,7 +93,7 @@ class ProductSubCategoryController extends Controller{
         $SubCategories->name = Input::get('name');
         $SubCategories->branch_id = Input::get('branch_id');
         $SubCategories->category_id = Input::get('category_id');
-        $SubCategories->created_by = Session::get('user_id');
+        $SubCategories->user_id = Session::get('user_id');
 
     }
     public function getDelete($id)

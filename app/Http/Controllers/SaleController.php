@@ -110,7 +110,7 @@ class SaleController extends Controller{
             $sale->party_id = Input::get('party_id');
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
-            $sale->created_by = Session::get('user_id');
+            $sale->user_id = Session::get('user_id');
             $sale->save();
         }
 
@@ -188,6 +188,7 @@ class SaleController extends Controller{
         $saleTransaction->amount = Input::get('amount');
         $saleTransaction->remarks = Input::get('remarks');
         $saleTransaction->type = "Payment";
+        $saleTransaction->user_id = Session::get('user_id');
         $saleTransaction->payment_method = Input::get('payment_method');
         $saleTransaction->invoice_id = Input::get('invoice_id');
 

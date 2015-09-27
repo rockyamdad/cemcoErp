@@ -86,7 +86,7 @@ class ExpenseController extends Controller{
         $expense->purpose = Input::get('purpose');
         $expense->amount = Input::get('amount');
         $expense->status = "Activate";
-        $expense->created_by = Session::get('user_id');
+        $expense->user_id = Session::get('user_id');
         $expense->remarks = Input::get('remarks');
         $expense->save();
     }
@@ -99,7 +99,7 @@ class ExpenseController extends Controller{
         $expense->purpose = Input::get('purpose');
         $expense->amount = Input::get('amount');
         $expense->status = "Activate";
-        $expense->created_by = Session::get('user_id');
+        $expense->user_id = Session::get('user_id');
         $expense->remarks = Input::get('remarks');
         $expense->save();
     }
@@ -164,6 +164,7 @@ class ExpenseController extends Controller{
             $expenseTransaction->amount = Input::get('amount');
             $expenseTransaction->remarks = Input::get('remarks');
             $expenseTransaction->type = "Expense";
+            $expenseTransaction->user_id = Session::get('user_id');
             $expenseTransaction->payment_method = Input::get('payment_method');
             $expenseTransaction->invoice_id = Input::get('invoice_id');
             $expenseTransaction->save();

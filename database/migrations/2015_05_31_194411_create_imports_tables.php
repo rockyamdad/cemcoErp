@@ -20,8 +20,8 @@ class CreateImportsTables extends Migration {
             $table->text('description');
             $table->unsignedInteger('branch_id');
             $table->foreign('branch_id')->references('id')->on('branches');
-            $table->unsignedInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('status');
 			$table->timestamps();
             $table->softDeletes();

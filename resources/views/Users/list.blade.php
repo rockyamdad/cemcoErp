@@ -79,7 +79,7 @@
                         @else
                         <td>Female</td>
                         @endif
-                        <td>{{$user->branch->name}}</td>
+                        <td>{{$user->branch_id}}</td>
                         <td>{{$user->address}}</td>
                         @if($user->status == "Activate")
                         <td class="user-status"><span class="label label-sm label-success">Activate</span></td>

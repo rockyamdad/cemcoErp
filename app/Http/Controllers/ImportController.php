@@ -355,7 +355,7 @@ class ImportController extends Controller{
         $import->branch_id = Input::get('branch_id');
         $import->consignment_name = Input::get('consignment_name');
         $import->description = Input::get('description');
-        $import->created_by = Session::get('user_id');
+        $import->user_id = Session::get('user_id');
         $import->status = "Activate";
     }
     private function setImportDetailsData($importDetail)
@@ -365,7 +365,7 @@ class ImportController extends Controller{
         $importDetail->quantity = Input::get('quantity');
         $importDetail->total_booking_price = Input::get('total_booking_price');
         $importDetail->total_cfr_price = Input::get('total_cfr_price');
-        $importDetail->created_by = Session::get('user_id');
+        $importDetail->user_id = Session::get('user_id');
     }
     private function setProformaInvoiceData($pi)
     {

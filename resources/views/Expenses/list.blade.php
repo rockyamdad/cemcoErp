@@ -100,7 +100,7 @@
                         @endif
 
 
-                        <td>{{$expense->created_by}}</td>
+                        <td>{{$expense->user_id}}</td>
 
                        <td>
                             @if( Session::get('user_role') == "admin")

@@ -20,8 +20,8 @@ class CreateProductSubCategoriesTables extends Migration {
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('product_categories');
-            $table->unsignedInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
 		});

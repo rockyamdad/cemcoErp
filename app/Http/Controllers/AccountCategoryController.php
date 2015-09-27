@@ -63,7 +63,7 @@ class AccountCategoryController extends Controller{
     private function setAccountData($category)
     {
         $category->name = Input::get('name');
-       // $category->created_by = Session::get('user_id');
+        $category->user_id = Session::get('user_id');
     }
     public function getDelete($id)
     {

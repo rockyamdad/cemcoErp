@@ -82,7 +82,7 @@
                         </td>
                         <td>{{$stock->remarks}}</td>
                         <td>{{$stock->consignment_name}}</td>
-                        <td>{{$stock->user->name}}</td>
+                        <td>{{$stock->user_id}}</td>
                       <!--  <td>{{$stock->status}}</td>-->
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i

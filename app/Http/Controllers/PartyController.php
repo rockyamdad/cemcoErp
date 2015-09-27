@@ -91,7 +91,7 @@ class PartyController extends Controller{
         $party->email = Input::get('email');
         $party->phone = Input::get('phone');
         $party->address = Input::get('address');
-        $party->created_by = Session::get('user_id');
+        $party->user_id = Session::get('user_id');
         $party->status = "Activate";
     }
 

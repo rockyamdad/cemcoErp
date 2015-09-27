@@ -24,8 +24,8 @@ class CreateStockRequisitionsTables extends Migration {
             $table->integer('issued_quantity');
             $table->string('remarks',255);
             $table->string('status',255);
-            $table->unsignedInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 			$table->timestamps();
 		});
 	}

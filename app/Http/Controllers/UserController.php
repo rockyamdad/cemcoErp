@@ -35,7 +35,6 @@ class UserController extends Controller{
         $ruless = array(
             'username' => 'required',
             'role' => 'required',
-            'branch_id' => 'required',
             'email' =>  'required|email|unique:users|Unique:users',
             'password' => 'required'
         );
@@ -115,7 +114,7 @@ class UserController extends Controller{
         $user->role = Input::get('role');
         $user->sex = Input::get('sex');
         //$user->created_by = Session::get('user_id');
-        $user->branch_id = Input::get('branch_id');
+        $user->branch_id = 1;
         $user->status = "Activate";
     }
 

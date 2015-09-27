@@ -82,7 +82,7 @@ class AccountNameController extends Controller{
         $accountNames->name = Input::get('name');
         $accountNames->account_category_id = Input::get('account_category_id');
         $accountNames->opening_balance = Input::get('opening_balance');
-        $accountNames->created_by = Session::get('user_id');
+        $accountNames->user_id = Session::get('user_id');
     }
     public function getDelete($id)
     {

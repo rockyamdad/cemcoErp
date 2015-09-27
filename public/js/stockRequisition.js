@@ -1,6 +1,7 @@
 jQuery(document).ready(function() {
     $("#saveRequisition").live("click", function () {
         if(requisitionFormValidation()){
+            $('#requisition_id').val(Math.floor(Math.random()*9999999999));
             $.ajax({
                 type: "POST",
                 url: "/saveRequisition",
@@ -31,7 +32,6 @@ jQuery(document).ready(function() {
     });
 
     $('.deleteRequisition').live("click", function() {
-
         var requisitionId = $(this).attr('rel');
         var parent = $(this).closest('tr');
         var answer     = confirm("Are you sure you want to delete this Requisition?");

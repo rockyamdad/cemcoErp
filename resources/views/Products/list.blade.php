@@ -78,7 +78,7 @@
                         <td>{{$product->hs_code}}</td>
                         <td>{{$product->origin}}</td>
                         <td>{{$product->total_quantity}}</td>
-                        <td>{{$product->branch->user->name}}</td>
+                        <td>{{$product->user_id}}</td>
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>

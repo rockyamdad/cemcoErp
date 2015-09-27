@@ -88,9 +88,9 @@ class StockRequisitionController extends Controller{
         $requisition->party_id = Input::get('party_id');
         $requisition->requisition_quantity = Input::get('requisition_quantity');
         $requisition->remarks = Input::get('remarks');
-        $requisition->requisition_id = Input::get('remarks');
+        $requisition->requisition_id = Input::get('requisition_id');
         $requisition->issued_quantity = 0;
-        $requisition->created_by = Session::get('user_id');
+        $requisition->user_id = Session::get('user_id');
         $requisition->status = "Activate";
         $requisition->save();
         $requisition = StockRequisition::find($requisition->id);

@@ -76,7 +76,7 @@
                         @elseif($purchase->status == 'Completed')
                             <td><span class="label label-sm label-success">Completed</span></td>
                         @endif
-                        <td>{{$purchase->created_by}}</td>
+                        <td>{{$purchase->user_id}}</td>
 
                        <td>
                             @if( Session::get('user_role') == "admin")

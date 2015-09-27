@@ -90,7 +90,7 @@ class ProductCategoryController extends Controller{
     {
         $categories->name = Input::get('name');
         $categories->branch_id = Input::get('branch_id');
-        $categories->created_by = Session::get('user_id');
+        $categories->user_id = Session::get('user_id');
 
     }
 }

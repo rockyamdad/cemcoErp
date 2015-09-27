@@ -116,7 +116,7 @@ class ProductController extends Controller{
         $prodcuts->hs_code = Input::get('hs_code');
         $prodcuts->product_type = Input::get('product_type');
         $prodcuts->total_quantity = 0;
-        $prodcuts->created_by = Session::get('user_id');
+        $prodcuts->user_id = Session::get('user_id');
 
     }
     public function getDelete($id)

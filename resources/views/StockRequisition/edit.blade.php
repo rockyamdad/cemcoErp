@@ -56,6 +56,7 @@
                 <div class="portlet-body form" id="testt">
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        {!!Form::hidden('requisition_id',null,array('class' => 'form-control','id'=>'requisition_id'))!!}
 
                         <div class="row">
                             <table class="table table-striped table-bordered table-primary table-condensed" id="requisitionTable">
@@ -74,9 +75,9 @@
                                 </tbody>
                                 @if($stockRequisition)
                                         <tr>
-                                            <td>{{$stockRequisition->party_id}}</td>
-                                            <td>{{$stockRequisition->product_id}}</td>
-                                            <td>{{$stockRequisition->product_requisition}}</td>
+                                            <td>{{$stockRequisition->party->name}}</td>
+                                            <td>{{$stockRequisition->product->name}}</td>
+                                            <td>{{$stockRequisition->requisition_quantity}}</td>
                                             <td>{{$stockRequisition->remarks}}</td>
                                             <td><input type="button"  id="deleteRequisition" style="width:127px;" value="delete" class="btn red deleteRequisition" rel="{{ $stockRequisition->id }}" ></td>
 
@@ -120,71 +121,14 @@
                             </table>
                         </div>
                     </div>
-
-                    <div class="form-actions fluid">
-                        <div class="col-md-offset-3 col-md-9">
-                            {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
-                            {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
-                        </div>
-                    </div>
-
-                    <!-- END FORM-->
                 </div>
 
-             <!--   <div class="form-group">
-                    {!!HTML::decode(Form::label('product_type','Product Type<span class="required">*</span>',array('class' =>
-                    'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
-                        'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Choose Product<span class="required">*</span></label>
-
-                    <div class="col-md-4">
-                        <select id="product_id" name="product_id" class="form-control">
-                            <option value="">Select Product</option>
-                        </select>
-
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>
-                    'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!! Form::select('entry_type',[null=>'Please Select Type'] + array('1' => 'StockIn', '0' =>
-                        'StockOut'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    {!! HTML::decode(Form::label('product_quantity','Product Quantity<span class="required">*</span>',array('class'
-                    => 'control-label col-md-3'))) !!}
-                    <div class="col-md-4">
-                        {!!Form::text('product_quantity',null,array('placeholder' => 'Product Quantity', 'class' =>
-                        'form-control'))!!}
-                    </div>
-                </div>
-                <div class="form-group import_num_section">
-
-                </div>
-
-
-                <div class="form-actions fluid">
-                    <div class="col-md-offset-3 col-md-9">
-                        {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
-                        {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
-
-                    </div>
-                </div>-->
                 {!!Form::close()!!}
                 <!-- END FORM-->
             </div>
         </div>
         <!-- END VALIDATION STATES-->
+    </div>
     </div>
     @stop
     @section('javascript')

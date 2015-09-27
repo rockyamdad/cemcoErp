@@ -70,7 +70,7 @@
                         <td>{{$subCategory->name}}</td>
                         <td>{{$subCategory->branch->name}}</td>
                         <td>{{$subCategory->category->name}}</td>
-                        <td>{{$subCategory->branch->user->name}}</td>
+                        <td>{{$subCategory->user_id}}</td>
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productsubcategories/edit/'. $subCategory->id ) }}"><i
