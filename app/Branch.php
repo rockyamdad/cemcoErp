@@ -20,7 +20,7 @@ class Branch extends Eloquent
     public function getBranches()
     {
 
-        $branches = DB::table('branches')->get();
+        $branches = Branch::where('status','=','Activate')->get();
         return $branches;
     }
 

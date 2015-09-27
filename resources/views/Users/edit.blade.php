@@ -29,7 +29,7 @@
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-reorder"></i>Edit User</div>
             <div class="actions">
-                <a class="btn green" href="{{ URL::to('list') }}">Users List</a>
+                <a class="btn dark" href="{{ URL::to('list') }}">Users List</a>
             </div>
         </div>
         <div class="portlet-body form">
@@ -95,13 +95,13 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('role',[null=>'Please Select Role']+array('admin' => 'Admin', 'manager' =>
-                        'Manager','user'=>'User'),'null', array('class'=>'form-control'))!!}
+                        'Manager','user'=>'User'),$userdata->role, array('class'=>'form-control'))!!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!!HTML::decode(Form::label('sex','Gender',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!! Form::select('sex',[null=>'Please Select Gender']+ array('m' => 'Male', 'f' => 'Female'),'null',
+                        {!! Form::select('sex',[null=>'Please Select Gender']+ array('m' => 'Male', 'f' => 'Female'),$userdata->gender,
                         array('class'=>'form-control'))!!}
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     {!!HTML::decode(Form::label('branch_id','User Branch<span class="required">*</span>',array('class'
                     => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!!Form::select('branch_id',$branchAll,'null', array('class'=>'form-control') )!!}
+                        {!!Form::select('branch_id',$branchAll,$userdata->branch_id, array('class'=>'form-control') )!!}
                     </div>
                 </div>
             </div>

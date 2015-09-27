@@ -117,7 +117,10 @@ Route::post('/saveReceive','SaleController@postSaveReceive');
 Route::get('/categories/{id}','SaleController@getCategories');
 Route::get('/deleteTransaction/{id}','SaleController@getDeleteTransaction');
 
-
+//StockInfo Controller
+Route::controller('stockInfos','StockInfoController');
+Route::post('saveStockInfo','StockInfoController@postSaveStockInfo');
+Route::get('changeStatusStock/{status}/{id}','StockInfoController@getChangeStatus');
 
 
 

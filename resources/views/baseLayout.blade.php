@@ -314,11 +314,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
             <ul class="sub-menu">
                 <li
-                @if (Request::is('parties/index/'))class="active"@endif>
-                <a href="{{ URL::to('parties/index/') }}"><i class="fa fa-sitemap"></i>Party Section                    Section </a>
-        </li>
+                    @if (Request::is('parties/index/'))class="active"@endif>
+                    <a href="{{ URL::to('parties/index/') }}"><i class="fa fa-sitemap"></i>Party Section                    Section </a>
+                 </li>
 
-
+                <li
+                        @if (Request::is('stockInfos/index/'))class="active"@endif>
+                    <a href="{{ URL::to('stockInfos/index/') }}"><i class="fa fa-sitemap"></i>Stock Info Section                    Section </a>
+                </li>
         </ul>
         </li>
 
@@ -417,6 +420,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         $('#sub_category_table').DataTable();
         $('#product_table').DataTable();
         $('#party_table').DataTable();
+        $('#stock_info_table').DataTable();
        // $('#Expensetable').DataTable();
         $('#imports_table').DataTable();
         Tasks.initDashboardWidget();
