@@ -62,7 +62,6 @@ class ProductController extends Controller{
         $suCategoriesName = SubCategory::where('category_id','=',$category_id)
                             ->where('branch_id','=',$branchId)
             ->get();
-
         foreach ($suCategoriesName as $subCategoryName) {
             echo "<option value = $subCategoryName->id > $subCategoryName->name</option> ";
         }

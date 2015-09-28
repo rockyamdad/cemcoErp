@@ -82,16 +82,25 @@
 
                     </div>
                 </div>-->
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('stock_info_id','Choose Stocks<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
+                    </div>
+                </div>
 
                 <div class="form-group">
                     {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('entry_type',[null=>'Please Select Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
-                        'StockOut','Wastage'=>'Wastage'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
+                        'StockOut','Wastage'=>'Wastage','Transfer'=>'Transfer'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
                     </div>
                 </div>
+                <div class="form-group to_stock_section">
 
+                </div>
 
                 <div class="form-group">
                     {!!HTML::decode(Form::label('remarks','Remarks',array('class' => 'control-label col-md-3')))!!}

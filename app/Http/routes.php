@@ -53,6 +53,7 @@ Route::get('changeStatusImport/{status}/{id}','ImportController@getChangeStatus'
 Route::controller('stocks','StockController');
 Route::get('products/{type}','StockController@getProducts');
 Route::get('imports/','StockController@getImports');
+Route::get('stocks/infos/','StockController@getStocks');
 Route::post('saveStocks','StockController@postSaveStock');
 Route::post('updateStocks/{id}','StockController@postUpdateStock');
 

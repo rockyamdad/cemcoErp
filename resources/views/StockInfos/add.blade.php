@@ -54,7 +54,7 @@
                     {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!! Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null', array('class'=>'form-control','id'=>'type'))!!}
+                        {!! Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null', array('class'=>'form-control','id'=>'branch_id'))!!}
                     </div>
                 </div>
 

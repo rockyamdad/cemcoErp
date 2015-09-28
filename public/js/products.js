@@ -66,10 +66,9 @@ jQuery(document).ready(function() {
             }
         });
     });
-    $('#products_category_id').live("change", function () {
+    $('#products_category_id').click(function(){
         var category_id = $('#products_category_id').val();
         var branch_id = $('#products_branch_id').val();
-
         $.ajax({
             type: "get",
             url: "sub/"+category_id,

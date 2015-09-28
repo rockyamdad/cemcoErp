@@ -13,4 +13,8 @@ class Stock extends Eloquent
     {
         return $this->belongsTo('App\User');
     }
+    public function stockInfo()
+    {
+        return $this->belongsTo('App\StockInfo');
+    }
 }

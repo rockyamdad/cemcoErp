@@ -17,6 +17,9 @@ jQuery(document).ready(function() {
             product_id: {
                 required: true
             },
+            stock_info_id: {
+                required: true
+            },
             entry_type: {
                 required: true
             },
@@ -88,9 +91,20 @@ jQuery(document).ready(function() {
                 }
             });
 
-        }else{
-            $('.consignment_name_section').html("");
         }
+        if(entry_type=='Transfer')
+        {
+            $.ajax({
+                type: "get",
+                url: "stocks/infos/",
+                success: function (html) {
+                    $('.to_stock_section').html(html);
+
+                }
+            });
+
+        }
+
 
     });
     $('#edit_entry_type').live("change", function () {

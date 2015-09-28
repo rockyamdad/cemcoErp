@@ -3,6 +3,7 @@
 use App\Import;
 use App\Product;
 use App\Stock;
+use App\StockInfo;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +22,9 @@ class StockController extends Controller{
 
     public function getCreate()
     {
-        return view('Stocks.addSubtract');
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        return view('Stocks.addSubtract',compact('allStockInfos'));
     }
     public  function getProducts($type)
     {
@@ -46,12 +49,25 @@ class StockController extends Controller{
         }
         echo "</select> </div>";
     }
+    public  function getStocks()
+    {
+        $stocks = StockInfo::where('status','=','Activate')
+            ->get();
+
+        echo "<label class='control-label col-md-3'>To Stock </label>";
+        echo " <div class='col-md-4'> <select class='form-control' name='to_stock_info_id'>";
+        foreach ($stocks as $stock) {
+            echo "<option value = $stock->id > $stock->name</option> ";
+        }
+        echo "</select> </div>";
+    }
     public function postSaveStock()
     {
         $ruless = array(
             'product_id' => 'required',
             'product_quantity' => 'required',
             'entry_type' => 'required',
+            'stock_info_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -70,7 +86,10 @@ class StockController extends Controller{
     public function getEdit($id)
     {
         $stock = Stock::find($id);
-        return view('Stocks.edit',compact('stock'));
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        return view('Stocks.edit',compact('stock'))
+            ->with('allStockInfos',$allStockInfos);
 
     }
     public function postUpdateStock($id)
@@ -101,6 +120,7 @@ class StockController extends Controller{
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
         $stock->user_id = Session::get('user_id');
+        $stock->stock_info_id = Input::get('stock_info_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')
@@ -129,6 +149,7 @@ class StockController extends Controller{
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
         $stock->user_id = Session::get('user_id');
+        $stock->stock_info_id = Input::get('stock_info_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')

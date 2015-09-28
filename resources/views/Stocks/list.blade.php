@@ -58,6 +58,7 @@
                                                           data-set="#user_table .checkboxes"/></th>
                         <th>Product Name</th>
                         <th>Product Quantity</th>
+                        <th>Stock Name</th>
                         <th>Entry Type</th>
                         <th>Remarks</th>
                         <th>Consignment Name</th>
@@ -72,6 +73,7 @@
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$stock->product->name}}</td>
                         <td>{{$stock->product_quantity}}</td>
+                        <td>{{$stock->stockInfo->name}}</td>
                         <td>@if($stock->entry_type == 'StockIn')
                                 <span class="label label-sm label-success">StockIn</span>
                             @elseif($stock->entry_type == 'StockOut')
@@ -82,7 +84,7 @@
                         </td>
                         <td>{{$stock->remarks}}</td>
                         <td>{{$stock->consignment_name}}</td>
-                        <td>{{$stock->user_id}}</td>
+                        <td>{{$stock->user->name}}</td>
                       <!--  <td>{{$stock->status}}</td>-->
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
