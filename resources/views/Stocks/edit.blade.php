@@ -59,7 +59,7 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
-                        'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'edit_product_type'))!!}
+                        'Foreign','Finish Goods'=>'Finish Goods'),$stock->product_type, array('class'=>'form-control','id'=>'edit_product_type'))!!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -95,8 +95,11 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('entry_type',[null=>'Please Select Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
-                        'StockOut','Wastage'=>'Wastage'),$stock->entry_type, array('class'=>'form-control','id'=>'edit_entry_type'))!!}
+                        'StockOut','Wastage'=>'Wastage','Transfer'=>'Transfer'),$stock->entry_type, array('class'=>'form-control','id'=>'edit_entry_type'))!!}
                     </div>
+                </div>
+                <div class="form-group to_stock_section">
+
                 </div>
 
                 <div class="form-group">

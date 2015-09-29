@@ -116,11 +116,13 @@ class StockController extends Controller{
     private function setStockData($stock)
     {
         $stock->product_id = Input::get('product_id');
+        $stock->product_type = Input::get('product_type');
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
         $stock->user_id = Session::get('user_id');
         $stock->stock_info_id = Input::get('stock_info_id');
+        $stock->to_stock_info_id = Input::get('to_stock_info_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')
@@ -137,19 +139,25 @@ class StockController extends Controller{
                 Session::flash('message', 'You Dont have enough products in Stock');
             }
 
-        }else{
-            Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
+        }  elseif(Input::get('entry_type') == 'Transfer')
+            {
+                Session::flash('message', 'Product Has been successfully Transfered');
+            }
+        else{
+                Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
         }
         $product->save();
     }
     private function updateStockData($stock)
     {
         $stock->product_id = Input::get('product_id');
+        $stock->product_type = Input::get('product_type');
         $stock->product_quantity = Input::get('product_quantity');
         $stock->entry_type = Input::get('entry_type');
         $stock->remarks = Input::get('remarks');
         $stock->user_id = Session::get('user_id');
         $stock->stock_info_id = Input::get('stock_info_id');
+        $stock->stock_info_id = Input::get('to_stock_info_id');
         $stock->status = "Activate";
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')
@@ -161,7 +169,11 @@ class StockController extends Controller{
             $product->total_quantity = ($product->total_quantity + $stock->product_quantity) - Input::get('product_quantity');
             Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
 
-        }else{
+        }elseif(Input::get('entry_type') == 'Transfer')
+        {
+            Session::flash('message', 'Product Has been successfully Transfered and Updated');
+        }
+        else{
             Session::flash('message', 'Stock has been Successfully Created && Wastage Product Updated');
         }
         $product->save();

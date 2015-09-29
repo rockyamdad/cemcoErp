@@ -120,8 +120,18 @@ jQuery(document).ready(function() {
                 }
             });
 
-        }else{
-            $('.edit_consignment_name_section').html("");
+        }
+        if(entry_type=='Transfer')
+        {
+            $.ajax({
+                type: "get",
+                url: "../stocks/infos/",
+                success: function (html) {
+                    $('.to_stock_section').html(html);
+
+                }
+            });
+
         }
 
     });

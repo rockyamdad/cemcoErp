@@ -39,6 +39,12 @@
                     {{ Session::get('message') }}
                 </div>
                 @endif
+                    @if (Session::has('wrong'))
+                        <div class="alert alert-danger">
+                            <button data-close="alert" class="close"></button>
+                            {{ Session::get('wrong') }}
+                        </div>
+                    @endif
             </div>
 
             <div class="portlet-body">
@@ -57,7 +63,7 @@
                         <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                           data-set="#user_table .checkboxes"/></th>
                         <th>Product Name</th>
-                        <th>Product Quantity</th>
+                        <th>Quantity</th>
                         <th>Stock Name</th>
                         <th>Entry Type</th>
                         <th>Remarks</th>
@@ -78,8 +84,10 @@
                                 <span class="label label-sm label-success">StockIn</span>
                             @elseif($stock->entry_type == 'StockOut')
                                 <span class="label label-sm label-danger">StockOut</span>
+                            @elseif($stock->entry_type == 'Transfer')
+                                <span class="label label-default">Transfer</span>
                             @else
-                                <span class="label label-sm ">Wastage</span>
+                                <span class="label label-warning ">Wastage</span>
                             @endif
                         </td>
                         <td>{{$stock->remarks}}</td>
