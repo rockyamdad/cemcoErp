@@ -33,14 +33,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link rel="stylesheet" type="text/css"
           href="{{ URL::asset('assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css') }}"/>
 
-    <link href="{{ URL::asset('assets/plugins/gritter/css/jquery.gritter.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ URL::asset('assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.css') }}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{ URL::asset('assets/plugins/jqvmap/jqvmap/jqvmap.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ URL::asset('assets/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet"
-          type="text/css"/>
     <link href="{{ URL::asset('assets/plugins/bootstrap-modal/css/bootstrap-modal.css') }}" rel="stylesheet"
           type="text/css"/>
 
@@ -324,6 +316,19 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </li>
         </ul>
         </li>
+            <li class="@if (Request::is('searches/*'))active @endif">
+                <a href="javascript:;">
+                    <i class="fa fa-puzzle-piece"></i>
+                    <span class="title">Search</span>
+                    @if (Request::is('searches/*'))<span class="selected"></span>@endif
+                    <span class="arrow @if (Request::is('searches/*'))open @endif"></span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li
+                            @if (Request::is('searches/entry'))class="active"@endif>
+                        <a href="{{ URL::to('searches/entry') }}">Stock Entry Type </a>
+                    </li>
 
 
         </ul>
@@ -380,17 +385,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script type="text/javascript"
         src="{{ URL::asset('assets/plugins/jquery-validation/dist/additional-methods.min.js') }}"></script>
 
-<script src="{{ URL::asset('assets/plugins/flot/jquery.flot.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/plugins/flot/jquery.flot.resize.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('assets/plugins/jquery.pulsate.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/plugins/bootstrap-daterangepicker/moment.min.js') }}"
         type="text/javascript"></script>
-<script src="{{ URL::asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"
-        type="text/javascript"></script>
-<script src="{{ URL::asset('assets/plugins/gritter/js/jquery.gritter.js') }}" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
-<script src="{{ URL::asset('assets/plugins/fullcalendar/fullcalendar/fullcalendar.min.js') }}"
-        type="text/javascript"></script>
+
 <script src="{{ URL::asset('assets/scripts/ui-modals.js') }}"
         type="text/javascript"></script>
 <script src="{{ URL::asset('assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>

@@ -17,4 +17,5 @@ class Stock extends Eloquent
     {
         return $this->belongsTo('App\StockInfo');
     }
+
 }

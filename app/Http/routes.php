@@ -123,5 +123,10 @@ Route::controller('stockInfos','StockInfoController');
 Route::post('saveStockInfo','StockInfoController@postSaveStockInfo');
 Route::get('changeStatusStock/{status}/{id}','StockInfoController@getChangeStatus');
 
+//Search Controller
+Route::controller('searches','SearchController');
+Route::get('/entry','SearchController@getEntry');
+Route::post('/resultSearch','SearchController@postSearchResult');
+
 
 

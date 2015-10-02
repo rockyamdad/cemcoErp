@@ -124,6 +124,7 @@ class StockController extends Controller{
         $stock->stock_info_id = Input::get('stock_info_id');
         $stock->to_stock_info_id = Input::get('to_stock_info_id');
         $stock->status = "Activate";
+
         $product = Product::find(Input::get('product_id'));
         if(Input::get('entry_type') == 'StockIn')
         {
