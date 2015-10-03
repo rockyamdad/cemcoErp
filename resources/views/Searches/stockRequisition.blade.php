@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Search
+            Stock Requisition Search
         </h3>
 
         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -20,11 +20,11 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>  Search Stock  Entry Type</div>
+            <div class="caption"><i class="fa fa-reorder"></i>  Search Stock Requisition</div>
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            {!!Form::open(array('url' => 'resultSearch', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'Search_stock_type_form'))!!}
+            {!!Form::open(array('url' => 'resultRequisition', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'Search_requisition_form'))!!}
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
                     <button data-close="alert" class="close"></button>
@@ -38,8 +38,7 @@
                     {!!HTML::decode(Form::label('entry_type','Entry Type',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!! Form::select('entry_type',[null=>'Please Select Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
-                        'StockOut','Wastage'=>'Wastage','Transfer'=>'Transfer'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
+                        {!!Form::select('party_id',[null=>'Please Select Party'] + $partyAll,'null', array('class'=>'form-control ','id'=>'party_id') )!!}
                     </div>
                 </div>
                 <div class="form-group">

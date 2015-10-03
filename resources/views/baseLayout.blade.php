@@ -329,6 +329,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('searches/entry'))class="active"@endif>
                         <a href="{{ URL::to('searches/entry') }}">Stock Entry Type </a>
                     </li>
+                    <li
+                            @if (Request::is('searches/requisition/'))class="active"@endif>
+                        <a href="{{ URL::to('searches/requisition') }}">Requisition </a>
+                    </li>
 
 
         </ul>

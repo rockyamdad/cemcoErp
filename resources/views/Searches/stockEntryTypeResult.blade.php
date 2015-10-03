@@ -23,9 +23,9 @@
                 </div>
 
                 <div class="portlet-body">
-
+                    @if($results)
                     <table class="table table-striped table-bordered table-hover" id="stock_search_result_table">
-                        <thead>
+                        <thead style="background-color:royalblue">
                         <tr>
 
                             <th>Product Name</th>
@@ -33,26 +33,32 @@
                             <th>Stock Name</th>
                             <th>Remarks</th>
                             <th>Consignment Name</th>
+                            <th>Date</th>
                             <th>Created By</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($results as $result )
-                            <tr class="odd gradeX">
 
-                                <td>{{$result->pName}}</td>
-                                <td>{{$result->product_quantity}}</td>
-                                <td>{{$result->sName}}</td>
-                                <td>{{$result->remarks}}</td>
-                                <td>{{$result->consignment_name}}</td>
-                                <td>{{$result->uName}}</td>
+                            @foreach($results as $result )
+                                <tr class="odd gradeX">
 
-                            </tr>
-                        @endforeach
+                                    <td>{{$result->pName}}</td>
+                                    <td>{{$result->product_quantity}}</td>
+                                    <td>{{$result->sName}}</td>
+                                    <td>{{$result->remarks}}</td>
+                                    <td>{{$result->consignment_name}}</td>
+                                    <td>{{$result->created_at}}</td>
+                                    <td>{{$result->uName}}</td>
 
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                        @else
+                           <h4  style="color:red">No Search Result</h4>
+                        @endif
+
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

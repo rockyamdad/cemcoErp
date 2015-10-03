@@ -25,18 +25,6 @@ class SearchController extends Controller{
     }
     public function postSearchResult()
     {
-        $ruless = array(
-            'entry_type' => 'required',
-
-        );
-        $validate = Validator::make(Input::all(), $ruless);
-
-        if($validate->fails())
-        {
-            return Redirect::to('searches/entry/')
-                ->withErrors($validate);
-        }
-        else{
             $type= Input::get('entry_type');
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
@@ -44,10 +32,23 @@ class SearchController extends Controller{
             $results = $search->getResultSearchType($type,$date1,$date2);
 
             return view('Searches.stockEntryTypeResult',compact('results'));
+    }
+    public function getRequisition()
+    {
+        $parties = new Party();
+        $partyAll = $parties->getPartiesDropDown();
+        return view('Searches.stockRequisition',compact('partyAll'));
+    }
+    public function postRequisitionResult()
+    {
+            $party= Input::get('party_id');
+            $date1 = Input::get('from_date');
+            $date2 = Input::get('to_date');
+            $search = new Search();
+            $results = $search->getResultRequisition($party,$date1,$date2);
 
-        }
+            return view('Searches.requisitionResult',compact('results'));
 
     }
-
 
 }
