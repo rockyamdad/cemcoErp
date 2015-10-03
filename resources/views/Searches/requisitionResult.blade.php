@@ -18,6 +18,7 @@
                 <div class="portlet-title">
                     <div class="caption"><i class="fa fa-reorder"></i>   Stock Requisition Search Result</div>
                     <div class="actions">
+                        <a class="btn blue" href="/requisition">Back</a>
                         <a class="btn dark" href="">Print</a>
                     </div>
                 </div>

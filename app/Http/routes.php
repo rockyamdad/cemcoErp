@@ -126,9 +126,11 @@ Route::get('changeStatusStock/{status}/{id}','StockInfoController@getChangeStatu
 //Search Controller
 Route::controller('searches','SearchController');
 Route::get('/entry','SearchController@getEntry');
+Route::get('/stock-products','SearchController@getStockProducts');
 Route::get('/requisition','SearchController@getRequisition');
 Route::post('/resultSearch','SearchController@postSearchResult');
 Route::post('/resultRequisition','SearchController@postRequisitionResult');
+Route::post('/stock-product-search-result','SearchController@postStockProductResult');
 
 
 

@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Requisition Search
+            Stock Product Search
         </h3>
 
         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -20,11 +20,11 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>  Search Stock Requisition</div>
+            <div class="caption"><i class="fa fa-reorder"></i>  Search Stock Product</div>
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            {!!Form::open(array('url' => 'resultRequisition', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'Search_requisition_form'))!!}
+            {!!Form::open(array('url' => 'stock-product-search-result', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'Search_stock_product_form'))!!}
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
                     <button data-close="alert" class="close"></button>
@@ -35,11 +35,16 @@
                     Your form validation is successful!
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('party_id','Choose Party',array('class' =>
+                    {!!HTML::decode(Form::label('category_id','Choose Category',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!!Form::select('party_id',[null=>'Please Select Party'] + $partyAll,'null', array('class'=>'form-control ','id'=>'party_id') )!!}
-                    </div>
+                        {!!Form::select('category_id',[null=>'Please Select Category'] +$categoriesAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}                    </div>
+                </div>
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('product_id','Choose Product',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control ','id'=>'product_id') )!!}                    </div>
                 </div>
                 <div class="form-group">
 

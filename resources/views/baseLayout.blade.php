@@ -333,9 +333,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('searches/requisition/'))class="active"@endif>
                         <a href="{{ URL::to('searches/requisition') }}">Requisition </a>
                     </li>
+                    <li
+                            @if (Request::is('searches/stock-products'))class="active"@endif>
+                        <a href="{{ URL::to('searches/stock-products') }}">Stocks Prodcuts </a>
+                    </li>
 
 
-        </ul>
+                 </ul>
         <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->
