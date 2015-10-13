@@ -61,12 +61,14 @@ jQuery(document).ready(function() {
             type: "get",
             url: "category/"+branch_id,
             success: function (html) {
-                $('#products_category_id').html(html);
+                $('#products_category_id').append(html);
 
             }
         });
     });
-    $('#products_category_id').click(function(){
+
+    $('#products_category_id').live("change", function () {
+
         var category_id = $('#products_category_id').val();
         var branch_id = $('#products_branch_id').val();
         $.ajax({
@@ -74,7 +76,7 @@ jQuery(document).ready(function() {
             url: "sub/"+category_id,
             data: "branch_id=" + branch_id ,
             success: function (html) {
-                $('#products_sub_category_id').html(html);
+                $('#products_sub_category_id').append(html);
 
             }
         });
