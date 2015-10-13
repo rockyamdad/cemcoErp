@@ -60,7 +60,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <div class="header-inner">
         <!-- BEGIN LOGO -->
         <a class="navbar-brand" href="index.html">
-            <img src="{{ URL::asset('assets/img/logo.png') }}" alt="CEMCO" class="img-responsive"/>
+            <img src="{{ URL::asset('assets/img/cemco.png') }}" alt="CEMCO" class="img-responsive"/>
         </a>
         <!-- END LOGO -->
         <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -74,7 +74,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <li class="dropdown user">
                 <a href="index.html#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                    data-close-others="true">
-                    <img alt="" src="{{URL::asset('assets/css/custom.css')}}"/>
+                    <img alt="" src="{{URL::asset('assets/img/user.png')}}"/>
                     <span class="username">{{Session::get('user_name')}}</span>
                     <i class="fa fa-angle-down"></i>
                 </a>
@@ -184,13 +184,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('productCategories/index/'))class="active"@endif>
-                <a href="{{ URL::to('productCategories/index/') }}"><i class="fa fa-sitemap"></i>Product Category
+                <a href="{{ URL::to('productCategories/index/') }}"><i class=""></i>Product Category
                     Section </a>
         </li>
 
         <li
         @if (Request::is('productsubcategories/index/'))class="active"@endif>
-        <a href="{{ URL::to('productsubcategories/index/') }}"><i class="fa fa-sitemap"></i>Product SubCategory Section
+        <a href="{{ URL::to('productsubcategories/index/') }}"><i class=""></i>Product SubCategory Section
         </a>
         </li>
 
@@ -204,7 +204,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <li class="@if (Request::is('imports/'))active @endif">
             <a href="javascript:;">
-                <i class="fa fa-mail-reply-all"></i>
+                <i class="fa fa-plane"></i>
                 <span class="title">Import</span>
                 @if (Request::is('imports/'))<span class="selected"></span>@endif
                 <span class="arrow @if (Request::is('imports/'))open @endif"></span>
@@ -224,7 +224,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <li class="@if (Request::is('stocks/*'))active @endif">
             <a href="javascript:;">
-                <i class="fa fa-puzzle-piece"></i>
+                <i class="fa fa-archive"></i>
                 <span class="title">Stock</span>
                 @if (Request::is('stocks/*'))<span class="selected"></span>@endif
                 <span class="arrow @if (Request::is('stocks/*'))open @endif"></span>
@@ -245,7 +245,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <li class="@if (Request::is('requisitions/*'))active @endif">
             <a href="javascript:;">
-                <i class="fa fa-puzzle-piece"></i>
+                <i class="fa fa-pencil-square-o"></i>
                 <span class="title">Stock Requisition</span>
                 @if (Request::is('requisitions/*'))<span class="selected"></span>@endif
                 <span class="arrow @if (Request::is('requisitions/*'))open @endif"></span>
@@ -265,8 +265,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </li>
             <li class="@if (Request::is('partilizers/*'))active @endif">
                 <a href="javascript:;">
-                    <i class="fa fa-puzzle-piece"></i>
-                    <span class="title">PartiLizer Section</span>
+                    <i class="fa fa-bar-chart-o"></i>
+                    <span class="title">Accounts Section</span>
                     @if (Request::is('partilizers/*'))<span class="selected"></span>@endif
                     <span class="arrow @if (Request::is('partilizers/*'))open @endif"></span>
                 </a>
@@ -298,7 +298,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <li class="@if (Request::is('parties/'))active @endif">
             <a href="javascript:;">
-                <i class="fa fa-barcode"></i>
+                <i class="fa fa-gears"></i>
                 <span class="title">Settings</span>
                 @if (Request::is('parties/'))<span class="selected"></span>@endif
                 <span class="arrow @if (Request::is('parties/'))open @endif"></span>
@@ -307,18 +307,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                     @if (Request::is('parties/index/'))class="active"@endif>
-                    <a href="{{ URL::to('parties/index/') }}"><i class="fa fa-sitemap"></i>Party Section                    Section </a>
+                    <a href="{{ URL::to('parties/index/') }}"><i class=""></i>Party Section                    Section </a>
                  </li>
 
                 <li
                         @if (Request::is('stockInfos/index/'))class="active"@endif>
-                    <a href="{{ URL::to('stockInfos/index/') }}"><i class="fa fa-sitemap"></i>Stock Info Section                    Section </a>
+                    <a href="{{ URL::to('stockInfos/index/') }}"><i class=""></i>Stock Info Section                    Section </a>
                 </li>
         </ul>
         </li>
             <li class="@if (Request::is('searches/*'))active @endif">
                 <a href="javascript:;">
-                    <i class="fa fa-puzzle-piece"></i>
+                    <i class="fa fa-search"></i>
                     <span class="title">Search</span>
                     @if (Request::is('searches/*'))<span class="selected"></span>@endif
                     <span class="arrow @if (Request::is('searches/*'))open @endif"></span>
