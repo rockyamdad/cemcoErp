@@ -338,8 +338,27 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="{{ URL::to('searches/stock-products') }}">Stocks Prodcuts </a>
                     </li>
 
-
                  </ul>
+                </li>
+
+            <li class="@if (Request::is('reports/*'))active @endif">
+                <a href="javascript:;">
+                    <i class="fa fa-puzzle-piece"></i>
+                    <span class="title">Report</span>
+                    @if (Request::is('reports/*'))<span class="selected"></span>@endif
+                    <span class="arrow @if (Request::is('reports/*'))open @endif"></span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li
+                            @if (Request::is('reports/stocks'))class="active"@endif>
+                        <a href="{{ URL::to('reports/stocks') }}">Stocks </a>
+                    </li>
+
+
+                </ul>
+            </li>
+            </ul>
         <!-- END SIDEBAR MENU -->
     </div>
     <!-- END SIDEBAR -->
