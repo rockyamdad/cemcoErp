@@ -5,4 +5,15 @@ jQuery(document).ready(function() {
 
     $('select').select2();
 
+
+    $('[data-toggle="modal"]').click(function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.get(url, function(data) {
+            $(data).modal();
+
+        });
+    });
+
+
 });

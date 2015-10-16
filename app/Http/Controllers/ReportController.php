@@ -32,26 +32,20 @@ class ReportController extends Controller{
         $date2 = Input::get('to_date');
         $report = new Report();
         $results = $report->getStockReport($date1,$date2);
-       // var_dump($results);exit;
         return view('Reports.stockReport',compact('results'))
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
-    public function postSearchResult()
-    {
-            $type= Input::get('entry_type');
-            $date1 = Input::get('from_date');
-            $date2 = Input::get('to_date');
-            $search = new Search();
-            $results = $search->getResultSearchType($type,$date1,$date2);
 
-            return view('Searches.stockEntryTypeResult',compact('results'));
-    }
-    public function getRequisition()
+    public function getPrint($date1,$date2)
     {
-        $parties = new Party();
-        $partyAll = $parties->getPartiesDropDown();
-        return view('Searches.stockRequisition',compact('partyAll'));
+        $startDate = date('Y/m/d',strtotime($date1));
+        $endDate = date('Y/m/d',strtotime($date2));
+        $report = new Report();
+        $results = $report->getStockReport($startDate,$endDate);
+        return view('Reports.stockReportPrint',compact('results'))
+            ->with('date1',$startDate)
+            ->with('date2',$endDate);
     }
 
 

@@ -1,40 +1,12 @@
-@extends('baseLayout')
-@section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-            <h3 class="page-title">
-             Stock Report
-            </h3>
-
+<div class="modal-dialog shape">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h3>Cemco Stock Report</h3>
         </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-12">
-            <?php
-            use Illuminate\Support\Facades\URL;
-            $sDate = date('Ymd', strtotime($date1));
-            $eDate = date('Ymd', strtotime($date2));
-            $url = URL::to('reports/print/'.$sDate.'/'.$eDate);
-            ?>
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet box light-grey">
-                <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date1}} to {{$date2}}</div>
-                    <div class="actions">
-                        <a class="btn blue" href="/stocks">Back</a>
-
-                        <a class="btn dark" onclick="javascript: window.open('{{$url}}','MsgWindow', 'width=1100,height=500').print();">Print</a>
-                    </div>
-
-                </div>
-
-                <div class="portlet-body">
-
+        <div class="modal-body">
                     @if($results)
-                    <table class="table table-striped table-bordered table-hover" id="stock_requisition_search_result_table">
+                    <table class="table table-striped table-bordered table-hover" id="stock_requisition_search_result_table" border="1">
                         <thead style="background-color:cadetblue">
                         <tr>
 
@@ -115,17 +87,11 @@
                     @else
                         <h4  style="color:red">No Search Result</h4>
                     @endif
-                </div>
-            </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+                      {{--  <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn">Close</button>
+                            <button type="button" class="btn blue"  onClick="window.print()">Print</button>
+                        </div>--}}
+
         </div>
     </div>
-
-@stop
-<script language="javascript" type="text/javascript">
-    function popupCenter(url, title, w, h) {
-        var left = (screen.width/2)-(w/2);
-        var top = (screen.height/2)-(h/2);
-        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-    }
-</script>
+</div>

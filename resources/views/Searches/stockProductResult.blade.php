@@ -19,7 +19,7 @@
                     <div class="caption"><i class="fa fa-reorder"></i>   Stock Product Search Result</div>
                     <div class="actions">
                         <a class="btn blue" href="/stock-products">Back</a>
-                        <a class="btn dark" href="">Print</a>
+                     {{--   <a class="btn dark" href="">Print</a>--}}
                     </div>
                 </div>
 
