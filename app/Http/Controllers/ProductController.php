@@ -29,7 +29,6 @@ class ProductController extends Controller{
             'name' => 'required',
             'branch_id' => 'required',
             'category_id' => 'required',
-            'sub_category_id' => 'required',
             'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -86,7 +85,6 @@ class ProductController extends Controller{
             'name' => 'required',
             'branch_id' => 'required',
             'category_id' => 'required',
-            'sub_category_id' => 'required',
             'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);

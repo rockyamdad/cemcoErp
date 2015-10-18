@@ -19,9 +19,6 @@ jQuery(document).ready(function() {
             category_id: {
                 required: true
             },
-            sub_category_id: {
-                required: true
-            },
             product_type: {
                 required: true
             }

@@ -74,7 +74,11 @@
                         <td>{{$product->name}}</td>
                         <td>{{$product->branch->name}}</td>
                         <td>{{$product->category->name}}</td>
-                        <td>{{$product->subCategory->name}}</td>
+                        @if($product->sub_category_id == 0)
+                            <td>N/A</td>
+                        @else
+                            <td>{{$product->sub_category_id}}</td>
+                        @endif
                         <td>{{$product->hs_code}}</td>
                         <td>{{$product->origin}}</td>
                         <td>{{$product->total_quantity}}</td>

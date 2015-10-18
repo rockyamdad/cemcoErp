@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('sub_category_id','Product Sub Category<span class="required">*</span>',array('class'
+                    {!!HTML::decode(Form::label('sub_category_id','Product Sub Category',array('class'
                     => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!!Form::select('sub_category_id',array_merge(array('0' => 'Please Select
@@ -84,7 +84,7 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
-                        'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control'))!!}
+                        'Foreign','Finish Goods'=>'Finish Goods'),$products->product_type, array('class'=>'form-control'))!!}
                     </div>
                 </div>
                 <div class="form-group">

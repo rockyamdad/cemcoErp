@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3">Choose Sub Category<span class="required">*</span></label>
+                    <label class="control-label col-md-3">Choose Sub Category</label>
 
                     <div class="col-md-4">
                         <select id="products_sub_category_id" name="sub_category_id" class="form-control">
