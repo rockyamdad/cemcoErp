@@ -7,7 +7,7 @@ class Branch extends Eloquent
     protected $table = 'branches';
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
     public function products()
     {

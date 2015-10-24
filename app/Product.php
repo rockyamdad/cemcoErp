@@ -17,9 +17,9 @@ class Product extends Eloquent
     {
         return $this->belongsTo('App\SubCategory');
     }
-    public function users()
+    public function user()
     {
-        return $this->hasMany('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function getProducts()
@@ -36,8 +36,8 @@ class Product extends Eloquent
 
         foreach($products as $product){
             $category = $product->category->name;
-            $subCategory = $product->subCategory->name;
-            $array[$product->id] = $product->name."($category)"."($subCategory)";
+           // $subCategory = $product->subCategory->name;    "."($subCategory) ata add korte hbe sub cat ar jonno
+            $array[$product->id] = $product->name."($category)";
         }
 
         return $array;

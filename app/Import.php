@@ -8,6 +8,10 @@ class Import extends Eloquent
     {
         return $this->belongsTo('App\Branch');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public function getImports()
     {
         $imports = DB::table('imports')->get();

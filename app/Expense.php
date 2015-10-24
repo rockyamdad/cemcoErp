@@ -5,5 +5,8 @@ use Illuminate\Support\Facades\DB;
 class Expense extends Eloquent
 {
     protected $table = 'expenses';
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

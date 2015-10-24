@@ -69,7 +69,7 @@
                         <td>{{$branch->name}}</td>
                         <td>{{$branch->location}}</td>
                         <td>{{$branch->description}}</td>
-                        <td>{{$branch->user_id}}</td>
+                        <td>{{$branch->user->name}}</td>
                         @if($branch->status == "Activate")
                         <td class="branch-status"><span class="label label-sm label-success">Activate</span></td>
                         @else

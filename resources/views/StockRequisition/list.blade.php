@@ -75,7 +75,7 @@
                         <td>{{$requisition->requisition_id}}</td>
                         <td>{{$requisition->requisition_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
-                        <td>{{$requisition->user_id}}</td>
+                        <td>{{$requisition->user->name}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')
                             <span class="label label-sm label-success">Activate</span>
                             @else

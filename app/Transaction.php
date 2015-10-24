@@ -13,5 +13,8 @@ class Transaction extends Eloquent
     {
         return $this->belongsTo('App\NameOfAccount');
     }
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -41,5 +41,9 @@ class SubCategory extends Eloquent
         $this->products()->delete();
         return parent::delete();
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
 }

@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\DB;
 class AccountCategory extends Eloquent
 {
     protected $table = 'account_categories';
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public function getAccountCategories()
     {
 

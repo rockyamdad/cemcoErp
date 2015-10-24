@@ -54,8 +54,6 @@
                 <table class="table table-striped table-bordered table-hover" id="product_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
                         <th>Name</th>
                         <th>Branch Name</th>
                         <th>Category Name</th>
@@ -70,7 +68,6 @@
                     <tbody>
                     @foreach($products as $product )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$product->name}}</td>
                         <td>{{$product->branch->name}}</td>
                         <td>{{$product->category->name}}</td>
@@ -82,7 +79,7 @@
                         <td>{{$product->hs_code}}</td>
                         <td>{{$product->origin}}</td>
                         <td>{{$product->total_quantity}}</td>
-                        <td>{{$product->user_id}}</td>
+                        <td>{{$product->user->name}}</td>
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>

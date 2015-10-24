@@ -77,7 +77,7 @@
                         <td>{{$import->consignment_name}}</td>
                         <td>{{$import->branch->name}}</td>
                         <td>{{$import->description}}</td>
-                        <td>{{$import->branch->user->name}}</td>
+                        <td>{{$import->user->name}}</td>
                         @if($import->status == "Activate")
                         <td class="import-status"><span class="label label-sm label-success">Activate</span></td>
                         @else

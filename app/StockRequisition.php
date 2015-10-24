@@ -13,5 +13,8 @@ class StockRequisition extends Eloquent
     {
         return $this->belongsTo('App\Party');
     }
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

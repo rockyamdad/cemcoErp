@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-    // Put page-specific javascript here
+    $('#product_table').DataTable();
     var form = $('#product_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

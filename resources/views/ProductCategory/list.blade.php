@@ -68,7 +68,7 @@
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$category->name}}</td>
                         <td>{{$category->branch->name}}</td>
-                        <td>{{$category->user_id}}</td>
+                        <td>{{$category->user->name}}</td>
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productCategories/edit/'. $category->id ) }}"><i
