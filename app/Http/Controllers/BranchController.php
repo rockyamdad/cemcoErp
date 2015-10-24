@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BranchController extends Controller{
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getIndex()
     {
         $branches = Branch::with('user')->get();

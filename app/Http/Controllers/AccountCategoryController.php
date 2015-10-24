@@ -11,7 +11,10 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AccountCategoryController extends Controller{
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getIndex()
     {
        $categories = AccountCategory::all();

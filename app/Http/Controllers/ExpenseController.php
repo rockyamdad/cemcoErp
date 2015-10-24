@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExpenseController extends Controller{
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getIndex()
     {
        $expenseAll = Expense::all();

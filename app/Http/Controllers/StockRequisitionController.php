@@ -13,7 +13,10 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class StockRequisitionController extends Controller{
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getIndex()
     {
         $requisitions = StockRequisition::where('status','=','Activate')->get();

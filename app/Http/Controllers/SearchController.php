@@ -15,7 +15,10 @@ use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SearchController extends Controller{
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getIndex()
     {
        var_dump("ss");exit;

@@ -5,7 +5,11 @@ Route::get('logout', 'AuthController@getLogout');
 //UserController
 Route::get('users','UserController');
 Route::get('dashboard/','UserController@getDashboard');
-Route::get('add/','UserController@getUserAdd');
+
+Route::get('add', [
+    'middleware' => 'auth',
+    'uses' => 'UserController@getUserAdd'
+]);
 Route::post('users/saveUser','UserController@postSaveUser');
 Route::get('list/','UserController@getIndex');
 Route::get('profile','UserController@getProfile');
