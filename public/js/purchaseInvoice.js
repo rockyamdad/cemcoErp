@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-
+    $('#Purchasetable').DataTable();
     $(".savePurchaseInvoice").live("click", function () {
         if(purchaseFormValidation()){
             $.ajax({

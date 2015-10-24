@@ -443,7 +443,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         App.init();
         $('#user_table').DataTable();
         $('#sub_category_table').DataTable();
-        $('#product_table').DataTable();
+
+
         $('#party_table').DataTable();
         $('#stock_info_table').DataTable();
        // $('#Expensetable').DataTable();

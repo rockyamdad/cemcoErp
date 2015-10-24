@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-
+    $('#Expensetable').DataTable();
     var form = $('#expense_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

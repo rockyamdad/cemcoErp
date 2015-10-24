@@ -99,4 +99,6 @@
     </div>
 </div>
 @stop
-
+@section('javascript')
+    {!! HTML::script('js/products.js') !!}
+@stop

@@ -114,3 +114,7 @@
 </div>
 @stop
 
+@section('javascript')
+    {!! HTML::script('js/stock.js') !!}
+    {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
+@stop

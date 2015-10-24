@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-
+    $('#accountName_table').DataTable();
     var form = $('.account_name_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
