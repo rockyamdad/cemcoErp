@@ -54,5 +54,10 @@ class Import extends Eloquent
     {
         return $this->hasOne('App\ProformaInvoice');
     }
+    public function getLastImportId()
+    {
+        return DB::table('imports')->orderBy('id', 'desc')->first();
+
+    }
 
 }

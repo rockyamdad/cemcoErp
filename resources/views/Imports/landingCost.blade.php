@@ -7,6 +7,11 @@
         <h3 class="page-title">
             Landing Cost Section
         </h3>
+        <?php
+        use Illuminate\Support\Facades\URL;
+
+        $url = URL::to('imports/landingcostprint/'.$id);
+        ?>
         <ul class="page-breadcrumb breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
@@ -29,6 +34,7 @@
                 <div class="caption"><i class="fa fa-globe"></i>LandingCost</div>
                 <div class="actions">
                     <a class="btn dark" href="{{ URL::to('imports/index') }}">Back</a>
+                    <a class="btn dark" onclick="javascript: window.open('{{$url}}','MsgWindow', 'width=1100,height=500').print();">Print</a>
                 </div>
                 <!--   <div class="tools">
                        <a href="javascript:;" class="collapse"></a>

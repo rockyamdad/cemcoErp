@@ -11,9 +11,6 @@ jQuery(document).ready(function() {
         focusInvalid: false, // do not focus the last invalid input
         ignore: "",
         rules: {
-            import_num: {
-                required: true
-            },
             branch_id: {
                 required: true
             }

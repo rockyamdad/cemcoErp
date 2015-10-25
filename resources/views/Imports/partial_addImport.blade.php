@@ -18,12 +18,6 @@
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('import_num','Import Number<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
-            <div class="col-md-4">
-                {!!Form::text('import_num',null,array('placeholder' => 'Import Number', 'class' => 'form-control','id' => 'import_num'))!!}
-            </div>
-        </div>
-        <div class="form-group">
             {!! HTML::decode(Form::label('consignment_name','Consignment Name',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('consignment_name',null,array('placeholder' => 'Consignment Name', 'class' => 'form-control','id' => 'consignment_name'))!!}

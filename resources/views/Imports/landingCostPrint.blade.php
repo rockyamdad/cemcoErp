@@ -1,0 +1,112 @@
+<div class="modal-dialog shape">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <center> <h2>Landing Cost CemcoGroup</h2></center>
+        </div>
+        <div class="modal-body">
+            <div class="portlet-body no-more-tables">
+                <?php $grandTotalCrf = 0; ?>
+                @foreach($imports as $importtt )
+                    <?php $grandTotalCrf = $grandTotalCrf + ($importtt->total_cfr_price * $importtt->quantity); ?>
+                @endforeach
+
+                <table class="table-bordered table-striped table-condensed cf" id="landingCost_table">
+                    <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Product Name</th>
+                        <th>Booking Price ($)</th>
+                        <th>Booking Price (taka)</th>
+                        <th>CRF Value ($)</th>
+                        <th>CRF Value (taka)</th>
+                        <th>Order Quantity</th>
+                        <th>Duty</th>
+                        <th>LandingCost</th>
+                        <th>Total Booking Price($)</th>
+                        <th>Total CRF Price($)</th>
+                        <th>Total Duty</th>
+                        <th>Total LandingCost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $i = 1;
+                    $totalQuantity = 0;
+                    $totalBookingPrice = 0;
+                    $totalCrfPrice = 0;
+                    $totalDuty = 0;
+                    $totalLandingCost = 0;
+                    ?>
+                    @foreach($imports as $importt )
+                        <tr class="odd gradeX">
+                            <?php
+                            $value = ($importt->po_cash * 100) / ($grandTotalCrf * $importt->dollar_to_bd_rate);
+                            $duty = ($importt->total_cfr_price * $importt->dollar_to_bd_rate) * $value / 100;
+
+
+                            $totalQuantity = $totalQuantity + $importt->quantity;
+                            $totalBookingPrice = $totalBookingPrice + ($importt->total_booking_price * $importt->quantity);
+                            $totalCrfPrice = $totalCrfPrice + ($importt->total_cfr_price * $importt->quantity);
+                            $totalDuty = $totalDuty + ($duty * $importt->quantity);
+
+                            $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost']) / $totalQuantity) + $importt->total_booking_price + $duty;
+
+                            $totalLandingCost = $totalLandingCost + ($landingCost * $importt->quantity);
+                            ?>
+                            <td>{{ $i }}</td>
+                            <td>{{ $importt->name }}</td>
+                            <td>{{ $importt->total_booking_price }}</td>
+                            <td>{{ $importt->total_booking_price * $importt->dollar_to_bd_rate }}</td>
+                            <td>{{ $importt->total_cfr_price }}</td>
+                            <td>{{ $importt->total_cfr_price * $importt->dollar_to_bd_rate }}</td>
+                            <td>{{ $importt->quantity }}</td>
+                            <td>{{ $duty }}</td>
+                            <td>{{ $landingCost }}</td>
+                            <td>{{ $importt->quantity * $importt->total_booking_price }}</td>
+                            <td>{{ $importt->quantity * $importt->total_cfr_price }}</td>
+                            <td>{{ $duty * $importt->quantity }}</td>
+                            <td>{{ $landingCost * $importt->quantity}}</td>
+
+                        </tr>
+                        <?php $i++ ?>
+                    @endforeach
+                    <tr>
+                        <td>Grand Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ $totalQuantity }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ $totalBookingPrice }}</td>
+                        <td>{{ $totalCrfPrice }}</td>
+                        <td>{{ $totalDuty }}</td>
+                        <td>{{ $totalLandingCost }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <?php $total = $ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost'] ?>
+                <h3>Additional Cost:</h3>
+                <strong>Cnf Bill:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$totalCnfCost[0]['total_cnf_cost']}}<br>
+                <strong>Bank Cost:</strong>&nbsp;&nbsp;&nbsp;{{$totalBankCost[0]['total_bank_cost']}}<br>
+                <strong>Tt Charge:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$ttCharge[0]['tt_charge']}}
+                <hr>
+                <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$total}}<br>
+                <strong>Miss Cost Per Product:</strong>{{$total/$totalQuantity}}
+
+            </div>
+                      {{--  <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn">Close</button>
+                            <button type="button" class="btn blue"  onClick="window.print()">Print</button>
+                        </div>--}}
+
+        </div>
+    </div>
+</div>
