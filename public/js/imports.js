@@ -82,9 +82,6 @@ jQuery(document).ready(function() {
         focusInvalid: false, // do not focus the last invalid input
         ignore: "",
         rules: {
-            import_id: {
-                required: true
-            },
             product_id: {
                 required: true
             },
@@ -345,5 +342,5 @@ jQuery(document).ready(function() {
     // on load of the page: switch to the currently selected tab
     var hash = window.location.hash;
     $('#importAddTab a[href="' + hash + '"]').tab('show');
-
+    $('select').select2();
 });

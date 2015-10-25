@@ -10,18 +10,22 @@ class ImportDetail extends Eloquent
     {
         return $this->belongsTo('App\Import');
     }
-    public function products()
+    public function user()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsTo('App\User');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
     }
     public function getLandingCostData($id)
     {
        return DB::table('import_details')
             ->join('products', 'import_details.product_id', '=', 'products.id')
-            ->join('imports', 'import_details.import_id', '=', 'imports.id')
-            ->join('cnf_costs', 'import_details.import_id', '=', 'cnf_costs.import_id')
-            ->join('other_costs', 'import_details.import_id', '=', 'other_costs.import_id')
-            ->where('import_details.import_id','=',$id)
+            ->join('imports', 'import_details.import_num', '=', 'imports.id')
+            ->join('cnf_costs', 'import_details.import_num', '=', 'cnf_costs.import_id')
+            ->join('other_costs', 'import_details.import_num', '=', 'other_costs.import_id')
+            ->where('import_details.import_num','=',$id)
             ->get();
     }
 

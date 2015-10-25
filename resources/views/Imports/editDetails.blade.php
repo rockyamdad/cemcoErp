@@ -45,16 +45,11 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('import_id','Choose Import <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!!Form::select('import_id',[null=>'Please Select Import'] +$importAll,'null', array('class'=>'form-control ','id'=>'import_id') )!!}
-                    </div>
-                </div>
+                {!! Form::hidden('import_num',$import->import_num) !!}
                 <div class="form-group">
                     {!!HTML::decode(Form::label('product_id','Choose Product <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
+                        {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,$import->product_id, array('class'=>'form-control ','id'=>'product_id') )!!}
                     </div>
                 </div>
                 <div class="form-group">

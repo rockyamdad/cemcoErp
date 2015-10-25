@@ -7,7 +7,7 @@
                 class="fa fa-pencil"></i></a>
         @endif
         <a class="btn green" href="{{ URL::to('imports/index') }}"> Import List&nbsp;&nbsp;<i
-                class="fa fa-pencil"></i></a>
+               ></i></a>
 
     </div>
 
@@ -25,7 +25,6 @@
                         <tr>
                             <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                               data-set="#user_table .checkboxes"/></th>
-                            <th>Import Number</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Total Booking Price</th>
@@ -38,12 +37,11 @@
                         @foreach($imports as $importt )
                         <tr class="odd gradeX">
                             <td><input type="checkbox" class="checkboxes" value="1"/></td>
-                            <td>{{$importt->import_id}}</td>
-                            <td>{{$importt->product_id}}</td>
+                            <td>{{$importt->product->name}}</td>
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
                             <td>{{$importt->total_cfr_price}}</td>
-                            <td>{{$importt->import->branch->user->name}}</td>
+                            <td>{{$importt->user->name}}</td>
                             <td><a href="{{ URL::to('imports/editdetails/'. $importt->id ) }}"><i
                                         class="fa fa-edit"></i>Edit </a>
                             </td>
@@ -184,8 +182,8 @@
                         @if(!$otherCost->isEmpty())
                         <tr class="odd gradeX">
                             <td><input type="checkbox" class="checkboxes" value="1"/></td>
-                            <td>{{$pi[0]['dollar_to_bd_rate']}}</td>
-                            <td>{{$pi[0]['tt_charge']}}</td>
+                            <td>{{$otherCost[0]['dollar_to_bd_rate']}}</td>
+                            <td>{{$otherCost[0]['tt_charge']}}</td>
 
                         </tr>
                         @endif

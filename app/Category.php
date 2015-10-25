@@ -13,9 +13,9 @@ class Category extends Eloquent
     {
         return $this->belongsTo('App\User');
     }
-    public function subcategories()
+    public function subcategory()
     {
-        return $this->hasMany('App\SubCategory');
+        return $this->hasOne('App\SubCategory');
     }
     public function products()
     {

@@ -54,14 +54,7 @@
                         Branch']+$branchAll,$import->branch_id,array('class'=>'form-control ','id'=>'branch_id') )!!}
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! HTML::decode(Form::label('import_num','Name<span class="required">*</span>',array('class' =>
-                    'control-label col-md-3'))) !!}
-                    <div class="col-md-4">
-                        {!!Form::text('import_num',null,array('placeholder' => 'Import Number', 'class' =>
-                        'form-control','id' => 'import_num'))!!}
-                    </div>
-                </div>
+                {!! Form::hidden('import_num',$import->import_num) !!}
                 <div class="form-group">
                     {!! HTML::decode(Form::label('consignment_name','Consignment Name',array('class' => 'control-label
                     col-md-3'))) !!}

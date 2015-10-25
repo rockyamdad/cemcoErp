@@ -93,6 +93,9 @@
                                         <i class="fa fa-angle-down"></i></button>
 
                                     <ul class="dropdown-menu" role="menu">
+
+                                        <li><a href="{{ URL::to('imports/detail/'. $import->id ) }}"><i
+                                                        class="fa fa-plus"></i>Add Details</a></li>
                                         @if(($import->bankcost == null) or ($import->cnfcost == null) or
                                         ($import->othercost == null) or ($import->proformainvoice == null))
                                         <li><a href="{{ URL::to('imports/costs/'. $import->id ) }}"><i
@@ -103,8 +106,7 @@
                                         <li><a href="{{ URL::to('imports/details/'. $import->id ) }}"
                                               ><i
                                                     class="fa fa-angle-right"></i>Show</a></li>
-                                        @if(($import->bankcost != null) and ($import->cnfcost != null) and
-                                        ($import->details != null))
+                                        @if(($import->bankcost != null) and ($import->cnfcost != null) )
                                         <li><a href="{{ URL::to('imports/landingcost/'. $import->id ) }}"><i
                                                     class="fa fa-try"></i>Landing Cost </a>
                                             @endif

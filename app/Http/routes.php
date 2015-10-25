@@ -46,6 +46,7 @@ Route::get('/sub/{id}','ProductController@getSub');
 //Import Controller
 Route::controller('imports','ImportController');
 Route::post('saveImport','ImportController@postSaveImport');
+
 Route::post('saveImportDetails','ImportController@postSaveImportDetail');
 Route::post('saveImportBankCost','ImportController@postSaveBankCost');
 Route::post('saveImportCnfCost','ImportController@postSaveCnfCost');

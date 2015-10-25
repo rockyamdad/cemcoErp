@@ -18,8 +18,8 @@ class CreateImportDetailsTables extends Migration {
             $table->double('quantity');
             $table->double('total_booking_price');
             $table->double('total_cfr_price');
-            $table->unsignedInteger('import_id');
-            $table->foreign('import_id')->references('id')->on('imports');
+            $table->unsignedInteger('import_num');
+            $table->foreign('import_num')->references('id')->on('imports');
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedInteger('user_id');

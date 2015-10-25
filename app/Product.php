@@ -45,12 +45,20 @@ class Product extends Eloquent
 
     public function getProductsDropDownForeign()
     {
-        $products = $this->getProducts();
+        $products = Product::where('product_type','Foreign')->get();
 
         $array = array();
 
         foreach($products as $product){
-            $array[$product->id] = $product->name;
+            $category = $product->category->name;
+            $subCategory= $this->getSubCategoryName($product->id);
+            if(!empty($subCategory))
+            {
+                $array[$product->id] = $product->name."($category)".$subCategory[0]->sName;
+            }else{
+                $array[$product->id] = $product->name."($category)".'(N/A)';
+            }
+
         }
 
         return $array;
@@ -86,6 +94,16 @@ class Product extends Eloquent
     public function stock()
     {
         return $this->hasOne('App\Stock');
+    }
+    public function getSubCategoryName($id)
+    {
+        return DB::table('products')
+            ->join('product_sub_categories', 'products.sub_category_id', '=', 'product_sub_categories.id')
+            ->where('products.id', '=', $id)
+            ->select('product_sub_categories.name AS sName'
+            )
+            ->take(1)
+            ->get();
     }
 
 }

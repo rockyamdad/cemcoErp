@@ -37,14 +37,10 @@
         <div class="portlet-body form">
 
             <ul  class="nav nav-tabs" id="importAddTab">
-                <li class="active"><a href="#importAdd" data-toggle="tab">Import Info</a></li>
-             {{--   <li class=""><a href="#ImportDetailsAdd" data-toggle="tab">Import Details</a></li>--}}
+                <li class="active"><a href="#ImportDetailsAdd" data-toggle="tab">Import Details</a></li>
             </ul>
             <div  class="tab-content">
-                @include('Imports.partial_addImport')
-{{--
                 @include('Imports.partial_addImportDetails')
---}}
             </div>
         </div>
   </div>

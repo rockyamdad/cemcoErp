@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="ImportDetailsAdd">
+<div class="tab-pane fade active in" id="ImportDetailsAdd">
     {!!Form::open(array('url' => '/saveImportDetails', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'imports_details_form'))!!}
     <div class="form-body">
         <div class="alert alert-danger display-hide">
@@ -9,12 +9,7 @@
             <button data-close="alert" class="close"></button>
             Your form validation is successful!
         </div>
-        <div class="form-group">
-            {!!HTML::decode(Form::label('import_id','Choose Import <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
-            <div class="col-md-4">
-                {!!Form::select('import_id',[null=>'Please Select Import'] +$importAll,'null', array('class'=>'form-control ','id'=>'import_id') )!!}
-            </div>
-        </div>
+        {!! Form::hidden('import_id',$imports->id) !!}
         <div class="form-group">
             {!!HTML::decode(Form::label('product_id','Choose Product <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
             <div class="col-md-4">
