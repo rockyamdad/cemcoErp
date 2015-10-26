@@ -15,14 +15,14 @@
         {!! Form::hidden('import_id',$imports->id) !!}
 
         <div class="form-group">
-            {!! HTML::decode(Form::label('lc_no','L/C No',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('lc_no','L/C No<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('lc_no',null,array('placeholder' => 'L/C No', 'class' => 'form-control','id' =>
                 'lc_no'))!!}
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('bank_name','Bank Name',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('bank_name<span class="required">*</span>','Bank Name',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('bank_name',null,array('placeholder' => 'Bank Name', 'class' => 'form-control','id' =>
                 'bank_name'))!!}

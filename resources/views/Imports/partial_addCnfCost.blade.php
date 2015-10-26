@@ -15,7 +15,7 @@
         {!! Form::hidden('import_id',$imports->id) !!}
 
         <div class="form-group">
-            {!! HTML::decode(Form::label('clearing_agent_name','Clearing Agent Name',array('class' => 'control-label
+            {!! HTML::decode(Form::label('clearing_agent_name','Clearing Agent Name<span class="required">*</span>',array('class' => 'control-label
             col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('clearing_agent_name',null,array('placeholder' => 'Clearing Agent Name', 'class' =>

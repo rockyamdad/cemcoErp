@@ -15,7 +15,7 @@
         {!! Form::hidden('import_id',$imports->id) !!}
 
         <div class="form-group">
-            {!! HTML::decode(Form::label('invoice_no','Invoice No',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('invoice_no','Invoice No<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('invoice_no',null,array('placeholder' => 'Invoice No', 'class' => 'form-control','id' =>
                 'invoice_no'))!!}
