@@ -3,7 +3,7 @@ jQuery(document).ready(function() {
     $('#stock_Product_search_result_table').DataTable();
     $('#stock_search_result_table').DataTable();
     $('#stock_requisition_search_result_table').DataTable();
-    $('.date-picker').datepicker()
+    $('.date-picker').datepicker();
 
     $('select').select2();
 

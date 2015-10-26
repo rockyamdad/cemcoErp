@@ -23,8 +23,6 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_detail_table">
                         <thead>
                         <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                              data-set="#user_table .checkboxes"/></th>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Total Booking Price</th>
@@ -36,7 +34,6 @@
                         <tbody>
                         @foreach($imports as $importt )
                         <tr class="odd gradeX">
-                            <td><input type="checkbox" class="checkboxes" value="1"/></td>
                             <td>{{$importt->product->name}}</td>
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
@@ -57,8 +54,6 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_pi_table">
                         <thead>
                         <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                              data-set="#user_table .checkboxes"/></th>
                             <th>Invoice No</th>
                             <th>Beneficiary Name</th>
                             <th>terms</th>
@@ -67,7 +62,6 @@
                         <tbody>
                         @if(!$pi->isEmpty())
                         <tr class="odd gradeX">
-                            <td><input type="checkbox" class="checkboxes" value="1"/></td>
                             <td>{{$pi[0]['invoice_no']}}</td>
                             <td>{{$pi[0]['beneficiary_name']}}</td>
                             <td>{{$pi[0]['terms']}}</td>
@@ -84,10 +78,9 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_bank_cost_table">
                         <thead>
                         <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                              data-set="#user_table .checkboxes"/></th>
                             <th>LC Number</th>
                             <th>Bank Name</th>
+                            <th>L/C Date</th>
                             <th>LC Commission</th>
                             <th>Vat Commission</th>
                             <th>Stamp Charge</th>
@@ -102,9 +95,9 @@
                         <tbody>
                     @if(!$bankCost->isEmpty())
                         <tr class="odd gradeX">
-                            <td><input type="checkbox" class="checkboxes" value="1"/></td>
                             <td>{{$bankCost[0]['lc_no']}}</td>
                             <td>{{$bankCost[0]['bank_name']}}</td>
+                            <td>{{$bankCost[0]['lc_date']}}</td>
                             <td>{{$bankCost[0]['lc_commission_charge']}}</td>
                             <td>{{$bankCost[0]['vat_commission']}}</td>
                             <td>{{$bankCost[0]['stamp_charge']}}</td>
@@ -127,11 +120,9 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_cnf_cost_table">
                         <thead>
                         <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                              data-set="#user_table .checkboxes"/></th>
                             <th>Agent Name</th>
                             <th>Bill No</th>
-                            <th>Bank No</th>
+                            <th>Clearing Date</th>
                             <th>Association Fee</th>
                             <th>PO Cash</th>
                             <th>Port Charge</th>
@@ -146,10 +137,9 @@
                         <tbody>
                         @if(!$cnfCost->isEmpty())
                         <tr class="odd gradeX">
-                            <td><input type="checkbox" class="checkboxes" value="1"/></td>
                             <td>{{$cnfCost[0]['clearing_agent_name']}}</td>
                             <td>{{$cnfCost[0]['bill_no']}}</td>
-                            <td>{{$cnfCost[0]['bank_no']}}</td>
+                            <td>{{$cnfCost[0]['clearing_date']}}</td>
                             <td>{{$cnfCost[0]['association_fee']}}</td>
                             <td>{{$cnfCost[0]['po_cash']}}</td>
                             <td>{{$cnfCost[0]['port_charge']}}</td>
@@ -172,8 +162,6 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_otherCost_table">
                         <thead>
                         <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                              data-set="#user_table .checkboxes"/></th>
                             <th>Dollar to Bdt Rate</th>
                             <th>Tt Charge</th>
                         </tr>
@@ -181,7 +169,6 @@
                         <tbody>
                         @if(!$otherCost->isEmpty())
                         <tr class="odd gradeX">
-                            <td><input type="checkbox" class="checkboxes" value="1"/></td>
                             <td>{{$otherCost[0]['dollar_to_bd_rate']}}</td>
                             <td>{{$otherCost[0]['tt_charge']}}</td>
 
