@@ -438,6 +438,8 @@ class ImportController extends Controller{
     {
         $bankCost->lc_no = Input::get('lc_no');
         $bankCost->bank_name = Input::get('bank_name');
+        $date = strtotime(Input::get('lc_date'));
+        $bankCost->lc_date = date('Y-m-d',$date);
         $bankCost->lc_commission_charge = Input::get('lc_commission_charge');
         $bankCost->vat_commission = Input::get('vat_commission');
         $bankCost->stamp_charge = Input::get('stamp_charge');
@@ -457,7 +459,9 @@ class ImportController extends Controller{
     {
         $cnfCost->clearing_agent_name = Input::get('clearing_agent_name');
         $cnfCost->bill_no = Input::get('bill_no');
-        $cnfCost->bank_no = Input::get('bank_no');
+        $cnfCost->bank_no = '';
+        $date = strtotime(Input::get('clearing_date'));
+        $cnfCost->clearing_date = date('Y-m-d',$date);
         $cnfCost->association_fee = Input::get('association_fee');
         $cnfCost->po_cash = Input::get('po_cash');
         $cnfCost->port_charge = Input::get('port_charge');

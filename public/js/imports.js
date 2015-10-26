@@ -343,4 +343,5 @@ jQuery(document).ready(function() {
     var hash = window.location.hash;
     $('#importAddTab a[href="' + hash + '"]').tab('show');
     $('select').select2();
+    $('.date-picker').datepicker();
 });

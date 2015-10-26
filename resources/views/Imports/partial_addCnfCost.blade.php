@@ -23,17 +23,24 @@
             </div>
         </div>
         <div class="form-group">
+
+            {!!HTML::decode(Form::label('clearing_date','Clearing Date:',array('class' =>
+            'control-label col-md-3')))!!}
+            <div class="col-md-4">
+                <div class="input-append date input-icon" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                    <i class="fa fa-calendar"></i>
+                    {!!Form::text('clearing_date',null,array('size'=>'16','class' =>
+                    'form-control m-wrap m-ctrl-medium date-picker'))!!}
+                    <span class="add-on"><i class="icon-calendar"></i></span>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
             {!! HTML::decode(Form::label('bill_no','Bill No',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('bill_no',null,array('placeholder' => 'Bill No', 'class' => 'form-control','id' =>
                 'bill_no'))!!}
-            </div>
-        </div>
-        <div class="form-group">
-            {!! HTML::decode(Form::label('bank_no','Bank No',array('class' => 'control-label col-md-3'))) !!}
-            <div class="col-md-4">
-                {!!Form::text('bank_no',null,array('placeholder' => 'Bank No', 'class' => 'form-control','id' =>
-                'bank_no'))!!}
             </div>
         </div>
         <div class="form-group">
