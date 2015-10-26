@@ -44,6 +44,7 @@
             </div>
         </div>
   </div>
+</div>
     @stop
     @section('javascript')
     {!! HTML::script('js/imports.js') !!}
