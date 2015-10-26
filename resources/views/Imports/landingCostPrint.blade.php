@@ -55,7 +55,7 @@ text-decoration: underline;
             </tr>
             <tr>
                 <td><strong>Clearing Date</td>
-                <td>: </strong>  {{ $totalCnfCost[0]['clearing_agent_name'] }}</td>
+                <td>: </strong>  {{ $totalCnfCost[0]['clearing_date'] }}</td>
             </tr>
           </table>
           </div>
