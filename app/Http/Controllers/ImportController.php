@@ -285,14 +285,16 @@ class ImportController extends Controller{
         $importDetails = new ImportDetail();
 
         $imports = $importDetails->getLandingCostData($id);
-        $totalBankCost = BankCost::where('import_id','=',$id)->get();
-        $totalCnfCost  = CnfCost::where('import_id','=',$id)->get();
-        $ttCharge      = OtherCost::where('import_id','=',$id)->get();
+        $totalBankCost   = BankCost::where('import_id','=',$id)->get();
+        $totalCnfCost    = CnfCost::where('import_id','=',$id)->get();
+        $ttCharge        = OtherCost::where('import_id','=',$id)->get();
+        $benificiaryName = ProformaInvoice::where('import_id','=',$id)->get();
         return view('Imports.landingCostPrint',compact('imports'))
             ->with('totalBankCost',$totalBankCost)
             ->with('totalCnfCost',$totalCnfCost)
             ->with('id',$id)
-            ->with('ttCharge',$ttCharge);
+            ->with('ttCharge',$ttCharge)
+            ->with('benificiaryName',$benificiaryName);
     }
     public function getCosts($id)
     {
