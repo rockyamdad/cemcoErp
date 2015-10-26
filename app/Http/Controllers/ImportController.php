@@ -83,10 +83,11 @@ class ImportController extends Controller{
         }
         else{
             $importDetail = new ImportDetail();
+            $id= Input::get('import_num');
             $this->setImportDetailsData($importDetail);
             $importDetail->save();
             Session::flash('message', 'Import Details has been Successfully Created.');
-            return Redirect::to('imports/index');
+            return Redirect::to('imports/detail/'.$id);
         }
     }
     public function postSaveBankCost()
@@ -104,10 +105,11 @@ class ImportController extends Controller{
         }
         else{
             $bankCost = new BankCost();
+            $id= Input::get('import_id');
             $this->setBankCostData($bankCost);
             $bankCost->save();
             Session::flash('message', 'Bank Cost has been Successfully Created.');
-            return Redirect::to('imports/index');
+            return Redirect::to('imports/costs/'.$id);
         }
     }
     public function postUpdateBankCost($id)
@@ -145,10 +147,11 @@ class ImportController extends Controller{
         }
         else{
             $cnfCost = new CnfCost();
+            $id= Input::get('import_id');
             $this->setCnfCostData($cnfCost);
             $cnfCost->save();
             Session::flash('message', 'CNF Cost has been Successfully Created.');
-            return Redirect::to('imports/index');
+            return Redirect::to('imports/costs/'.$id);
         }
     }
     public function postUpdateCnfCost($id)
@@ -185,10 +188,11 @@ class ImportController extends Controller{
         }
         else{
             $pi = new ProformaInvoice();
+            $id= Input::get('import_id');
             $this->setProformaInvoiceData($pi);
             $pi->save();
             Session::flash('message', 'Proforma Invoice has been Successfully Created.');
-            return Redirect::to('imports/index');
+            return Redirect::to('imports/costs/'.$id);
         }
     }
     public function postUpdateProformaInvoice($id)

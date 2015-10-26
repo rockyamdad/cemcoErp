@@ -15,7 +15,7 @@
         {!! Form::hidden('import_id',$imports->id) !!}
 
         <div class="form-group">
-            {!! HTML::decode(Form::label('dollar_to_bd_rate','Dollar Rate',array('class' => 'control-label col-md-3')))
+            {!! HTML::decode(Form::label('dollar_to_bd_rate','Dollar Rate<span class="required">*</span>',array('class' => 'control-label col-md-3')))
             !!}
             <div class="col-md-4">
                 {!!Form::text('dollar_to_bd_rate',null,array('placeholder' => 'Present Dollar Rate', 'class' =>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('tt_charge','Tt Charge',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('tt_charge','Tt Charge<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('tt_charge',null,array('placeholder' => 'Tt Charge', 'class' => 'form-control','id' =>
                 'tt_charge'))!!}

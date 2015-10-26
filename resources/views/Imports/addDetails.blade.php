@@ -23,6 +23,14 @@
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
+    <div style="float: left;width: 80%; margin-left: 20px">
+        @if (Session::has('message'))
+            <div class="alert alert-success">
+                <button data-close="alert" class="close"></button>
+                {{ Session::get('message') }}
+            </div>
+        @endif
+    </div>
 </div>
 
 <div class="col-md-16">
@@ -34,6 +42,7 @@
                 <a class="btn dark" href="{{ URL::to('imports/index') }}">Import List</a>
             </div>
         </div>
+
         <div class="portlet-body form">
 
             <ul  class="nav nav-tabs" id="importAddTab">
