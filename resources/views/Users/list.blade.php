@@ -68,6 +68,10 @@
                     </thead>
                     <tbody>
                     @foreach($users as $user )
+                        <?php
+                        $branchName = \App\Branch::find($user->branch_id);
+
+                        ?>
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$user->name}}</td>
@@ -79,7 +83,7 @@
                         @else
                         <td>Female</td>
                         @endif
-                        <td>{{$user->branch_id}}</td>
+                        <td>{{$branchName->name}}</td>
                         <td>{{$user->address}}</td>
                         @if($user->status == "Activate")
                         <td class="user-status"><span class="label label-sm label-success">Activate</span></td>
