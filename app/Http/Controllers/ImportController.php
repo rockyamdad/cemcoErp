@@ -275,6 +275,7 @@ class ImportController extends Controller{
         $importDetails = new ImportDetail();
 
         $imports = $importDetails->getLandingCostData($id);
+       // var_dump($imports);exit;
         $totalBankCost = BankCost::where('import_id','=',$id)->get();
         $totalCnfCost  = CnfCost::where('import_id','=',$id)->get();
         $ttCharge      = OtherCost::where('import_id','=',$id)->get();

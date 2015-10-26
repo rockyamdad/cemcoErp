@@ -35,7 +35,7 @@ text-decoration: underline;
           <table class="tabFont">
             <tr>
                 <td><strong>Benificiary Name </strong></td>
-                <td>:</strong>  {{ $benificiaryName[0]['beneficiary_name'] }}</td>
+                <td>:</strong>  {{ $benificiaryName[0]['beneficiary_name'] }} </td>
             </tr>
             <tr>
                 <td><strong>L/C No </td>
@@ -111,20 +111,22 @@ text-decoration: underline;
                             $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost']) / $totalQuantity) + $importt->total_booking_price + $duty;
 
                             $totalLandingCost = $totalLandingCost + ($landingCost * $importt->quantity);
+                            $categoryName = \App\Category::find($importt->category_id);
+                            $subCategoryName = \App\SubCategory::find($importt->sub_category_id);
                             ?>
                             <td>{{ $i }}</td>
-                            <td>{{ $importt->name }}</td>
+                            <td>{{ $importt->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')' }}</td>
                             <td style="text-align: right;">{{ $importt->total_booking_price }}</td>
                             <td style="text-align: right;">{{ $importt->total_booking_price * $importt->dollar_to_bd_rate }}</td>
                             <td style="text-align: right;">{{ $importt->total_cfr_price }}</td>
                             <td style="text-align: right;">{{ $importt->total_cfr_price * $importt->dollar_to_bd_rate }}</td>
                             <td style="text-align: right;">{{ $importt->quantity }}</td>
-                            <td style="text-align: right;">{{ $duty }}</td>
-                            <td style="text-align: right;">{{ $landingCost }}</td>
+                            <td style="text-align: right;">{{ round($duty,2) }}</td>
+                            <td style="text-align: right;">{{ round($landingCost,2) }}</td>
                             <td style="text-align: right;">{{ $importt->quantity * $importt->total_booking_price }}</td>
                             <td style="text-align: right;">{{ $importt->quantity * $importt->total_cfr_price }}</td>
-                            <td style="text-align: right;">{{ $duty * $importt->quantity }}</td>
-                            <td style="text-align: right;">{{ $landingCost * $importt->quantity}}</td>
+                            <td style="text-align: right;">{{ round($duty * $importt->quantity,2) }}</td>
+                            <td style="text-align: right;">{{ round($landingCost * $importt->quantity,2)}}</td>
 
                         </tr>
                         <?php $i++ ?>
@@ -142,7 +144,7 @@ text-decoration: underline;
                         <td style="text-align: right;">{{ $totalBookingPrice }}</td>
                         <td style="text-align: right;">{{ $totalCrfPrice }}</td>
                         <td style="text-align: right;">{{ $totalDuty }}</td>
-                        <td style="text-align: right;">{{ $totalLandingCost }}</td>
+                        <td style="text-align: right;">{{ round($totalLandingCost,2) }}</td>
                     </tr>
 
                     </tbody>
@@ -157,7 +159,7 @@ text-decoration: underline;
                 <strong>Tt Charge:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$ttCharge[0]['tt_charge']}}
                 <hr>
                 <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$total}}<br>
-                <strong>Miss Cost Per Product:</strong>{{$total/$totalQuantity}}
+                <strong>Miss Cost Per Product:</strong>{{round($total/$totalQuantity,2)}}
 
             </div>
                       {{--  <div class="modal-footer">
