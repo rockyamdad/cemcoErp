@@ -35,27 +35,27 @@ text-decoration: underline;
           <table class="tabFont">
             <tr>
                 <td><strong>Benificiary Name </strong></td>
-                <td>:</strong>  {{ $benificiaryName[0]['beneficiary_name'] }} </td>
+                <td>:<strong>  {{ $benificiaryName[0]['beneficiary_name'] }} </strong></td>
             </tr>
             <tr>
-                <td><strong>L/C No </td>
-                <td>:</strong>  {{ $totalBankCost[0]['lc_no'] }}</td>
+                <td><strong>L/C No </strong></td>
+                <td>:<strong>  {{ $totalBankCost[0]['lc_no'] }}</strong></td>
             </tr>
             <tr>
-                <td><strong>Total L/C Value </td>
-                <td>: </strong>  {{ $crfTotal }}</td>
+                <td><strong>Total L/C Value</strong> </td>
+                <td>: <strong>  {{ $crfTotal }}</strong></td>
             </tr>
             <tr>
-                <td><strong>Actual Goods Value </td>
-                <td>: </strong>  {{ $bookingTotal }}</td>
+                <td><strong>Actual Goods Value</strong> </td>
+                <td>: <strong>  {{ $bookingTotal }}</strong></td>
             </tr>
             <tr>
-                <td><strong>Clearing Agent</td>
-                <td>: </strong>  {{ $totalCnfCost[0]['clearing_agent_name'] }}</td>
+                <td><strong>Clearing Agent</strong></td>
+                <td>: <strong>  {{ $totalCnfCost[0]['clearing_agent_name'] }}</strong></td>
             </tr>
             <tr>
-                <td><strong>Clearing Date</td>
-                <td>: </strong>  {{ $totalCnfCost[0]['clearing_date'] }}</td>
+                <td><strong>Clearing Date</strong></td>
+                <td>: <strong>  {{ $totalCnfCost[0]['clearing_date'] }}</strong></td>
             </tr>
           </table>
           </div>
