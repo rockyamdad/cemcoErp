@@ -68,6 +68,10 @@
                     </thead>
                     <tbody>
                     @foreach($users as $user )
+                        <?php
+                        $branchName = \App\Branch::find($user->branch_id);
+
+                        ?>
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
                         <td>{{$user->name}}</td>
@@ -79,7 +83,7 @@
                         @else
                         <td>Female</td>
                         @endif
-                        <td>{{$user->branch_id}}</td>
+                        <td>{{$branchName->name}}</td>
                         <td>{{$user->address}}</td>
                         @if($user->status == "Activate")
                         <td class="user-status"><span class="label label-sm label-success">Activate</span></td>
@@ -87,11 +91,16 @@
                         <td class="user-status"><span class="label label-sm label-danger">Deactivate</span></td>
                         @endif
                         <td>
+
                             <a class="btn blue btn-sm" href="{{ URL::to('edit/'. $user->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit User</a>
-                            <a data-id="{{$user->id}}" class="btn btn-sm purple changeStatus"
-                               href="{{ URL::to('changeStatus/'.$user->status.'/'. $user->id ) }}"><i
-                                    class="fa fa-link"></i>Change Status</a>
+                                        class="fa fa-edit"></i>Edit User</a>
+                            @if(Session::get('user_id') != $user->id )
+                                <a data-id="{{$user->id}}" class="btn btn-sm purple changeStatus"
+                                   href="{{ URL::to('changeStatus/'.$user->status.'/'. $user->id ) }}"><i
+                                        class="fa fa-link"></i>Change Status</a>
+                            @endif
+                        </td>
+
 
                     </tr>
                     @endforeach

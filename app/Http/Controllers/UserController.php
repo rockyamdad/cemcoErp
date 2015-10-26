@@ -117,7 +117,7 @@ class UserController extends Controller{
         $user->role = Input::get('role');
         $user->sex = Input::get('sex');
         //$user->created_by = Session::get('user_id');
-        $user->branch_id = 1;
+        $user->branch_id = Input::get('branch_id');
         $user->status = "Activate";
     }
 
