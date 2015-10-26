@@ -33,8 +33,13 @@
                         </thead>
                         <tbody>
                         @foreach($imports as $importt )
+                            <?php
+                            $categoryName = \App\Category::find($importt->product->category_id);
+                            $subCategoryName = \App\SubCategory::find($importt->product->sub_category_id);
+                            ?>
+
                         <tr class="odd gradeX">
-                            <td>{{$importt->product->name}}</td>
+                            <td>{{$importt->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
                             <td>{{$importt->total_cfr_price}}</td>
