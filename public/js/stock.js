@@ -83,7 +83,8 @@ jQuery(document).ready(function() {
 
     $('#entry_type').live("change", function () {
         var entry_type = $('#entry_type').val();
-        if(entry_type=='StockIn')
+        var product_type = $('#product_type').val();
+        if((entry_type=='StockIn') && ((product_type =='Foreign') || (product_type == 'Finish Goods') ))
         {
             $('.to_stock_section').hide();
             $('.consignment_name_section').show();
@@ -91,7 +92,6 @@ jQuery(document).ready(function() {
                 type: "get",
                 url: "imports/",
                 success: function (html) {
-                   /* $('.consignment_name_section').html(html);*/
                     $('#consignment_name').html(html);
 
                 }

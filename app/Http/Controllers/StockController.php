@@ -48,7 +48,7 @@ class StockController extends Controller{
     {
         $imports = Import::where('status','=','Activate')
             ->get();
-
+        echo "<option value ='N/A' >N/A </option>";
         foreach ($imports as $import) {
             echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
         }
