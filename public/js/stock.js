@@ -17,6 +17,9 @@ jQuery(document).ready(function() {
             product_id: {
                 required: true
             },
+            branch_id: {
+                required: true
+            },
             stock_info_id: {
                 required: true
             },

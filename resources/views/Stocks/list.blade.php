@@ -62,6 +62,7 @@
                     <tr>
                         <th class="table-checkbox"><input type="checkbox" class="group-checkable"
                                                           data-set="#user_table .checkboxes"/></th>
+                        <th>Branch Name</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Stock Name</th>
@@ -77,6 +78,7 @@
                     @foreach($stocks as $stock )
                     <tr class="odd gradeX">
                         <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td>{{$stock->branch->name}}</td>
                         <td>{{$stock->product->name}}</td>
                         <td>{{$stock->product_quantity}}</td>
                         <td>{{$stock->stockInfo->name}}</td>

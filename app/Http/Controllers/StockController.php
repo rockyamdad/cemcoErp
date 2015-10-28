@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Branch;
 use App\Import;
 use App\Product;
 use App\Stock;
@@ -27,7 +28,10 @@ class StockController extends Controller{
     {
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
-        return view('Stocks.addSubtract',compact('allStockInfos'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Stocks.addSubtract',compact('allStockInfos'))
+            ->with('branchAll',$branchAll);
     }
     public  function getProducts($type)
     {
@@ -68,6 +72,7 @@ class StockController extends Controller{
     {
         $ruless = array(
             'product_id' => 'required',
+            'branch_id' => 'required',
             'product_quantity' => 'required',
             'entry_type' => 'required',
             'stock_info_id' => 'required',
@@ -91,14 +96,18 @@ class StockController extends Controller{
         $stock = Stock::find($id);
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         return view('Stocks.edit',compact('stock'))
-            ->with('allStockInfos',$allStockInfos);
+            ->with('allStockInfos',$allStockInfos)
+            ->with('branchAll',$branchAll);
 
     }
     public function postUpdateStock($id)
     {
         $ruless = array(
             'product_id' => 'required',
+            'branch_id' => 'required',
             'product_quantity' => 'required',
             'entry_type' => 'required',
         );
@@ -118,6 +127,7 @@ class StockController extends Controller{
     }
     private function setStockData($stock)
     {
+        $stock->branch_id = Input::get('branch_id');
         $stock->product_id = Input::get('product_id');
         $stock->product_type = Input::get('product_type');
         $stock->product_quantity = Input::get('product_quantity');
@@ -154,6 +164,7 @@ class StockController extends Controller{
     }
     private function updateStockData($stock)
     {
+        $stock->branch_id = Input::get('branch_id');
         $stock->product_id = Input::get('product_id');
         $stock->product_type = Input::get('product_type');
         $stock->product_quantity = Input::get('product_quantity');

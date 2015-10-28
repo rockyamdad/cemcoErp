@@ -9,6 +9,10 @@ class Stock extends Eloquent
     {
         return $this->belongsTo('App\Product');
     }
+    public function branch()
+    {
+        return $this->belongsTo('App\Branch');
+    }
     public function user()
     {
         return $this->belongsTo('App\User');
