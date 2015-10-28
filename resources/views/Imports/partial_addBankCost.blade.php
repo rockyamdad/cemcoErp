@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('bank_name<span class="required">*</span>','Bank Name',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('bank_name','Bank Name<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
                 {!!Form::text('bank_name',null,array('placeholder' => 'Bank Name', 'class' => 'form-control','id' =>
                 'bank_name'))!!}

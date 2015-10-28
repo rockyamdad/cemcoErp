@@ -29,7 +29,7 @@
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-reorder"></i>Edit Stock Info</div>
             <div class="actions">
-                <a class="btn dark" href="{{ URL::to('parties/') }}">Stock Info List</a>
+                <a class="btn dark" href="{{ URL::to('stockInfos/') }}">Stock Info List</a>
             </div>
         </div>
         <div class="portlet-body form">

@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! HTML::decode(Form::label('hs_code','HS Code<span class="required">*</span>',array('class' =>
+                    {!! HTML::decode(Form::label('hs_code','HS Code',array('class' =>
                     'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('hs_code',null,array('placeholder' => 'HS Code', 'class' => 'form-control'))!!}

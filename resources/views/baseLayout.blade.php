@@ -59,7 +59,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner">
         <!-- BEGIN LOGO -->
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="{{ URL::to('dashboard/') }}">
             <img src="{{ URL::asset('assets/img/cemco.png') }}" alt="CEMCO" class="img-responsive"/>
         </a>
         <!-- END LOGO -->
