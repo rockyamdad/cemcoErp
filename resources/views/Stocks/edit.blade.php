@@ -107,7 +107,14 @@
                     </div>
                 </div>
                 <div class="form-group to_stock_section">
+                    <label class='control-label col-md-3'>To Stock </label>
+                    <div class="col-md-4">
+                        <select class='form-control' id="to_stock_info_id" name='to_stock_info_id'>
+                            <option value ='' >Select Stock </option>
 
+                        </select>
+
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -125,8 +132,15 @@
                          'form-control'))!!}
                      </div>
                  </div>
-                <div class="form-group edit_consignment_name_section">
+                <div class="form-group consignment_name_section">
+                    <label class='control-label col-md-3'>Choose Consignment Name</label>
 
+                    <div class="col-md-4">
+                        <select class='form-control' id="consignment_name" name='consignment_name'>
+                            <option value ='N/A' >N/A </option>
+                        </select>
+
+                    </div>
                 </div>
 
 

@@ -85,6 +85,7 @@ jQuery(document).ready(function() {
         var entry_type = $('#entry_type').val();
         if(entry_type=='StockIn')
         {
+            $('.to_stock_section').hide();
             $('.consignment_name_section').show();
             $.ajax({
                 type: "get",
@@ -99,12 +100,13 @@ jQuery(document).ready(function() {
         }
         if(entry_type=='Transfer')
         {
+            $('.to_stock_section').show();
             $('.consignment_name_section').hide();
             $.ajax({
                 type: "get",
                 url: "stocks/infos/",
                 success: function (html) {
-                    $('.to_stock_section').html(html);
+                    $('#to_stock_info_id').html(html);
 
                 }
             });
@@ -112,10 +114,12 @@ jQuery(document).ready(function() {
         }
         if(entry_type=='Wastage')
         {
+            $('.to_stock_section').hide();
             $('.consignment_name_section').hide();
         }
         if(entry_type=='StockOut')
         {
+            $('.to_stock_section').hide();
             $('.consignment_name_section').hide();
         }
 
@@ -125,7 +129,8 @@ jQuery(document).ready(function() {
         var entry_type = $('#edit_entry_type').val();
         if(entry_type=='StockIn')
         {
-
+            $('.to_stock_section').hide();
+            $('.consignment_name_section').show();
             $.ajax({
                 type: "get",
                 url: "../imports/",
@@ -138,11 +143,13 @@ jQuery(document).ready(function() {
         }
         if(entry_type=='Transfer')
         {
+            $('.to_stock_section').show();
+            $('.consignment_name_section').hide();
             $.ajax({
                 type: "get",
                 url: "../stocks/infos/",
                 success: function (html) {
-                    $('.to_stock_section').html(html);
+                    $('#to_stock_section').html(html);
 
                 }
             });
@@ -150,10 +157,12 @@ jQuery(document).ready(function() {
         }
         if(entry_type=='Wastage')
         {
+            $('.to_stock_section').hide();
             $('.consignment_name_section').hide();
         }
         if(entry_type=='StockOut')
         {
+            $('.to_stock_section').hide();
             $('.consignment_name_section').hide();
         }
 
@@ -161,4 +170,5 @@ jQuery(document).ready(function() {
 
     $('select').select2();
     $('.consignment_name_section').hide();
+    $('.to_stock_section').hide();
 })

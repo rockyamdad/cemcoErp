@@ -79,16 +79,7 @@
 
                     </div>
                 </div>
-               <!-- <div class="form-group">
-                    <label class="control-label col-md-3">Choose Sub Category<span class="required">*</span></label>
 
-                    <div class="col-md-4">
-                        <select id="products_sub_category_id" name="sub_category_id" class="form-control">
-                            <option value="">Select Sub Category</option>
-                        </select>
-
-                    </div>
-                </div>-->
                 <div class="form-group">
                     {!!HTML::decode(Form::label('stock_info_id','Choose Stocks<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
@@ -105,8 +96,16 @@
                         'StockOut','Wastage'=>'Wastage','Transfer'=>'Transfer'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
                     </div>
                 </div>
-                <div class="form-group to_stock_section">
 
+                <div class="form-group to_stock_section">
+                    <label class='control-label col-md-3'>To Stock </label>
+                    <div class="col-md-4">
+                        <select class='form-control' id="to_stock_info_id" name='to_stock_info_id'>
+                            <option value ='' >Select Stock </option>
+
+                        </select>
+
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -124,9 +123,7 @@
                          'form-control'))!!}
                      </div>
                  </div>
-              {{--  <div class="form-group consignment_name_section">
 
-                </div>--}}
                 <div class="form-group consignment_name_section">
                     <label class='control-label col-md-3'>Choose Consignment Name</label>
 
