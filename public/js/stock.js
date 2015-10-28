@@ -127,7 +127,8 @@ jQuery(document).ready(function() {
     });
     $('#edit_entry_type').live("change", function () {
         var entry_type = $('#edit_entry_type').val();
-        if(entry_type=='StockIn')
+        var product_type = $('#edit_product_type').val();
+        if((entry_type=='StockIn') && ((product_type =='Foreign') || (product_type == 'Finish Goods') ))
         {
             $('.to_stock_section').hide();
             $('.consignment_name_section').show();
@@ -169,6 +170,14 @@ jQuery(document).ready(function() {
     });
 
     $('select').select2();
-    $('.consignment_name_section').hide();
-    $('.to_stock_section').hide();
+
+    var entry_type = $('#edit_entry_type').val();
+    var product_type = $('#edit_product_type').val();
+    if(entry_type=='' || (entry_type !='StockIn' &&  product_type !='Local')){
+        $('.consignment_name_section').hide();
+    }
+    if(entry_type!='Transfer')
+    {
+        $('.to_stock_section').hide();
+    }
 })
