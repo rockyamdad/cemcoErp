@@ -49,12 +49,12 @@ class StockController extends Controller{
         $imports = Import::where('status','=','Activate')
             ->get();
 
-        echo "<label class='control-label col-md-3'>Choose Consignment Name</label>";
-        echo " <div class='col-md-4'> <select class='form-control' name='consignment_name'><option value ='N/A' >N/A </option>";
+       /* echo "<label class='control-label col-md-3'>Choose Consignment Name</label>";
+        echo " <div class='col-md-4'> <select class='form-control' name='consignment_name'><option value ='N/A' >N/A </option>";*/
         foreach ($imports as $import) {
             echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
         }
-        echo "</select> </div>";
+       /* echo "</select> </div>";*/
     }
     public  function getStocks()
     {

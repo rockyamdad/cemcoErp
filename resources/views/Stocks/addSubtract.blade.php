@@ -124,8 +124,18 @@
                          'form-control'))!!}
                      </div>
                  </div>
-                <div class="form-group consignment_name_section">
+              {{--  <div class="form-group consignment_name_section">
 
+                </div>--}}
+                <div class="form-group consignment_name_section">
+                    <label class='control-label col-md-3'>Choose Consignment Name</label>
+
+                    <div class="col-md-4">
+                        <select class='form-control' id="consignment_name" name='consignment_name'>
+                            <option value ='N/A' >N/A </option>
+                        </select>
+
+                    </div>
                 </div>
 
 

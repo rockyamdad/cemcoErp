@@ -85,11 +85,13 @@ jQuery(document).ready(function() {
         var entry_type = $('#entry_type').val();
         if(entry_type=='StockIn')
         {
+            $('.consignment_name_section').show();
             $.ajax({
                 type: "get",
                 url: "imports/",
                 success: function (html) {
-                    $('.consignment_name_section').html(html);
+                   /* $('.consignment_name_section').html(html);*/
+                    $('#consignment_name').html(html);
 
                 }
             });
@@ -97,6 +99,7 @@ jQuery(document).ready(function() {
         }
         if(entry_type=='Transfer')
         {
+            $('.consignment_name_section').hide();
             $.ajax({
                 type: "get",
                 url: "stocks/infos/",
@@ -107,6 +110,14 @@ jQuery(document).ready(function() {
             });
 
         }
+        if(entry_type=='Wastage')
+        {
+            $('.consignment_name_section').hide();
+        }
+        if(entry_type=='StockOut')
+        {
+            $('.consignment_name_section').hide();
+        }
 
 
     });
@@ -114,11 +125,12 @@ jQuery(document).ready(function() {
         var entry_type = $('#edit_entry_type').val();
         if(entry_type=='StockIn')
         {
+
             $.ajax({
                 type: "get",
                 url: "../imports/",
                 success: function (html) {
-                    $('.edit_consignment_name_section').html(html);
+                    $('#consignment_name').html(html);
 
                 }
             });
@@ -136,8 +148,17 @@ jQuery(document).ready(function() {
             });
 
         }
+        if(entry_type=='Wastage')
+        {
+            $('.consignment_name_section').hide();
+        }
+        if(entry_type=='StockOut')
+        {
+            $('.consignment_name_section').hide();
+        }
 
     });
 
     $('select').select2();
+    $('.consignment_name_section').hide();
 })
