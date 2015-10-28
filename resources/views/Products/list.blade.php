@@ -65,8 +65,12 @@
                         <th>Action</th>
                     </tr>
                     </thead>
+
                     <tbody>
                     @foreach($products as $product )
+                        <?php
+                        $subCategoryName = \App\SubCategory::find($product->sub_category_id);
+                        ?>
                     <tr class="odd gradeX">
                         <td>{{$product->name}}</td>
                         <td>{{$product->branch->name}}</td>
@@ -74,7 +78,7 @@
                         @if($product->sub_category_id == 0)
                             <td>N/A</td>
                         @else
-                            <td>{{$product->sub_category_id}}</td>
+                            <td>{{$subCategoryName->name}}</td>
                         @endif
                         <td>{{$product->hs_code}}</td>
                         <td>{{$product->origin}}</td>
