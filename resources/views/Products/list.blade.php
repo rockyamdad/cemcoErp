@@ -54,6 +54,7 @@
                 <table class="table table-striped table-bordered table-hover" id="product_table">
                     <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>Branch Name</th>
                         <th>Category Name</th>
@@ -67,11 +68,15 @@
                     </thead>
 
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($products as $product )
                         <?php
                         $subCategoryName = \App\SubCategory::find($product->sub_category_id);
                         ?>
                     <tr class="odd gradeX">
+                        <td><?php echo $sl; ?></td>
                         <td>{{$product->name}}</td>
                         <td>{{$product->branch->name}}</td>
                         <td>{{$product->category->name}}</td>
@@ -93,6 +98,9 @@
                         </td>
 
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>

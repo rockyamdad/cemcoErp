@@ -23,6 +23,7 @@
                     <table class="table table-striped table-bordered table-hover" id="imports_detail_table">
                         <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Total Booking Price</th>
@@ -32,6 +33,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                        $sl=1;
+                        ?>
                         @foreach($imports as $importt )
                             <?php
                             $categoryName = \App\Category::find($importt->product->category_id);
@@ -39,6 +43,7 @@
                             ?>
 
                         <tr class="odd gradeX">
+                            <td><?php echo $sl; ?></td>
                             <td>{{$importt->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
@@ -48,6 +53,9 @@
                                         class="fa fa-edit"></i>Edit </a>
                             </td>
                         </tr>
+                        <?php
+                        $sl++;
+                        ?>
                         @endforeach
 
                         </tbody>

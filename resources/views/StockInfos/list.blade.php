@@ -53,7 +53,7 @@
                 <table class="table table-striped table-bordered table-hover" id="stock_info_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#user_table .checkboxes" /></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>Location</th>
                         <th>Branch</th>
@@ -63,9 +63,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($stockInfos as $stockInfo )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$stockInfo->name}}</td>
                         <td>{{$stockInfo->location}}</td>
                         <td>{{$stockInfo->branch->name}}</td>
@@ -82,6 +85,9 @@
 
                         </td>
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
 

@@ -54,8 +54,7 @@
                 <table class="table table-striped table-bordered table-hover" id="salestable">
                     <thead  style="background-color: #557386">
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Purchase Invoice Id</th>
                         <th>Party Name</th>
                         <th>Status</th>
@@ -64,9 +63,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($sales as $sale )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$sale->invoice_id}}</td>
                         <td>{{$sale->party->name}}</td>
                         @if($sale->status == 'Activate')
@@ -99,6 +101,9 @@
                         </td>
 
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>

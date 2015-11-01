@@ -53,8 +53,7 @@
                 <table class="table table-striped table-bordered table-hover" id="user_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>UserName</th>
@@ -67,13 +66,16 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($users as $user )
                         <?php
                         $branchName = \App\Branch::find($user->branch_id);
 
                         ?>
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->username}}</td>
@@ -103,6 +105,9 @@
 
 
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
 

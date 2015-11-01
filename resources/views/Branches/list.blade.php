@@ -53,7 +53,7 @@
                 <table class="table table-striped table-bordered table-hover" id="branch_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#user_table .checkboxes" /></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th >Location</th>
                         <th >Description</th>
@@ -63,9 +63,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($branches as $branch )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                        <td><?php echo $sl;?></td>
                         <td>{{$branch->name}}</td>
                         <td>{{$branch->location}}</td>
                         <td>{{$branch->description}}</td>
@@ -81,6 +84,9 @@
 
                         </td>
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
 

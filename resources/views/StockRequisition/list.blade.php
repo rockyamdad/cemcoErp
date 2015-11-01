@@ -54,8 +54,7 @@
                 <table class="table table-striped table-bordered table-hover" id="Requisitiontable">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Product Name</th>
                         <th>Party Name</th>
                         <th>Requisition No</th>
@@ -67,9 +66,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($requisitions as $requisition )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$requisition->product->name}}</td>
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>
@@ -98,6 +100,9 @@
                         </td>
 
                     </tr>
+                    <?php
+                     $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>
