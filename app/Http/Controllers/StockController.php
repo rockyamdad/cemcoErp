@@ -37,11 +37,17 @@ class StockController extends Controller{
     {
         $productsName = Product::where('product_type','=',$type)
             ->get();
-
+        $product_id= Input::get('data');
         foreach ($productsName as $productName) {
             $category = $productName->category->name;
             $subCategory = $productName->subCategory->name;
-            echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
+            if($productName->id==$product_id)
+            {
+                $product= $product_id;
+            }else{
+                $product= $productName->id;
+            }
+            echo "<option value = $product > $productName->name ($category) ($subCategory)</option> ";
         }
     }
     public  function getImports()

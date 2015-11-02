@@ -74,7 +74,7 @@
                     <label class="control-label col-md-3">Choose Product<span class="required">*</span></label>
 
                     <div class="col-md-4">
-                        <select id="edit_product_id" name="product_id" class="form-control">
+                        <select id="edit_product_id" name="product_id" class="form-control" rel="{{$stock->product_id}}">
                             <option value="">Select Product</option>
                         </select>
 

@@ -180,4 +180,18 @@ jQuery(document).ready(function() {
     {
         $('.to_stock_section').hide();
     }
-})
+
+
+    var edit_product_id = $('#edit_product_id').attr('rel');
+    var edit_product_type = $('#edit_product_type').val();
+    $.ajax({
+        type: "get",
+        url: "../products/"+edit_product_type,
+        data:{'data':edit_product_id},
+        success: function (html) {
+            $('#edit_product_id').html(html);
+
+        }
+    });
+
+});
