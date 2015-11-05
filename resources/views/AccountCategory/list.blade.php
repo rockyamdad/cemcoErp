@@ -53,15 +53,18 @@
                 <table class="table table-striped table-bordered table-hover" id="accountcategory_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#user_table .checkboxes" /></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th >Action</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($categories as $category)
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$category->name}}</td>
                         <td>
                             <a class="btn blue btn-sm editAccount" rel="{{ $category->id }}" data-toggle="modal" href="#editAccountCategory" >
@@ -71,6 +74,9 @@
                                         class="fa fa-trash-o"></i> Delete</a>
                         </td>
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
 

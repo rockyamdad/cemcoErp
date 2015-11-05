@@ -54,8 +54,7 @@
                 <table class="table table-striped table-bordered table-hover" id="category_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>Branch Name</th>
                         <th>Created By</th>
@@ -63,9 +62,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($categories as $category )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl;?></td>
                         <td>{{$category->name}}</td>
                         <td>{{$category->branch->name}}</td>
                         <td>{{$category->user->name}}</td>
@@ -78,6 +80,9 @@
                                     class="fa fa-trash-o"></i> Delete</a></td>
 
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>

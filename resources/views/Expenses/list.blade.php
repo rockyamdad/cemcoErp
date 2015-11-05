@@ -54,8 +54,7 @@
                 <table class="table table-striped table-bordered table-hover" id="Expensetable">
                     <thead style="background-color: #557386">
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Invoice Id</th>
                         <th>Category</th>
                         <th>Particular</th>
@@ -68,9 +67,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($expenseAll as $expense )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$expense->invoice_id}}</td>
                         <td>{{$expense->category}}</td>
                         @if($expense->particular)
@@ -122,6 +124,9 @@
                         </td>
 
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>

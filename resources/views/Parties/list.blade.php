@@ -53,7 +53,7 @@
                 <table class="table table-striped table-bordered table-hover" id="party_table">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable" data-set="#user_table .checkboxes" /></th>
+                        <th>SL</th>
                         <th>Name</th>
                         <th>Type</th>
                         <th >Contact Person</th>
@@ -66,9 +66,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($parties as $party )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1" /></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$party->name}}</td>
                         <td>{{$party->type}}</td>
                         <td>{{$party->contact_person_name}}</td>
@@ -88,6 +91,9 @@
 
                         </td>
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
 

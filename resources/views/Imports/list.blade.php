@@ -55,8 +55,7 @@
                 <table class="table table-striped table-bordered table-hover" id="">
                     <thead>
                     <tr>
-                        <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                          data-set="#user_table .checkboxes"/></th>
+                        <th>SL</th>
                         <th>Import Number</th>
                         <th>Consignment Name</th>
                         <th>Branch Name</th>
@@ -68,11 +67,13 @@
                     </thead>
                     <tbody>
 
-
+                    <?php
+                    $sl=1;
+                    ?>
                     @foreach($imports as $import )
                     <tr class="odd gradeX">
 
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td><?php echo $sl; ?></td>
                         <td>{{$import->import_num}}</td>
                         <td>{{$import->consignment_name}}</td>
                         <td>{{$import->branch->name}}</td>
@@ -120,6 +121,9 @@
                             </div>
                         </td>
                     </tr>
+                    <?php
+                    $sl++;
+                    ?>
                     @endforeach
 
                     </tbody>
