@@ -69,6 +69,14 @@
                         'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                     </div>
                 </div>
+
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('stock_info_id','Choose Stocks<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Choose Product<span class="required">*</span></label>
 
@@ -79,14 +87,12 @@
 
                     </div>
                 </div>
-
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('stock_info_id','Choose Stocks<span class="required">*</span>',array('class' =>
-                    'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
-                    </div>
+                <div class="form-group ">
+                    <label class="control-label col-md-3"></label>
+                    <div class="col-md-4 available">
+                        </div>
                 </div>
+
 
                 <div class="form-group">
                     {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>

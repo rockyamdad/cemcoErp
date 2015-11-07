@@ -38,17 +38,19 @@ class StockController extends Controller{
     {
         $productsName = Product::where('product_type','=',$type)
             ->get();
-        $product_id= Input::get('data');
+        $product_id= Input::get('data');//database theke astece ai product id
+
         foreach ($productsName as $productName) {
+
             $category = $productName->category->name;
             $subCategory = $productName->subCategory->name;
-            if($productName->id==$product_id)
+           /* if($productName->id==$product_id)
             {
-                $product= $product_id;
+               select=selected
             }else{
                 $product= $productName->id;
-            }
-            echo "<option value = $product > $productName->name ($category) ($subCategory)</option> ";
+            }*/
+            echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
         }
     }
     public  function getImports()
@@ -59,6 +61,26 @@ class StockController extends Controller{
         foreach ($imports as $import) {
             echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
         }
+    }
+    public  function getProductsquantity()
+    {
+        $stock_info_id = Input::get('stock_info_id');
+        $product_id = Input::get('product_id');
+
+        $productsQuantity = StockCount::where('product_id', '=', $product_id)
+            ->where('stock_info_id', '=', $stock_info_id)
+            ->first();
+        if ($stock_info_id == '' || $product_id=='')
+        {
+            echo "<p3 style='color: red'>You have to Choose Both</p3>";
+        }
+        elseif(empty($productsQuantity))
+        {
+            echo "<p3 style='color: red'>Available 0</p3>";
+        }elseif(!empty($productsQuantity)){
+            echo "<p3 style='color: green'>Available $productsQuantity->product_quantity</p3>";
+        }
+
     }
     public  function getStocks()
     {

@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
             type: "get",
             url: "products/"+product_type,
             success: function (html) {
-                $('#product_id').html(html);
+                $('#product_id').append(html);
 
             }
         });
@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
             type: "get",
             url: "../products/"+product_type,
             success: function (html) {
-                $('#edit_product_id').html(html);
+                $('#edit_product_id').append(html);
 
             }
         });
@@ -189,9 +189,35 @@ jQuery(document).ready(function() {
         url: "../products/"+edit_product_type,
         data:{'data':edit_product_id},
         success: function (html) {
-            $('#edit_product_id').html(html);
+            $('#edit_product_id').append(html);
 
         }
     });
 
+    $('#product_id').live("change", function () {
+        var product_id = $('#product_id').val();
+        var stock_info_id = $('#stock_info_id').val();
+        $.ajax({
+            type: "get",
+            url: "productsquantity/",
+            data:{'stock_info_id':stock_info_id,'product_id':product_id},
+            success: function (html) {
+                $('.available').html(html);
+
+            }
+        });
+    });
+    $('#stock_info_id').live("change", function () {
+        var product_id = $('#product_id').val();
+        var stock_info_id = $('#stock_info_id').val();
+        $.ajax({
+            type: "get",
+            url: "productsquantity/",
+            data:{'stock_info_id':stock_info_id,'product_id':product_id},
+            success: function (html) {
+                $('.available').html(html);
+
+            }
+        });
+    });
 });
