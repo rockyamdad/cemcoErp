@@ -4,6 +4,7 @@ use App\Branch;
 use App\Import;
 use App\Product;
 use App\Stock;
+use App\StockCount;
 use App\StockInfo;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -86,8 +87,10 @@ class StockController extends Controller{
         }
         else{
             $stock = new Stock();
-            $this->setStockData($stock);
+            $stockCounts = new StockCount();
+            $this->setStockData($stock,$stockCounts);
             $stock->save();
+
             return Redirect::to('stocks/create');
         }
     }
@@ -125,7 +128,170 @@ class StockController extends Controller{
             return Redirect::to('stocks/index');
         }
     }
-    private function setStockData($stock)
+    private function setStockData($stock,$stockCounts)
+    {
+        $this->insertStockData($stock);
+
+        $stockCount = StockCount::where('product_id','=',Input::get('product_id'))
+            ->where('stock_info_id','=',Input::get('stock_info_id'))
+            ->get();
+        if(Input::get('entry_type') == 'StockIn')
+        {
+            $stock->consignment_name = Input::get('consignment_name');
+            if(empty($stockCount[0]))
+            {
+
+                $stockCounts->product_id = Input::get('product_id');
+                $stockCounts->stock_info_id = Input::get('stock_info_id');
+                $stockCounts->product_quantity = Input::get('product_quantity');
+                $stockCounts->save();
+            }else{
+
+                $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + Input::get('product_quantity');
+                $stockCount[0]->save();
+            }
+            Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
+        }elseif(Input::get('entry_type') == 'StockOut'){
+            if(!empty($stockCount[0])) {
+                if ($stockCount[0]->product_quantity >= Input::get('product_quantity')) {
+                    $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - Input::get('product_quantity');
+                    $stockCount[0]->save();
+                    Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
+                } else {
+                    Session::flash('message', 'You Dont have enough products in Stock');
+                }
+            }else{
+                Session::flash('message', 'You Dont have This products in This Stock');
+            }
+
+
+        }  elseif(Input::get('entry_type') == 'Transfer')
+            {
+                if(!empty($stockCount[0])) {
+                    if ($stockCount[0]->product_quantity >= Input::get('product_quantity')) {
+                        $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - Input::get('product_quantity');
+                        $stockCount[0]->save();
+
+                        $stockCountTo = StockCount::where('product_id','=',Input::get('product_id'))
+                            ->where('stock_info_id','=',Input::get('to_stock_info_id'))
+                            ->get();
+
+                        if(!empty($stockCountTo[0])) {
+                            $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity + Input::get('product_quantity');
+                            $stockCountTo[0]->save();
+                        }else{
+                            $stockCounts->product_id = Input::get('product_id');
+                            $stockCounts->stock_info_id = Input::get('to_stock_info_id');
+                            $stockCounts->product_quantity = Input::get('product_quantity');
+                            $stockCounts->save();
+                        }
+
+                        Session::flash('message', 'Product Has been successfully Transfered');
+                    } else {
+                        Session::flash('message', 'You Dont have enough products in Stock');
+                    }
+                }else{
+                    Session::flash('message', 'You Dont have This products in This Stock');
+                }
+
+            }
+        else{
+                Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
+        }
+
+    }
+    private function updateStockData($stock)
+    {
+        $this->insertStockData($stock);
+        $stockCount = StockCount::where('product_id','=',Input::get('product_id'))
+            ->where('stock_info_id','=',Input::get('stock_info_id'))
+            ->get();
+        if(Input::get('entry_type') == 'StockIn')
+        {
+            $stock->consignment_name = Input::get('consignment_name');
+            if(empty($stockCount[0]))
+            {
+                $stockCountOld = StockCount::where('product_id','=',$stock->product_id)
+                    ->where('stock_info_id','=',$stock->stock_info_id)
+                    ->get();
+                $stockCountOld[0]->product_quantity = ($stockCountOld[0]->product_quantity - $stock->product_quantity);
+                $stockCountOld[0]->save();
+
+                $stockCounts = new StockCount();
+                $stockCounts->product_id = Input::get('product_id');
+                $stockCounts->stock_info_id = Input::get('stock_info_id');
+                $stockCounts->product_quantity = Input::get('product_quantity');
+                $stockCounts->save();
+            }else{
+                $stockCount[0]->product_quantity = ($stockCount[0]->product_quantity - $stock->product_quantity) + Input::get('product_quantity');
+                $stockCount[0]->save();
+            }
+            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
+        }elseif(Input::get('entry_type') == 'StockOut'){
+            if(!empty($stockCount[0])) {
+                if ($stockCount[0]->product_quantity >= Input::get('product_quantity')) {
+                    $stockCount[0]->product_quantity = ($stockCount[0]->product_quantity+$stock->product_quantity) - Input::get('product_quantity');
+                    $stockCount[0]->save();
+                    Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
+                } else {
+                    Session::flash('message', 'You Dont have enough products in Stock');
+                }
+            }else{
+                Session::flash('message', 'You Dont have This products in This Stock');
+            }
+
+        }elseif(Input::get('entry_type') == 'Transfer')
+        {
+            if(!empty($stockCount[0])) {
+                if ($stockCount[0]->product_quantity >= Input::get('product_quantity')) {
+                    $stockCount[0]->product_quantity = ($stockCount[0]->product_quantity + $stock->product_quantity) - Input::get('product_quantity');
+                    $stockCount[0]->save();
+
+                    $stockCountTo = StockCount::where('product_id','=',Input::get('product_id'))
+                        ->where('stock_info_id','=',Input::get('to_stock_info_id'))
+                        ->get();
+
+                    if(!empty($stockCountTo[0])) {
+                        $stockCountTo[0]->product_quantity = ($stockCountTo[0]->product_quantity - $stock->product_quantity) + Input::get('product_quantity');
+                        $stockCountTo[0]->save();
+                    }else{
+                        $stockCountToOld = StockCount::where('product_id','=',$stock->product_id)
+                            ->where('stock_info_id','=',$stock->to_stock_info_id)
+                            ->get();
+                        $stockCountToOld[0]->product_quantity = ($stockCountToOld[0]->product_quantity - $stock->product_quantity);
+                        $stockCountToOld[0]->save();
+
+                        $stockCounts = new StockCount();
+                        $stockCounts->product_id = Input::get('product_id');
+                        $stockCounts->stock_info_id = Input::get('to_stock_info_id');
+                        $stockCounts->product_quantity = Input::get('product_quantity');
+                        $stockCounts->save();
+                    }
+                    Session::flash('message', 'Product Has been successfully Transfered and Updated');
+                } else {
+                    Session::flash('message', 'You Dont have enough products in Stock');
+                }
+            }else{
+                Session::flash('message', 'You Dont have This products in This Stock');
+            }
+
+        }
+        else{
+            Session::flash('message', 'Stock has been Successfully Created && Wastage Product Updated');
+        }
+    }
+    public function getDelete($id)
+    {
+        $stock = Stock::find($id);
+        $stock->delete();
+        Session::flash('message', 'Stock  has been Successfully Deleted.');
+        return Redirect::to('stocks/index');
+    }
+
+    /**
+     * @param $stock
+     */
+    private function insertStockData($stock)
     {
         $stock->branch_id = Input::get('branch_id');
         $stock->product_id = Input::get('product_id');
@@ -137,68 +303,6 @@ class StockController extends Controller{
         $stock->stock_info_id = Input::get('stock_info_id');
         $stock->to_stock_info_id = Input::get('to_stock_info_id');
         $stock->status = "Activate";
-
-        $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 'StockIn')
-        {
-            $stock->consignment_name = Input::get('consignment_name');
-            $product->total_quantity = $product->total_quantity + Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
-        }elseif(Input::get('entry_type') == 'StockOut'){
-            if($product->total_quantity >= Input::get('product_quantity'))
-            {
-                $product->total_quantity = $product->total_quantity - Input::get('product_quantity');
-                Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
-            }else{
-                Session::flash('message', 'You Dont have enough products in Stock');
-            }
-
-        }  elseif(Input::get('entry_type') == 'Transfer')
-            {
-                Session::flash('message', 'Product Has been successfully Transfered');
-            }
-        else{
-                Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
-        }
-        $product->save();
-    }
-    private function updateStockData($stock)
-    {
-        $stock->branch_id = Input::get('branch_id');
-        $stock->product_id = Input::get('product_id');
-        $stock->product_type = Input::get('product_type');
-        $stock->product_quantity = Input::get('product_quantity');
-        $stock->entry_type = Input::get('entry_type');
-        $stock->remarks = Input::get('remarks');
-        $stock->user_id = Session::get('user_id');
-        $stock->stock_info_id = Input::get('stock_info_id');
-        $stock->stock_info_id = Input::get('to_stock_info_id');
-        $stock->status = "Activate";
-        $product = Product::find(Input::get('product_id'));
-        if(Input::get('entry_type') == 'StockIn')
-        {
-            $stock->consignment_name = Input::get('consignment_name');
-            $product->total_quantity = ($product->total_quantity - $stock->product_quantity) + Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
-        }elseif(Input::get('entry_type') == 'StockOut'){
-            $product->total_quantity = ($product->total_quantity + $stock->product_quantity) - Input::get('product_quantity');
-            Session::flash('message', 'Stock has been Successfully Updated && Product Quantity Updated');
-
-        }elseif(Input::get('entry_type') == 'Transfer')
-        {
-            Session::flash('message', 'Product Has been successfully Transfered and Updated');
-        }
-        else{
-            Session::flash('message', 'Stock has been Successfully Created && Wastage Product Updated');
-        }
-        $product->save();
-    }
-    public function getDelete($id)
-    {
-        $stock = Stock::find($id);
-        $stock->delete();
-        Session::flash('message', 'Stock  has been Successfully Deleted.');
-        return Redirect::to('stocks/index');
     }
 
 }
