@@ -1,6 +1,9 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-    $('#accountcategory_table').DataTable();
+    $('#accountcategory_table').DataTable({
+            "bPaginate": false
+        }
+    );
     var form = $('.account_category_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

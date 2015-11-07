@@ -118,7 +118,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $users->render() !!}
 @stop
 @section('javascript')
 

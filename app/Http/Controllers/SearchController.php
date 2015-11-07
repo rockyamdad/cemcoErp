@@ -21,8 +21,7 @@ class SearchController extends Controller{
     }
     public function getIndex()
     {
-       var_dump("ss");exit;
-        return view('Parties.list',compact('parties'));
+
     }
     public function getEntry()
     {

@@ -115,7 +115,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $purchases->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/purchaseInvoice.js') !!}

@@ -1,7 +1,9 @@
 jQuery(document).ready(function() {
 
     // Put page-specific javascript here
-    $('#branch_table').DataTable();
+    $('#branch_table').DataTable({
+        "bPaginate": false
+    });
     var form = $('#branch_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

@@ -88,6 +88,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
+{!! $categories->render() !!}
 
 <div id="account_category" class="modal fade" tabindex="-1">
     <div class="modal-dialog">

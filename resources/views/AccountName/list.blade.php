@@ -94,7 +94,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $accountNames->render() !!}
 
 @stop
 @section('javascript')

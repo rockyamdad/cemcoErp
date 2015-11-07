@@ -18,7 +18,7 @@ class AccountNameController extends Controller{
     }
     public function getIndex()
     {
-       $accountNames = NameOfAccount::all();
+       $accountNames = NameOfAccount::paginate(15);
 
         return view('AccountName.list',compact('accountNames'));
     }

@@ -99,7 +99,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $stockInfos->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/stockInfo.js') !!}

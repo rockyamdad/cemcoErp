@@ -92,7 +92,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $categories->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/productCategories.js') !!}

@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    $('#Requisitiontable').DataTable();
+    $('#Requisitiontable').DataTable({
+        "bPaginate": false
+    });
     $("#saveRequisition").live("click", function () {
         if(requisitionFormValidation()){
             $('#requisition_id').val(Math.floor(Math.random()*9999999999));

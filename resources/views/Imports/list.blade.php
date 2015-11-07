@@ -133,7 +133,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $imports->render() !!}
 <div class="modal fade" id="myModal">
 
 </div> <!-- /.modal -->

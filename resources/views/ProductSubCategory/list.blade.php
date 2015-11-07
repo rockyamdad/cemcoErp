@@ -96,5 +96,6 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
+{!! $subCategories->render() !!}
 @stop
 

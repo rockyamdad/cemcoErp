@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    $('#Purchasetable').DataTable();
+    $('#Purchasetable').DataTable({
+        "bPaginate": false
+    });
     $(".savePurchaseInvoice").live("click", function () {
         if(purchaseFormValidation()){
             $.ajax({

@@ -16,7 +16,7 @@ class StockInfoController extends Controller{
     }
     public function getIndex()
     {
-        $stockInfos = StockInfo::all();
+        $stockInfos = StockInfo::paginate(15);
         return view('StockInfos.list',compact('stockInfos'));
     }
     public function getCreate()

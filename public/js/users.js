@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    // Put page-specific javascript here
+    $('#user_table').DataTable({
+        "bPaginate": false
+    });
     var form1 = $('#user_form');
     var error1 = $('.alert-danger', form1);
     var success1 = $('.alert-success', form1);

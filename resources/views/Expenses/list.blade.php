@@ -138,7 +138,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $expenseAll->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/expenses.js') !!}

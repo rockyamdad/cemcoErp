@@ -105,7 +105,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $parties->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/party.js') !!}

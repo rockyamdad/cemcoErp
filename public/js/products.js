@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    $('#product_table').DataTable();
+    $('#product_table').DataTable({
+        "bPaginate": false
+    }  );
     var form = $('#product_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

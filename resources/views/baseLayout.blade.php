@@ -421,6 +421,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="{{ URL::asset('assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/data-tables/jquery.dataTables.js') }}"></script>
+
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/data-tables/DT_bootstrap.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
         type="text/javascript"></script>
@@ -441,14 +442,20 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
     jQuery(document).ready(function () {
         App.init();
-        $('#user_table').DataTable();
-        $('#sub_category_table').DataTable();
+
+        $('#sub_category_table').DataTable({
+            "bPaginate": false
+        });
 
 
-        $('#party_table').DataTable();
-        $('#stock_info_table').DataTable();
+        $('#party_table').DataTable({
+            "bPaginate": false
+        });
+
        // $('#Expensetable').DataTable();
-        $('#imports_table').DataTable();
+        $('#imports_table').DataTable({
+            "bPaginate": false
+        });
         Tasks.initDashboardWidget();
 
 

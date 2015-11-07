@@ -115,7 +115,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $sales->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/sales.js') !!}

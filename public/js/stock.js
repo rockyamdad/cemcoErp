@@ -1,6 +1,8 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-    $('#stock_table').DataTable();
+    $('#stock_table').DataTable({
+        "bPaginate": false
+    });
     var form = $('#stock_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

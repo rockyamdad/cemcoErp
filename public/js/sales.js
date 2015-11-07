@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    $('#salestable').DataTable();
+    $('#salestable').DataTable({
+        "bPaginate": false
+    });
     $(".saveSales").live("click", function () {
         if(saleFormValidation()){
             $.ajax({
