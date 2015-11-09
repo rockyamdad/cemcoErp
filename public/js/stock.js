@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
             $('.consignment_name_section').show();
             $.ajax({
                 type: "get",
-                url: "imports/",
+                url: "imports",
                 success: function (html) {
                     $('#consignment_name').html(html);
 
@@ -106,7 +106,7 @@ jQuery(document).ready(function() {
             $('.consignment_name_section').hide();
             $.ajax({
                 type: "get",
-                url: "stocks/infos/",
+                url: "stocks/infos",
                 success: function (html) {
                     $('#to_stock_info_id').html(html);
 
@@ -136,7 +136,7 @@ jQuery(document).ready(function() {
             $('.consignment_name_section').show();
             $.ajax({
                 type: "get",
-                url: "../imports/",
+                url: "../imports",
                 success: function (html) {
                     $('#consignment_name').html(html);
 
@@ -150,7 +150,7 @@ jQuery(document).ready(function() {
             $('.consignment_name_section').hide();
             $.ajax({
                 type: "get",
-                url: "../stocks/infos/",
+                url: "../stocks/infos",
                 success: function (html) {
                     $('#to_stock_section').html(html);
 
@@ -201,7 +201,7 @@ jQuery(document).ready(function() {
         var stock_info_id = $('#stock_info_id').val();
         $.ajax({
             type: "get",
-            url: "productsquantity/",
+            url: "quantity",
             data:{'stock_info_id':stock_info_id,'product_id':product_id},
             success: function (html) {
                 $('.available').html(html);
@@ -214,7 +214,7 @@ jQuery(document).ready(function() {
         var stock_info_id = $('#stock_info_id').val();
         $.ajax({
             type: "get",
-            url: "productsquantity/",
+            url: "quantity",
             data:{'stock_info_id':stock_info_id,'product_id':product_id},
             success: function (html) {
                 $('.available').html(html);

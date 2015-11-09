@@ -44,13 +44,15 @@ class StockController extends Controller{
 
             $category = $productName->category->name;
             $subCategory = $productName->subCategory->name;
-           /* if($productName->id==$product_id)
+            if($productName->id==$product_id)
             {
-               select=selected
-            }else{
-                $product= $productName->id;
-            }*/
-            echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
+                echo '<option value = "'.$productName->id.'" selected> '.$productName->name.' ('.$category.') ('.$subCategory.')</option> ';
+            }
+            else
+            {
+                echo "<option value = '$productName->id' > $productName->name ($category) ($subCategory)</option> ";
+            }
+
         }
     }
     public  function getImports()
@@ -62,7 +64,7 @@ class StockController extends Controller{
             echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
         }
     }
-    public  function getProductsquantity()
+    public  function getQuantity()
     {
         $stock_info_id = Input::get('stock_info_id');
         $product_id = Input::get('product_id');

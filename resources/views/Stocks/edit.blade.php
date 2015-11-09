@@ -77,8 +77,17 @@
                         <select id="edit_product_id" name="product_id" class="form-control" rel="{{$stock->product_id}}">
                             <option value="">Select Product</option>
                         </select>
-
                     </div>
+
+                    <div class="col-md-4">
+                        <select  name="product_id3" class="form-control" rel="{{$stock->product_id}}">
+                            <option value="">Select Product</option>
+                            <option value="1">Select Product1</option>
+                            <option value="2" selected>Select Product2</option>
+                            <option value="3">Select Product3</option>
+                        </select>
+                    </div>
+
                 </div>
                <!-- <div class="form-group">
                     <label class="control-label col-md-3">Choose Sub Category<span class="required">*</span></label>
@@ -156,6 +165,7 @@
             </div>
         </div>
         <!-- END VALIDATION STATES-->
+    </div>
     </div>
     @stop
     @section('javascript')
