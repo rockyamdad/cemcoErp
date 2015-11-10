@@ -11,17 +11,22 @@ class Report extends Eloquent
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-               // ->where('entry_type', '=', 'StockIn')
                 ->groupBy('stocks.product_id')
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
                     'stocks.created_at',
                     'stocks.product_id',
-                    //DB::raw('SUM(stocks.product_quantity) as stockIn'),
                     'stock_infos.name AS sName'
 
                 )
                 ->get();
+    }
+    public function getStockProductsReport()
+    {
+        return DB::table('stock_counts')
+            ->selectRaw('product_quantity,product_id,stock_info_id, sum(product_quantity) as sum')
+            ->groupBy('stock_counts.product_id')
+            ->get();
     }
 
     public function getStockBf($date1,$product_id)

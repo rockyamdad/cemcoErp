@@ -28,6 +28,22 @@ class ReportController extends Controller{
     {
         return view('Reports.stockReportSearch');
     }
+    public function getStocksproducts()
+    {
+        $report = new Report();
+        $results = $report->getStockProductsReport();
+
+        return view('Reports.stockProductsReport')
+            ->with('results',$results);
+    }
+    public function getPrintstocksproducts()
+    {
+        $report = new Report();
+        $results = $report->getStockProductsReport();
+
+        return view('Reports.stockProductsReportPrint')
+            ->with('results',$results);
+    }
     public function postReportResult()
     {
         $date1 = Input::get('from_date');
