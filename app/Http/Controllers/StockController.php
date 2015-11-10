@@ -313,6 +313,28 @@ class StockController extends Controller{
     public function getDelete($id)
     {
         $stock = Stock::find($id);
+        $stockCount = StockCount::where('product_id','=',$stock->product_id)
+            ->where('stock_info_id','=',$stock->stock_info_id)
+            ->get();
+
+        if($stock->entry_type=='StockIn'){
+            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $stock->product_quantity;
+            $stockCount[0]->save();
+        }elseif($stock->entry_type=='StockOut')
+        {
+            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + $stock->product_quantity;
+            $stockCount[0]->save();
+        }elseif($stock->entry_type=='Transfer')
+        {
+            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + $stock->product_quantity;
+            $stockCount[0]->save();
+
+            $stockCountTo = StockCount::where('product_id','=',$stock->product_id)
+                ->where('to_stock_info_id','=',$stock->to_stock_info_id)
+                ->get();
+            $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity - $stock->product_quantity;
+            $stockCountTo[0]->save();
+        }
         $stock->delete();
         Session::flash('message', 'Stock  has been Successfully Deleted.');
         return Redirect::to('stocks/index');
