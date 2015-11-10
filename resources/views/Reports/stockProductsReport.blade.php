@@ -38,7 +38,7 @@
 
                             <th>Stock Name</th>
                             <th>Product Name</th>
-                            <th  style="background-color:blue">Total Quantity On Hand</th>
+                            <th>Total Quantity On Hand</th>
 
                         </tr>
                         </thead>
