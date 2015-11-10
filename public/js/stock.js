@@ -63,6 +63,8 @@ jQuery(document).ready(function() {
     $('#product_type').live("change", function () {
         var product_type = $('#product_type').val();
         $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
         $.ajax({
             type: "get",
             url: "products/"+product_type,
@@ -74,7 +76,9 @@ jQuery(document).ready(function() {
     });
     $('#edit_product_type').live("change", function () {
         var product_type = $('#edit_product_type').val();
-        $('#edit_product_id').empty();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
         $.ajax({
             type: "get",
             url: "../products/"+product_type,

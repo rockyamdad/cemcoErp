@@ -50,7 +50,7 @@ class StockController extends Controller{
             }
             else
             {
-                echo "<option value = '$productName->id' > $productName->name ($category) ($subCategory)</option> ";
+                echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
             }
 
         }
