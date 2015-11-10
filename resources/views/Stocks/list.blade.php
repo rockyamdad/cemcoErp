@@ -78,10 +78,14 @@
                     $sl=1;
                     ?>
                     @foreach($stocks as $stock )
+                        <?php
+                        $categoryName = \App\Category::find($stock->product->category_id);
+                        $subCategoryName = \App\SubCategory::find($stock->product->sub_category_id);
+                        ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$stock->branch->name}}</td>
-                        <td>{{$stock->product->name}}</td>
+                        <td>{{$stock->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$stock->product_quantity}}</td>
                         <td>{{$stock->stockInfo->name}}</td>
                         <td>@if($stock->entry_type == 'StockIn')
