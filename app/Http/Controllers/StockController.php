@@ -113,7 +113,7 @@ class StockController extends Controller{
             $stock = new Stock();
             $stockCounts = new StockCount();
             $this->setStockData($stock,$stockCounts);
-            $stock->save();
+
 
             return Redirect::to('stocks/create');
         }
@@ -168,10 +168,12 @@ class StockController extends Controller{
                 $stockCounts->product_id = Input::get('product_id');
                 $stockCounts->stock_info_id = Input::get('stock_info_id');
                 $stockCounts->product_quantity = Input::get('product_quantity');
+                $stock->save();
                 $stockCounts->save();
             }else{
 
                 $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + Input::get('product_quantity');
+                $stock->save();
                 $stockCount[0]->save();
             }
             Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
@@ -179,6 +181,7 @@ class StockController extends Controller{
             if(!empty($stockCount[0])) {
                 if ($stockCount[0]->product_quantity >= Input::get('product_quantity')) {
                     $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - Input::get('product_quantity');
+                    $stock->save();
                     $stockCount[0]->save();
                     Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
                 } else {
@@ -202,11 +205,13 @@ class StockController extends Controller{
 
                         if(!empty($stockCountTo[0])) {
                             $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity + Input::get('product_quantity');
+                            $stock->save();
                             $stockCountTo[0]->save();
                         }else{
                             $stockCounts->product_id = Input::get('product_id');
                             $stockCounts->stock_info_id = Input::get('to_stock_info_id');
                             $stockCounts->product_quantity = Input::get('product_quantity');
+                            $stock->save();
                             $stockCounts->save();
                         }
 
@@ -220,6 +225,7 @@ class StockController extends Controller{
 
             }
         else{
+                $stock->save();
                 Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
         }
 
