@@ -42,10 +42,10 @@
                             <th>Product Name</th>
                             <th>StockIn</th>
                             <th>Before hand</th>
-                            <th  style="background-color:blue">Total StockIn</th>
+                            <th>Total StockIn</th>
                             <th>StockOut</th>
                             <th>Wastage</th>
-                            <th  style="background-color:mediumblue">Total Out+Ng</th>
+                            <th>Total Out+Ng</th>
                             <th  style="background-color:green">Balance</th>
 
                         </tr>
