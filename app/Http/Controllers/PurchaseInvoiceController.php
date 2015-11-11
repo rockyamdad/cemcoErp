@@ -24,7 +24,7 @@ class PurchaseInvoiceController extends Controller{
     }
     public function getIndex()
     {
-       $purchases = PurchaseInvoice::paginate(15);
+       $purchases = PurchaseInvoice::orderBy('id','DESC')->paginate(15);
 
         return view('PurchaseInvoice.list',compact('purchases'));
     }

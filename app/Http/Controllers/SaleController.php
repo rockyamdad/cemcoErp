@@ -26,7 +26,7 @@ class SaleController extends Controller{
     }
     public function getIndex()
     {
-       $sales = Sale::paginate(15);
+       $sales = Sale::orderBy('id','DESC')->paginate(15);
 
         return view('Sales.list',compact('sales'));
     }

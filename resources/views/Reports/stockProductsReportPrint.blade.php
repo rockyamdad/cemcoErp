@@ -24,13 +24,13 @@
                     <?php
                     $pName = \App\Product::find($result->product_id);
                     $sName = \App\StockInfo::find($result->stock_info_id);
-                    $grandTotal = $grandTotal + $result->sum;
+                    $grandTotal = $grandTotal + $result->product_quantity;
                     ?>
 
                     <tr class="odd gradeX">
                         <td>{{$sName->name}}</td>
                         <td>{{$pName->name}}</td>
-                        <td>{{$result->sum}}</td>
+                        <td>{{$result->product_quantity}}</td>
 
 
                     </tr>

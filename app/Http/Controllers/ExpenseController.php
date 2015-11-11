@@ -25,7 +25,7 @@ class ExpenseController extends Controller{
     }
     public function getIndex()
     {
-       $expenseAll = Expense::paginate(15);
+       $expenseAll = Expense::orderBy('id','DESC')->paginate(15);
 
         return view('Expenses.list',compact('expenseAll'));
     }

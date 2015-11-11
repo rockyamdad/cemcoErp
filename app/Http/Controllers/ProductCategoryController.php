@@ -15,7 +15,7 @@ class ProductCategoryController extends Controller{
     }
     public function getIndex()
     {
-        $categories = Category::paginate(15);
+        $categories = Category::orderBy('id','DESC')->paginate(15);
        //var_dump($categories); die();
         return view('ProductCategory.list', compact('categories'));
     }

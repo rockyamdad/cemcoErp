@@ -16,7 +16,7 @@ class ProductSubCategoryController extends Controller{
     }
     public function getIndex()
     {
-        $subCategories = SubCategory::paginate(15);
+        $subCategories = SubCategory::orderBy('id','DESC')->paginate(15);
         //var_dump($categories); die();
         return view('ProductSubCategory.list', compact('subCategories'));
     }

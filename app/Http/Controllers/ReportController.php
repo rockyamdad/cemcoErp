@@ -7,6 +7,7 @@ use App\ProformaInvoice;
 use App\Report;
 use App\Search;
 use App\Stock;
+use App\StockInfo;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -30,19 +31,36 @@ class ReportController extends Controller{
     }
     public function getStocksproducts()
     {
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
         $report = new Report();
         $results = $report->getStockProductsReport();
 
         return view('Reports.stockProductsReport')
-            ->with('results',$results);
+            ->with('results',$results)
+            ->with('allStockInfos',$allStockInfos);
+    }
+    public function postStocksproductsresult()
+    {
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $report = new Report();
+        $stock_info_id = Input::get('stock_info_id');
+        $results = $report->getStockReportResult($stock_info_id);
+
+        return view('Reports.stockProductsReport')
+            ->with('results',$results)
+            ->with('allStockInfos',$allStockInfos);
     }
     public function getPrintstocksproducts()
     {
+
         $report = new Report();
         $results = $report->getStockProductsReport();
 
         return view('Reports.stockProductsReportPrint')
             ->with('results',$results);
+
     }
     public function postReportResult()
     {

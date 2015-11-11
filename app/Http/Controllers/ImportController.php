@@ -23,7 +23,7 @@ class ImportController extends Controller{
     }
     public function getIndex()
     {
-        $imports = Import::paginate(15);
+        $imports = Import::orderBy('id','DESC')->paginate(15);
         return view('Imports.list',compact('imports'));
     }
     public function getCreate()

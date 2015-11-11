@@ -1,4 +1,9 @@
 @extends('baseLayout')
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/bootstrap-datepicker/css/datepicker.css') }}" />
+
+@stop
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -31,6 +36,19 @@
 
                 <div class="portlet-body">
 
+                    {!!Form::open(array('url' => 'reports/stocksproductsresult', 'method' => 'post', 'class'=>'form-horizontal',
+                    'id'=>'stock_search_form'))!!}
+                    <div class="form-group">
+                        {!!HTML::decode(Form::label('stock_info_id','Select Stocks<span class="required">*</span>',array('class' =>
+                        'control-label col-md-3')))!!}
+                        <div class="col-md-4">
+                            {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
+                        </div>
+                        {!!Form::button('Search',array('type' => 'submit','class' => 'btn blue','id' => 'save'))!!}
+                    </div>
+
+                    {!!Form::close()!!}
+
 
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
@@ -51,13 +69,13 @@
                             <?php
                             $pName = \App\Product::find($result->product_id);
                             $sName = \App\StockInfo::find($result->stock_info_id);
-                            $grandTotal = $grandTotal + $result->sum;
+                            $grandTotal = $grandTotal + $result->product_quantity;
                                     ?>
 
                             <tr class="odd gradeX">
                                 <td>{{$sName->name}}</td>
                                 <td>{{$pName->name}}</td>
-                                <td>{{$result->sum}}</td>
+                                <td>{{$result->product_quantity}}</td>
 
 
                             </tr>
@@ -78,4 +96,9 @@
         </div>
     </div>
 
+@stop
+@section('javascript')
+    {!! HTML::script('js/report.js') !!}
+    {!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
+    {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
 @stop
