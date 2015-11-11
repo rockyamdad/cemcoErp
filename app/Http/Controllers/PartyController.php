@@ -18,7 +18,7 @@ class PartyController extends Controller{
 
     public function getIndex()
     {
-       $parties = Party::paginate(15);
+       $parties = Party::orderBy('id','DESC')->paginate(15);
         return view('Parties.list',compact('parties'));
     }
     public function getCreate()

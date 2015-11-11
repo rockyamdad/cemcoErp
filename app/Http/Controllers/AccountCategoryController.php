@@ -17,7 +17,7 @@ class AccountCategoryController extends Controller{
     }
     public function getIndex()
     {
-       $categories = AccountCategory::paginate(15);
+       $categories = AccountCategory::orderBy('id','DESC')->paginate(15);
 
         return view('AccountCategory.list',compact('categories'));
     }
