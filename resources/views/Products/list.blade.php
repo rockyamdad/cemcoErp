@@ -59,8 +59,7 @@
                         <th>Branch Name</th>
                         <th>Category Name</th>
                         <th>Sub Category Name</th>
-                        <th>HS Code</th>
-                        <th>Origin</th>
+
                         <th>Total Quantity</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -85,8 +84,7 @@
                         @else
                             <td>{{$subCategoryName->name}}</td>
                         @endif
-                        <td>{{$product->hs_code}}</td>
-                        <td>{{$product->origin}}</td>
+
                         <td>{{$product->total_quantity}}</td>
                         <td>{{$product->user->name}}</td>
                         <td>

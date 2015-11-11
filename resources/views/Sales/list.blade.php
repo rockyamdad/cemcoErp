@@ -45,7 +45,7 @@
 
                 <div class="table-toolbar">
                     <div class="btn-group">
-                        <a class="btn green" href="{{ URL::to('sales/create') }}">Make  Sales&nbsp;&nbsp;<i
+                        <a class="btn green" href="{{ URL::to('sales/create') }}">Create Sales Invoice&nbsp;&nbsp;<i
                                 class="fa fa-plus"></i></a>
 
                     </div>
