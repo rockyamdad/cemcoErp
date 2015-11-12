@@ -10,7 +10,7 @@
                         <thead style="background-color:cadetblue">
                         <tr>
 
-                            <th>Product Name</th>
+                            <th>Product Names</th>
                             <th>StockIn</th>
                             <th>Before hand</th>
                             <th  style="background-color:blue">Total StockIn</th>
