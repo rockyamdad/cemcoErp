@@ -74,13 +74,13 @@ class StockController extends Controller{
             ->first();
         if ($stock_info_id == '' || $product_id=='')
         {
-            echo "<p3 style='color: red'>You have to Choose Both</p3>";
+            echo "<p3 style='color: red;font-size: 150%'>You have to Choose Both</p3>";
         }
         elseif(empty($productsQuantity))
         {
-            echo "<p3 style='color: red'>Available 0</p3>";
+            echo "<p3 style='color: red;font-size: 150%'>Available 0</p3>";
         }elseif(!empty($productsQuantity)){
-            echo "<p3 style='color: green'>Available $productsQuantity->product_quantity</p3>";
+            echo "<p3 style='color: green;font-size: 150%'>Available $productsQuantity->product_quantity</p3>";
         }
 
     }
