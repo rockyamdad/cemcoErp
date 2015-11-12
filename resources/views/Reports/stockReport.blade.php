@@ -23,7 +23,21 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date1}} to {{$date2}} for {{$product_type}} Products</div>
+                    <?php
+                        $date01 = explode('/', $date1);
+                        $month1  = $date01[0];
+                        $day1 = $date01[1];
+                        $year1   = $date01[2];
+                        $date001=$day1.'/'.$month1.'/'.$year1;
+
+                        $date02 = explode('/', $date2);
+                        $month2  = $date02[0];
+                        $day2 = $date02[1];
+                        $year2   = $date02[2];
+                        $date002=$day2.'/'.$month2.'/'.$year2;
+                    ?>
+
+                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date001}} to {{$date002}} for {{$product_type}} Products</div>
                     <div class="actions">
                         <a class="btn blue" href="/stocks">Back</a>
 
@@ -40,12 +54,12 @@
                         <tr>
 
                             <th>Product Name</th>
-                            <th>StockIn</th>
-                            <th>Before hand</th>
-                            <th>Total StockIn</th>
-                            <th>StockOut</th>
-                            <th>Wastage</th>
-                            <th  style="background-color:green">Balance</th>
+                            <th style="text-align: right;">Stock In</th>
+                            <th style="text-align: right;">Opening</th>
+                            <th style="text-align: right;">Total Stock In</th>
+                            <th style="text-align: right;">Stock Out</th>
+                            <th style="text-align: right;">Wastage</th>
+                            <th  style="background-color:green;text-align: right;">Balance</th>
 
                         </tr>
                         </thead>
@@ -79,12 +93,12 @@
                             <tr class="odd gradeX">
 
                                 <td>{{$result->pName.'('.$result->category.')'.'('.$sub_categoryName->name.')'}}</td>
-                                <td>@if($stockIn[0]->stockIn){{ $stockIn[0]->stockIn }}@else {{ 0 }}@endif</td>
-                                <td>@if($bf){{ $bf }}@else {{ 0 }}@endif</td>
-                                <td>{{ $totalIn }}</td>
-                                <td>@if($stockOut[0]->stockOut){{ $stockOut[0]->stockOut }}@else {{ 0 }}@endif</td>
-                                <td>@if($wastage[0]->stockWastage){{ $wastage[0]->stockWastage }}@else {{ 0 }}@endif</td>
-                                <td>{{ $balance }}</td>
+                                <td style="text-align: right;">@if($stockIn[0]->stockIn){{ $stockIn[0]->stockIn }}@else {{ 0 }}@endif</td>
+                                <td style="text-align: right;">@if($bf){{ $bf }}@else {{ 0 }}@endif</td>
+                                <td style="text-align: right;">{{ $totalIn }}</td>
+                                <td style="text-align: right;">@if($stockOut[0]->stockOut){{ $stockOut[0]->stockOut }}@else {{ 0 }}@endif</td>
+                                <td style="text-align: right;">@if($wastage[0]->stockWastage){{ $wastage[0]->stockWastage }}@else {{ 0 }}@endif</td>
+                                <td style="text-align: right;">{{ $balance }}</td>
 
                             </tr>
                             <?php
@@ -99,12 +113,12 @@
                         <tr style="background-color:#b4cef8;">
 
                             <td><b>Grand Total</b></td>
-                            <td>{{$grandTotalStockIn}}</td>
-                            <td>{{$grandTotalStockBf}}</td>
-                            <td>{{$grandTotalStockInBf}}</td>
-                            <td>{{$grandTotalStockOut}}</td>
-                            <td>{{$grandTotalStockWastage}}</td>
-                            <td>{{ $grandTotalBalance }}</td>
+                            <td style="text-align: right;">{{$grandTotalStockIn}}</td>
+                            <td style="text-align: right;">{{$grandTotalStockBf}}</td>
+                            <td style="text-align: right;">{{$grandTotalStockInBf}}</td>
+                            <td style="text-align: right;">{{$grandTotalStockOut}}</td>
+                            <td style="text-align: right;">{{$grandTotalStockWastage}}</td>
+                            <td style="text-align: right;">{{ $grandTotalBalance }}</td>
 
                         </tr>
                         </tbody>
