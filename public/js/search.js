@@ -7,4 +7,17 @@ jQuery(document).ready(function() {
 
     $('select').select2();
 
+    $('#category_id').live("change", function () {
+        $('#product_id').empty();
+        var category_id = $('#category_id').val();
+        $.ajax({
+            type: "get",
+            url: "products/"+category_id,
+            success: function (html) {
+                $('#product_id').append(html);
+
+            }
+        });
+    });
+
 });
