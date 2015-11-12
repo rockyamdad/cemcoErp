@@ -330,7 +330,7 @@ class StockController extends Controller{
             $stockCount[0]->save();
 
             $stockCountTo = StockCount::where('product_id','=',$stock->product_id)
-                ->where('to_stock_info_id','=',$stock->to_stock_info_id)
+                ->where('stock_info_id','=',$stock->to_stock_info_id)
                 ->get();
             $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity - $stock->product_quantity;
             $stockCountTo[0]->save();
