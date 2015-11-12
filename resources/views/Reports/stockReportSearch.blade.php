@@ -34,6 +34,14 @@
                         <button data-close="alert" class="close"></button>
                         Your form validation is successful!
                     </div>
+                    <div class="form-group">
+                        {!!HTML::decode(Form::label('product_type','Product Type<span class="required">*</span>',array('class' =>
+                        'control-label col-md-3')))!!}
+                        <div class="col-md-4">
+                            {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                            'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
+                        </div>
+                    </div>
 
                     <div class="form-group">
 

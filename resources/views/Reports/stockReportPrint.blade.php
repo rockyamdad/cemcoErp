@@ -36,10 +36,10 @@
                         @foreach($results as $result )
                             <?php
                                     $stocks = new \App\Report();
-                                    $bf = $stocks->getStockBf($date1,$result->product_id);
-                                    $stockIn = $stocks->getStockIn($date1,$date2,$result->product_id);
-                                    $stockOut = $stocks->getStockOut($date1,$date2,$result->product_id);
-                                    $wastage = $stocks->getStockWastage($date1,$date2,$result->product_id);
+                                    $bf = $stocks->getStockBf($product_type,$date1,$result->product_id);
+                                    $stockIn = $stocks->getStockIn($product_type,$date1,$date2,$result->product_id);
+                                    $stockOut = $stocks->getStockOut($product_type,$date1,$date2,$result->product_id);
+                                    $wastage = $stocks->getStockWastage($product_type,$date1,$date2,$result->product_id);
                                     $totalIn = $bf[0]->stockBf + $stockIn[0]->stockIn;
                                     $totalOutNg =  $stockOut[0]->stockOut + $wastage[0]->stockWastage;
                                     $balance =  $totalIn - $totalOutNg;

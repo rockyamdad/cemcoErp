@@ -66,20 +66,23 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
+        $product_type = Input::get('product_type');
         $report = new Report();
-        $results = $report->getStockReport($date1,$date2);
+        $results = $report->getStockReport($product_type,$date1,$date2);
         return view('Reports.stockReport',compact('results'))
+            ->with('product_type',$product_type)
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
 
-    public function getPrint($date1,$date2)
+    public function getPrint($date1,$date2,$type)
     {
         $startDate = date('Y/m/d',strtotime($date1));
         $endDate = date('Y/m/d',strtotime($date2));
         $report = new Report();
-        $results = $report->getStockReport($startDate,$endDate);
+        $results = $report->getStockReport($type,$startDate,$endDate);
         return view('Reports.stockReportPrint',compact('results'))
+            ->with('product_type',$type)
             ->with('date1',$startDate)
             ->with('date2',$endDate);
     }

@@ -17,12 +17,13 @@
             use Illuminate\Support\Facades\URL;
             $sDate = date('Ymd', strtotime($date1));
             $eDate = date('Ymd', strtotime($date2));
-            $url = URL::to('reports/print/'.$sDate.'/'.$eDate);
+            $type  = $product_type;
+            $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type);
             ?>
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date1}} to {{$date2}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date1}} to {{$date2}} for {{$product_type}} Products</div>
                     <div class="actions">
                         <a class="btn blue" href="/stocks">Back</a>
 
@@ -64,10 +65,10 @@
                         @foreach($results as $result )
                             <?php
                                     $stocks = new \App\Report();
-                                    $bf = $stocks->getStockBf($date1,$result->product_id);
-                                    $stockIn = $stocks->getStockIn($date1,$date2,$result->product_id);
-                                    $stockOut = $stocks->getStockOut($date1,$date2,$result->product_id);
-                                    $wastage = $stocks->getStockWastage($date1,$date2,$result->product_id);
+                                    $bf = $stocks->getStockBf($product_type,$date1,$result->product_id);
+                                    $stockIn = $stocks->getStockIn($product_type,$date1,$date2,$result->product_id);
+                                    $stockOut = $stocks->getStockOut($product_type,$date1,$date2,$result->product_id);
+                                    $wastage = $stocks->getStockWastage($product_type,$date1,$date2,$result->product_id);
                                     $totalIn = $bf[0]->stockBf + $stockIn[0]->stockIn;
                                     $totalOutNg =  $stockOut[0]->stockOut + $wastage[0]->stockWastage;
                                     $balance =  $totalIn - $totalOutNg;
@@ -122,10 +123,3 @@
     </div>
 
 @stop
-<script language="javascript" type="text/javascript">
-    function popupCenter(url, title, w, h) {
-        var left = (screen.width/2)-(w/2);
-        var top = (screen.height/2)-(h/2);
-        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-    }
-</script>
