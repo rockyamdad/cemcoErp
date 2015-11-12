@@ -30,8 +30,9 @@
                         <tr>
 
                             <th>Product Name</th>
-                            <th>Quantity</th>
                             <th>Stock Name</th>
+                            <th>Entry Type</th>
+                            <th>Quantity</th>
                             <th>Remarks</th>
                             <th>Consignment Name</th>
                             <th>Date</th>
@@ -45,8 +46,9 @@
                                 <tr class="odd gradeX">
 
                                     <td>{{$result->pName}}</td>
-                                    <td>{{$result->product_quantity}}</td>
                                     <td>{{$result->sName}}</td>
+                                    <td>{{$result->entry_type}}</td>
+                                    <td>{{$result->product_quantity}}</td>
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
                                     <td>{{$result->created_at}}</td>
