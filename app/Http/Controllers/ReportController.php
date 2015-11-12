@@ -46,7 +46,8 @@ class ReportController extends Controller{
         $allStockInfos = $stockInfos->getStockInfoDropDown();
         $report = new Report();
         $stock_info_id = Input::get('stock_info_id');
-        $results = $report->getStockReportResult($stock_info_id);
+        $product_type = Input::get('product_type');
+        $results = $report->getStockReportResult($stock_info_id,$product_type);
 
         return view('Reports.stockProductsReport')
             ->with('results',$results)

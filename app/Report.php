@@ -101,11 +101,13 @@ class Report extends Eloquent
             ->groupBy('stock_counts.product_id')
             ->get();
     }
-    public function getStockReportResult($stock)
+    public function getStockReportResult($stock,$product_type)
     {
         return DB::table('stock_counts')
-            ->selectRaw('product_quantity,product_id,stock_info_id')
-            ->where('stock_info_id', '=', $stock)
+            ->join('products', 'stock_counts.product_id', '=', 'products.id')
+            ->selectRaw('stock_counts.product_quantity,stock_counts.product_id,stock_counts.stock_info_id,products.product_type')
+            ->where('products.product_type', '=', $product_type)
+            ->where('stock_counts.stock_info_id', '=', $stock)
             ->get();
     }
 

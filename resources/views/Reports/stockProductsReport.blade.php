@@ -39,8 +39,13 @@
                     {!!Form::open(array('url' => 'reports/stocksproductsresult', 'method' => 'post', 'class'=>'form-horizontal',
                     'id'=>'stock_search_form'))!!}
                     <div class="form-group">
-                        {!!HTML::decode(Form::label('stock_info_id','Select Stocks<span class="required">*</span>',array('class' =>
-                        'control-label col-md-3')))!!}
+
+                        <div class="col-md-4">
+                            {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                            'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
+                        </div>
+
+
                         <div class="col-md-4">
                             {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
                         </div>
