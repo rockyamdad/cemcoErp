@@ -16,6 +16,7 @@ class Report extends Eloquent
                 ->groupBy('stocks.product_id')
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
+                    'products.sub_category_id AS subCategory',
                     'stocks.created_at',
                     'stocks.product_id',
                     'stocks.product_type',
@@ -35,6 +36,19 @@ class Report extends Eloquent
             ->where('product_id', '=',$product_id)
             ->select(
                 DB::raw('SUM(product_quantity) as stockBf')
+
+            )
+            ->get();
+    }
+    public function getStockBfOut($product_type,$date1,$product_id)
+    {
+        return DB::table('stocks')
+            ->where('created_at', '<',new \DateTime($date1))
+            ->where('product_type', '=',$product_type)
+            ->where('entry_type', '=', 'StockOut')
+            ->where('product_id', '=',$product_id)
+            ->select(
+                DB::raw('SUM(product_quantity) as stockBfOut')
 
             )
             ->get();
