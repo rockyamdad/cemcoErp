@@ -6,6 +6,7 @@ use App\Product;
 use App\ProformaInvoice;
 use App\Search;
 use App\Stock;
+use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -73,6 +74,20 @@ class SearchController extends Controller{
 
         return view('Searches.stockProductResult',compact('results'));
 
+    }
+    public  function getProducts($category)
+    {
+        $productsNames = Product::where('category_id','=',$category)
+            ->get();
+
+        foreach ($productsNames as $productName) {
+
+            $category = Category::find($productName->category_id);
+            $subCategory = SubCategory::find($productName->sub_category_id);
+
+            echo "<option value = $productName->id > $productName->name ($category->name) ($subCategory->name)</option> ";
+
+        }
     }
 
 }
