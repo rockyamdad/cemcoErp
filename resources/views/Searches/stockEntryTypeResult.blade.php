@@ -43,9 +43,13 @@
                         <tbody>
 
                             @foreach($results as $result )
+                                <?php
+                                $categoryName = \App\Category::find($result->cid);
+                                $subCategoryName = \App\SubCategory::find($result->sid);
+                                ?>
                                 <tr class="odd gradeX">
 
-                                    <td>{{$result->pName}}</td>
+                                    <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                     <td>{{$result->sName}}</td>
                                     <td>{{$result->entry_type}}</td>
                                     <td>{{$result->product_quantity}}</td>
