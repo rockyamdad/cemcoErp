@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Section
+            Stock Requisition Section
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>
