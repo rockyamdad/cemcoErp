@@ -40,10 +40,15 @@
                         </thead>
                         <tbody>
                         @foreach($results as $result )
+                        <?php
+                        $categoryName = \App\Category::find($result->cId);
+                        $subCategoryName = \App\SubCategory::find($result->sId);
+                        ?>
+
                             <tr class="odd gradeX">
 
                                 <td>{{$result->partyName}}</td>
-                                <td>{{$result->pName}}</td>
+                                <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                 <td>{{$result->requisition_quantity}}</td>
                                 <td>{{$result->issued_quantity}}</td>
                                 <td>{{$result->created_at}}</td>

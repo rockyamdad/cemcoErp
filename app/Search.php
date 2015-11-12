@@ -20,6 +20,7 @@ class Search extends Eloquent
                     'stocks.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
+
                 )
                 ->get();
         }else{
@@ -50,6 +51,8 @@ class Search extends Eloquent
                 ->join('users', 'stock_requisitions.user_id', '=', 'users.id')
                 ->whereBetween('stock_requisitions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
+                    'products.category_id AS cId',
+                    'products.sub_category_id AS sId',
                     'parties.name AS partyName',
                     'stock_requisitions.requisition_quantity',
                     'stock_requisitions.issued_quantity',
@@ -66,6 +69,8 @@ class Search extends Eloquent
                 ->where('party_id', '=', $party)
                 ->whereBetween('stock_requisitions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
+                    'products.category_id AS cId',
+                    'products.sub_category_id AS sId',
                     'parties.name AS partyName',
                     'stock_requisitions.requisition_quantity',
                     'stock_requisitions.issued_quantity',
