@@ -55,7 +55,7 @@
                     <thead  style="background-color: #557386">
                     <tr>
                         <th>SL</th>
-                        <th>Purchase Invoice Id</th>
+                        <th>Sales Invoice Id</th>
                         <th>Party Name</th>
                         <th>Status</th>
                         <th>Created By</th>
