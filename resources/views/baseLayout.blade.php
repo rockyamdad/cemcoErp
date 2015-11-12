@@ -185,19 +185,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('productCategories/index/'))class="active"@endif>
-                <a href="{{ URL::to('productCategories/index/') }}"><i class=""></i>Product Category
-                    Section </a>
+                <a href="{{ URL::to('productCategories/index/') }}"><i class=""></i>Product Category</a>
         </li>
 
         <li
         @if (Request::is('productsubcategories/index/'))class="active"@endif>
-        <a href="{{ URL::to('productsubcategories/index/') }}"><i class=""></i>Product SubCategory Section
+        <a href="{{ URL::to('productsubcategories/index/') }}"><i class=""></i>Product SubCategory
         </a>
         </li>
 
         <li
         @if (Request::is('products/index/'))class="active"@endif>
-        <a href="{{ URL::to('products/index/') }}">Product Section </a>
+        <a href="{{ URL::to('products/index/') }}">Add Product</a>
         </li>
 
         </ul>
@@ -214,7 +213,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('imports/create'))class="active"@endif>
-                <a href="{{ URL::to('imports/create') }}">Add Import Info </a>
+                <a href="{{ URL::to('imports/create') }}">Create New Import</a>
         </li>
         <li
         @if (Request::is('imports/index'))class="active"@endif>
@@ -234,11 +233,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('stocks/create'))class="active"@endif>
-                <a href="{{ URL::to('stocks/create') }}">Add Stock </a>
+                <a href="{{ URL::to('stocks/create') }}">Stock Entry</a>
                  </li>
                 <li
                 @if (Request::is('stocks/index'))class="active"@endif>
-                <a href="{{ URL::to('stocks/index') }}">Stock List </a>
+                <a href="{{ URL::to('stocks/index') }}">Stock Entry List </a>
                 </li>
 
         </ul>
@@ -255,11 +254,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('requisitions/create'))class="active"@endif>
-                <a href="{{ URL::to('requisitions/create') }}">Add Stock Requisition </a>
+                <a href="{{ URL::to('requisitions/create') }}">Create Stock Requisition </a>
         </li>
         <li
         @if (Request::is('requisitions/index'))class="active"@endif>
-        <a href="{{ URL::to('requisitions/index') }}">StockRequisition List </a>
+        <a href="{{ URL::to('requisitions/index') }}">Stock Requisition List </a>
         </li>
 
         </ul>
@@ -275,24 +274,25 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <ul class="sub-menu">
                     <li
                             @if (Request::is('accountcategory/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountcategory/index') }}"> Account category</a>
+                        <a href="{{ URL::to('accountcategory/index') }}"> Create Account Category </a>
                     </li>
                     <li
                             @if (Request::is('accountnames/index'))class="active"@endif>
-                        <a href="{{ URL::to('accountnames/index') }}"> Account Names </a>
-                    </li>
-                    <li
-                            @if (Request::is('purchases/index'))class="active"@endif>
-                        <a href="{{ URL::to('purchases/index') }}"> Purchase Invoices </a>
-                    </li>
-                    <li
-                            @if (Request::is('expenses/index'))class="active"@endif>
-                        <a href="{{ URL::to('expenses/index') }}"> Expenses </a>
+                        <a href="{{ URL::to('accountnames/index') }}"> Create New Account </a>
                     </li>
                     <li
                             @if (Request::is('sales/index'))class="active"@endif>
                         <a href="{{ URL::to('sales/index') }}"> Sales </a>
                     </li>
+                    <li
+                            @if (Request::is('purchases/index'))class="active"@endif>
+                        <a href="{{ URL::to('purchases/index') }}"> Purchase </a>
+                    </li>
+                    <li
+                            @if (Request::is('expenses/index'))class="active"@endif>
+                        <a href="{{ URL::to('expenses/index') }}"> Expense </a>
+                    </li>
+
                 </ul>
             </li>
 
@@ -308,12 +308,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                     @if (Request::is('parties/index/'))class="active"@endif>
-                    <a href="{{ URL::to('parties/index/') }}"><i class=""></i>Party Section                    Section </a>
+                    <a href="{{ URL::to('parties/index/') }}"><i class=""></i> Create Party </a>
                  </li>
 
                 <li
                         @if (Request::is('stockInfos/index/'))class="active"@endif>
-                    <a href="{{ URL::to('stockInfos/index/') }}"><i class=""></i>Stock Info Section                    Section </a>
+                    <a href="{{ URL::to('stockInfos/index/') }}"><i class=""></i> Create Stock </a>
                 </li>
         </ul>
         </li>
@@ -332,7 +332,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li
                             @if (Request::is('searches/requisition/'))class="active"@endif>
-                        <a href="{{ URL::to('searches/requisition') }}">Requisition </a>
+                        <a href="{{ URL::to('searches/requisition') }}">Stock Requisition </a>
                     </li>
                     <li
                             @if (Request::is('searches/stock-products'))class="active"@endif>
