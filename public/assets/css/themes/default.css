@@ -14,7 +14,7 @@ Page header
 .header {
   filter: none !important;
   background-image: none !important;
-  background-color: #212121 !important;
+  background-color: #151B54 !important;
 }
 .header .btn-navbar {
   background-color: #212121 !important;
@@ -45,7 +45,7 @@ ul.page-sidebar-menu > li a i {
 ul.page-sidebar-menu > li.open > a,
 ul.page-sidebar-menu > li > a:hover,
 ul.page-sidebar-menu > li:hover > a {
-  background: indianred;
+  background: #e02222;
 }
 ul.page-sidebar-menu > li.active > a {
   background: #e02222 !important;

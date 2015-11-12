@@ -28,7 +28,7 @@ class PartyController extends Controller{
     public function postSaveParty()
     {
         $ruless = array(
-            'name' => 'required',
+           // 'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
         );

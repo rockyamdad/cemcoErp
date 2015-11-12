@@ -78,7 +78,7 @@
                         <td>{{$party->email}}</td>
                         <td>{{$party->phone}}</td>
                         <td>{{$party->address}}</td>
-                        <td>{{$party->user_id}}</td>
+                        <td>{{$party->user->name}}</td>
 
                         @if($party->status == "Activate")
                         <td class="party-status"><span class="label label-sm label-success">Activate</span></td>
