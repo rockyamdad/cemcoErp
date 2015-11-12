@@ -41,7 +41,7 @@
                     <div class="form-group">
 
                         <div class="col-md-4">
-                            {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                            {!! Form::select('product_type',[null=>'Please Select Product Type'] + array('Local' => 'Local', 'Foreign' =>
                             'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                         </div>
 
@@ -59,8 +59,9 @@
                         <thead style="background-color:cadetblue">
                         <tr>
 
-                            <th>Stock Name</th>
                             <th>Product Name</th>
+                            <th>Category Name</th>
+                            <th>Sub-Category Name</th>
                             <th>Total Quantity On Hand</th>
 
                         </tr>
@@ -73,13 +74,15 @@
                         @foreach($results as $result )
                             <?php
                             $pName = \App\Product::find($result->product_id);
-                            $sName = \App\StockInfo::find($result->stock_info_id);
+                            $categoryName = \App\Category::find($pName->category_id);
+                            $subCategoryName = \App\SubCategory::find($pName->sub_category_id);
                             $grandTotal = $grandTotal + $result->product_quantity;
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$sName->name}}</td>
                                 <td>{{$pName->name}}</td>
+                                <td>{{$categoryName->name}}</td>
+                                <td>{{$subCategoryName->name}}</td>
                                 <td>{{$result->product_quantity}}</td>
 
 
@@ -88,6 +91,7 @@
                         @endforeach
                         <tr>
                             <td>Total</td>
+                            <td></td>
                             <td></td>
                             <td>{{$grandTotal}}</td>
                         </tr>
