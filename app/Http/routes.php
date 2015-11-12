@@ -142,7 +142,7 @@ Route::post('/stock-product-search-result','SearchController@postStockProductRes
 Route::controller('reports','ReportController');
 Route::get('/stocks','ReportController@getStocks');
 Route::post('/stock-report','ReportController@postReportResult');
-Route::get('/print/{date1}/{date2}','ReportController@getPrint');
+Route::get('/print/{date1}/{date2}/{type}','ReportController@getPrint');
 Route::get('/stocksproducts','ReportController@getStocksproducts');
 Route::get('/stocksproductsresult','ReportController@postStocksproductsresult');
 
