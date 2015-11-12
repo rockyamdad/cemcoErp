@@ -58,7 +58,8 @@
                         <th>Product Name</th>
                         <th>Party Name</th>
                         <th>Requisition No</th>
-                        <th>Requisition Quantity</th>
+                        <th>Requisition Qty</th>
+                        <th>Issued Qty</th>
                         <th>Remarks</th>
                         <th>Created By</th>
                       <!--  <th>Status</th>-->
@@ -76,6 +77,7 @@
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>
                         <td>{{$requisition->requisition_quantity}}</td>
+                        <td>{{$requisition->issued_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
                         <td>{{$requisition->user->name}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')
