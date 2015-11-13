@@ -20,6 +20,7 @@
             $type  = $product_type;
             $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type);
             ?>
+            @if($results)
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
@@ -48,7 +49,7 @@
 
                 <div class="portlet-body">
 
-                    @if($results)
+
                     <table class="table table-striped table-bordered table-hover" id="stock_requisition_search_result_table">
                         <thead style="background-color:cadetblue">
                         <tr>
@@ -123,13 +124,14 @@
                         </tr>
                         </tbody>
                     </table>
-                    @else
-                        <h4  style="color:red">No Search Result</h4>
-                    @endif
+
                 </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+            @else
+                <h4  style="color:red">No Search Result</h4>
+            @endif
         </div>
+
     </div>
 
 @stop
