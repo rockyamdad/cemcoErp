@@ -159,7 +159,7 @@ jQuery(document).ready(function() {
                 type: "get",
                 url: "../stocks/infos",
                 success: function (html) {
-                    $('#to_stock_section').html(html);
+                    $('#to_stock_info_id').html(html);
 
                 }
             });
