@@ -90,5 +90,6 @@
     {!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
     {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
     @stop
+    </div>
 
 
