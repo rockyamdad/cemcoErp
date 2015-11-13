@@ -32,7 +32,7 @@
 <body class="login">
 <!-- BEGIN LOGO -->
 <div class="logo">
-    <img src="{{URL::asset('assets/img/cemco.png')}}" alt=""/>
+    <img src="{{URL::asset('assets/img/logo.png')}}" alt=""/>
 </div>
 
 <div class="content">
