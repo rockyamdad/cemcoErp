@@ -31,8 +31,6 @@ class ReportController extends Controller{
     }
     public function getStocksproducts()
     {
-        $date = new \DateTime();
-        var_dump($date);exit;
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
         $report = new Report();

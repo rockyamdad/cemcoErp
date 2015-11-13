@@ -79,14 +79,14 @@
                         </select>
                     </div>
 
-                    <div class="col-md-4">
+                {{--    <div class="col-md-4">
                         <select  name="product_id3" class="form-control" rel="{{$stock->product_id}}">
                             <option value="">Select Product</option>
                             <option value="1">Select Product1</option>
                             <option value="2" selected>Select Product2</option>
                             <option value="3">Select Product3</option>
                         </select>
-                    </div>
+                    </div>--}}
 
                 </div>
                <!-- <div class="form-group">
