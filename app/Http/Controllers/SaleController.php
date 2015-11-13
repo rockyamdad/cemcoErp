@@ -37,8 +37,18 @@ class SaleController extends Controller{
         $products = new Product();
         $finishGoods = $products->getFinishGoodsDropDown();
 
+    // Invoice Id Generation Starts
+        $invdesc=Sale::orderBy('id','DESC')->first();
+        $invDescId=$invdesc->invoice_id;
+        $subinv1=substr($invDescId, 6);
+        $date=date("d/m/Y");
+
+        $invoiceidd=$date;
+    // Invoice Id Generation Ends
+
         return view('Sales.add',compact('buyersAll'))
-            ->with('finishGoods',$finishGoods);
+            ->with('finishGoods',$finishGoods)
+            ->with('invoiceidd',$invoiceidd);
     }
     public function postSaveSales()
     {

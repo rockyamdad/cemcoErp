@@ -97,6 +97,7 @@
                                                 'form-control','id'=>'price'))!!}
                                             </div>
                                         </div>
+                                        {{$invoiceidd}}
                                     </td>
                                     <td>
                                         <div class="form-group">
