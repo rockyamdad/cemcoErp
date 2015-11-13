@@ -83,9 +83,14 @@ class SearchController extends Controller{
         foreach ($productsNames as $productName) {
 
             $category = Category::find($productName->category_id);
-            $subCategory = SubCategory::find($productName->sub_category_id);
+            if($productName->sub_category_id){
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = $subCategory->name;
+            }else{
+                $subCategoryName = '';
+            }
 
-            echo "<option value = $productName->id > $productName->name ($category->name) ($subCategory->name)</option> ";
+            echo "<option value = $productName->id > $productName->name ($category->name) ($subCategoryName)</option> ";
 
         }
     }

@@ -6,6 +6,7 @@ use App\Product;
 use App\Stock;
 use App\StockCount;
 use App\StockInfo;
+use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -43,14 +44,20 @@ class StockController extends Controller{
         foreach ($productsName as $productName) {
 
             $category = $productName->category->name;
-            $subCategory = $productName->subCategory->name;
+            if($productName->sub_category_id){
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = $subCategory->name;
+            }else{
+                $subCategoryName = '';
+            }
+
             if($productName->id==$product_id)
             {
-                echo '<option value = "'.$productName->id.'" selected> '.$productName->name.' ('.$category.') ('.$subCategory.')</option> ';
+                echo '<option value = "'.$productName->id.'" selected> '.$productName->name.' ('.$category.') ('.$subCategoryName.')</option> ';
             }
             else
             {
-                echo "<option value = $productName->id > $productName->name ($category) ($subCategory)</option> ";
+                echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName)</option> ";
             }
 
         }
