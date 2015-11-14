@@ -229,4 +229,22 @@ jQuery(document).ready(function() {
             }
         });
     });
+
+    var entry_type = $('#edit_entry_type').val();
+    var stock_id = $('#to_stock_info_id').attr('rel');
+    if(entry_type=='Transfer')
+    {
+        $('.to_stock_section').show();
+        $('.consignment_name_section').hide();
+        $.ajax({
+            type: "get",
+            url: "../stocks/infos",
+            data:{'data':stock_id},
+            success: function (html) {
+                $('#to_stock_info_id').html(html);
+
+            }
+        });
+
+    }
 });

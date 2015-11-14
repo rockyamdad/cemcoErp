@@ -62,6 +62,23 @@ class StockController extends Controller{
 
         }
     }
+    public  function getStocks()
+    {
+        $stocks = StockInfo::where('status','=','Activate')
+            ->get();
+        $stock_id= Input::get('data');
+        foreach ($stocks as $stock) {
+            if($stock->id==$stock_id)
+            {
+                echo '<option value = "'.$stock->id.'" selected> '.$stock->name.' </option> ';
+            }
+            else
+            {
+                echo "<option value = $stock->id > $stock->name</option> ";
+            }
+
+        }
+    }
     public  function getImports()
     {
         $imports = Import::where('status','=','Activate')
@@ -91,15 +108,7 @@ class StockController extends Controller{
         }
 
     }
-    public  function getStocks()
-    {
-        $stocks = StockInfo::where('status','=','Activate')
-            ->get();
 
-        foreach ($stocks as $stock) {
-            echo "<option value = $stock->id > $stock->name</option> ";
-        }
-    }
     public function postSaveStock()
     {
         $ruless = array(

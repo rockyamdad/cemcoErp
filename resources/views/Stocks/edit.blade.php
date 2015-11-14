@@ -118,7 +118,7 @@
                 <div class="form-group to_stock_section">
                     <label class='control-label col-md-3'>To Stock </label>
                     <div class="col-md-4">
-                        <select class='form-control' id="to_stock_info_id" name='to_stock_info_id'>
+                        <select class='form-control' id="to_stock_info_id" name='to_stock_info_id' rel="{{$stock->to_stock_info_id}}">
                             <option value ='' >Select Stock </option>
 
                         </select>
