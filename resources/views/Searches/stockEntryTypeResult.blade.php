@@ -35,8 +35,6 @@
                             <th>Quantity</th>
                             <th>Remarks</th>
                             <th>Consignment Name</th>
-                            <th>Date</th>
-                            <th>Created By</th>
 
                         </tr>
                         </thead>
@@ -55,8 +53,6 @@
                                     <td>{{$result->product_quantity}}</td>
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
-                                    <td>{{$result->created_at}}</td>
-                                    <td>{{$result->uName}}</td>
 
                                 </tr>
                             @endforeach
