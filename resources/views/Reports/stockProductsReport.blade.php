@@ -20,8 +20,14 @@
         <div class="col-md-12">
             <?php
             use Illuminate\Support\Facades\URL;
+                    $curent_url = $_SERVER['REQUEST_URI'];
 
-            $url = URL::to('reports/printstocksproducts');
+                    if($curent_url == '/reports/stocksproductsresult')
+                        {
+                            $url = URL::to('reports/printstocksproductsresult/'.$product_type.'/'.$stock_info_id);
+                        }else{
+                            $url = URL::to('reports/printstocksproducts');
+                    }
             ?>
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
@@ -90,7 +96,7 @@
 
                         @endforeach
                         <tr>
-                            <td>Total</td>
+                            <td><b>Total</b></td>
                             <td></td>
                             <td></td>
                             <td>{{$grandTotal}}</td>

@@ -50,6 +50,8 @@ class ReportController extends Controller{
         $results = $report->getStockReportResult($stock_info_id,$product_type);
 
         return view('Reports.stockProductsReport')
+            ->with('stock_info_id',$stock_info_id)
+            ->with('product_type',$product_type)
             ->with('results',$results)
             ->with('allStockInfos',$allStockInfos);
     }
@@ -58,6 +60,16 @@ class ReportController extends Controller{
 
         $report = new Report();
         $results = $report->getStockProductsReport();
+
+        return view('Reports.stockProductsReportPrint')
+            ->with('results',$results);
+
+    }
+    public function getPrintstocksproductsresult($product_type,$stock_info_id)
+    {
+
+        $report = new Report();
+        $results = $report->getStockReportResult($stock_info_id,$product_type);
 
         return view('Reports.stockProductsReportPrint')
             ->with('results',$results);
