@@ -39,12 +39,53 @@ class SaleController extends Controller{
 
     // Invoice Id Generation Starts
         $invdesc=Sale::orderBy('id','DESC')->first();
-        $invDescId=$invdesc->invoice_id;
-        $subinv1=substr($invDescId, 6);
-        //$date=date("d/m/Y");
-        $date4 = new \DateTime();
-        //$date5=date4("d/m/Y");
-        $invoiceidd=date4("d/m/Y");
+        if($invdesc!=null) {
+            $invDescId = $invdesc->invoice_id;
+            $invDescIdNo = substr($invDescId, 6);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 0, 2);
+            $mm = substr($invDescId, -8, -6);
+            $yy = substr($invDescId, -6, -4);
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[1];
+            $mm2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($invDescId, 2);
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = $dd2 . $mm2 . $yy2 . $invDescIdNo + 1;
+            } else {
+                $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+            }
+        }
+        else
+        {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[1];
+            $mm2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+
+            $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+
+        }
+
+
     // Invoice Id Generation Ends
 
         return view('Sales.add',compact('buyersAll'))
