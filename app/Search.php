@@ -90,7 +90,7 @@ class Search extends Eloquent
                 ->get();
         }
     }
-    public function getResultStockProducts($category,$product,$date1,$date2)
+    public function getResultStockProducts($category,$product,$date1,$date2,$branch,$stock)
     {
         if(($category=='') && ($product==''))
         {
@@ -99,6 +99,8 @@ class Search extends Eloquent
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
+                ->where('stocks.branch_id','=',$branch)
+                ->where('stocks.stock_info_id','=',$stock)
                 ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
@@ -118,6 +120,8 @@ class Search extends Eloquent
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
+                ->where('stocks.branch_id','=',$branch)
+                ->where('stocks.stock_info_id','=',$stock)
                 ->where('product_id','=',$product)
                 ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
@@ -139,6 +143,8 @@ class Search extends Eloquent
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
+                ->where('stocks.branch_id','=',$branch)
+                ->where('stocks.stock_info_id','=',$stock)
                 ->where('products.category_id','=',$category)
                 ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
@@ -159,6 +165,8 @@ class Search extends Eloquent
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
+                ->where('stocks.branch_id','=',$branch)
+                ->where('stocks.stock_info_id','=',$stock)
                 ->where('product_id','=',$product)
                 ->where('products.category_id','=',$category)
                 ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))

@@ -7,6 +7,7 @@ use App\Product;
 use App\ProformaInvoice;
 use App\Search;
 use App\Stock;
+use App\StockInfo;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -62,21 +63,29 @@ class SearchController extends Controller{
     }
     public function getStockProducts()
     {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
         $catogories = new Category();
         $categoriesAll = $catogories->getCategoriesDropDown();
         $products = new Product();
         $productAll = $products->getProductsWithCategories();
         return view('Searches.stockProduct',compact('productAll'))
-            ->with('categoriesAll',$categoriesAll);
+            ->with('categoriesAll',$categoriesAll)
+            ->with('allStockInfos',$allStockInfos)
+            ->with('branchAll',$branchAll);
     }
     public function postStockProductResult()
     {
+        $branch = Input::get('branch_id');
+        $stock = Input::get('stock_info_id');
         $category = Input::get('category_id');
         $product = Input::get('product_id');
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
         $search = new Search();
-        $results = $search->getResultStockProducts($category,$product,$date1,$date2);
+        $results = $search->getResultStockProducts($category,$product,$date1,$date2,$branch,$stock);
 
         return view('Searches.stockProductResult',compact('results'));
 
@@ -97,6 +106,17 @@ class SearchController extends Controller{
             }
 
             echo "<option value = $productName->id > $productName->name ($category->name) ($subCategoryName)</option> ";
+
+        }
+    }
+    public function getCategory($branch_id)
+    {
+        $categoriesName = Category::where('branch_id','=',$branch_id)
+            ->get();
+
+        foreach ($categoriesName as $categoryName) {
+
+            echo "<option value = $categoryName->id > $categoryName->name</option> ";
 
         }
     }
