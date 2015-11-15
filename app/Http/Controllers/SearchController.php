@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Branch;
 use App\Category;
 use App\Party;
 use App\Product;
@@ -26,17 +27,22 @@ class SearchController extends Controller{
     }
     public function getEntry()
     {
-        return view('Searches.stockEntryType');
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Searches.stockEntryType')
+            ->with('branchAll',$branchAll);
     }
     public function postSearchResult()
     {
+            $branch= Input::get('branch_id');
             $type= Input::get('entry_type');
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
             $search = new Search();
-            $results = $search->getResultSearchType($type,$date1,$date2);
+            $results = $search->getResultSearchType($type,$date1,$date2,$branch);
 
-            return view('Searches.stockEntryTypeResult',compact('results'));
+            return view('Searches.stockEntryTypeResult',compact('results'))
+                ->with('branch',$branch);
     }
     public function getRequisition()
     {

@@ -16,7 +16,10 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result</div>
+                    <?php
+                    $branch = \App\Branch::find($branch);
+                    ?>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result for {{$branch->name}}</div>
                     <div class="actions">
                         <a class="btn blue" href="/entry">Back</a>
 

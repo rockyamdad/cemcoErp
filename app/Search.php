@@ -4,19 +4,21 @@ use Illuminate\Support\Facades\DB;
 
 class Search extends Eloquent
 {
-    public function getResultSearchType($type,$date1,$date2)
+    public function getResultSearchType($type,$date1,$date2,$branch)
     {
         if(($type=='')) {
             return DB::table('stocks')
                 ->join('products', 'stocks.product_id', '=', 'products.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
+                ->where('stocks.branch_id', '=', $branch)
                 ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'products.category_id AS cid',
                     'products.sub_category_id AS sid',
                     'stocks.product_quantity',
                     'stocks.entry_type',
+                    'stocks.branch_id',
                     'stocks.consignment_name',
                     'stocks.remarks',
                     'stocks.created_at',
@@ -31,12 +33,14 @@ class Search extends Eloquent
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
                 ->join('users', 'stocks.user_id', '=', 'users.id')
                 ->where('entry_type', '=', $type)
+                ->where('stocks.branch_id', '=', $branch)
                 ->groupBy('stocks.product_id')
                 ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'products.category_id AS cid',
                     'products.sub_category_id AS sid',
                     'stocks.entry_type',
+                    'stocks.branch_id',
                     'stocks.consignment_name',
                     'stocks.remarks',
                     'stocks.created_at',
