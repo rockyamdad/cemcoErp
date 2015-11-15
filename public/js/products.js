@@ -56,6 +56,9 @@ jQuery(document).ready(function() {
 
     $('#products_branch_id').live("change", function () {
         var branch_id = $('#products_branch_id').val();
+        $('#products_category_id').empty();
+        var newOption = $('<option value="">Choose Category</option>');
+        $('#products_category_id').append(newOption);
         $.ajax({
             type: "get",
             url: "category/"+branch_id,
@@ -70,6 +73,9 @@ jQuery(document).ready(function() {
 
         var category_id = $('#products_category_id').val();
         var branch_id = $('#products_branch_id').val();
+        $('#products_sub_category_id').empty();
+        var newOption = $('<option value="">Choose Sub Category</option>');
+        $('#products_sub_category_id').append(newOption);
         $.ajax({
             type: "get",
             url: "sub/"+category_id,
@@ -106,4 +112,30 @@ jQuery(document).ready(function() {
             }
         });
     });
-})
+
+    var branch_id = $('#products_edit_branch_id').val();
+    var category_id = $('#products_edit_category_id').attr('rel');
+    $.ajax({
+        type: "get",
+        url: "../category/"+branch_id,
+        data:{'data':category_id},
+        success: function (html) {
+            $('#products_edit_category_id').html(html);
+
+        }
+    });
+
+
+    var branch_id = $('#products_edit_branch_id').val();
+    var sub_category_id = $('#products_edit_sub_category_id').attr('rel');
+    $.ajax({
+        type: "get",
+        url: "../sub/"+category_id,
+        data: {'branch_id':branch_id,'data':sub_category_id},
+        success: function (html) {
+            $('#products_edit_sub_category_id').html(html);
+
+        }
+    });
+
+});

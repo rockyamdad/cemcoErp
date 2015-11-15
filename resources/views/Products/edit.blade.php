@@ -54,23 +54,26 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('category_id','Product Category<span class="required">*</span>',array('class'
-                    => 'control-label col-md-3')))!!}
+                    <label class="control-label col-md-3">Choose Category<span class="required">*</span></label>
+
                     <div class="col-md-4">
-                        {!!Form::select('category_id',array_merge(array('0' => 'Please Select
-                        Category'),$categoryAll),$products->category_id, array('class'=>'form-control
-                        ','id'=>'products_edit_category_id') )!!}
+                        <select id="products_edit_category_id" name="category_id" rel="{{$products->category_id}}" class="form-control">
+                            <option value="">Select Category</option>
+                        </select>
+
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('sub_category_id','Product Sub Category',array('class'
-                    => 'control-label col-md-3')))!!}
+                    <label class="control-label col-md-3">Choose Sub Category</label>
+
                     <div class="col-md-4">
-                        {!!Form::select('sub_category_id',array_merge(array('0' => 'Please Select
-                        SubCategory'),$subCategoryAll),$products->sub_category_id, array('class'=>'form-control
-                        ','id'=>'products_edit_sub_category_id') )!!}
+                        <select id="products_edit_sub_category_id" name="sub_category_id" rel="{{$products->sub_category_id}}"  class="form-control">
+                            <option value="">Select Sub Category</option>
+                        </select>
+
                     </div>
                 </div>
+
                 <div class="form-group">
                     {!! HTML::decode(Form::label('name','Product Name<span class="required">*</span>',array('class' =>
                     'control-label col-md-3'))) !!}

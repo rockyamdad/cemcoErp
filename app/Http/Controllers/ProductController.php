@@ -54,19 +54,37 @@ class ProductController extends Controller{
     {
         $categoriesName = Category::where('branch_id','=',$branch_id)
             ->get();
+        $category_id= Input::get('data');
 
         foreach ($categoriesName as $categoryName) {
-            echo "<option value = $categoryName->id > $categoryName->name</option> ";
+            if($categoryName->id==$category_id)
+            {
+                echo '<option value = "'.$categoryName->id.'" selected> '.$categoryName->name.' </option> ';
+            }
+            else
+            {
+                echo "<option value = $categoryName->id > $categoryName->name</option> ";
+            }
+
         }
     }
     public function getSub($category_id)
     {
         $branchId = $_GET['branch_id'];
+        $sub_category_id= Input::get('data');
         $suCategoriesName = SubCategory::where('category_id','=',$category_id)
                             ->where('branch_id','=',$branchId)
             ->get();
         foreach ($suCategoriesName as $subCategoryName) {
-            echo "<option value = $subCategoryName->id > $subCategoryName->name</option> ";
+            if($subCategoryName->id==$sub_category_id)
+            {
+                echo '<option value = "'.$subCategoryName->id.'" selected> '.$subCategoryName->name.' </option> ';
+            }
+            else
+            {
+                echo "<option value = $subCategoryName->id > $subCategoryName->name</option> ";
+            }
+
         }
     }
     public function getEdit($id)
