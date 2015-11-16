@@ -28,7 +28,43 @@ class ReportController extends Controller{
     }
     public function getStocks()
     {
-        return view('Reports.stockReportSearch');
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $catogories = new Category();
+        $categoriesAll = $catogories->getCategoriesDropDown();
+        return view('Reports.stockReportSearch')
+            ->with('branchAll',$branchAll)
+            ->with('categoriesAll',$categoriesAll);
+    }
+    public function postReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        $branch_id = Input::get('branch_id');
+        $category_id = Input::get('category_id');
+        $product_type = Input::get('product_type');
+        $report = new Report();
+        $results = $report->getStockReport($product_type,$date1,$date2,$branch_id,$category_id);
+        return view('Reports.stockReport',compact('results'))
+            ->with('product_type',$product_type)
+            ->with('branch_id',$branch_id)
+            ->with('category_id',$category_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
+
+    public function getPrint($date1,$date2,$type,$branch_id,$category_id)
+    {
+        $startDate = date('Y/m/d',strtotime($date1));
+        $endDate = date('Y/m/d',strtotime($date2));
+        $report = new Report();
+        $results = $report->getStockReport($type,$startDate,$endDate,$branch_id,$category_id);
+        return view('Reports.stockReportPrint',compact('results'))
+            ->with('product_type',$type)
+            ->with('branch_id',$branch_id)
+            ->with('category_id',$category_id)
+            ->with('date1',$startDate)
+            ->with('date2',$endDate);
     }
     public function getStocksproducts()
     {
@@ -92,30 +128,7 @@ class ReportController extends Controller{
             ->with('results',$results);
 
     }
-    public function postReportResult()
-    {
-        $date1 = Input::get('from_date');
-        $date2 = Input::get('to_date');
-        $product_type = Input::get('product_type');
-        $report = new Report();
-        $results = $report->getStockReport($product_type,$date1,$date2);
-        return view('Reports.stockReport',compact('results'))
-            ->with('product_type',$product_type)
-            ->with('date1',$date1)
-            ->with('date2',$date2);
-    }
 
-    public function getPrint($date1,$date2,$type)
-    {
-        $startDate = date('Y/m/d',strtotime($date1));
-        $endDate = date('Y/m/d',strtotime($date2));
-        $report = new Report();
-        $results = $report->getStockReport($type,$startDate,$endDate);
-        return view('Reports.stockReportPrint',compact('results'))
-            ->with('product_type',$type)
-            ->with('date1',$startDate)
-            ->with('date2',$endDate);
-    }
     public function getCategory($branch_id)
     {
         $categoriesName = Category::where('branch_id','=',$branch_id)

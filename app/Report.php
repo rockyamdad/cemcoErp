@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\DB;
 class Report extends Eloquent
 {
     //stock main Report
-    public function getStockReport($product_type,$date1,$date2)
+    public function getStockReport($product_type,$date1,$date2,$branch_id,$category_id)
     {
             return DB::table('stocks')
                 ->join('products', 'stocks.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
                 ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
+                ->where('stocks.branch_id', '=', $branch_id)
+                ->where('products.category_id', '=', $category_id)
                 ->where('stocks.product_type', '=', $product_type)
                 ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->groupBy('stocks.product_id')

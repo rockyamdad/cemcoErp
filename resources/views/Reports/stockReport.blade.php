@@ -18,7 +18,7 @@
             $sDate = date('Ymd', strtotime($date1));
             $eDate = date('Ymd', strtotime($date2));
             $type  = $product_type;
-            $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type);
+            $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type.'/'.$branch_id.'/'.$category_id);
             ?>
             @if($results)
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
