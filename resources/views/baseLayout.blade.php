@@ -336,7 +336,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li
                             @if (Request::is('searches/stock-products'))class="active"@endif>
-                        <a href="{{ URL::to('searches/stock-products') }}">Stocks Prodcuts </a>
+                        <a href="{{ URL::to('searches/stock-products') }}">Stocks Products </a>
                     </li>
 
                  </ul>
