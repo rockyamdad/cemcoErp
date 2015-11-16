@@ -106,6 +106,7 @@ jQuery(document).ready(function() {
         $.ajax({
             type: "get",
             url: "../sub/"+category_id,
+            data: {'branch_id':branch_id},
             success: function (html) {
                 $('#products_edit_sub_category_id').html(html);
 

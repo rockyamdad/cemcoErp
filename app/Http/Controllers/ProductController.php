@@ -70,7 +70,7 @@ class ProductController extends Controller{
     }
     public function getSub($category_id)
     {
-        $branchId = $_GET['branch_id'];
+        $branchId = Input::get('branch_id');
         $sub_category_id= Input::get('data');
         $suCategoriesName = SubCategory::where('category_id','=',$category_id)
                             ->where('branch_id','=',$branchId)
