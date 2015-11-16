@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
         var category_id = $('#category_id').val();
         $.ajax({
             type: "get",
-            url: "searches/products/"+category_id,
+            url: "products/"+category_id,
             success: function (html) {
                 $('#product_id').append(html);
 
