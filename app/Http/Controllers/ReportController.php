@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Branch;
 use App\Category;
 use App\Party;
 use App\Product;
@@ -31,6 +32,10 @@ class ReportController extends Controller{
     }
     public function getStocksproducts()
     {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $catogories = new Category();
+        $categoriesAll = $catogories->getCategoriesDropDown();
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
         $report = new Report();
@@ -38,22 +43,34 @@ class ReportController extends Controller{
 
         return view('Reports.stockProductsReport')
             ->with('results',$results)
-            ->with('allStockInfos',$allStockInfos);
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos)
+            ->with('categoriesAll',$categoriesAll);
     }
     public function postStocksproductsresult()
     {
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $catogories = new Category();
+        $categoriesAll = $catogories->getCategoriesDropDown();
         $report = new Report();
+        $branch_id = Input::get('branch_id');
         $stock_info_id = Input::get('stock_info_id');
+        $category_id = Input::get('category_id');
         $product_type = Input::get('product_type');
-        $results = $report->getStockReportResult($stock_info_id,$product_type);
+        $results = $report->getStockReportResult($stock_info_id,$product_type,$branch_id,$category_id);
 
         return view('Reports.stockProductsReport')
             ->with('stock_info_id',$stock_info_id)
+            ->with('branch_id',$branch_id)
+            ->with('category_id',$category_id)
             ->with('product_type',$product_type)
             ->with('results',$results)
-            ->with('allStockInfos',$allStockInfos);
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos)
+            ->with('categoriesAll',$categoriesAll);
     }
     public function getPrintstocksproducts()
     {
@@ -65,11 +82,11 @@ class ReportController extends Controller{
             ->with('results',$results);
 
     }
-    public function getPrintstocksproductsresult($product_type,$stock_info_id)
+    public function getPrintstocksproductsresult($product_type,$stock_info_id,$branch_id,$category_id)
     {
 
         $report = new Report();
-        $results = $report->getStockReportResult($stock_info_id,$product_type);
+        $results = $report->getStockReportResult($stock_info_id,$product_type,$branch_id,$category_id);
 
         return view('Reports.stockProductsReportPrint')
             ->with('results',$results);
@@ -98,6 +115,17 @@ class ReportController extends Controller{
             ->with('product_type',$type)
             ->with('date1',$startDate)
             ->with('date2',$endDate);
+    }
+    public function getCategory($branch_id)
+    {
+        $categoriesName = Category::where('branch_id','=',$branch_id)
+            ->get();
+
+        foreach ($categoriesName as $categoryName) {
+
+            echo "<option value = $categoryName->id > $categoryName->name</option> ";
+
+        }
     }
 
 

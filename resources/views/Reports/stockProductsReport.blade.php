@@ -24,7 +24,7 @@
 
                     if($curent_url == '/reports/stocksproductsresult')
                         {
-                            $url = URL::to('reports/printstocksproductsresult/'.$product_type.'/'.$stock_info_id);
+                            $url = URL::to('reports/printstocksproductsresult/'.$product_type.'/'.$stock_info_id.'/'.$branch_id.'/'.$category_id);
                         }else{
                             $url = URL::to('reports/printstocksproducts');
                     }
@@ -45,17 +45,29 @@
                     {!!Form::open(array('url' => 'reports/stocksproductsresult', 'method' => 'post', 'class'=>'form-horizontal',
                     'id'=>'stock_search_form'))!!}
                     <div class="form-group">
+                        <div class="col-md-3">
+                            {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
+                            array('class'=>'form-control ','id'=>'branch_id') )!!}
+                        </div>
+                        <div class="col-md-3">
+                            {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
+                        </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            {!!Form::select('category_id',[null=>'Please Select Category'] +$categoriesAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}
+                        </div>
+
+                        <div class="col-md-3">
                             {!! Form::select('product_type',[null=>'Please Select Product Type'] + array('Local' => 'Local', 'Foreign' =>
                             'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                         </div>
 
-
-                        <div class="col-md-4">
-                            {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
+                        <div class=" fluid">
+                            <div class="col-md-offset-3 col-md-3">
+                                <button type="submit" class="btn blue btn-block margin-top-10" style="margin-left: 35px;">SEARCH <i class="m-icon-swapright m-icon-white"></i></button>
+                            </div>
                         </div>
-                        {!!Form::button('Search',array('type' => 'submit','class' => 'btn blue','id' => 'save'))!!}
+
                     </div>
 
                     {!!Form::close()!!}

@@ -53,7 +53,8 @@
                     {!!HTML::decode(Form::label('category_id','Choose Category',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        {!!Form::select('category_id',[null=>'Please Select Category'] +$categoriesAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}                    </div>
+                        {!!Form::select('category_id',[null=>'Please Select Category'] +$categoriesAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}
+                    </div>
                 </div>
                 <div class="form-group">
                     {!!HTML::decode(Form::label('product_id','Choose Product',array('class' =>
