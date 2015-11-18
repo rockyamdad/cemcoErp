@@ -17,6 +17,9 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
+                    html.push('<td>' + sale.branch_id + '</td>');
+                    html.push('<td>' + sale.stock_info_id + '</td>');
+                    html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
                     html.push('<td>' + sale.price + '</td>');
                     html.push('<td>' + sale.quantity + '</td>');
@@ -138,6 +141,40 @@ jQuery(document).ready(function() {
                 }
             });
         }
+    });
+
+
+    $('#branch_id').live("change", function () {
+        var branch_id = $('#branch_id').val();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "products/"+branch_id,
+            success: function (html) {
+                $('#product_id').append(html);
+
+            }
+        });
+    });
+
+    $('#product_type').live("change", function () {
+        var product_type = $('#product_type').val();
+        var branch = $('#branch_id').val();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "product/"+product_type,
+            data:{'data':branch},
+            success: function (html) {
+                $('#product_id').append(html);
+
+
+            }
+        });
     });
 
 });

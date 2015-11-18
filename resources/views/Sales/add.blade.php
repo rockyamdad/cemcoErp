@@ -71,6 +71,9 @@
                             <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                 <thead>
                                 <tr>
+                                    <th width="">Branch Name</th>
+                                    <th width="">Stock Name</th>
+                                    <th width="">Product Type</th>
                                     <th width="">Product Name</th>
                                     <th width="">Price</th>
                                     <th width="">Quantity</th>
@@ -86,7 +89,29 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
+                                                {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-11">
+                                                {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-11">
+                                                {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                                                'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-11">
+                                                {!!Form::select('product_id',[null=>'Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
                                             </div>
                                         </div>
                                     </td>
@@ -102,7 +127,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::text('quantity',null,array('placeholder' => 'Purchase Quantity', 'class' =>
+                                                {!!Form::text('quantity',null,array('placeholder' => 'Quantity', 'class' =>
                                                 'form-control','id'=>'quantity'))!!}
                                             </div>
                                         </div>

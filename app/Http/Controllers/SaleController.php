@@ -3,6 +3,7 @@
 use App\AccountCategory;
 
 
+use App\Branch;
 use App\NameOfAccount;
 use App\Party;
 use App\Product;
@@ -10,6 +11,8 @@ use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\Sale;
 use App\SaleDetail;
+use App\StockInfo;
+use App\SubCategory;
 use App\Transaction;
 use Exception;
 use Illuminate\Routing\Controller;
@@ -36,11 +39,17 @@ class SaleController extends Controller{
         $buyersAll = $buyers->getBuyersDropDown();
         $products = new Product();
         $finishGoods = $products->getFinishGoodsDropDown();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
         $this->generateInvoiceId();
 
         return view('Sales.add',compact('buyersAll'))
-            ->with('finishGoods',$finishGoods);
+            ->with('finishGoods',$finishGoods)
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos);
     }
     public function postSaveSales()
     {
@@ -108,6 +117,9 @@ class SaleController extends Controller{
         $saleDetails->price = Input::get('price');
         $saleDetails->invoice_id = Input::get('invoice_id');
         $saleDetails->product_id = Input::get('product_id');
+        $saleDetails->branch_id = Input::get('branch_id');
+        $saleDetails->stock_info_id = Input::get('stock_info_id');
+        $saleDetails->product_type = Input::get('product_type');
         $saleDetails->remarks = Input::get('remarks');
         $saleDetails->save();
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
@@ -128,6 +140,9 @@ class SaleController extends Controller{
         $array = array();
 
         $array['id'] = $salesDetails->id;
+        $array['branch_id'] = $salesDetails->branch_id;
+        $array['stock_info_id'] = $salesDetails->stock_info_id;
+        $array['product_type'] = $salesDetails->product_type;
         $array['product_id'] = $salesDetails->product->name;
         $array['price'] = $salesDetails->price;
         $array['quantity']   = $salesDetails->quantity;
@@ -302,6 +317,38 @@ class SaleController extends Controller{
 
 
             $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+
+        }
+    }
+    public function getProducts($branch_id)
+    {
+        $poductsNames = Product::where('branch_id','=',$branch_id)
+            ->get();
+
+        foreach ($poductsNames as $product) {
+
+            echo "<option value = $product->id > $product->name</option> ";
+
+        }
+    }
+    public  function getProduct($type)
+    {
+        $branch= Input::get('data');
+        $productsName = Product::where('product_type','=',$type)
+            ->where('branch_id','=',$branch)
+            ->get();
+
+        foreach ($productsName as $productName) {
+
+            $category = $productName->category->name;
+            if($productName->sub_category_id){
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = $subCategory->name;
+            }else{
+                $subCategoryName = '';
+            }
+
+            echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName)</option> ";
 
         }
     }
