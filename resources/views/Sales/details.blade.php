@@ -8,8 +8,9 @@
             <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">
                 <thead style="background-color: #68bbec">
                 <tr>
-                    <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                      data-set="#user_table .checkboxes"/></th>
+                    <th>Branch Name</th>
+                    <th>Stock Name</th>
+                    <th>Product Type</th>
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -20,8 +21,16 @@
                 <tbody>
                 <?php $total = 0; ?>
                 @foreach($saleDetails as $saleDetail )
+                    <?php
+                    $stocks = new \App\StockInfo();
+                    $branch = new \App\Branch();
+                    $stockName = \App\StockInfo::find($saleDetail->stock_info_id);
+                    $branchName = \App\Branch::find($saleDetail->branch_id);
+                    ?>
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+                        <td>{{$branchName->name}}</td>
+                        <td>{{$stockName->name}}</td>
+                        <td>{{$saleDetail->product_type}}</td>
                         <td>{{$saleDetail->product->name}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
@@ -35,7 +44,7 @@
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteSaleDetail" style="width:127px;" value="delete"   class="btn red deleteSaleDetail" rel={{$saleDetail->id}}  />
+                                <input type="button"  id="deleteSaleDetail" style="width:70px;" value="delete"   class="btn red deleteSaleDetail" rel={{$saleDetail->id}}  />
                             @endif
 
                         </td>
@@ -45,6 +54,8 @@
                 @endforeach
                 <tr style="background-color:#b2b2b2;">
                    <td>Total Amount</td>
+                   <td></td>
+                   <td></td>
                    <td></td>
                    <td></td>
                    <td></td>
@@ -114,7 +125,6 @@
             @endif
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn">Close</button>
-                <button type="button" class="btn blue">Save changes</button>
             </div>
 
         </div>

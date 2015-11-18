@@ -28,7 +28,7 @@ jQuery(document).ready(function() {
                     }else{
                         html.push('<td>' + sale.remarks + '</td>');
                     }
-                    html.push('<td><input type="button"   style="width:127px;" value="delete" class="btn red deleteSaleDetail" rel=' + sale.id + ' ></td>');
+                    html.push('<td><input type="button"   style="width:70px;" value="delete" class="btn red deleteSaleDetail" rel=' + sale.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#saleTable  > tbody:first').append(html);
@@ -54,6 +54,9 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
+                    html.push('<td>' + sale.branch_id + '</td>');
+                    html.push('<td>' + sale.stock_info_id + '</td>');
+                    html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
                     html.push('<td>' + sale.price + '</td>');
                     html.push('<td>' + sale.quantity + '</td>');
@@ -124,7 +127,7 @@ jQuery(document).ready(function() {
     });
 
 
-    $(".party_id").attr('readonly','readonly');
+    $("#edit_party_id").attr('readonly','readonly');
 
     $('.deleteSaleTransaction').live("click", function() {
 
@@ -176,5 +179,40 @@ jQuery(document).ready(function() {
             }
         });
     });
+
+    //edit
+    $('#edit_branch_id').live("change", function () {
+        var branch_id = $('#edit_branch_id').val();
+        $('#edit_product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#edit_product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "../products/"+branch_id,
+            success: function (html) {
+                $('#edit_product_id').append(html);
+
+            }
+        });
+    });
+
+    $('#edit_product_type').live("change", function () {
+        var product_type = $('#edit_product_type').val();
+        var branch = $('#edit_branch_id').val();
+        $('#edit_product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#edit_product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "../product/"+product_type,
+            data:{'data':branch},
+            success: function (html) {
+                $('#edit_product_id').append(html);
+
+
+            }
+        });
+    });
+
 
 });

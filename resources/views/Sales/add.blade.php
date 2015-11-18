@@ -86,23 +86,23 @@
 
                                 </tbody>
                                 <tr class="clone_">
-                                    <td>
+                                    <td style="width: 150px;">
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 160px;">
                                                 {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11 " style="width: 150px;">
                                                 {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 120px;">
                                                 {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
                                                 'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                                             </div>
@@ -110,14 +110,14 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 140px;">
                                                 {!!Form::select('product_id',[null=>'Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 100px;">
                                                 {!!Form::text('price',null,array('placeholder' => 'Price', 'class' =>
                                                 'form-control','id'=>'price'))!!}
                                             </div>
@@ -126,7 +126,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 100px;">
                                                 {!!Form::text('quantity',null,array('placeholder' => 'Quantity', 'class' =>
                                                 'form-control','id'=>'quantity'))!!}
                                             </div>
@@ -134,14 +134,14 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11">
+                                            <div class="col-md-11" style="width: 130px;">
                                                 {!!Form::text('remarks',null,array('placeholder' => 'Remarks', 'class' =>
                                                 'form-control','id'=>'remarks'))!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        {!!Form::button('Add Product',array('type' => 'button','class' => 'btn blue saveSales'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveSales'))!!}
                                     </td>
                                 </tr>
                             </table>

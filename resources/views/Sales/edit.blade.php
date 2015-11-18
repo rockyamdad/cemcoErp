@@ -44,6 +44,7 @@
                             </div>
                         @endif
                     </div>
+
                     <div class="alert alert-danger display-hide">
                         <button data-close="alert" class="close"></button>
                         You have some form errors. Please check below.
@@ -57,7 +58,7 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <div class="col-md-5">
-                                    {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control ','id'=>'party_id') )!!}
+                                    {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control ','id'=>'edit_party_id') )!!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -70,6 +71,9 @@
                                 <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                     <thead>
                                     <tr>
+                                        <th width="">Branch Name</th>
+                                        <th width="">Stock Name</th>
+                                        <th width="">Product Type</th>
                                         <th width="">Product Name</th>
                                         <th width="">Price</th>
                                         <th width="">Quantity</th>
@@ -80,7 +84,17 @@
                                     </thead>
 
                                     @foreach($saleDetails as $saleDetail)
+                                        <?php
+
+                                        $stocks = new \App\StockInfo();
+                                        $branch = new \App\Branch();
+                                        $stockName = \App\StockInfo::find($saleDetail->stock_info_id);
+                                        $branchName = \App\Branch::find($saleDetail->branch_id);
+                                                ?>
                                         <tr>
+                                            <td> {{ $branchName->name }}</td>
+                                            <td> {{ $stockName->name }}</td>
+                                            <td> {{ $saleDetail->product_type }}</td>
                                             <td> {{ $saleDetail->product->name }}</td>
                                             <td> {{ $saleDetail->price }}</td>
                                             <td> {{ $saleDetail->quantity }}</td>
@@ -91,7 +105,7 @@
                                                     {{"Not Available"}}
                                                 @endif
                                             </td>
-                                            <td> <input type="button"  style="width:127px;" value="delete" class="btn red deleteSaleDetail" rel={{$saleDetail->id}} /></td>
+                                            <td> <input type="button"  style="width:63px;" value="delete" class="btn red deleteSaleDetail" rel={{$saleDetail->id}} /></td>
 
                                         </tr>
 
@@ -100,39 +114,62 @@
 
                                     </tbody>
                                     <tr class="clone_">
+                                        <td style="width: 150px;">
+                                            <div class="form-group">
+                                                <div class="col-md-11" style="width: 160px;">
+                                                    {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control ','id'=>'edit_branch_id') )!!}
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11">
-                                                    {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
+                                                <div class="col-md-11 " style="width: 150px;">
+                                                    {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-11" style="width: 120px;">
+                                                    {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
+                                                    'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'edit_product_type'))!!}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
                                                 <div class="col-md-11">
+                                                    {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'edit_product_id') )!!}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-11" style="width: 100px;">
                                                     {!!Form::text('price',null,array('placeholder' => 'Price', 'class' =>
                                                     'form-control','id'=>'price'))!!}
                                                 </div>
                                             </div>
+
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11">
-                                                    {!!Form::text('quantity',null,array('placeholder' => 'Purchase Quantity', 'class' =>
+                                                <div class="col-md-11" style="width: 100px;">
+                                                    {!!Form::text('quantity',null,array('placeholder' => 'Quantity', 'class' =>
                                                     'form-control','id'=>'quantity'))!!}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11">
+                                                <div class="col-md-11" style="width: 130px;">
                                                     {!!Form::text('remarks',null,array('placeholder' => 'Remarks', 'class' =>
                                                     'form-control','id'=>'remarks'))!!}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            {!!Form::button('Add Product',array('type' => 'button','class' => 'btn blue editSale' ,'rel'=>$sale[0]->invoice_id))!!}
+                                            {!!Form::button('Add ',array('type' => 'button','class' => 'btn blue editSale' ,'rel'=>$sale[0]->invoice_id))!!}
                                         </td>
                                     </tr>
                                 </table>
@@ -150,6 +187,7 @@
             <!-- END VALIDATION STATES-->
         </div>
     </div>
+
 @stop
 @section('javascript')
     {!! HTML::script('js/sales.js') !!}

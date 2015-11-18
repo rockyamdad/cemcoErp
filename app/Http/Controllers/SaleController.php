@@ -78,14 +78,21 @@ class SaleController extends Controller{
         $buyersAll = $buyers->getBuyersDropDown();
         $products = new Product();
         $finishGoods = $products->getFinishGoodsDropDown();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         $sale[0] = Sale::where('invoice_id','=',$id)->get();
         $var = $sale[0];
         $saleDetails = SAleDetail::where('invoice_id','=',$id)->get();
 
+
         return view('Sales.edit',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
             ->with('saleDetails',$saleDetails)
-            ->with('sale',$var);
+            ->with('sale',$var)
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos);
 
     }
     public function updateSaleData($id)
@@ -138,10 +145,12 @@ class SaleController extends Controller{
     private function saleDetailConvertToArray($salesDetails)
     {
         $array = array();
+        $stockName = StockInfo::find($salesDetails->stock_info_id);
+        $branchName = Branch::find($salesDetails->branch_id);
 
         $array['id'] = $salesDetails->id;
-        $array['branch_id'] = $salesDetails->branch_id;
-        $array['stock_info_id'] = $salesDetails->stock_info_id;
+        $array['branch_id'] = $branchName->name;
+        $array['stock_info_id'] = $stockName->name;
         $array['product_type'] = $salesDetails->product_type;
         $array['product_id'] = $salesDetails->product->name;
         $array['price'] = $salesDetails->price;
@@ -322,6 +331,7 @@ class SaleController extends Controller{
     }
     public function getProducts($branch_id)
     {
+
         $poductsNames = Product::where('branch_id','=',$branch_id)
             ->get();
 
