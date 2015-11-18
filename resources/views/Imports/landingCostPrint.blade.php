@@ -73,17 +73,17 @@ text-decoration: underline;
                     <tr>
                         <th>Sl No</th>
                         <th>Product Name</th>
-                        <th>Booking ($)</th>
-                        <th>Booking (taka)</th>
-                        <th>CRF ($)</th>
-                        <th>CRF (taka)</th>
-                        <th>Order Qty</th>
-                        <th>Duty</th>
-                        <th>Lan. Cost</th>
-                        <th>T. Booking ($)</th>
-                        <th>T. CRF ($)</th>
-                        <th>T. Duty</th>
-                        <th>T. Lan. Cost</th>
+                        <th style="text-align: right;">Booking ($)</th>
+                        <th style="text-align: right;">Booking (BDT)</th>
+                        <th style="text-align: right;">CFR ($)</th>
+                        <th style="text-align: right;">CFR (taka)</th>
+                        <th style="text-align: right;">Qty</th>
+                        <th style="text-align: right;">Duty</th>
+                        <th style="text-align: right;">Lan. Cost</th>
+                        <th style="text-align: right;">T. Booking ($)</th>
+                        <th style="text-align: right;">T. CFR ($)</th>
+                        <th style="text-align: right;">T. Duty</th>
+                        <th style="text-align: right;">T. Lan. Cost</th>
                     </tr>
                     </thead>
                     <tbody>

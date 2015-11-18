@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
         $('#category_id').append(newOption);
         $.ajax({
             type: "get",
-            url: "searches/category/"+branch_id,
+            url: "category/"+branch_id,
             success: function (html) {
                 $('#category_id').append(html);
 
@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
         var category_id = $('#category_id').val();
         $.ajax({
             type: "get",
-            url: "searches/products/"+category_id,
+            url: "products/"+category_id,
             success: function (html) {
                 $('#product_id').append(html);
 

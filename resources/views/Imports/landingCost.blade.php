@@ -62,17 +62,17 @@
                     <tr>
                         <th>Sl No</th>
                         <th>Product Name</th>
-                        <th>Booking Price ($)</th>
-                        <th>Booking Price (taka)</th>
-                        <th>CRF Value ($)</th>
-                        <th>CRF Value (taka)</th>
-                        <th>Order Quantity</th>
-                        <th>Duty</th>
-                        <th>LandingCost</th>
-                        <th>Total Booking Price($)</th>
-                        <th>Total CRF Price($)</th>
-                        <th>Total Duty</th>
-                        <th>Total LandingCost</th>
+                        <th style="text-align: right;">Booking ($)</th>
+                        <th style="text-align: right;">Booking (BDT)</th>
+                        <th style="text-align: right;">CFR ($)</th>
+                        <th style="text-align: right;">CFR (BDT)</th>
+                        <th style="text-align: right;">Qty</th>
+                        <th style="text-align: right;">Duty</th>
+                        <th style="text-align: right;">Landing Cost</th>
+                        <th style="text-align: right;">Total Booking ($)</th>
+                        <th style="text-align: right;">Total CFR ($)</th>
+                        <th style="text-align: right;">Total Duty</th>
+                        <th style="text-align: right;">Total Landing Cost</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -104,17 +104,17 @@
                         ?>
                         <td>{{ $i }}</td>
                         <td>{{ $importt->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')' }}</td>
-                        <td>{{ $importt->total_booking_price }}</td>
-                        <td>{{ $importt->total_booking_price * $importt->dollar_to_bd_rate }}</td>
-                        <td>{{ $importt->total_cfr_price }}</td>
-                        <td>{{ $importt->total_cfr_price * $importt->dollar_to_bd_rate }}</td>
-                        <td>{{ $importt->quantity }}</td>
-                        <td>{{ round($duty,2) }}</td>
-                        <td>{{ round($landingCost,2) }}</td>
-                        <td>{{ $importt->quantity * $importt->total_booking_price }}</td>
-                        <td>{{ $importt->quantity * $importt->total_cfr_price }}</td>
-                        <td>{{ round($duty * $importt->quantity,2) }}</td>
-                        <td>{{ round($landingCost * $importt->quantity,2)}}</td>
+                        <td style="text-align: right;">{{ $importt->total_booking_price }}</td>
+                        <td style="text-align: right;">{{ $importt->total_booking_price * $importt->dollar_to_bd_rate }}</td>
+                        <td style="text-align: right;">{{ $importt->total_cfr_price }}</td>
+                        <td style="text-align: right;">{{ $importt->total_cfr_price * $importt->dollar_to_bd_rate }}</td>
+                        <td style="text-align: right;">{{ $importt->quantity }}</td>
+                        <td style="text-align: right;">{{ round($duty,2) }}</td>
+                        <td style="text-align: right;">{{ round($landingCost,2) }}</td>
+                        <td style="text-align: right;">{{ $importt->quantity * $importt->total_booking_price }}</td>
+                        <td style="text-align: right;">{{ $importt->quantity * $importt->total_cfr_price }}</td>
+                        <td style="text-align: right;">{{ round($duty * $importt->quantity,2) }}</td>
+                        <td style="text-align: right;">{{ round($landingCost * $importt->quantity,2)}}</td>
 
                     </tr>
                     <?php $i++ ?>
@@ -126,13 +126,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{{ $totalQuantity }}</td>
+                        <td style="text-align: right;">{{ $totalQuantity }}</td>
                         <td></td>
                         <td></td>
-                        <td>{{ $totalBookingPrice }}</td>
-                        <td>{{ $totalCrfPrice }}</td>
-                        <td>{{ $totalDuty }}</td>
-                        <td>{{ round($totalLandingCost,2) }}</td>
+                        <td style="text-align: right;">{{ $totalBookingPrice }}</td>
+                        <td style="text-align: right;">{{ $totalCrfPrice }}</td>
+                        <td style="text-align: right;">{{ $totalDuty }}</td>
+                        <td style="text-align: right;">{{ round($totalLandingCost,2) }}</td>
                     </tr>
 
                     </tbody>
