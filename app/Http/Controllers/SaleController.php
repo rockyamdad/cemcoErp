@@ -264,6 +264,7 @@ class SaleController extends Controller{
     public function getSale($invoice_id)
     {
         $saleDetails = SaleDetail::where('invoice_id','=',$invoice_id)->get();
+        $sale = Sale::where('invoice_id','=',$invoice_id)->get();
        foreach($saleDetails as $saleDetail)
        {
            $stock = new Stock();
@@ -286,6 +287,8 @@ class SaleController extends Controller{
                    $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
                    $stock->save();
                    $stockCount[0]->save();
+                   $sale[0]->is_sale=1;
+                   $sale[0]->save();
                    Session::flash('message', 'Stock  has been Successfully Balanced.');
                } else {
                    Session::flash('message', 'You Dont have enough products in Stock');

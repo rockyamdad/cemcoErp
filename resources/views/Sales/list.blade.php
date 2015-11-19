@@ -82,21 +82,25 @@
 
                        <td>
                             @if( Session::get('user_role') == "admin")
-                            <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
+                               @if($sale->is_sale != 1)
+                                   <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
                                     class="fa fa-edit"></i>Edit </a>
+                                   <a class="btn green btn-sm sale" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
+                                       Sale</a>
+                               @endif
                             <a class="btn dark btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
-                               <a class="btn green btn-sm sale" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" >
-                                  Sale</a>
-                               @if($sale->status != 'Completed')
+
+                               @if($sale->status != 'Completed' && $sale->is_sale == 1)
                                    <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make') }}" >
                                        <i class="fa fa-usd"></i> Payment</a>
+                                       <span class="label label-sm label-success">SoldOut</span>
                                @endif
-
+                               @if($sale->is_sale != 1)
                             <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
-
+                               @endif
                             @endif
 
 
