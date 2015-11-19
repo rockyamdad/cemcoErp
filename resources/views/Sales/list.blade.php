@@ -84,8 +84,10 @@
                             @if( Session::get('user_role') == "admin")
                             <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
                                     class="fa fa-edit"></i>Edit </a>
-                            <a class="btn green btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                            <a class="btn dark btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
+                               <a class="btn green btn-sm sale" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" >
+                                  Sale</a>
                                @if($sale->status != 'Completed')
                                    <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make') }}" >
                                        <i class="fa fa-usd"></i> Payment</a>

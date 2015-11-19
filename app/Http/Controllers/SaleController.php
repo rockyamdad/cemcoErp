@@ -11,6 +11,8 @@ use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\Sale;
 use App\SaleDetail;
+use App\Stock;
+use App\StockCount;
 use App\StockInfo;
 use App\SubCategory;
 use App\Transaction;
@@ -228,7 +230,7 @@ class SaleController extends Controller{
         $transactions = Transaction::where('invoice_id','=',$saleTransaction->invoice_id)->get();
         foreach($saleDetails as $saleDetail)
         {
-            $totalPrice =$totalPrice + ($saleDetail->price * $saleDetail->quantity);
+            $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
         }
         foreach($transactions as $transaction)
         {
@@ -258,6 +260,42 @@ class SaleController extends Controller{
         $saleDetail->delete();
         $message = array('Sale Detail   Successfully Deleted');
         return new JsonResponse($message);
+    }
+    public function getSale($invoice_id)
+    {
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoice_id)->get();
+       foreach($saleDetails as $saleDetail)
+       {
+           $stock = new Stock();
+           $stock->branch_id = $saleDetail->branch_id;
+           $stock->product_id = $saleDetail->product_id;
+           $stock->product_type = $saleDetail->product_type;
+           $stock->product_quantity = $saleDetail->quantity;
+           $stock->entry_type = "StockOut";
+           $stock->remarks = $saleDetail->remarks;
+           $stock->user_id = Session::get('user_id');
+           $stock->stock_info_id = $saleDetail->stock_info_id;
+           $stock->status = "Activate";
+
+           $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
+               ->where('stock_info_id','=',$saleDetail->stock_info_id)
+               ->get();
+
+           if(!empty($stockCount[0])) {
+               if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
+                   $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
+                   $stock->save();
+                   $stockCount[0]->save();
+                   Session::flash('message', 'Stock  has been Successfully Balanced.');
+               } else {
+                   Session::flash('message', 'You Dont have enough products in Stock');
+               }
+           }else{
+               Session::flash('message', 'You Dont have This products in This Stock');
+           }
+       }
+        return Redirect::to('sales/index');
+
     }
     public function getDeleteTransaction($id)
     {
