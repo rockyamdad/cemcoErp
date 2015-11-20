@@ -57,9 +57,13 @@ class SearchController extends Controller{
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
             $search = new Search();
+
+            $partyName=Party::find($party);
+
             $results = $search->getResultRequisition($party,$date1,$date2);
 
-            return view('Searches.requisitionResult',compact('results'));
+            return view('Searches.requisitionResult',compact('results'))
+                ->with('partyName',$partyName);
     }
     public function getStockProducts()
     {

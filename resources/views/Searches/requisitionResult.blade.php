@@ -16,7 +16,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Order Requisition Search Result</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Order Requisition Search Result For <b>"{{$partyName->name}}"</b></div>
                     <div class="actions">
                         <a class="btn blue" href="/requisition">Back</a>
                     </div>
@@ -28,10 +28,11 @@
                         <thead style="background-color:royalblue">
                         <tr>
 
-                            <th>Party Name</th>
-                            <th>Product Name</th>
-                            <th>Requisition Quantity</th>
-                            <th>Issued Quantity</th>
+
+                            <th>Product</th>
+                            <th>Req Qty</th>
+                            <th>Issued</th>
+                            <th>Remaining</th>
                             <th>Date</th>
                             <th>Remarks</th>
                             <th>Created By</th>
@@ -47,10 +48,11 @@
 
                             <tr class="odd gradeX">
 
-                                <td>{{$result->partyName}}</td>
+
                                 <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                 <td>{{$result->requisition_quantity}}</td>
                                 <td>{{$result->issued_quantity}}</td>
+                                <td>{{$result->requisition_quantity-$result->issued_quantity}}</td>
                                 <td>{{$result->created_at}}</td>
                                 <td>{{$result->remarks}}</td>
                                 <td>{{$result->uName}}</td>
