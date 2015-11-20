@@ -246,7 +246,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <li class="@if (Request::is('requisitions/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-pencil-square-o"></i>
-                <span class="title">Stock Requisition</span>
+                <span class="title">Order Requisition</span>
                 @if (Request::is('requisitions/*'))<span class="selected"></span>@endif
                 <span class="arrow @if (Request::is('requisitions/*'))open @endif"></span>
             </a>
@@ -254,11 +254,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <ul class="sub-menu">
                 <li
                 @if (Request::is('requisitions/create'))class="active"@endif>
-                <a href="{{ URL::to('requisitions/create') }}">Create Stock Requisition </a>
+                <a href="{{ URL::to('requisitions/create') }}">Create Order Requisition </a>
         </li>
         <li
         @if (Request::is('requisitions/index'))class="active"@endif>
-        <a href="{{ URL::to('requisitions/index') }}">Stock Requisition List </a>
+        <a href="{{ URL::to('requisitions/index') }}">Order Requisition List </a>
         </li>
 
         </ul>
@@ -332,7 +332,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li
                             @if (Request::is('searches/requisition/'))class="active"@endif>
-                        <a href="{{ URL::to('searches/requisition') }}">Stock Requisition </a>
+                        <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>
                     </li>
                     <li
                             @if (Request::is('searches/stock-products'))class="active"@endif>

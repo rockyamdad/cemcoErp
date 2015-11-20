@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Requisition Section
+            Order Requisition Section
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>
@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('requisitions/index')}}">Stock Requisition List</a></li>
+            <li><a href="{{URL::to('requisitions/index')}}">Order Requisition List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -25,7 +25,7 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box light-grey">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-globe"></i>Stock Requisition</div>
+                <div class="caption"><i class="fa fa-globe"></i>Order Requisition</div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
                     <a href="javascript:;" class="reload"></a>
@@ -45,7 +45,7 @@
 
                 <div class="table-toolbar">
                     <div class="btn-group">
-                        <a class="btn green" href="{{ URL::to('requisitions/create') }}">Make Stock Requisition&nbsp;&nbsp;<i
+                        <a class="btn green" href="{{ URL::to('requisitions/create') }}">Make Order Requisition&nbsp;&nbsp;<i
                                 class="fa fa-plus"></i></a>
 
                     </div>

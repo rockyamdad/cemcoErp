@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-             Stock Requisition Search Result
+             Order Requisition Search Result
             </h3>
 
         </div>
@@ -16,7 +16,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Requisition Search Result</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Order Requisition Search Result</div>
                     <div class="actions">
                         <a class="btn blue" href="/requisition">Back</a>
                     </div>
