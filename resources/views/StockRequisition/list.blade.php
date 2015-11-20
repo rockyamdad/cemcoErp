@@ -59,7 +59,8 @@
                         <th>Party</th>
                         <th>Req No</th>
                         <th>Req Qty</th>
-                        <th>Issued Qty</th>
+                        <th>Issued</th>
+                        <th>Remaining</th>
                         <th>Remarks</th>
                         <th>Created By</th>
                       <!--  <th>Status</th>-->
@@ -71,13 +72,15 @@
                     $sl=1;
                     ?>
                     @foreach($requisitions as $requisition )
+
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$requisition->product->name}}</td>
+                        <td>{{$requisition->product->name."(".$requisition->product->category->name.")"."(".$requisition->product->subcategory->name.")"}}</td>
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>
                         <td>{{$requisition->requisition_quantity}}</td>
                         <td>{{$requisition->issued_quantity}}</td>
+                        <td>{{$requisition->requisition_quantity-$requisition->issued_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
                         <td>{{$requisition->user->username}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')
