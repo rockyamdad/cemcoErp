@@ -102,13 +102,13 @@
                         @endif
 
 
-                        <td>{{$expense->user->name}}</td>
+                        <td>{{$expense->user->username}}</td>
 
                        <td>
                             @if( Session::get('user_role') == "admin")
                             <a class="btn blue btn-sm"  href="{{ URL::to('expenses/edit/'. $expense->id ) }}"><i
                                     class="fa fa-edit"></i>Edit</a>
-                            <a class="btn dark btn-sm details" rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#Expense" href="{{ URL::to('expenses/details/'. $expense->invoice_id ) }}" >
+                            <a class="btn dark btn-sm" rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#Expense" href="{{ URL::to('expenses/details/'. $expense->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
                                @if($expense->status != 'Completed')
                                    <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make') }}" >

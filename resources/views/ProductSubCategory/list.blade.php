@@ -56,8 +56,8 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
-                        <th>Branch Name</th>
-                        <th>Category Name</th>
+                        <th>Branch</th>
+                        <th>Category</th>
                         <th>Created By</th>
                         <th>Action</th>
                     </tr>
@@ -72,7 +72,7 @@
                         <td>{{$subCategory->name}}</td>
                         <td>{{$subCategory->branch->name}}</td>
                         <td>{{$subCategory->category->name}}</td>
-                        <td>{{$subCategory->user->name}}</td>
+                        <td>{{$subCategory->user->username}}</td>
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productsubcategories/edit/'. $subCategory->id ) }}"><i

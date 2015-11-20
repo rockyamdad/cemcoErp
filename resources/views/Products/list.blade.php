@@ -56,11 +56,11 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
-                        <th>Branch Name</th>
-                        <th>Category Name</th>
-                        <th>Sub Category Name</th>
+                        <th>Branch</th>
+                        <th>Category</th>
+                        <th>Sub Category</th>
 
-                        <th>Total Quantity</th>
+                        <th>Total Qty</th>
                         <th>Created By</th>
                         <th>Action</th>
                     </tr>
@@ -86,7 +86,7 @@
                         @endif
 
                         <td>{{$product->total_quantity}}</td>
-                        <td>{{$product->user->name}}</td>
+                        <td>{{$product->user->username}}</td>
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>

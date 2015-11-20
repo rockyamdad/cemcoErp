@@ -61,13 +61,13 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Branch Name</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Stock Name</th>
+                        <th>Branch</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Stock</th>
                         <th>Entry Type</th>
                         <th>Remarks</th>
-                        <th>Consignment Name</th>
+                        <th>Consignment</th>
                         <th>Created By</th>
                        <!-- <th>Status</th>-->
                         <th>Action</th>
@@ -100,7 +100,7 @@
                         </td>
                         <td>{{$stock->remarks}}</td>
                         <td>{{$stock->consignment_name}}</td>
-                        <td>{{$stock->user->name}}</td>
+                        <td>{{$stock->user->username}}</td>
                       <!--  <td>{{$stock->status}}</td>-->
                         <td>
                             <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i

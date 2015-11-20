@@ -56,7 +56,7 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
-                        <th>Branch Name</th>
+                        <th>Branch</th>
                         <th>Created By</th>
                         <th>Action</th>
                     </tr>
@@ -70,7 +70,7 @@
                         <td><?php echo $sl;?></td>
                         <td>{{$category->name}}</td>
                         <td>{{$category->branch->name}}</td>
-                        <td>{{$category->user->name}}</td>
+                        <td>{{$category->user->username}}</td>
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productCategories/edit/'. $category->id ) }}"><i

@@ -88,21 +88,21 @@
                                 <tr class="clone_">
                                     <td style="width: 150px;">
                                         <div class="form-group">
-                                            <div class="col-md-11" style="width: 160px;">
+                                            <div class="col-md-11" style="width: 150px;">
                                                 {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11 " style="width: 150px;">
+                                            <div class="col-md-11 " style="width: 130px;">
                                                 {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11" style="width: 120px;">
+                                            <div class="col-md-11" style="width: 130px;">
                                                 {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
                                                 'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                                             </div>
@@ -110,7 +110,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                            <div class="col-md-11" style="width: 140px;">
+                                            <div class="col-md-11" style="width: 300px;">
                                                 {!!Form::select('product_id',[null=>'Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
                                             </div>
                                         </div>

@@ -55,8 +55,8 @@
                     <thead  style="background-color: #557386">
                     <tr>
                         <th>SL</th>
-                        <th>Purchase Invoice Id</th>
-                        <th>Party Name</th>
+                        <th>Invoice Id</th>
+                        <th>Party</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -78,7 +78,7 @@
                         @elseif($purchase->status == 'Completed')
                             <td><span class="label label-sm label-success">Completed</span></td>
                         @endif
-                        <td>{{$purchase->user->name}}</td>
+                        <td>{{$purchase->user->username}}</td>
 
                        <td>
                             @if( Session::get('user_role') == "admin")

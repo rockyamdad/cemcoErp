@@ -55,10 +55,10 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Product Name</th>
-                        <th>Party Name</th>
-                        <th>Requisition No</th>
-                        <th>Requisition Qty</th>
+                        <th>Product</th>
+                        <th>Party</th>
+                        <th>Req No</th>
+                        <th>Req Qty</th>
                         <th>Issued Qty</th>
                         <th>Remarks</th>
                         <th>Created By</th>
@@ -79,7 +79,7 @@
                         <td>{{$requisition->requisition_quantity}}</td>
                         <td>{{$requisition->issued_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
-                        <td>{{$requisition->user->name}}</td>
+                        <td>{{$requisition->user->username}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')
                             <span class="label label-sm label-success">Activate</span>
                             @else
