@@ -181,11 +181,17 @@ class SaleController extends Controller{
             ->with('saleTransactions',$saleTransactions);
 
     }
-    public function getMake()
+    public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
+        $saleDetails = new SaleDetail();
+        $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        return view('Sales.paymentAdd',compact('accountCategoriesAll'));
+        $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
+        $transactionsPaid = $transactions->getTotalPaid($invoice_id);
+        return view('Sales.paymentAdd',compact('accountCategoriesAll'))
+            ->with('saleDetailsAmount',$saleDetailsAmount)
+            ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveReceive()
     {

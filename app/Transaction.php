@@ -17,4 +17,11 @@ class Transaction extends Eloquent
     {
         return $this->belongsTo('App\User');
     }
+    public function getTotalPaid($invoice_id)
+    {
+        return DB::table('transactions')
+            ->selectRaw('sum(amount) as totalPaid')
+            ->where('invoice_id', '=', $invoice_id)
+            ->get();
+    }
 }

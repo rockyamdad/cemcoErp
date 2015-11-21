@@ -13,5 +13,12 @@ class SAleDetail extends Eloquent
     {
         return $this->belongsTo('App\User');
     }
+    public function getTotalAmount($invoice_id)
+    {
+        return DB::table('sale_details')
+            ->selectRaw('sum(quantity*price) as total')
+            ->where('invoice_id', '=', $invoice_id)
+            ->get();
+    }
 
 }

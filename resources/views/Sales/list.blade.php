@@ -92,7 +92,7 @@
                                 <i class="fa fa-eye"></i> Detail</a>
 
                                @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                   <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make') }}" >
+                                   <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                        <i class="fa fa-usd"></i> Payment</a>
                                        <span class="label label-sm label-success">SoldOut</span>
                                @endif
