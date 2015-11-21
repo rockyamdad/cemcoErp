@@ -75,6 +75,7 @@
                     <th>Account Category</th>
                     <th>Account Name</th>
                     <th>Payment Method</th>
+                    <th>Cheque No</th>
                     <th>Amount</th>
                     <th>Remarks</th>
                     <th>Action</th>
@@ -88,6 +89,13 @@
                         <td>{{$saleTransaction->accountCategory->name}}</td>
                         <td>{{$saleTransaction->accountName->name}}</td>
                         <td>{{$saleTransaction->payment_method}}</td>
+                        <td>
+                            @if($saleTransaction->cheque_no)
+                                {{ $saleTransaction->cheque_no }}
+                            @else
+                                {{"Not Available"}}
+                            @endif
+                          </td>
                         <td>{{$saleTransaction->amount}}</td>
                         <td>
                             @if($saleTransaction->remarks)
@@ -109,6 +117,7 @@
                 <tr style="background-color:#b2b2b2">
                     <td></td>
                     <td>Total Amount</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

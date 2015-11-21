@@ -221,6 +221,7 @@ class SaleController extends Controller{
         $saleTransaction->type = "Payment";
         $saleTransaction->user_id = Session::get('user_id');
         $saleTransaction->payment_method = Input::get('payment_method');
+        $saleTransaction->cheque_no = Input::get('cheque_no');
         $saleTransaction->invoice_id = Input::get('invoice_id');
 
 

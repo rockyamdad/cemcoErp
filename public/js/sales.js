@@ -215,4 +215,15 @@ jQuery(document).ready(function() {
     });
 
 
+    $('#payment_method').live("change", function () {
+
+        var payment_method = $('#payment_method').val();
+        if(payment_method != 'Cash'){
+            $( ".cheque_no_section" ).removeClass("hidden");
+        }else{
+            $( ".cheque_no_section" ).addClass("hidden");
+        }
+    });
+
+
 });

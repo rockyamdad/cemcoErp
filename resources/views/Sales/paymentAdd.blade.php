@@ -39,7 +39,15 @@
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
-                                array('class'=>'form-control'))!!}
+                                array('class'=>'form-control','id'=>'payment_method'))!!}
+                            </div>
+                        </div>
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_no','Cheque No',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::text('cheque_no',null,array('placeholder' => 'Cheque No', 'class' =>
+                                'form-control','id'=>'cheque_no'))!!}
                             </div>
                         </div>
                         <div class="form-group">
