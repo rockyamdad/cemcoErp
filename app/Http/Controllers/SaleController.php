@@ -329,6 +329,11 @@ class SaleController extends Controller{
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
     }
+    public function getAccountbalance($account_id)
+    {
+        $accountBalance = NameOfAccount::find($account_id);
+        echo "<p3 style='color: blue;font-size: 150%'>Your Current Balance $accountBalance->opening_balance</p3>";
+    }
 
     private function generateInvoiceId()
     {

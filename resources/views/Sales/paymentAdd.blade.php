@@ -36,6 +36,11 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 balance_show">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}

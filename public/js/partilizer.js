@@ -72,7 +72,19 @@ jQuery(document).ready(function() {
             type: "get",
             url: "categories/"+account_category,
             success: function (html) {
-                $('#account_name_id').html(html);
+                $('#account_name_id').append(html);
+
+            }
+        });
+    });
+    $('#account_name_id').live("change", function () {
+        var account_id = $('#account_name_id').val();
+
+        $.ajax({
+            type: "get",
+            url: "accountbalance/"+account_id,
+            success: function (html) {
+                $('.balance_show').append(html);
 
             }
         });
