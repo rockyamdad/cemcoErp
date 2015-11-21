@@ -67,7 +67,7 @@ class Search extends Eloquent
                     'stock_requisitions.issued_quantity',
                     'stock_requisitions.remarks',
                     'stock_requisitions.created_at',
-                    'users.name AS uName'
+                    'users.username AS uName'
                 )
                 ->get();
         }else{
@@ -85,7 +85,7 @@ class Search extends Eloquent
                     'stock_requisitions.issued_quantity',
                     'stock_requisitions.remarks',
                     'stock_requisitions.created_at',
-                    'users.name AS uName'
+                    'users.username AS uName'
                 )
                 ->get();
         }

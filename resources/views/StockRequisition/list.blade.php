@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Requisition Section
+            Order Requisition Section
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>
@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('requisitions/index')}}">Stock Requisition List</a></li>
+            <li><a href="{{URL::to('requisitions/index')}}">Order Requisition List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -25,7 +25,7 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet box light-grey">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-globe"></i>Stock Requisition</div>
+                <div class="caption"><i class="fa fa-globe"></i>Order Requisition</div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
                     <a href="javascript:;" class="reload"></a>
@@ -45,7 +45,7 @@
 
                 <div class="table-toolbar">
                     <div class="btn-group">
-                        <a class="btn green" href="{{ URL::to('requisitions/create') }}">Make Stock Requisition&nbsp;&nbsp;<i
+                        <a class="btn green" href="{{ URL::to('requisitions/create') }}">Make Order Requisition&nbsp;&nbsp;<i
                                 class="fa fa-plus"></i></a>
 
                     </div>
@@ -55,11 +55,12 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Product Name</th>
-                        <th>Party Name</th>
-                        <th>Requisition No</th>
-                        <th>Requisition Qty</th>
-                        <th>Issued Qty</th>
+                        <th>Product</th>
+                        <th>Party</th>
+                        <th>Req No</th>
+                        <th>Req Qty</th>
+                        <th>Issued</th>
+                        <th>Remaining</th>
                         <th>Remarks</th>
                         <th>Created By</th>
                       <!--  <th>Status</th>-->
@@ -71,15 +72,17 @@
                     $sl=1;
                     ?>
                     @foreach($requisitions as $requisition )
+
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$requisition->product->name}}</td>
+                        <td>{{$requisition->product->name."(".$requisition->product->category->name.")"."(".$requisition->product->subcategory->name.")"}}</td>
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>
                         <td>{{$requisition->requisition_quantity}}</td>
                         <td>{{$requisition->issued_quantity}}</td>
+                        <td>{{$requisition->requisition_quantity-$requisition->issued_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
-                        <td>{{$requisition->user->name}}</td>
+                        <td>{{$requisition->user->username}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')
                             <span class="label label-sm label-success">Activate</span>
                             @else

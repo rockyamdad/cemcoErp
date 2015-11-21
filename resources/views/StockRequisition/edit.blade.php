@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Requisition Section
+            Order Requisition Section
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>
@@ -17,7 +17,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('requisitions/create')}}">Make Stock Requisition</a></li>
+            <li><a href="{{URL::to('requisitions/create')}}">Make Order Requisition</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -27,9 +27,9 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>Make Stock Requisition</div>
+            <div class="caption"><i class="fa fa-reorder"></i>Make Order Requisition</div>
             <div class="actions">
-                <a class="btn dark" href="{{ URL::to('requisitions/index') }}">Stock Requisition List</a>
+                <a class="btn dark" href="{{ URL::to('requisitions/index') }}">Order Requisition List</a>
             </div>
         </div>
         <div class="portlet-body form">

@@ -72,7 +72,7 @@
                         <td>{{$stockInfo->name}}</td>
                         <td>{{$stockInfo->location}}</td>
                         <td>{{$stockInfo->branch->name}}</td>
-                        <td>{{$stockInfo->user->name}}</td>
+                        <td>{{$stockInfo->user->username}}</td>
 
                         @if($stockInfo->status == "Activate")
                         <td class="stock-status"><span class="label label-sm label-success">Activate</span></td>

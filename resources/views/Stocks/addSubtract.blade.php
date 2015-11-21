@@ -114,12 +114,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('remarks','Remarks',array('class' => 'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!!Form::textarea('remarks',null,array('class' => 'form-control','id' => 'remarks', 'rows'=>'3'))!!}
-                    </div>
-                </div>
+
 
                 <div class="form-group">
                      {!! HTML::decode(Form::label('product_quantity','Product Quantity<span class="required">*</span>',array('class'
@@ -141,6 +136,12 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                                    {!!HTML::decode(Form::label('remarks','Remarks',array('class' => 'control-label col-md-3')))!!}
+                                    <div class="col-md-4">
+                                        {!!Form::textarea('remarks',null,array('class' => 'form-control','id' => 'remarks', 'rows'=>'3'))!!}
+                                    </div>
+                                </div>
 
                 <div class="form-actions fluid">
                     <div class="col-md-offset-3 col-md-9">
