@@ -262,8 +262,8 @@ class SaleController extends Controller{
     {
         $saleDetail = SAleDetail::find($id);
         $saleDetail->delete();
-        $message = array('Sale Detail   Successfully Deleted');
-        return new JsonResponse($message);
+        Session::flash('message', 'Sale Detail   Successfully Deleted');
+        return Redirect::to('sales/index');
     }
     public function getSale($invoice_id)
     {
