@@ -157,6 +157,7 @@ jQuery(document).ready(function() {
     $('.deleteSaleTransaction').live("click", function() {
 
         var transactionId = $(this).attr('rel');
+        var account_id = $(this).attr('data-ref');
         var parent = $(this).closest('tr');
         var answer     = confirm("Are you sure you want to delete this Sale Transaction?");
         if(answer) {
@@ -164,6 +165,7 @@ jQuery(document).ready(function() {
                 type: "Get",
                 url: "/deleteTransaction/"+transactionId,
                 dateType: 'json',
+                data:{'data':account_id},
                 success: function (data) {
                     parent.remove();
                 }

@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteSaleTransaction" style="width:127px;" value="delete"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
+                                <input type="button"  id="deleteSaleTransaction" style="width:70px;" value="delete" data-ref="{{$saleTransaction->account_name_id}}"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
                             @endif
 
                         </td>

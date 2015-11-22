@@ -312,7 +312,12 @@ class SaleController extends Controller{
     public function getDeleteTransaction($id)
     {
         $transaction = Transaction::find($id);
+        $account_id = Input::get('data');
+        $accounts = NameOfAccount::find($account_id);
+        $accounts->opening_balance = $accounts->opening_balance - $transaction->amount;
+        $accounts->save();
         $transaction->delete();
+
         $message = array('Transaction Successfully Deleted');
         return new JsonResponse($message);
     }
