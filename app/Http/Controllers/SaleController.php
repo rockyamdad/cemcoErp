@@ -177,8 +177,10 @@ class SaleController extends Controller{
     {
         $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
         $saleTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
+        $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         return view('Sales.details',compact('saleDetails'))
-            ->with('saleTransactions',$saleTransactions);
+            ->with('saleTransactions',$saleTransactions)
+            ->with('sale',$sale);
 
     }
     public function getMake($invoice_id)
