@@ -55,8 +55,8 @@
                     <thead  style="background-color: #557386">
                     <tr>
                         <th>SL</th>
-                        <th>Sales Invoice Id</th>
-                        <th>Party Name</th>
+                        <th>Invoice Id</th>
+                        <th>Party</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -78,7 +78,7 @@
                         @elseif($sale->status == 'Completed')
                             <td><span class="label label-sm label-success">Completed</span></td>
                         @endif
-                        <td>{{$sale->user->name}}</td>
+                        <td>{{$sale->user->username}}</td>
 
                        <td>
                             @if( Session::get('user_role') == "admin")
@@ -89,6 +89,7 @@
                                        Sale</a>
                                @endif
                             <a class="btn dark btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                            <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
 
                                @if($sale->status != 'Completed' && $sale->is_sale == 1)

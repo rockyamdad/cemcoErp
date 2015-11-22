@@ -58,7 +58,7 @@
                     <div class="form-body">
                         <div class="form-group">
                             <div class="col-md-5">
-                                {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,'null', array('class'=>'form-control ','id'=>'party_id') )!!}
+                                {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,'null', array('class'=>'form-control party_id_val','id'=>'party_id') )!!}
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,7 +89,7 @@
                                     <td style="width: 150px;">
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 150px;">
-                                                {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                                {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                                             </div>
                                         </div>
                                     </td>
@@ -104,7 +104,7 @@
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 130px;">
                                                 {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
-                                                'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
+                                                'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control type_val','id'=>'product_type'))!!}
                                             </div>
                                         </div>
                                     </td>

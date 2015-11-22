@@ -11,6 +11,9 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(sale)
                 {
+                    $("#branch_id").val('');
+                    $("#stock_info_id").val('');
+                    $("#product_type").val('');
                     $("#product_id").val('');
                     $("#price").val('');
                     $("#quantity").val('');
@@ -39,7 +42,7 @@ jQuery(document).ready(function() {
         }
     });
     $(".editSale").live("click", function () {
-        if(saleFormValidation()){
+        if(saleFormValidationEdit()){
             var saleId = $(this).attr('rel');
             $.ajax({
                 type: "POST",
@@ -48,6 +51,9 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(sale)
                 {
+                    $("#edit_branch_id").val('');
+                    $("#stock_info_id").val('');
+                    $("#edit_product_type").val('');
                     $("#product_id").val('');
                     $("#price").val('');
                     $("#quantity").val('');
@@ -75,14 +81,33 @@ jQuery(document).ready(function() {
             alert('You forgot to fill something out');
         }
     });
+    function saleFormValidationEdit() {
+
+        var branch = $.trim($('#edit_branch_id').val());
+        var stock = $.trim($('#stock_info_id').val());
+        var type = $.trim($('#edit_product_type').val());
+        var party = $.trim($('#edit_party_id').val());
+        var product = $.trim($('#edit_product_id').val());
+        var quantity = $.trim($('#quantity').val());
+        var price = $.trim($('#price').val());
+
+        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     function saleFormValidation() {
 
+        var branch = $.trim($('#branch_id').val());
+        var stock = $.trim($('#stock_info_id').val());
+        var type = $.trim($('#product_type').val());
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='')) {
+        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
             return false;
         } else {
             return true;
