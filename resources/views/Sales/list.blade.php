@@ -55,8 +55,8 @@
                     <thead  style="background-color: #557386">
                     <tr>
                         <th>SL</th>
-                        <th>Invoice Id</th>
-                        <th>Party</th>
+                        <th>Sales Invoice Id</th>
+                        <th>Party Name</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -89,6 +89,7 @@
                                        Sale</a>
                                @endif
                             <a class="btn dark btn-sm details" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                            <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                             <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
 
