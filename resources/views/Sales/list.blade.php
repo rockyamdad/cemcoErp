@@ -64,52 +64,58 @@
                     </thead>
                     <tbody>
                     <?php
+
                     $sl=1;
                     ?>
                     @foreach($sales as $sale )
-                    <tr class="odd gradeX">
-                        <td><?php echo $sl; ?></td>
-                        <td>{{$sale->invoice_id}}</td>
-                        <td>{{$sale->party->name}}</td>
-                        @if($sale->status == 'Activate')
-                            <td><span class="label label-sm label-danger">Due</span></td>
-                        @elseif($sale->status == 'Partial')
-                            <td><span class="label label-sm label-warning">Partial</span></td>
-                        @elseif($sale->status == 'Completed')
-                            <td><span class="label label-sm label-success">Completed</span></td>
+                        <?php
+                        $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                        ?>
+                        @if(count($hasDetails) > 0)
+                            <tr class="odd gradeX">
+                                <td><?php echo $sl; ?></td>
+                                <td>{{$sale->invoice_id}}</td>
+                                <td>{{$sale->party->name}}</td>
+                                @if($sale->status == 'Activate')
+                                    <td><span class="label label-sm label-danger">Due</span></td>
+                                @elseif($sale->status == 'Partial')
+                                    <td><span class="label label-sm label-warning">Partial</span></td>
+                                @elseif($sale->status == 'Completed')
+                                    <td><span class="label label-sm label-success">Completed</span></td>
+                                @endif
+                                <td>{{$sale->user->username}}</td>
+
+                               <td>
+                                    @if( Session::get('user_role') == "admin")
+                                       @if($sale->is_sale != 1)
+                                           <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
+                                            class="fa fa-edit"></i>Edit </a>
+                                           <a class="btn green btn-sm sale" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
+                                               Sale</a>
+                                       @endif
+                                    <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                                        <i class="fa fa-eye"></i> Detail</a>
+
+                                       @if($sale->status != 'Completed' && $sale->is_sale == 1)
+                                           <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
+                                               <i class="fa fa-usd"></i> Payment</a>
+                                               <span class="label label-sm label-success">SoldOut</span>
+                                       @endif
+                                       @if($sale->is_sale != 1)
+                                    <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
+                                       onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                            class="fa fa-trash-o"></i> Delete</a>
+                                       @endif
+                                    @endif
+
+
+                                </td>
+
+                            </tr>
+                            <?php
+                            $sl++;
+                            ?>
                         @endif
-                        <td>{{$sale->user->username}}</td>
-
-                       <td>
-                            @if( Session::get('user_role') == "admin")
-                               @if($sale->is_sale != 1)
-                                   <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
-                                    class="fa fa-edit"></i>Edit </a>
-                                   <a class="btn green btn-sm sale" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
-                                       Sale</a>
-                               @endif
-                            <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
-                                <i class="fa fa-eye"></i> Detail</a>
-
-                               @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                   <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
-                                       <i class="fa fa-usd"></i> Payment</a>
-                                       <span class="label label-sm label-success">SoldOut</span>
-                               @endif
-                               @if($sale->is_sale != 1)
-                            <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->id)}}"
-                               onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                    class="fa fa-trash-o"></i> Delete</a>
-                               @endif
-                            @endif
-
-
-                        </td>
-
-                    </tr>
-                    <?php
-                    $sl++;
-                    ?>
                     @endforeach
 
                     </tbody>

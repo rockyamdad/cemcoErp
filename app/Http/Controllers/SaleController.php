@@ -10,7 +10,7 @@ use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\Sale;
-use App\SaleDetail;
+use App\SAleDetail;
 use App\Stock;
 use App\StockCount;
 use App\StockInfo;
@@ -121,7 +121,7 @@ class SaleController extends Controller{
     private function setSaleData()
     {
         $sale = new Sale();
-        $saleDetails = new SaleDetail();
+        $saleDetails = new SAleDetail();
         $saleDetails->quantity = Input::get('quantity');
         $saleDetails->price = Input::get('price');
         $saleDetails->invoice_id = Input::get('invoice_id');
@@ -140,7 +140,7 @@ class SaleController extends Controller{
             $sale->save();
         }
 
-        $salesDetails = SaleDetail::find($saleDetails->id);
+        $salesDetails = SAleDetail::find($saleDetails->id);
         $list = $this->saleDetailConvertToArray($salesDetails);
         return $list;
     }
@@ -162,20 +162,15 @@ class SaleController extends Controller{
     }
     public function getDelete($id)
     {
-        $del = Sale::where('invoice_id','=',$id)->get();
-        try {
-            $del[0]->deletee();
-            Session::flash('message', 'Sale has been Successfully Deleted.');
-        } catch (Exception $e) {
-            Session::flash('message', 'This Sale can\'t delete because it  is used to file');
-        }
+        Sale::where('invoice_id','=',$id)->delete();
+        SAleDetail::where('invoice_id','=',$id)->delete();
+
+        Session::flash('message', 'Sale has been Successfully Deleted.');
         return Redirect::to('sales/index');
-
-
     }
     public function getDetails($invoiceId)
     {
-        $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
+        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
         $saleTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         return view('Sales.details',compact('saleDetails'))
@@ -186,7 +181,7 @@ class SaleController extends Controller{
     public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
-        $saleDetails = new SaleDetail();
+        $saleDetails = new SAleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
@@ -235,7 +230,7 @@ class SaleController extends Controller{
 
         $totalAmount = 0;
         $totalPrice = 0;
-        $saleDetails = SaleDetail::where('invoice_id','=',$saleTransaction->invoice_id)->get();
+        $saleDetails = SAleDetail::where('invoice_id','=',$saleTransaction->invoice_id)->get();
         $transactions = Transaction::where('invoice_id','=',$saleTransaction->invoice_id)->get();
         foreach($saleDetails as $saleDetail)
         {
@@ -265,14 +260,14 @@ class SaleController extends Controller{
 
     public function getDeleteDetail($id)
     {
-        $saleDetail = SaleDetail::find($id);
+        $saleDetail = SAleDetail::find($id);
         $saleDetail->delete();
-        $message = array('Sale Detail   Successfully Deleted');
-        return new JsonResponse($message);
+        Session::flash('message', 'Sale Detail   Successfully Deleted');
+        return Redirect::to('sales/index');
     }
     public function getSale($invoice_id)
     {
-        $saleDetails = SaleDetail::where('invoice_id','=',$invoice_id)->get();
+        $saleDetails = SAleDetail::where('invoice_id','=',$invoice_id)->get();
         $sale = Sale::where('invoice_id','=',$invoice_id)->get();
        foreach($saleDetails as $saleDetail)
        {
@@ -323,7 +318,7 @@ class SaleController extends Controller{
     }
    /* public function getDel($id)
     {
-        $purchase = SaleDetail::find($id);
+        $purchase = SAleDetail::find($id);
         $purchase->delete();
         $message = array('Sale Detail  Successfully Deleted');
         return new JsonResponse($message);
@@ -421,6 +416,20 @@ class SaleController extends Controller{
             echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName)</option> ";
 
         }
+    }
+    public function getProductbalance($product_id)
+    {
+        $stockCount = StockCount::where('product_id','=',$product_id)
+            ->where('stock_info_id','=',Input::get('data'))
+            ->first();
+        if($stockCount){
+            echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px;'>Your product Balance This Stock is $stockCount->product_quantity</p3>";
+
+        }else{
+            echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
+
+        }
+
     }
 
 

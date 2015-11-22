@@ -59,7 +59,9 @@ function closeModal() {
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteSaleDetail" style="width:70px;" value="delete"   class="btn red deleteSaleDetail" rel={{$saleDetail->id}}  />
+                                <a class="btn red btn-sm" href="{{ URL::to('/deleteDetail/'.$saleDetail->id)}}"
+                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                            class="fa fa-trash-o"></i> Delete</a>
                             @endif
 
                         </td>
