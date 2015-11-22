@@ -18,6 +18,7 @@
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Amount</th>
                     <th>Remarks</th>
                     <th>Action</th>
                 </tr>
@@ -38,6 +39,7 @@
                         <td>{{$saleDetail->product->name}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
+                        <td>{{$saleDetail->quantity * $saleDetail->price }}</td>
                         <td>
                             @if($saleDetail->remarks)
                                 {{ $saleDetail->remarks }}
@@ -58,6 +60,7 @@
                 @endforeach
                 <tr style="background-color:#b2b2b2;">
                    <td>Total Amount</td>
+                   <td></td>
                    <td></td>
                    <td></td>
                    <td></td>
