@@ -173,6 +173,11 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="form-group ">
+                                    <label class="control-label col-md-4"></label>
+                                    <div class="col-md-7 balance_show">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

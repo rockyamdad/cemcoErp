@@ -252,5 +252,32 @@ jQuery(document).ready(function() {
         }
     });
 
+    $('#product_id').live("change", function () {
+        var product_id = $('#product_id').val();
+        var stock_info_id = $('#stock_info_id').val();
+        $.ajax({
+            type: "get",
+            url: "productbalance/"+product_id,
+            data:{'data':stock_info_id},
+            success: function (html) {
+                $('.balance_show').html(html);
+
+            }
+        });
+    });
+    $('#edit_product_id').live("change", function () {
+        var product_id = $('#edit_product_id').val();
+        var stock_info_id = $('#stock_info_id').val();
+        $.ajax({
+            type: "get",
+            url: "../productbalance/"+product_id,
+            data:{'data':stock_info_id},
+            success: function (html) {
+                $('.balance_show').html(html);
+
+            }
+        });
+    });
+
 
 });

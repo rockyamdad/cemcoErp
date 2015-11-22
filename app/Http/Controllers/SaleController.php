@@ -417,6 +417,20 @@ class SaleController extends Controller{
 
         }
     }
+    public function getProductbalance($product_id)
+    {
+        $stockCount = StockCount::where('product_id','=',$product_id)
+            ->where('stock_info_id','=',Input::get('data'))
+            ->first();
+        if($stockCount){
+            echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px;'>Your product Balance This Stock is $stockCount->product_quantity</p3>";
+
+        }else{
+            echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
+
+        }
+
+    }
 
 
 }
