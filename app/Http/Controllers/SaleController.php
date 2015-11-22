@@ -162,16 +162,11 @@ class SaleController extends Controller{
     }
     public function getDelete($id)
     {
-        $del = Sale::where('invoice_id','=',$id)->get();
-        try {
-            $del[0]->deletee();
-            Session::flash('message', 'Sale has been Successfully Deleted.');
-        } catch (Exception $e) {
-            Session::flash('message', 'This Sale can\'t delete because it  is used to file');
-        }
+        Sale::where('invoice_id','=',$id)->delete();
+        SaleDetail::where('invoice_id','=',$id)->delete();
+
+        Session::flash('message', 'Sale has been Successfully Deleted.');
         return Redirect::to('sales/index');
-
-
     }
     public function getDetails($invoiceId)
     {

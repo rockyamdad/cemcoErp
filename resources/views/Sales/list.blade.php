@@ -97,7 +97,7 @@
                                        <span class="label label-sm label-success">SoldOut</span>
                                @endif
                                @if($sale->is_sale != 1)
-                            <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->id)}}"
+                            <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
                                @endif
