@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
                     }else{
                         html.push('<td>' + sale.remarks + '</td>');
                     }
-                    html.push('<td><input type="button"  style="width:127px;" value="delete" class="btn red deleteSaleDetail" rel=' + sale.id + ' ></td>');
+                    html.push('<td><input type="button"  style="width:70px;" value="delete" class="btn red deleteSaleDetail" rel=' + sale.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#saleTable  > tbody:first').append(html);
