@@ -1,7 +1,16 @@
+<script>
+function closeModal() {
+    /*$('#sale').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').hide();*/
+    $("#salePayment").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    $('.modal-backdrop').hide();
+}
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Receive Payment</h3>
             <h5 style="color: red ;">You have {{$saleDetailsAmount[0]->total - $transactionsPaid[0]->totalPaid}} taka Due </h5>
         </div>
@@ -81,7 +90,7 @@
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'savePayment'))!!}
-                                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
                             </div>
                         </div>
                     </div>

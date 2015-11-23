@@ -1,7 +1,16 @@
+<script>
+function closeModal() {
+    /*$('#sale').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').hide();*/
+    $("#sale").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    $('.modal-backdrop').hide();
+}
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <?php
             $party = new \App\Party();
             $partyName = \App\Party::find($sale->party_id);
@@ -142,7 +151,7 @@
                 <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>
             @endif
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
             </div>
 
         </div>
