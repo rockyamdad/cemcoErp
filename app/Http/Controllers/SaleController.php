@@ -56,6 +56,9 @@ class SaleController extends Controller{
     public function postSaveSales()
     {
         $ruless = array(
+            'branch_id' => 'required',
+            'stock_info_id' => 'required',
+            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -100,6 +103,9 @@ class SaleController extends Controller{
     public function updateSaleData($id)
     {
         $ruless = array(
+            'branch_id' => 'required',
+            'stock_info_id' => 'required',
+            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -221,7 +227,7 @@ class SaleController extends Controller{
         $saleTransaction->account_name_id = Input::get('account_name_id');
         $saleTransaction->amount = Input::get('amount');
         $saleTransaction->remarks = Input::get('remarks');
-        $saleTransaction->type = "Payment";
+        $saleTransaction->type = "Receive";
         $saleTransaction->user_id = Session::get('user_id');
         $saleTransaction->payment_method = Input::get('payment_method');
         $saleTransaction->cheque_no = Input::get('cheque_no');

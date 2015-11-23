@@ -9,5 +9,12 @@ class PurchaseInvoiceDetail extends Eloquent
     {
         return $this->belongsTo('App\Product');
     }
+    public function getTotalAmount($invoice_id)
+    {
+        return DB::table('purchase_invoice_details')
+            ->selectRaw('sum(quantity*price) as total')
+            ->where('detail_invoice_id', '=', $invoice_id)
+            ->get();
+    }
 
 }

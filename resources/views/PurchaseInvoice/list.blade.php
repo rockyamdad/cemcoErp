@@ -67,6 +67,10 @@
                     $sl=1;
                     ?>
                     @foreach($purchases as $purchase )
+                        <?php
+                        $hasDetails = \App\PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchase->invoice_id)->get();
+                        ?>
+                        @if(count($hasDetails) > 0)
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$purchase->invoice_id}}</td>
@@ -84,10 +88,10 @@
                             @if( Session::get('user_role') == "admin")
                             <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->invoice_id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>
-                            <a class="btn dark btn-sm details" rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                            <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
                                 <i class="fa fa-eye"></i> Detail</a>
                                @if($purchase->status != 'Completed')
-                                   <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make') }}" >
+                                   <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
                                        <i class="fa fa-usd"></i> Payment</a>
                                @endif
 
@@ -104,6 +108,7 @@
                     <?php
                     $sl++;
                     ?>
+                        @endif
                     @endforeach
 
                     </tbody>

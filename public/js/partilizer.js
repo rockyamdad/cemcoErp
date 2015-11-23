@@ -78,6 +78,7 @@ jQuery(document).ready(function() {
         });
     });
     $('#account_name_id').live("change", function () {
+        alert('ss');
         var account_id = $('#account_name_id').val();
 
         $.ajax({

@@ -3,11 +3,15 @@
 use App\AccountCategory;
 
 
+use App\Branch;
 use App\NameOfAccount;
 use App\Party;
 use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
+use App\StockCount;
+use App\StockInfo;
+use App\SubCategory;
 use App\Transaction;
 use Exception;
 use Illuminate\Routing\Controller;
@@ -34,13 +38,22 @@ class PurchaseInvoiceController extends Controller{
         $suppliersAll = $suppliers->getSuppliersDropDown();
         $products = new Product();
         $localProducts = $products->getLocalProductsDropDown();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
 
         return view('PurchaseInvoice.add',compact('suppliersAll'))
-            ->with('localProducts',$localProducts);
+            ->with('localProducts',$localProducts)
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos);
     }
     public function postSavePurchaseInvoice()
     {
         $ruless = array(
+            'branch_id' => 'required',
+            'stock_info_id' => 'required',
+            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -59,9 +72,13 @@ class PurchaseInvoiceController extends Controller{
 
         }
     }
-    public function updatePurchaseInvoiceData($id)
+    public function postUpdate($id)
     {
+
         $ruless = array(
+            'branch_id' => 'required',
+            'stock_info_id' => 'required',
+            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -88,6 +105,9 @@ class PurchaseInvoiceController extends Controller{
         $purchaseDetails->price = Input::get('price');
         $purchaseDetails->detail_invoice_id = Input::get('invoice_id');
         $purchaseDetails->product_id = Input::get('product_id');
+        $purchaseDetails->branch_id = Input::get('branch_id');
+        $purchaseDetails->stock_info_id = Input::get('stock_info_id');
+        $purchaseDetails->product_type = Input::get('product_type');
         $purchaseDetails->remarks = Input::get('remarks');
         $purchaseDetails->save();
         $hasInvoice = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
@@ -106,8 +126,12 @@ class PurchaseInvoiceController extends Controller{
     private function purchaseInvoiceDetailConvertToArray($purchaseInvoiceDetails)
     {
         $array = array();
-
+        $stockName = StockInfo::find($purchaseInvoiceDetails->stock_info_id);
+        $branchName = Branch::find($purchaseInvoiceDetails->branch_id);
         $array['id'] = $purchaseInvoiceDetails->id;
+        $array['branch_id'] = $branchName->name;
+        $array['stock_info_id'] = $stockName->name;
+        $array['product_type'] = $purchaseInvoiceDetails->product_type;
         $array['product_id'] = $purchaseInvoiceDetails->product->name;
         $array['price'] = $purchaseInvoiceDetails->price;
         $array['quantity']   = $purchaseInvoiceDetails->quantity;
@@ -118,15 +142,23 @@ class PurchaseInvoiceController extends Controller{
     {
         $purchaseInvoiceDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$invoiceId)->get();
         $purchaseInvoiceTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
+        $purchase = PurchaseInvoice::where('invoice_id','=',$invoiceId)->first();
         return view('PurchaseInvoice.details',compact('purchaseInvoiceDetails'))
+            ->with('purchase',$purchase)
             ->with('purchaseInvoiceTransactions',$purchaseInvoiceTransactions);
 
     }
-    public function getMake()
+    public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        return view('PurchaseInvoice.paymentAdd',compact('accountCategoriesAll'));
+        $purchaseDetails = new PurchaseInvoiceDetail();
+        $transactions = new Transaction();
+        $purchaseDetailsAmount = $purchaseDetails->getTotalAmount($invoice_id);
+        $transactionsPaid = $transactions->getTotalPaidPurchase($invoice_id);
+        return view('PurchaseInvoice.paymentAdd',compact('accountCategoriesAll'))
+            ->with('purchaseDetailsAmount',$purchaseDetailsAmount)
+            ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveMake()
     {
@@ -166,7 +198,8 @@ class PurchaseInvoiceController extends Controller{
                 $purchaseTransaction->type = "Payment";
                 $purchaseTransaction->payment_method = Input::get('payment_method');
                 $purchaseTransaction->invoice_id = Input::get('invoice_id');
-                $purchaseTransaction->save();
+                $purchaseTransaction->cheque_no = Input::get('cheque_no');
+
 
                 $totalAmount = 0;
                 $totalPrice = 0;
@@ -188,7 +221,7 @@ class PurchaseInvoiceController extends Controller{
                     $purchaseInvoice->status = "Partial";
                 }
                 $purchaseInvoice->save();
-
+                $purchaseTransaction->save();
                 $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
                 $accountPayment->save();
                 Session::flash('message', 'Payment has been Successfully Cleared.');
@@ -205,33 +238,43 @@ class PurchaseInvoiceController extends Controller{
         $suppliersAll = $suppliers->getSuppliersDropDown();
         $products = new Product();
         $localProducts = $products->getLocalProductsDropDown();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         $purchase[0] = PurchaseInvoice::where('invoice_id','=',$id)->get();
         $var = $purchase[0];
         $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->get();
-         //var_dump($var);exit;
         return view('PurchaseInvoice.edit',compact('suppliersAll'))
             ->with('localProducts',$localProducts)
             ->with('purchaseDetails',$purchaseDetails)
-            ->with('purchase',$var);
+            ->with('purchase',$var)
+            ->with('branchAll',$branchAll)
+            ->with('allStockInfos',$allStockInfos);
 
     }
     public function getDelete($id)
     {
         $purchase = PurchaseInvoiceDetail::find($id);
         $purchase->delete();
+
         $message = array('Purchase Invoice  Successfully Deleted');
         return new JsonResponse($message);
     }
-    public function getDeleteDetail($id)
+    public function getDeletepurchasedetail($id)
     {
         $purchaseDetail = PurchaseInvoiceDetail::find($id);
         $purchaseDetail->delete();
-        $message = array('Purchase Invoice  Successfully Deleted');
-        return new JsonResponse($message);
+        Session::flash('message', 'Purchase Detail  Successfully Deleted');
+        return Redirect::to('purchases/index');
     }
     public function getDeleteTransaction($id)
     {
         $transaction = Transaction::find($id);
+        $account_id = Input::get('data');
+        $accounts = NameOfAccount::find($account_id);
+        $accounts->opening_balance = $accounts->opening_balance + $transaction->amount;
+        $accounts->save();
         $transaction->delete();
         $message = array('Transaction Successfully Deleted');
         return new JsonResponse($message);
@@ -254,6 +297,58 @@ class PurchaseInvoiceController extends Controller{
         foreach ($categoriesName as $categoryName) {
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
+    }
+    public function getProducts($branch_id)
+    {
+
+        $poductsNames = Product::where('branch_id','=',$branch_id)
+            ->get();
+
+        foreach ($poductsNames as $product) {
+
+            echo "<option value = $product->id > $product->name</option> ";
+
+        }
+    }
+    public  function getProduct($type)
+    {
+        $branch= Input::get('data');
+        $productsName = Product::where('product_type','=',$type)
+            ->where('branch_id','=',$branch)
+            ->get();
+
+        foreach ($productsName as $productName) {
+
+            $category = $productName->category->name;
+            if($productName->sub_category_id){
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = $subCategory->name;
+            }else{
+                $subCategoryName = '';
+            }
+
+            echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName)</option> ";
+
+        }
+    }
+    public function getProductbalance($product_id)
+    {
+        $stockCount = StockCount::where('product_id','=',$product_id)
+            ->where('stock_info_id','=',Input::get('data'))
+            ->first();
+        if($stockCount){
+            echo "<p3 style='color: blue;font-size: 100%; margin-left: 32px;'>Your product Balance This Stock is $stockCount->product_quantity</p3>";
+
+        }else{
+            echo "<p3 style='color: blue;font-size: 100%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
+
+        }
+
+    }
+    public function getAccountbalance($account_id)
+    {
+        $accountBalance = NameOfAccount::find($account_id);
+        echo "<p3 style='color: blue;font-size: 130%'>Your Current Balance $accountBalance->opening_balance</p3>";
     }
 
 
