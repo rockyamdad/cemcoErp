@@ -3,6 +3,8 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Make Payment</h3>
+            <h5 style="color: red ;">You have {{$purchaseDetailsAmount[0]->total - $transactionsPaid[0]->totalPaid}} taka Due </h5>
+
         </div>
         <div class="modal-body">
             {!!Form::open(array('url' => '/saveMakePurchase', 'method' => 'post', 'class'=>'form-horizontal payment_form',
@@ -39,7 +41,20 @@
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
-                                array('class'=>'form-control'))!!}
+                                array('class'=>'form-control' ,'id'=>'payment_method'))!!}
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 balance_show">
+                            </div>
+                        </div>
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_no','Cheque No',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::text('cheque_no',null,array('placeholder' => 'Cheque No', 'class' =>
+                                'form-control','id'=>'cheque_no'))!!}
                             </div>
                         </div>
                         <div class="form-group">

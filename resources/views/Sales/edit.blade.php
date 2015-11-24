@@ -86,8 +86,8 @@
                                     @foreach($saleDetails as $saleDetail)
                                         <?php
 
-                                        $stocks = new \App\StockInfo();
                                         $branch = new \App\Branch();
+                                        $stocks = new \App\StockInfo();
                                         $stockName = \App\StockInfo::find($saleDetail->stock_info_id);
                                         $branchName = \App\Branch::find($saleDetail->branch_id);
                                                 ?>
@@ -138,7 +138,7 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11">
+                                                <div class="col-md-11" style="width: 250px;">
                                                     {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'edit_product_id') )!!}
                                                 </div>
                                             </div>
