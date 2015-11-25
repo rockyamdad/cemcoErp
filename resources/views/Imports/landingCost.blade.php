@@ -96,7 +96,7 @@
                         $totalCrfPrice = $totalCrfPrice + ($importt->total_cfr_price * $importt->quantity);
                         $totalDuty = $totalDuty + ($duty * $importt->quantity);
 
-                        $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost']) ) + ($importt->total_booking_price * $importt->dollar_to_bd_rate) + $duty;
+                        $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost'])/$totalQuantity ) + ($importt->total_booking_price * $importt->dollar_to_bd_rate) + $duty;
 
                         $totalLandingCost = $totalLandingCost + ($landingCost * $importt->quantity);
                         $categoryName = \App\Category::find($importt->category_id);
