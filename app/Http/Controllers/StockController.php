@@ -39,6 +39,7 @@ class StockController extends Controller{
     public  function getProducts($type)
     {
         $productsName = Product::where('product_type','=',$type)
+            ->where('branch_id','=',Input::get('data'))
             ->get();
         $product_id= Input::get('data');
 
