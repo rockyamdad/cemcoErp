@@ -22,7 +22,8 @@ class StockController extends Controller{
     }
     public function getIndex()
     {
-        $stocks = Stock::orderBy('id','DESC')->paginate(15);
+        $stocks = Stock::orderBy('id','DESC')
+            ->paginate(15);
         return view('Stocks.list',compact('stocks'));
     }
 
