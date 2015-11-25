@@ -276,6 +276,8 @@ class ImportController extends Controller{
 
         $imports = $importDetails->getLandingCostData($id);
        // var_dump($imports);exit;
+        $detailsQuantity = ImportDetail::where('import_num','=',$id)->get();
+        $totalQuantitySum = $detailsQuantity->sum('quantity');
         $totalBankCost = BankCost::where('import_id','=',$id)->get();
         $totalCnfCost  = CnfCost::where('import_id','=',$id)->get();
         $ttCharge      = OtherCost::where('import_id','=',$id)->get();
@@ -283,6 +285,7 @@ class ImportController extends Controller{
             ->with('totalBankCost',$totalBankCost)
             ->with('totalCnfCost',$totalCnfCost)
             ->with('id',$id)
+            ->with('totalQuantitySum',$totalQuantitySum)
             ->with('ttCharge',$ttCharge);
     }
     public function getLandingcostprint($id)
@@ -290,6 +293,8 @@ class ImportController extends Controller{
         $importDetails = new ImportDetail();
 
         $imports = $importDetails->getLandingCostData($id);
+        $detailsQuantity = ImportDetail::where('import_num','=',$id)->get();
+        $totalQuantitySum = $detailsQuantity->sum('quantity');
         $totalBankCost   = BankCost::where('import_id','=',$id)->get();
         $totalCnfCost    = CnfCost::where('import_id','=',$id)->get();
         $ttCharge        = OtherCost::where('import_id','=',$id)->get();
@@ -299,6 +304,7 @@ class ImportController extends Controller{
             ->with('totalCnfCost',$totalCnfCost)
             ->with('id',$id)
             ->with('ttCharge',$ttCharge)
+            ->with('totalQuantitySum',$totalQuantitySum)
             ->with('benificiaryName',$benificiaryName);
     }
     public function getCosts($id)
