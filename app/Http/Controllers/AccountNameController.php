@@ -32,7 +32,6 @@ class AccountNameController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'opening_balance' => 'required',
             'account_category_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -63,6 +62,7 @@ class AccountNameController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
+            'account_category_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 

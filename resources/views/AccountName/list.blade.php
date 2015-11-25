@@ -66,10 +66,13 @@
                     $sl=1;
                     ?>
                     @foreach($accountNames as $accountName)
+                        <?php
+                                $accounts = \App\AccountCategory::find($accountName->account_category_id);
+                                ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$accountName->name}}</td>
-                        <td>{{$accountName->account_category_id}}</td>
+                        <td>{{$accounts->name}}</td>
                         <td>{{$accountName->opening_balance}}</td>
                         <td>{{$accountName->user->username}}</td>
                      <td>

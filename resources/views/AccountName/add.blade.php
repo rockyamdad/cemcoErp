@@ -1,3 +1,12 @@
+<script>
+    function closeModal() {
+        /*$('#sale').modal('hide');
+         $('body').removeClass('modal-open');
+         $('.modal-backdrop').hide();*/
+        $("#ajax").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $('.modal-backdrop').hide();
+    }
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -37,18 +46,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!!HTML::decode(Form::label('opening_balance','Opening Balance<span class="required">*</span>',array('class' =>
+                            {!!HTML::decode(Form::label('opening_balance','Opening Balance',array('class' =>
                             'control-label col-md-4')))!!}
                             <div class="col-md-7">
-                                {!!Form::text('opening_balance',null,array('placeholder' => 'Opening Balance', 'class' =>
+                                {!!Form::text('opening_balance',0.0,array( 'class' =>
                                 'form-control','id'=>'opening_balance'))!!}
                             </div>
                         </div>
 
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
-                                {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'save'))!!}
-                                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'saveAccount'))!!}
+                                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
     $('#accountName_table').DataTable({
         "bPaginate": false
     });
+    $('#saveAccount').live("click", function () {
     var form = $('.account_name_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
@@ -14,9 +15,6 @@ jQuery(document).ready(function() {
         ignore: "",
         rules: {
             name: {
-                required: true
-            },
-            opening_balance: {
                 required: true
             },
             account_category_id: {
@@ -52,7 +50,7 @@ jQuery(document).ready(function() {
          }*/
     });
 
-
+    });
 
     $('[data-toggle="modal"]').click(function(e) {
         e.preventDefault();
