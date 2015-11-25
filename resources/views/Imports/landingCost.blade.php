@@ -96,7 +96,7 @@
                         $totalCrfPrice = $totalCrfPrice + ($importt->total_cfr_price * $importt->quantity);
                         $totalDuty = $totalDuty + ($duty * $importt->quantity);
 
-                        $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost']) / $totalQuantity) + $importt->total_booking_price + $duty;
+                        $landingCost = (($ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost']) {{--/ $totalQuantity--}}) + ($importt->total_booking_price * $importt->dollar_to_bd_rate) + $duty;
 
                         $totalLandingCost = $totalLandingCost + ($landingCost * $importt->quantity);
                         $categoryName = \App\Category::find($importt->category_id);
@@ -144,7 +144,7 @@
             <?php $total = $ttCharge[0]['tt_charge'] + $totalBankCost[0]['total_bank_cost'] + $totalCnfCost[0]['total_cnf_cost'] ?>
             <h3>Additional Cost:</h3>
             <strong>Cnf Bill:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$totalCnfCost[0]['total_cnf_cost']}}<br>
-            <strong>Bank Cost:</strong>&nbsp;&nbsp;&nbsp;{{$totalBankCost[0]['total_bank_cost']}}<br>
+            <strong>Bank & Others Cost:</strong>&nbsp;&nbsp;&nbsp;{{$totalBankCost[0]['total_bank_cost']}}<br>
             <strong>Tt Charge:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$ttCharge[0]['tt_charge']}}
             <hr>
             <strong>Total:</strong>&nbsp;&nbsp;&nbsp;&nbsp;{{$total}}<br>
