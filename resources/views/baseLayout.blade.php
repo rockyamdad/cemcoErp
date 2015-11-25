@@ -190,13 +190,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         <li
         @if (Request::is('productsubcategories/index/'))class="active"@endif>
-        <a href="{{ URL::to('productsubcategories/index/') }}"><i class=""></i>Product SubCategory
+        <a href="{{ URL::to('productsubcategories/index/') }}"><i class=""></i>Product Sub Category
         </a>
         </li>
 
         <li
         @if (Request::is('products/index/'))class="active"@endif>
-        <a href="{{ URL::to('products/index/') }}">Add Product</a>
+        <a href="{{ URL::to('products/index/') }}">Product List</a>
         </li>
 
         </ul>
