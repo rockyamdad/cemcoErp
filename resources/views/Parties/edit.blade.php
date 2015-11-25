@@ -35,7 +35,7 @@
         <div class="portlet-body form">
             <!-- BEGIN FORM-->
 
-            {!!Form::model($party,array('action' => array('PartyController@postUpdate',$party->id), 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'party_form'))!!}
+            {!!Form::model($party,array('action' => array('PartyController@postUpdate',$party->id), 'method' => 'post', 'class'=>'form-horizontal party_form'))!!}
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
                     <button data-close="alert" class="close"></button>
@@ -46,7 +46,7 @@
                     Your form validation is successful!
                 </div>
                 <div class="form-group">
-                    {!! HTML::decode(Form::label('name','Name',array('class' => 'control-label col-md-3'))) !!}
+                    {!! HTML::decode(Form::label('name','Name<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('name',null,array('placeholder' => 'Name', 'class' => 'form-control','id' => 'name'))!!}
                     </div>
@@ -56,7 +56,7 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('type',[null=>'Please Select Type'] + array('Supplier' => 'Supplier', 'Buyer' =>
-                        'Buyer'),'null', array('class'=>'form-control','id'=>'type'))!!}
+                        'Buyer'),$party->type, array('class'=>'form-control','id'=>'type'))!!}
                     </div>
                 </div>
                 <div class="form-group">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! HTML::decode(Form::label('phone','Phone',array('class' => 'control-label col-md-3'))) !!}
+                    {!! HTML::decode(Form::label('phone','Phone<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('phone',null,array('placeholder' => 'Phone', 'class' => 'form-control','id' => 'phone'))!!}
                     </div>

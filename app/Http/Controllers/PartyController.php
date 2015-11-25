@@ -28,9 +28,9 @@ class PartyController extends Controller{
     public function postSaveParty()
     {
         $ruless = array(
-           // 'name' => 'required',
-            'email' => 'required',
+            'name' => 'required',
             'phone' => 'required',
+            'type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -56,8 +56,8 @@ class PartyController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'email' => 'required',
             'phone' => 'required',
+            'type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 

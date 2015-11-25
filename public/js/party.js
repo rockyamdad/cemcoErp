@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
 
-    var form = $('#party_form');
+    var form = $('.party_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
             name: {
                 required: true
             },
-            email: {
+            type: {
                 required: true
             },
             phone: {
