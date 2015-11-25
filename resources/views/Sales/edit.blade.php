@@ -60,6 +60,9 @@
                                 <div class="col-md-5">
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
                                 </div>
+                                <div class="col-md-5">
+                                    {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,$saleDetails[0]->branch_id, array('class'=>'form-control branch_id_val','id'=>'edit_branch_id') )!!}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5">
@@ -71,7 +74,6 @@
                                 <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                     <thead>
                                     <tr>
-                                        <th width="">Branch Name</th>
                                         <th width="">Stock Name</th>
                                         <th width="">Product Type</th>
                                         <th width="">Product Name</th>
@@ -92,7 +94,6 @@
                                         $branchName = \App\Branch::find($saleDetail->branch_id);
                                                 ?>
                                         <tr>
-                                            <td> {{ $branchName->name }}</td>
                                             <td> {{ $stockName->name }}</td>
                                             <td> {{ $saleDetail->product_type }}</td>
                                             <td> {{ $saleDetail->product->name }}</td>
@@ -114,23 +115,16 @@
 
                                     </tbody>
                                     <tr class="clone_">
-                                        <td style="width: 150px;">
-                                            <div class="form-group">
-                                                <div class="col-md-11" style="width: 160px;">
-                                                    {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'edit_branch_id') )!!}
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11 " style="width: 150px;">
+                                                <div class="col-md-11 " style="width: 220px;">
                                                     {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11" style="width: 120px;">
+                                                <div class="col-md-11" style="width: 180px;">
                                                     {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
                                                     'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control type_val','id'=>'edit_product_type'))!!}
                                                 </div>
@@ -138,7 +132,7 @@
                                         </td>
                                         <td>
                                             <div class="form-group">
-                                                <div class="col-md-11" style="width: 250px;">
+                                                <div class="col-md-11" style="width: 300px;">
                                                     {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'edit_product_id') )!!}
                                                 </div>
                                             </div>

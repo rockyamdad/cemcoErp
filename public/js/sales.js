@@ -11,7 +11,6 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(sale)
                 {
-                    $("#branch_id").val('');
                     $("#stock_info_id").val('');
                     $("#product_type").val('');
                     $("#product_id").val('');
@@ -20,7 +19,6 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
-                    html.push('<td>' + sale.branch_id + '</td>');
                     html.push('<td>' + sale.stock_info_id + '</td>');
                     html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
@@ -51,7 +49,6 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(sale)
                 {
-                    $("#edit_branch_id").val('');
                     $("#stock_info_id").val('');
                     $("#edit_product_type").val('');
                     $("#product_id").val('');
@@ -60,7 +57,6 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
-                    html.push('<td>' + sale.branch_id + '</td>');
                     html.push('<td>' + sale.stock_info_id + '</td>');
                     html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
@@ -154,6 +150,8 @@ jQuery(document).ready(function() {
 
     $("#edit_party_id").attr('readonly','readonly');
 
+
+
     $('.deleteSaleTransaction').live("click", function() {
 
         var transactionId = $(this).attr('rel');
@@ -175,6 +173,7 @@ jQuery(document).ready(function() {
 
 
     $('#branch_id').live("change", function () {
+        $("#branch_id").attr('readonly','readonly');
         var branch_id = $('#branch_id').val();
         $('#product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
@@ -206,7 +205,7 @@ jQuery(document).ready(function() {
             }
         });
     });
-
+    $("#edit_branch_id").attr('readonly','readonly');
     //edit
     $('#edit_branch_id').live("change", function () {
         var branch_id = $('#edit_branch_id').val();
