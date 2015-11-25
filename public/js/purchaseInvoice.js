@@ -11,7 +11,6 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(purchase)
                 {
-                    $("#branch_id").val('');
                     $("#stock_info_id").val('');
                     $("#product_type").val('');
                     $("#product_id").val('');
@@ -20,7 +19,6 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
-                    html.push('<td>' + purchase.branch_id + '</td>');
                     html.push('<td>' + purchase.stock_info_id + '</td>');
                     html.push('<td>' + purchase.product_type + '</td>');
                     html.push('<td>' + purchase.product_id + '</td>');
@@ -51,7 +49,6 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(purchase)
                 {
-                    $("#edit_branch_id").val('');
                     $("#stock_info_id").val('');
                     $("#edit_product_type").val('');
                     $("#product_id").val('');
@@ -60,7 +57,6 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
 
                     var html = [];
-                    html.push('<td>' + purchase.branch_id + '</td>');
                     html.push('<td>' + purchase.stock_info_id + '</td>');
                     html.push('<td>' + purchase.product_type + '</td>');
                     html.push('<td>' + purchase.product_id + '</td>');
@@ -153,6 +149,7 @@ jQuery(document).ready(function() {
 
     //$(".party_id").attr('readonly','readonly');
     $("#edit_party_id").attr('readonly','readonly');
+    $("#edit_branch_id").attr('readonly','readonly');
 
     $('.deletePurchaseTransaction').live("click", function() {
 
@@ -176,6 +173,7 @@ jQuery(document).ready(function() {
 
     $('#branch_id').live("change", function () {
         var branch_id = $('#branch_id').val();
+        $("#branch_id").attr('readonly','readonly');
         $('#product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
         $('#product_id').append(newOption);
