@@ -55,6 +55,7 @@
                     <thead>
                     <tr>
                         <th>SL</th>
+                        <th>Branch</th>
                         <th>Product</th>
                         <th>Party</th>
                         <th>Req No</th>
@@ -72,9 +73,12 @@
                     $sl=1;
                     ?>
                     @foreach($requisitions as $requisition )
-
+<?php
+$branchName = \App\Branch::find($requisition->branch_id);
+        ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
+                        <td>{{$branchName->name}}</td>
                         <td>{{$requisition->product->name."(".$requisition->product->category->name.")"."(".$requisition->product->subcategory->name.")"}}</td>
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>

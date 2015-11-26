@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Branch;
 use App\Party;
 use App\Product;
 use App\Stock;
@@ -29,12 +30,16 @@ class StockRequisitionController extends Controller{
         $productAll = $products->getProductsWithCategories();
         $parties = new Party();
         $partyAll = $parties->getPartiesDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         return view('StockRequisition.add',compact('productAll'))
-            ->with('partyAll',$partyAll);
+            ->with('partyAll',$partyAll)
+            ->with('branchAll',$branchAll);
     }
     public function postSaveRequisition()
     {
         $ruless = array(
+            'branch_id' => 'required',
             'product_id' => 'required',
             'requisition_quantity' => 'required',
             'party_id' => 'required',
@@ -59,9 +64,12 @@ class StockRequisitionController extends Controller{
         $productAll = $products->getProductsWithCategories();
         $parties = new Party();
         $partyAll = $parties->getPartiesDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         return view('StockRequisition.edit',compact('stockRequisition'))
             ->with('partyAll',$partyAll)
-            ->with('productAll',$productAll);
+            ->with('productAll',$productAll)
+            ->with('branchAll',$branchAll);
     }
 
     public function postUpdateIssuedRequisition()
@@ -87,6 +95,7 @@ class StockRequisitionController extends Controller{
     }
     private function setStockRequisitionData($requisition)
     {
+        $requisition->branch_id = Input::get('branch_id');
         $requisition->product_id = Input::get('product_id');
         $requisition->party_id = Input::get('party_id');
         $requisition->requisition_quantity = Input::get('requisition_quantity');
@@ -111,8 +120,9 @@ class StockRequisitionController extends Controller{
     private function requisitionInfoConvertToArray($requisitions)
     {
         $array = array();
-
+        $branchName = Branch::find($requisitions->branch_id);
         $array['id'] = $requisitions->id;
+        $array['branch'] = $branchName->name;
         $array['product'] = $requisitions->product->name;
         $array['party'] = $requisitions->party->name;
         $array['quantity']   = $requisitions->requisition_quantity;

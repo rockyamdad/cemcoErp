@@ -62,9 +62,10 @@
                             <table class="table table-striped table-bordered table-primary table-condensed" id="requisitionTable">
                                 <thead>
                                 <tr>
+                                    <th width="">Branch Name</th>
                                     <th width="">Party Name</th>
                                     <th width="">Product Name</th>
-                                    <th width="">Requisition Quantity</th>
+                                    <th width="">Quantity</th>
                                     <th width="">Remarks</th>
                                     <th width="">Action</th>
                                 </tr>
@@ -75,14 +76,23 @@
                                 </tbody>
                                 <tr class="clone_">
                                     <td>
-                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="col-md-11">
+                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
                                             <div class="col-md-11">
                                                 {!!Form::select('party_id',[null=>'Please Select Party'] + $partyAll,'null', array('class'=>'form-control ','id'=>'party_id') )!!}
                                             </div>
                                         </div>
 
                                     </td>
-                                    <td> <div class="form-group">
+                                    <td>
+                                        <div class="form-group">
                                             <div class="col-md-11">
                                                 {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
                                             </div>
@@ -91,7 +101,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::text('requisition_quantity',null,array('placeholder' => 'Requisition Quantity', 'class' =>
+                                                {!!Form::text('requisition_quantity',null,array('placeholder' => ' Quantity', 'class' =>
                                                 'form-control','id'=>'requisition_quantity'))!!}
                                             </div>
                                         </div>
@@ -105,7 +115,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {!!Form::button('Add Requisition',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisition'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisition'))!!}
                                     </td>
                                 </tr>
                             </table>

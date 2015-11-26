@@ -14,7 +14,8 @@ jQuery(document).ready(function() {
                 {
                     $("#stock_requisition_form")[0].reset();
 
-                  var html = [];
+                    var html = [];
+                    html.push('<td>' + requisition.branch + '</td>');
                     html.push('<td>' + requisition.party + '</td>');
                     html.push('<td>' + requisition.product + '</td>');
                     html.push('<td>' + requisition.quantity + '</td>');
@@ -23,7 +24,7 @@ jQuery(document).ready(function() {
                     }else{
                         html.push('<td>' + requisition.remarks + '</td>');
                     }
-                    html.push('<td><input type="button"  id="deleteRequisition" style="width:127px;" value="delete" class="btn red deleteRequisition" rel=' + requisition.id + ' ></td>');
+                    html.push('<td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisition" rel=' + requisition.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#requisitionTable  > tbody:first').append(html);
@@ -52,11 +53,12 @@ jQuery(document).ready(function() {
 
     function requisitionFormValidation() {
 
+        var branch = $.trim($('#branch_id').val());
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#requisition_quantity').val());
 
-        if (party === '' || (product === '') || (quantity === '')) {
+        if (party === '' || (product === '') || (quantity === '') || (branch ==='')) {
             return false;
         } else {
             return true;

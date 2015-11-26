@@ -62,9 +62,10 @@
                             <table class="table table-striped table-bordered table-primary table-condensed" id="requisitionTable">
                                 <thead>
                                 <tr>
+                                    <th width="">Branch Name</th>
                                     <th width="">Party Name</th>
                                     <th width="">Product Name</th>
-                                    <th width="">Requisition Quantity</th>
+                                    <th width="">Quantity</th>
                                     <th width="">Remarks</th>
                                     <th width="">Action</th>
                                 </tr>
@@ -74,16 +75,29 @@
 
                                 </tbody>
                                 @if($stockRequisition)
+                                    <?php
+                                        $branchName = \App\Branch::find($stockRequisition->branch_id);
+                                            ?>
                                         <tr>
+                                            <td>{{$branchName->name}}</td>
                                             <td>{{$stockRequisition->party->name}}</td>
                                             <td>{{$stockRequisition->product->name}}</td>
                                             <td>{{$stockRequisition->requisition_quantity}}</td>
                                             <td>{{$stockRequisition->remarks}}</td>
-                                            <td><input type="button"  id="deleteRequisition" style="width:127px;" value="delete" class="btn red deleteRequisition" rel="{{ $stockRequisition->id }}" ></td>
+                                            <td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisition" rel="{{ $stockRequisition->id }}" ></td>
 
                                         </tr>
                                 @endif
                                 <tr class="clone_">
+
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-11">
+                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                            </div>
+                                        </div>
+
+                                    </td>
                                     <td>
                                     <div class="form-group">
                                             <div class="col-md-11">
@@ -101,7 +115,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::text('requisition_quantity',null,array('placeholder' => 'Requisition Quantity', 'class' =>
+                                                {!!Form::text('requisition_quantity',null,array('placeholder' => 'Quantity', 'class' =>
                                                 'form-control','id'=>'requisition_quantity'))!!}
                                             </div>
                                         </div>
@@ -115,7 +129,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {!!Form::button('Add Requisition',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisition'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisition'))!!}
                                     </td>
                                 </tr>
                             </table>
