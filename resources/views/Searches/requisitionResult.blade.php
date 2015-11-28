@@ -27,8 +27,6 @@
                     <table class="table table-striped table-bordered table-hover" id="stock_requisition_search_result_table">
                         <thead style="background-color:royalblue">
                         <tr>
-
-
                             <th>Branch</th>
                             <th>Product</th>
                             <th>Req Qty</th>
@@ -47,9 +45,7 @@
                         $categoryName = \App\Category::find($result->cId);
                         $subCategoryName = \App\SubCategory::find($result->sId);
                         ?>
-
                             <tr class="odd gradeX">
-
                                 <td>{{$branchName->name}}</td>
                                 <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                 <td>{{$result->requisition_quantity}}</td>
@@ -58,7 +54,6 @@
                                 <td>{{$result->created_at}}</td>
                                 <td>{{$result->remarks}}</td>
                                 <td>{{$result->uName}}</td>
-
                             </tr>
                         @endforeach
                         </tbody>
