@@ -29,6 +29,7 @@
                         <tr>
 
 
+                            <th>Branch</th>
                             <th>Product</th>
                             <th>Req Qty</th>
                             <th>Issued</th>
@@ -42,13 +43,14 @@
                         <tbody>
                         @foreach($results as $result )
                         <?php
+                        $branchName = \App\Branch::find($result->branchId);
                         $categoryName = \App\Category::find($result->cId);
                         $subCategoryName = \App\SubCategory::find($result->sId);
                         ?>
 
                             <tr class="odd gradeX">
 
-
+                                <td>{{$branchName->name}}</td>
                                 <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                 <td>{{$result->requisition_quantity}}</td>
                                 <td>{{$result->issued_quantity}}</td>

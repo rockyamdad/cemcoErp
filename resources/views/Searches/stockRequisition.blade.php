@@ -35,7 +35,15 @@
                     Your form validation is successful!
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('party_id','Choose Party',array('class' =>
+                    {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class'
+                    => 'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
+                        array('class'=>'form-control ','id'=>'products_branch_id') )!!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('party_id','Choose Party<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!!Form::select('party_id',[null=>'Please Select Party'] + $partyAll,'null', array('class'=>'form-control ','id'=>'party_id') )!!}

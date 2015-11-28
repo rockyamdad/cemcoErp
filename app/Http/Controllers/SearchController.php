@@ -49,18 +49,22 @@ class SearchController extends Controller{
     {
         $parties = new Party();
         $partyAll = $parties->getPartiesDropDown();
-        return view('Searches.stockRequisition',compact('partyAll'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Searches.stockRequisition',compact('partyAll'))
+            ->with('branchAll',$branchAll);
     }
     public function postRequisitionResult()
     {
-            $party= Input::get('party_id');
+            $party = Input::get('party_id');
+            $branch= Input::get('branch_id');
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
             $search = new Search();
 
             $partyName=Party::find($party);
 
-            $results = $search->getResultRequisition($party,$date1,$date2);
+            $results = $search->getResultRequisition($party,$branch,$date1,$date2);
 
             return view('Searches.requisitionResult',compact('results'))
                 ->with('partyName',$partyName);

@@ -51,9 +51,9 @@ class Search extends Eloquent
                 ->get();
         }
     }
-    public function getResultRequisition($party,$date1,$date2)
+    public function getResultRequisition($party,$branch,$date1,$date2)
     {
-        if(($party=='')) {
+        if(($party=='' && $branch=='')) {
             return DB::table('stock_requisitions')
                 ->join('parties', 'stock_requisitions.party_id', '=', 'parties.id')
                 ->join('products', 'stock_requisitions.product_id', '=', 'products.id')
@@ -64,6 +64,7 @@ class Search extends Eloquent
                     'products.sub_category_id AS sId',
                     'parties.name AS partyName',
                     'stock_requisitions.requisition_quantity',
+                    'stock_requisitions.branch_id AS branchId',
                     'stock_requisitions.issued_quantity',
                     'stock_requisitions.remarks',
                     'stock_requisitions.created_at',
@@ -75,6 +76,7 @@ class Search extends Eloquent
                 ->join('parties', 'stock_requisitions.party_id', '=', 'parties.id')
                 ->join('products', 'stock_requisitions.product_id', '=', 'products.id')
                 ->join('users', 'stock_requisitions.user_id', '=', 'users.id')
+                ->where('stock_requisitions.branch_id', '=', $branch)
                 ->where('party_id', '=', $party)
                 ->whereBetween('stock_requisitions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
@@ -82,6 +84,7 @@ class Search extends Eloquent
                     'products.sub_category_id AS sId',
                     'parties.name AS partyName',
                     'stock_requisitions.requisition_quantity',
+                    'stock_requisitions.branch_id AS branchId',
                     'stock_requisitions.issued_quantity',
                     'stock_requisitions.remarks',
                     'stock_requisitions.created_at',
