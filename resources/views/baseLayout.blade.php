@@ -359,7 +359,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/stocksproducts'))class="active"@endif>
                         <a href="{{ URL::to('reports/stocksproducts') }}">Stocks Product </a>
                     </li>
-
+                    <li
+                            @if (Request::is('reports/salesreport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/salesreport') }}">Sales Report</a>
+                    </li>
 
                 </ul>
             </li>
