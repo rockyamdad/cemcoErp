@@ -184,6 +184,14 @@ class SaleController extends Controller{
             ->with('sale',$sale);
 
     }
+    public function getShowinvoice($invoiceId)
+    {
+        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $sale = Sale::where('invoice_id','=',$invoiceId)->first();
+        return view('Sales.showInvoice',compact('saleDetails'))
+            ->with('sale',$sale);
+
+    }
     public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();

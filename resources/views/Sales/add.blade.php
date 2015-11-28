@@ -158,6 +158,7 @@
         </div>
         <!-- END VALIDATION STATES-->
     </div>
+</div>
     @stop
     @section('javascript')
     {!! HTML::script('js/sales.js') !!}
