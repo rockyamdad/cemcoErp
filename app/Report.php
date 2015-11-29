@@ -157,6 +157,33 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getSalesDueReport($date1,$date2,$branch_id)
+    {
+        return DB::table('sale_details')
+            ->join('sales','sale_details.invoice_id','=','sales.invoice_id')
+            ->where('sale_details.branch_id', '=', $branch_id)
+            ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->groupBy('sales.party_id')
+            ->select('sale_details.created_at AS date',
+                'sale_details.branch_id AS branch',
+                'sale_details.invoice_id AS invoice',
+                'sales.party_id AS party',
+                DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale')
+            )
+            ->get();
+    }
+    public function getPaymentForSalesDueReport($date1,$date2,$party_id)
+    {
+        return DB::table('transactions')
+            ->join('sales','transactions.invoice_id','=','sales.invoice_id')
+            ->where('sales.party_id', '=', $party_id)
+            ->where('transactions.type', '=', 'Receive')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select(
+                DB::raw('SUM(transactions.amount) AS totalPayment')
+            )
+            ->get();
+    }
 
 
 
