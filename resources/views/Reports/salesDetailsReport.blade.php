@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-                Sales Report Search
+                Sales Details Report Search
             </h3>
 
             <!-- END PAGE TITLE & BREADCRUMB-->
@@ -20,11 +20,11 @@
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet box purple">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-reorder"></i>Sales Report Search</div>
+                <div class="caption"><i class="fa fa-reorder"></i>Sales Details Report Search</div>
             </div>
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
-                {!!Form::open(array('url' => 'salesreport', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'sales_report_form'))!!}
+                {!!Form::open(array('url' => 'sales-details-report', 'method' => 'post', 'class'=>'form-horizontal', 'id'=>'sales_details_report_form'))!!}
                 <div class="form-body">
                     <div class="alert alert-danger display-hide">
                         <button data-close="alert" class="close"></button>

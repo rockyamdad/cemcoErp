@@ -138,7 +138,25 @@ class Report extends Eloquent
             )
             ->get();
     }
-
+    public function getSalesDetailsReport($date1,$date2,$branch_id)
+    {
+        return DB::table('sale_details')
+            ->join('products', 'sale_details.product_id', '=', 'products.id')
+            ->where('sale_details.branch_id', '=', $branch_id)
+            ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('sale_details.created_at AS date',
+                'sale_details.branch_id AS branch',
+                'sale_details.stock_info_id AS stock',
+                'sale_details.invoice_id AS invoice',
+                'sale_details.product_id',
+                'sale_details.price',
+                'sale_details.quantity',
+                'sale_details.remarks',
+                'products.category_id',
+                'products.sub_category_id'
+            )
+            ->get();
+    }
 
 
 
