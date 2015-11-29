@@ -184,7 +184,27 @@ class Report extends Eloquent
             )
             ->get();
     }
-
+    public function getSalesCollectionReport($date1,$date2,$branch_id)
+    {
+        return DB::table('transactions')
+            ->join('sale_details', 'transactions.invoice_id', '=', 'sale_details.invoice_id')
+            ->join('sales', 'transactions.invoice_id', '=', 'sales.invoice_id')
+            ->where('sale_details.branch_id', '=', $branch_id)
+            ->where('transactions.type', '=', 'Receive')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('transactions.created_at AS date',
+                'sale_details.branch_id AS branch',
+                'sales.party_id AS party',
+                'transactions.amount',
+                'transactions.invoice_id AS invoice',
+                'transactions.payment_method',
+                'transactions.account_name_id',
+                'transactions.account_category_id',
+                'transactions.cheque_no',
+                'transactions.remarks'
+            )
+            ->get();
+    }
 
 
 

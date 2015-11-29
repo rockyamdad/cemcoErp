@@ -143,6 +143,7 @@ Route::post('/stock-report','ReportController@postReportResult');
 Route::post('/salesreport','ReportController@postSalesereportresult');
 Route::post('/sales-details-report','ReportController@postSalesDetailsReportResult');
 Route::post('/sales-due-report','ReportController@postSalesDueReportResult');
+Route::post('/sales-collection-report','ReportController@postSalesCollectionReportResult');
 Route::get('/stocksproducts','ReportController@getStocksproducts');
 Route::get('/stocksproductsresult','ReportController@postStocksproductsresult');
 

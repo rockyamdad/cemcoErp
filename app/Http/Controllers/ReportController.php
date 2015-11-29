@@ -198,6 +198,24 @@ class ReportController extends Controller{
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
+    public function getSalescollection()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Reports.salesCollectionReport')
+            ->with('branchAll',$branchAll);
 
-
+    }
+    public function postSalesCollectionReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        $branch_id = Input::get('branch_id');
+        $report = new Report();
+        $results = $report->getSalesCollectionReport($date1,$date2,$branch_id);
+        return view('Reports.salesCollectionReportResult',compact('results'))
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
 }
