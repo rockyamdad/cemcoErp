@@ -276,4 +276,25 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getPurchaseCollectionReport($date1,$date2,$branch_id)
+    {
+        return DB::table('transactions')
+            ->join('purchase_invoice_details', 'transactions.invoice_id', '=', 'purchase_invoice_details.detail_invoice_id')
+            ->join('purchase_invoices', 'transactions.invoice_id', '=', 'purchase_invoices.invoice_id')
+            ->where('purchase_invoice_details.branch_id', '=', $branch_id)
+            ->where('transactions.type', '=', 'Payment')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('transactions.created_at AS date',
+                'purchase_invoice_details.branch_id AS branch',
+                'purchase_invoices.party_id AS party',
+                'transactions.amount',
+                'transactions.invoice_id AS invoice',
+                'transactions.payment_method',
+                'transactions.account_name_id',
+                'transactions.account_category_id',
+                'transactions.cheque_no',
+                'transactions.remarks'
+            )
+            ->get();
+    }
 }
