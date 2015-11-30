@@ -205,7 +205,29 @@ class Report extends Eloquent
             )
             ->get();
     }
-
-
-
+//PURCHASE QUERY SECTION
+    public function getPurchaseReport($date1,$date2,$branch_id)
+    {
+        return DB::table('purchase_invoice_details')
+            ->where('purchase_invoice_details.branch_id', '=', $branch_id)
+            ->whereBetween('purchase_invoice_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->groupBy('purchase_invoice_details.detail_invoice_id')
+            ->select('purchase_invoice_details.created_at AS date',
+                'purchase_invoice_details.branch_id AS branch',
+                'purchase_invoice_details.detail_invoice_id AS invoice',
+                DB::raw('SUM(purchase_invoice_details.price * purchase_invoice_details.quantity) AS totalSale')
+            )
+            ->get();
+    }
+    public function getPaymentForPurchaseReport($date1,$date2,$invoice_id)
+    {
+        return DB::table('transactions')
+            ->where('transactions.invoice_id', '=', $invoice_id)
+            ->where('transactions.type', '=', 'Payment')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select(
+                DB::raw('SUM(transactions.amount) AS totalPayment')
+            )
+            ->get();
+    }
 }

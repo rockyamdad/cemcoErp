@@ -375,7 +375,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/salescollection'))class="active"@endif>
                         <a href="{{ URL::to('reports/salescollection') }}">Sales Collection Report</a>
                     </li>
-
+                    <li
+                            @if (Request::is('reports/purchasereport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/purchasereport') }}">Purchase Report</a>
+                    </li>
                 </ul>
             </li>
             </ul>
