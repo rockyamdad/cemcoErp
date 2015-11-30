@@ -230,4 +230,23 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getPurchaseDetailsReport($date1,$date2,$branch_id)
+    {
+        return DB::table('purchase_invoice_details')
+            ->join('products', 'purchase_invoice_details.product_id', '=', 'products.id')
+            ->where('purchase_invoice_details.branch_id', '=', $branch_id)
+            ->whereBetween('purchase_invoice_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('purchase_invoice_details.created_at AS date',
+                'purchase_invoice_details.branch_id AS branch',
+                'purchase_invoice_details.stock_info_id AS stock',
+                'purchase_invoice_details.detail_invoice_id AS invoice',
+                'purchase_invoice_details.product_id',
+                'purchase_invoice_details.price',
+                'purchase_invoice_details.quantity',
+                'purchase_invoice_details.remarks',
+                'products.category_id',
+                'products.sub_category_id'
+            )
+            ->get();
+    }
 }
