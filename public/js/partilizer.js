@@ -78,14 +78,12 @@ jQuery(document).ready(function() {
         });
     });
     $('#account_name_id').live("change", function () {
-        alert('ss');
         var account_id = $('#account_name_id').val();
-
         $.ajax({
             type: "get",
             url: "accountbalance/"+account_id,
             success: function (html) {
-                $('.balance_show').append(html);
+                $('.balance_show').html(html);
 
             }
         });

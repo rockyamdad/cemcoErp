@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddedImportNumToImportDetails extends Migration {
+class AddBranchToExpenses extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,10 @@ class AddedImportNumToImportDetails extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('import_details', function(Blueprint $table)
+		Schema::table('expenses', function(Blueprint $table)
 		{
-			$table->string('import_num',255);
+			$table->unsignedInteger('branch_id');
+			$table->foreign('branch_id')->references('id')->on('branches');
 		});
 	}
 
@@ -25,9 +26,9 @@ class AddedImportNumToImportDetails extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('import_details', function(Blueprint $table)
+		Schema::table('expenses', function(Blueprint $table)
 		{
-			Schema::drop('import_details');
+			Schema::drop('expenses');
 		});
 	}
 
