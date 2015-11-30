@@ -186,6 +186,7 @@ class ExpenseController extends Controller{
             $expenseTransaction->user_id = Session::get('user_id');
             $expenseTransaction->payment_method = Input::get('payment_method');
             $expenseTransaction->invoice_id = Input::get('invoice_id');
+            $expenseTransaction->cheque_no = Input::get('cheque_no');
             $expenseTransaction->save();
 
             $totalAmount = 0;
@@ -214,11 +215,15 @@ class ExpenseController extends Controller{
 
 
     }
-
     public function getDeleteTransaction($id)
     {
         $transaction = Transaction::find($id);
+        $account_id = Input::get('data');
+        $accounts = NameOfAccount::find($account_id);
+        $accounts->opening_balance = $accounts->opening_balance - $transaction->amount;
+        $accounts->save();
         $transaction->delete();
+
         $message = array('Transaction Successfully Deleted');
         return new JsonResponse($message);
     }
@@ -230,7 +235,11 @@ class ExpenseController extends Controller{
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
     }
-
+    public function getAccountbalance($account_id)
+    {
+        $accountBalance = NameOfAccount::find($account_id);
+        echo "<p3 style='color: blue;font-size: 150%'>Your Current Balance $accountBalance->opening_balance</p3>";
+    }
 
 
 

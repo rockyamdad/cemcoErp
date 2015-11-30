@@ -57,6 +57,7 @@ jQuery(document).ready(function() {
     });
     $('.deleteExpenseTransaction').live("click", function() {
         var transactionId = $(this).attr('rel');
+        var account_id = $(this).attr('data-ref');
         var parent = $(this).closest('tr');
         var answer     = confirm("Are you sure you want to delete this Expense Transaction?");
         if(answer) {
@@ -64,10 +65,33 @@ jQuery(document).ready(function() {
                 type: "Get",
                 url: "/deleteTransaction/"+transactionId,
                 dateType: 'json',
+                data:{'data':account_id},
                 success: function (data) {
                     parent.remove();
                 }
             });
         }
+    });
+
+
+    $('#payment_method').live("change", function () {
+
+        var payment_method = $('#payment_method').val();
+        if(payment_method != 'Cash'){
+            $( ".cheque_no_section" ).removeClass("hidden");
+        }else{
+            $( ".cheque_no_section" ).addClass("hidden");
+        }
+    });
+    $('#account_name_id').live("change", function () {
+        var account_id = $('#account_name_id').val();
+        $.ajax({
+            type: "get",
+            url: "accountbalance/"+account_id,
+            success: function (html) {
+                $('.balance_show').html(html);
+
+            }
+        });
     });
 });

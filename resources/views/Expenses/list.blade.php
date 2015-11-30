@@ -74,6 +74,7 @@
                     @foreach($expenseAll as $expense )
                         <?php
                                 $branch = \App\Branch::find($expense->branch_id);
+                                $transaction = \App\Transaction::where('invoice_id','=',$expense->invoice_id)->first();
                                 ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
@@ -119,9 +120,11 @@
                                    <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make') }}" >
                                        <i class="fa fa-usd"></i> Payment</a>
                                 @endif
-                            <a class="btn red btn-sm" href="{{ URL::to('expenses/delete/'.$expense->id)}}"
-                               onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                    class="fa fa-trash-o"></i> Delete</a>
+                               @if($transaction == NULL)
+                                <a class="btn red btn-sm" href="{{ URL::to('expenses/delete/'.$expense->id)}}"
+                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                        class="fa fa-trash-o"></i> Delete</a>
+                               @endif
 
                             @endif
 

@@ -1,3 +1,12 @@
+<script>
+    function closeModal() {
+        /*$('#sale').modal('hide');
+         $('body').removeClass('modal-open');
+         $('.modal-backdrop').hide();*/
+        $("#expensePayment").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $('.modal-backdrop').hide();
+    }
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -47,7 +56,20 @@
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
-                                array('class'=>'form-control'))!!}
+                                array('class'=>'form-control' ,'id'=>'payment_method'))!!}
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 balance_show">
+                            </div>
+                        </div>
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_no','Cheque No',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::text('cheque_no',null,array('placeholder' => 'Cheque No', 'class' =>
+                                'form-control','id'=>'cheque_no'))!!}
                             </div>
                         </div>
                         <div class="form-group">
@@ -74,7 +96,7 @@
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'savePayment'))!!}
-                                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
                             </div>
                         </div>
                     </div>
