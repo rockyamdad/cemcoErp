@@ -55,6 +55,7 @@
                     <thead style="background-color: #557386">
                     <tr>
                         <th>SL</th>
+                        <th>Branch Id</th>
                         <th>Invoice Id</th>
                         <th>Category</th>
                         <th>Particular</th>
@@ -71,8 +72,12 @@
                     $sl=1;
                     ?>
                     @foreach($expenseAll as $expense )
+                        <?php
+                                $branch = \App\Branch::find($expense->branch_id);
+                                ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
+                        <td>{{$branch->name}}</td>
                         <td>{{$expense->invoice_id}}</td>
                         <td>{{$expense->category}}</td>
                         @if($expense->particular)

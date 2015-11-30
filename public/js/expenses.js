@@ -16,6 +16,9 @@ jQuery(document).ready(function() {
             category: {
                 required: true
             },
+            branch_id: {
+                required: true
+            },
             amount: {
                 required: true
             }
@@ -47,7 +50,7 @@ jQuery(document).ready(function() {
          error1.hide();
          }*/
     });
-
+    $('select').select2();
 
     $('#category').live("change", function () {
         $('#invoice_id').val(Math.floor(Math.random()*9999999999));

@@ -3,6 +3,7 @@
 use App\AccountCategory;
 
 
+use App\Branch;
 use App\Expense;
 use App\NameOfAccount;
 use App\Party;
@@ -31,11 +32,15 @@ class ExpenseController extends Controller{
     }
     public function getCreate()
     {
-        return view('Expenses.add');
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Expenses.add')
+            ->with('branchAll',$branchAll);
     }
     public function postSaveExpense()
     {
         $ruless = array(
+            'branch_id' => 'required',
             'category' => 'required',
             'amount' => 'required',
         );
@@ -56,13 +61,17 @@ class ExpenseController extends Controller{
 
     public function getEdit($id)
     {
-       $expense = Expense::find($id);
-        return view('Expenses.edit',compact('expense'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $expense = Expense::find($id);
+        return view('Expenses.edit',compact('expense'))
+            ->with('branchAll',$branchAll);
 
     }
     public function postUpdateExpense($id)
     {
         $ruless = array(
+            'branch_id' => 'required',
             'category' => 'required',
             'amount' => 'required',
         );
@@ -84,6 +93,7 @@ class ExpenseController extends Controller{
     {
         $expense =Expense::find($id);
         $expense->invoice_id = Input::get('invoice_id');
+        $expense->branch_id = Input::get('branch_id');
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -97,6 +107,7 @@ class ExpenseController extends Controller{
     {
         $expense = new Expense();
         $expense->invoice_id = Input::get('invoice_id');
+        $expense->branch_id = Input::get('branch_id');
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -130,11 +141,15 @@ class ExpenseController extends Controller{
     {
         $accountCategories = new AccountCategory();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        return view('Expenses.paymentAdd',compact('accountCategoriesAll'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Expenses.paymentAdd',compact('accountCategoriesAll'))
+            ->with('branchAll',$branchAll);
     }
     public function postSaveMake()
     {
         $ruless = array(
+            'branch_id' => 'required',
             'account_category_id' => 'required',
             'account_name_id' => 'required',
             'amount' => 'required',
@@ -162,6 +177,7 @@ class ExpenseController extends Controller{
 
             $expense[0] = Expense::where('invoice_id','=',Input::get('invoice_id'))->get();
             $expenseTransaction = new Transaction();
+            $expenseTransaction->branch_id = Input::get('branch_id');
             $expenseTransaction->account_category_id = Input::get('account_category_id');
             $expenseTransaction->account_name_id = Input::get('account_name_id');
             $expenseTransaction->amount = Input::get('amount');

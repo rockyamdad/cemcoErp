@@ -53,6 +53,14 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
+                <div class="form-group">
+                    {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class'
+                    => 'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
+                        array('class'=>'form-control ','id'=>'branch_id') )!!}
+                    </div>
+                </div>
 
                 <div class="form-group">
                     {!!HTML::decode(Form::label('category','Expense Category<span class="required">*</span>',array('class' =>
