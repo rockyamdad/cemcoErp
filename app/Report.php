@@ -249,4 +249,31 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getPurchaseDueReport($date1,$date2,$branch_id)
+    {
+        return DB::table('purchase_invoice_details')
+            ->join('purchase_invoices','purchase_invoice_details.detail_invoice_id','=','purchase_invoices.invoice_id')
+            ->where('purchase_invoice_details.branch_id', '=', $branch_id)
+            ->whereBetween('purchase_invoice_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->groupBy('purchase_invoices.party_id')
+            ->select('purchase_invoice_details.created_at AS date',
+                'purchase_invoice_details.branch_id AS branch',
+                'purchase_invoice_details.detail_invoice_id AS invoice',
+                'purchase_invoices.party_id AS party',
+                DB::raw('SUM(purchase_invoice_details.price * purchase_invoice_details.quantity) AS totalSale')
+            )
+            ->get();
+    }
+    public function getPaymentForPurchaseDueReport($date1,$date2,$party_id)
+    {
+        return DB::table('transactions')
+            ->join('purchase_invoices','transactions.invoice_id','=','purchase_invoices.invoice_id')
+            ->where('purchase_invoices.party_id', '=', $party_id)
+            ->where('transactions.type', '=', 'Payment')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select(
+                DB::raw('SUM(transactions.amount) AS totalPayment')
+            )
+            ->get();
+    }
 }
