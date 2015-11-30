@@ -285,6 +285,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="{{ URL::to('sales/index') }}"> Sales </a>
                     </li>
                     <li
+                            @if (Request::is('salesreturn/index'))class="active"@endif>
+                        <a href="{{ URL::to('salesreturn/index') }}"> Sales Return</a>
+                    </li>
+                    <li
                             @if (Request::is('purchases/index'))class="active"@endif>
                         <a href="{{ URL::to('purchases/index') }}"> Purchase </a>
                     </li>

@@ -30,6 +30,18 @@ class Import extends Eloquent
 
         return $array;
     }
+    public function getConsignmentNameDropDown()
+    {
+        $imports = $this->getImports();
+
+        $array = array();
+
+        foreach($imports as $import){
+            $array[$import->id] = $import->consignment_name;
+        }
+
+        return $array;
+    }
     public function details()
     {
         return $this->hasMany('App\ImportDetail');

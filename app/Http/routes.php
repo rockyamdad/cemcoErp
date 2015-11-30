@@ -150,3 +150,7 @@ Route::post('/purchasereport','ReportController@postPurchasereportresult');
 Route::post('/purchase-details-report','ReportController@postPurchaseDetailsReportResult');
 Route::post('/purchase-due-report','ReportController@postPurchaseDueReportResult');
 Route::post('/purchase-collection-report','ReportController@postPurchaseCollectionReportResult');
+
+//SalesReturn Controller
+Route::controller('salesreturn','SalesReturnController');
+Route::post('saveSalesReturn','SalesReturnController@postSaveSalesReturn');
