@@ -297,4 +297,21 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getExpenseReport($date1,$date2,$branch_id)
+    {
+        return DB::table('expenses')
+            ->where('expenses.branch_id', '=', $branch_id)
+            ->whereBetween('expenses.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('expenses.created_at AS date',
+                'expenses.branch_id AS branch',
+                'expenses.invoice_id AS invoice',
+                'expenses.category',
+                'expenses.particular',
+                'expenses.purpose',
+                'expenses.amount',
+                'expenses.remarks',
+                'expenses.user_id'
+            )
+            ->get();
+    }
 }

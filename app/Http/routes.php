@@ -150,3 +150,4 @@ Route::post('/purchasereport','ReportController@postPurchasereportresult');
 Route::post('/purchase-details-report','ReportController@postPurchaseDetailsReportResult');
 Route::post('/purchase-due-report','ReportController@postPurchaseDueReportResult');
 Route::post('/purchase-collection-report','ReportController@postPurchaseCollectionReportResult');
+Route::post('/expense-report','ReportController@postExpenseReportResult');
