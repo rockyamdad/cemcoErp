@@ -314,4 +314,23 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getExpensePaymentReport($date1,$date2,$branch_id)
+    {
+        return DB::table('transactions')
+            ->join('expenses', 'transactions.invoice_id', '=', 'expenses.invoice_id')
+            ->where('expenses.branch_id', '=', $branch_id)
+            ->where('transactions.type', '=', 'Expense')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('transactions.created_at AS date',
+                'expenses.branch_id AS branch',
+                'transactions.amount',
+                'transactions.invoice_id AS invoice',
+                'transactions.payment_method',
+                'transactions.account_name_id',
+                'transactions.account_category_id',
+                'transactions.cheque_no',
+                'transactions.remarks'
+            )
+            ->get();
+    }
 }
