@@ -242,6 +242,26 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
+            <li class="@if (Request::is('balancetransfers/*'))active @endif">
+                <a href="javascript:;">
+                    <i class="fa fa-archive"></i>
+                    <span class="title">Balance Transfer</span>
+                    @if (Request::is('balancetransfers/*'))<span class="selected"></span>@endif
+                    <span class="arrow @if (Request::is('balancetransfers/*'))open @endif"></span>
+                </a>
+
+                <ul class="sub-menu">
+                    <li
+                            @if (Request::is('balancetransfers/create'))class="active"@endif>
+                        <a href="{{ URL::to('balancetransfers/create') }}">Balance Transfer Entry</a>
+                    </li>
+                    <li
+                            @if (Request::is('balancetransfers/index'))class="active"@endif>
+                        <a href="{{ URL::to('balancetransfers/index') }}">Balance Transfer List </a>
+                    </li>
+
+                </ul>
+            </li>
 
         <li class="@if (Request::is('requisitions/*'))active @endif">
             <a href="javascript:;">

@@ -152,3 +152,7 @@ Route::post('/purchase-due-report','ReportController@postPurchaseDueReportResult
 Route::post('/purchase-collection-report','ReportController@postPurchaseCollectionReportResult');
 Route::post('/expense-report','ReportController@postExpenseReportResult');
 Route::post('/expense-payment-report','ReportController@postExpensePaymentReportResult');
+
+//Balance Controller
+Route::controller('balancetransfers','BalanceTransferController');
+Route::post('/saveTransfers','BalanceTransferController@postSaveTransfer');
