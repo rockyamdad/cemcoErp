@@ -76,13 +76,13 @@
                     ?>
                     @foreach($balanceTransfers as $transfer )
                         <?php
-                        $branch1 = \App\Branch::find($transfer->from_branch_id);
-                        $branch2 = \App\Branch::find($transfer->to_branch_id);
-                        $category1 = \App\AccountCategory::find($transfer->from_account_category_id);
-                        $category2 = \App\AccountCategory::find($transfer->to_account_category_id);
-                        $account1 = \App\NameOfAccount::find($transfer->from_account_name_id);
-                        $account2 = \App\NameOfAccount::find($transfer->to_account_name_id);
-                        $user = \App\User::find($transfer->user_id);
+                            $branch1   = \App\Branch::find($transfer->from_branch_id);
+                            $branch2   = \App\Branch::find($transfer->to_branch_id);
+                            $category1 = \App\AccountCategory::find($transfer->from_account_category_id);
+                            $category2 = \App\AccountCategory::find($transfer->to_account_category_id);
+                            $account1  = \App\NameOfAccount::find($transfer->from_account_name_id);
+                            $account2  = \App\NameOfAccount::find($transfer->to_account_name_id);
+                            $user      = \App\User::find($transfer->user_id);
                         ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
@@ -101,7 +101,6 @@
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
                         </td>
-
                     </tr>
                     <?php
                     $sl++;

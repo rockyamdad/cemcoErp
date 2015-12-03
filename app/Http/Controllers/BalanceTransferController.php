@@ -72,33 +72,7 @@ class BalanceTransferController extends Controller{
             return Redirect::to('balancetransfers/index');
         }
     }
-    public function getEdit($id)
-    {
-        $party = Party::find($id);
-        return view('Parties.edit',compact('party'));
-    }
-    public function postUpdate($id)
-    {
-        $ruless = array(
-            'name' => 'required',
-            'phone' => 'required',
-            'type' => 'required',
-        );
-        $validate = Validator::make(Input::all(), $ruless);
 
-        if($validate->fails())
-        {
-            return Redirect::to('parties/edit/'.$id)
-                ->withErrors($validate);
-        }
-        else{
-            $party = Party::find($id);
-            $this->setPartyData($party);
-            $party->save();
-            Session::flash('message', 'Party has been Successfully Updated.');
-            return Redirect::to('parties/index');
-        }
-    }
     private function setTransferData($transfer)
     {
         $transfer->from_branch_id = Input::get('from_branch_id');
@@ -119,5 +93,19 @@ class BalanceTransferController extends Controller{
         $toAccount->save();
         $transfer->save();
     }
+    public function getDelete($id)
+    {
+        $transfer = BalanceTransfer::find($id);
+        $accountsFrom = NameOfAccount::find($transfer->from_account_name_id);
+        $accountsFrom->opening_balance = $accountsFrom->opening_balance + $transfer->amount;
 
+        $accountsTo = NameOfAccount::find($transfer->to_account_name_id);
+        $accountsTo->opening_balance = $accountsTo->opening_balance - $transfer->amount;
+        $accountsTo->save();
+        $accountsFrom->save();
+        $transfer->delete();
+
+        Session::flash('message', 'Balance Transfer has been Successfully Deleted.');
+        return Redirect::to('balancetransfers/index');
+    }
 }
