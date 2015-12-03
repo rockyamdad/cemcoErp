@@ -2,6 +2,7 @@
 
 use App\AccountCategory;
 
+use App\Branch;
 use App\NameOfAccount;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -26,13 +27,17 @@ class AccountNameController extends Controller{
     {
         $accountCategories = new AccountCategory();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        return view('AccountName.add',compact('accountCategoriesAll'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('AccountName.add',compact('accountCategoriesAll'))
+            ->with('branchAll',$branchAll);
     }
     public function postSaveAccountName()
     {
         $ruless = array(
             'name' => 'required',
             'account_category_id' => 'required',
+            'branch_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -54,8 +59,11 @@ class AccountNameController extends Controller{
         $account = NameOfAccount::find($id);
         $accountCategories = new AccountCategory();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
         return view('AccountName.edit',compact('account'))
-            ->with('accountCategoriesAll',$accountCategoriesAll);
+            ->with('accountCategoriesAll',$accountCategoriesAll)
+            ->with('branchAll',$branchAll);
 
     }
     public function postUpdate($id)
@@ -63,6 +71,7 @@ class AccountNameController extends Controller{
         $ruless = array(
             'name' => 'required',
             'account_category_id' => 'required',
+            'branch_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -83,6 +92,7 @@ class AccountNameController extends Controller{
     private function setAccountNameData($accountNames)
     {
         $accountNames->name = Input::get('name');
+        $accountNames->branch_id = Input::get('branch_id');
         $accountNames->account_category_id = Input::get('account_category_id');
         $accountNames->opening_balance = Input::get('opening_balance');
         $accountNames->user_id = Session::get('user_id');

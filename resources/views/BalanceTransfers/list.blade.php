@@ -12,7 +12,6 @@
                 <a href="{{URL::to('dasboard/')}}">Home</a>
                 <i class="fa fa-angle-right"></i>
             </li>
-
             <li><a href="{{URL::to('balancetransfers/index')}}">Balance Transfer List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -53,9 +52,7 @@
                     <div class="btn-group">
                         <a class="btn green" href="{{ URL::to('balancetransfers/create') }}">Make Balance Transfer &nbsp;&nbsp;<i
                                 class="fa fa-plus"></i></a>
-
                     </div>
-
                 </div>
                 <table class="table table-striped table-bordered table-hover" id="balance_transfer_table">
                     <thead>
@@ -100,8 +97,6 @@
                         <td>{{$user->name}}</td>
 
                         <td>
-                            <a class="btn blue btn-sm" href="{{ URL::to('balancetransfers/edit/'. $transfer->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit </a>
                             <a class="btn red btn-sm" href="{{ URL::to('balancetransfers/delete/'.$transfer->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>

@@ -54,6 +54,7 @@
                     <thead>
                     <tr>
                         <th>SL</th>
+                        <th>Branch Name</th>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Balance</th>
@@ -68,9 +69,11 @@
                     @foreach($accountNames as $accountName)
                         <?php
                                 $accounts = \App\AccountCategory::find($accountName->account_category_id);
+                                $branch = \App\Branch::find($accountName->branch_id);
                                 ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
+                        <td>{{$branch->name}}</td>
                         <td>{{$accountName->name}}</td>
                         <td>{{$accounts->name}}</td>
                         <td>{{$accountName->opening_balance}}</td>
