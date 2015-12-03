@@ -200,8 +200,10 @@ class SaleController extends Controller{
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
         $transactionsPaid = $transactions->getTotalPaid($invoice_id);
+        $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
         return view('Sales.paymentAdd',compact('accountCategoriesAll'))
             ->with('saleDetailsAmount',$saleDetailsAmount)
+            ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
             ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveReceive()
@@ -340,6 +342,7 @@ class SaleController extends Controller{
     public function getCategories($category_id)
     {
         $categoriesName = NameOfAccount::where('account_category_id','=',$category_id)
+            ->where('branch_id','=',Input::get('data'))
             ->get();
         foreach ($categoriesName as $categoryName) {
             echo "<option value = $categoryName->id > $categoryName->name</option> ";

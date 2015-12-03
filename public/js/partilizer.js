@@ -67,10 +67,11 @@ jQuery(document).ready(function() {
 
     $('#account_category_id').live("change", function () {
         var account_category = $('#account_category_id').val();
-
+        var branch = $('#branch').val();
         $.ajax({
             type: "get",
             url: "categories/"+account_category,
+            data:{'data':branch},
             success: function (html) {
                 $('#account_name_id').append(html);
 
