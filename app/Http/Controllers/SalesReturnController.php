@@ -75,4 +75,49 @@ class SalesReturnController extends Controller{
 
         }
     }
+    public function postSaveSalesReturn()
+    {
+        $ruless = array(
+            'party_id' => 'required',
+            'cus_ref_no' => 'required',
+            'branch_id' => 'required',
+            'product_type' => 'required',
+            'product_id' => 'required',
+            'quantity' => 'required',
+            'return_amount' => 'required',
+            'consignment_name' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('salesreturn/create')
+                ->withErrors($validate);
+        }
+        else{
+            $salesreturn = new SalesReturn();
+
+            $this->setSalesReturnData($salesreturn);
+            return Redirect::to('salesreturn/create');
+        }
+    }
+    private function setSalesReturnData($salesreturn)
+    {
+            $this->insertSalesReturnData($salesreturn);
+            $salesreturn->save();
+            Session::flash('message', 'Sales has been Returned Successfully!!!');
+    }
+    private function insertSalesReturnData($salesreturn)
+    {
+        $salesreturn->branch_id = Input::get('branch_id');
+        $salesreturn->party_id = Input::get('party_id');
+        $salesreturn->product_id = Input::get('product_id');
+        $salesreturn->cus_ref_no = Input::get('cus_ref_no');
+        $salesreturn->quantity = Input::get('quantity');
+        $salesreturn->return_amount = Input::get('return_amount');
+        $salesreturn->consignment_name = Input::get('consignment_name');
+        $salesreturn->remarks = Input::get('remarks');
+        //$salesreturn->status = "Activate";
+        //$salesreturn->user_id = Session::get('user_id');
+    }
 }

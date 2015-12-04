@@ -266,6 +266,8 @@ class SaleController extends Controller{
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
 
         $accountPayment->opening_balance = $accountPayment->opening_balance + Input::get('amount');
+
+        $saleTransaction->branch_id = Input::get('branch_id');
         $saleTransaction->save();
         $sale->save();
         $accountPayment->save();

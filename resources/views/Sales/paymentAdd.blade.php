@@ -50,7 +50,7 @@ function closeModal() {
                             <div class="col-md-7 balance_show">
                             </div>
                         </div>
-                        <input type="hidden" id="branch" value="{{$saleDetailsBranch}}"/>
+                        <input name="branch_id" type="hidden" id="branch" value="{{$saleDetailsBranch}}"/>
                         <div class="form-group">
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
