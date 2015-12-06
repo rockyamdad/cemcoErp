@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('return_amount','Return Amount<span class="required">*</span>',array('class' =>
+                    {!!HTML::decode(Form::label('return_amount','Total Return Amount<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!!Form::text('return_amount',null,array('placeholder' => 'Return Amount', 'class' =>'form-control'))!!}
