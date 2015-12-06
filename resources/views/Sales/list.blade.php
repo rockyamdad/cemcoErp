@@ -51,6 +51,20 @@
                     </div>
 
                 </div>
+
+
+                <div class="table-toolbar">
+                    <div class="btn-group">
+                        <a class="btn purple btn-sm makePayment" href="{{ URL::to('sales/create') }}">Make Sales Payment&nbsp;&nbsp;<i
+                                class="fa fa-plus"></i></a>
+
+                    </div>
+
+                </div>
+
+
+
+
                 <table class="table table-striped table-bordered table-hover" id="salestable">
                     <thead  style="background-color: #557386">
                     <tr>
