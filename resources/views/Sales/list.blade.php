@@ -1,5 +1,10 @@
 @extends('baseLayout')
+@section('styles')
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/bootstrap-datepicker/css/datepicker.css') }}" />
+@stop
 @section('content')
+
+
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -139,5 +144,5 @@
 {!! HTML::script('js/sales.js') !!}
 {!! HTML::script('js/partilizer.js') !!}
 {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
-
+{!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
 @stop
