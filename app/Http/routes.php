@@ -117,7 +117,7 @@ Route::post('updatePurchases/{id}','SaleController@updateSaleData');
 Route::get('/details/{id}','SaleController@getDetails');
 Route::get('/delete/{id}','SaleController@getDelete');
 Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
-Route::get('/make/{id}','SaleController@getMake');
+Route::get('/make','SaleController@getMake');
 Route::post('/saveReceive','SaleController@postSaveReceive');
 Route::get('/categories/{id}','SaleController@getCategories');
 Route::get('/deleteTransaction/{id}','SaleController@getDeleteTransaction');

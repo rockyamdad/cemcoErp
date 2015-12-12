@@ -47,22 +47,13 @@
                     <div class="btn-group">
                         <a class="btn green" href="{{ URL::to('sales/create') }}">Create Sales Invoice&nbsp;&nbsp;<i
                                 class="fa fa-plus"></i></a>
-
                     </div>
-
-                </div>
-
-
-                <div class="table-toolbar">
                     <div class="btn-group">
-                        <a class="btn purple btn-sm makePayment" href="{{ URL::to('sales/create') }}">Make Sales Payment&nbsp;&nbsp;<i
-                                class="fa fa-plus"></i></a>
-
+                        <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/') }}" >
+                            <i class="fa fa-plus"></i>Make Payment</a>
                     </div>
 
                 </div>
-
-
 
 
                 <table class="table table-striped table-bordered table-hover" id="salestable">

@@ -192,19 +192,19 @@ class SaleController extends Controller{
             ->with('sale',$sale);
 
     }
-    public function getMake($invoice_id)
+    public function getMake()
     {
         $accountCategories = new AccountCategory();
         $saleDetails = new SAleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-        $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
-        $transactionsPaid = $transactions->getTotalPaid($invoice_id);
-        $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
-        return view('Sales.paymentAdd',compact('accountCategoriesAll'))
-            ->with('saleDetailsAmount',$saleDetailsAmount)
-            ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
-            ->with('transactionsPaid',$transactionsPaid);
+       // $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
+       // $transactionsPaid = $transactions->getTotalPaid($invoice_id);
+        //$saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
+        return view('Sales.paymentAdd',compact('accountCategoriesAll'));
+          //  ->with('saleDetailsAmount',$saleDetailsAmount)
+           // ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
+           // ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveReceive()
     {
