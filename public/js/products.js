@@ -1,7 +1,5 @@
 jQuery(document).ready(function() {
-    $('#product_table').DataTable({
-        "bPaginate": false
-    }  );
+
     var form = $('#product_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
@@ -87,7 +85,23 @@ jQuery(document).ready(function() {
         });
     });
 
-    $('select').select2();
+    $('#category_id').live("change", function () {
+
+        var category_id = $('#category_id').val();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Choose Product</option>');
+        $('#product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "products/"+category_id,
+            success: function (html) {
+                $('#product_id').append(html);
+
+            }
+        });
+    });
+
+   // $('select').select2();
 
     $('#products_edit_branch_id').live("change", function () {
         var branch_id = $('#products_edit_branch_id').val();
