@@ -50,6 +50,7 @@ class PurchaseInvoiceController extends Controller{
         return view('PurchaseInvoice.add',compact('suppliersAll'))
             ->with('localProducts',$localProducts)
             ->with('branchAll',$branchAll)
+            ->with('invoiceid',$invoiceid)
             ->with('allStockInfos',$allStockInfos);
     }
     public function postSavePurchaseInvoice()
