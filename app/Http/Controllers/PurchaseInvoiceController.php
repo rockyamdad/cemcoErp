@@ -43,9 +43,14 @@ class PurchaseInvoiceController extends Controller{
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
 
+        // Invoice Id Generation Starts
+        $invoiceid =$this->generateInvoiceId();
+        //var_dump($invoiceid);
+
         return view('PurchaseInvoice.add',compact('suppliersAll'))
             ->with('localProducts',$localProducts)
             ->with('branchAll',$branchAll)
+            ->with('invoiceid',$invoiceid)
             ->with('allStockInfos',$allStockInfos);
     }
     public function postSavePurchaseInvoice()
@@ -72,6 +77,58 @@ class PurchaseInvoiceController extends Controller{
 
         }
     }
+
+    private function generateInvoiceId()
+    {
+        $invdesc = PurchaseInvoice::orderBy('id', 'DESC')->first();
+        if ($invdesc != null) {
+            $invDescId = $invdesc->invoice_id;
+            $invDescIdNo = substr($invDescId, 6);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 0, 2);
+            $mm = substr($invDescId, -8, -6);
+            $yy = substr($invDescId, -6, -4);
+            //echo "d1 ".$yy;
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = $dd2 . $mm2 . $yy2 . $invDescIdNo + 1;
+                return $invoiceidd;
+            } else {
+                $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+                return $invoiceidd;
+            }
+        } else {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+
+            $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+            return $invoiceidd;
+        }
+    }
+
     public function postUpdate($id)
     {
 
