@@ -3,7 +3,7 @@ function closeModal() {
     /*$('#sale').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').hide();*/
-    $("#salePayment").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    $("#salePayment2").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
     $('.modal-backdrop').hide();
 }
 </script>
