@@ -89,4 +89,39 @@ jQuery(document).ready(function() {
             }
         });
     });
+    $('#p_account_category_id').live("change", function () {
+        var account_category = $('#p_account_category_id').val();
+        var branch = $('#p_branch_id').val();
+        $.ajax({
+            type: "get",
+            url: "categories/"+account_category,
+            data:{'data':branch},
+            success: function (html) {
+                $('#p_account_name_id').append(html);
+
+            }
+        });
+    });
+    $('#p_account_name_id').live("change", function () {
+        var account_id = $('#p_account_name_id').val();
+        $.ajax({
+            type: "get",
+            url: "accountbalance/"+account_id,
+            success: function (html) {
+                $('.balance_show').html(html);
+
+            }
+        });
+    });
+    $('#p_party_id').live("change", function () {
+        var party_id = $('#p_party_id').val();
+        $.ajax({
+            type: "get",
+            url: "partydue/"+party_id,
+            success: function (html) {
+                $('.due_show').html(html);
+
+            }
+        });
+    });
 });

@@ -30,17 +30,38 @@ function closeModal() {
                     <!-- BEGIN FORM-->
                     <div class="form-body">
                         <div class="form-group">
+                            {!!HTML::decode(Form::label('party_id','Choose Branch<span class="required">*</span>',array('class'
+                            => 'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::select('party_id',[null=>'Please Select Party'] +$partyAll,'null',
+                                array('class'=>'form-control ','id'=>'p_party_id') )!!}
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 due_show">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class'
+                            => 'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
+                                array('class'=>'form-control ','id'=>'p_branch_id') )!!}
+                            </div>
+                        </div>
+                        <div class="form-group">
                             {!!HTML::decode(Form::label('account_category_id','Account Category<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
-                                {!!Form::select('account_category_id',[null=>'Please Select Account Category'] +$accountCategoriesAll,'null', array('class'=>'form-control') )!!}
+                                {!!Form::select('account_category_id',[null=>'Please Select Account Category'] +$accountCategoriesAll,'null', array('class'=>'form-control','id'=>'p_account_category_id') )!!}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">Choose Category Name<span class="required">*</span></label>
 
                             <div class="col-md-7">
-                                <select id="account_name_id" name="account_name_id" class="form-control">
+                                <select id="p_account_name_id" name="account_name_id" class="form-control">
                                     <option value="">Select Category Name</option>
                                 </select>
                             </div>
@@ -82,11 +103,11 @@ function closeModal() {
                                 'form-control','id'=>'remarks'))!!}
                             </div>
                         </div>
-                        <div class="form-group">
+                        {{--<div class="form-group">
                             <div class="col-md-5">
                                 {!!Form::hidden('invoice_id',null,array('class' => 'form-control ','id'=>'invoice_id'))!!}
                             </div>
-                        </div>
+                        </div>--}}
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'savePayment'))!!}
