@@ -277,5 +277,9 @@ jQuery(document).ready(function() {
         });
     });
 
+    $("#salePayment").on("shown.bs.modal", function() {
+        $('.date-picker').datepicker();
+    });
+
 
 });
