@@ -46,7 +46,8 @@ class SaleController extends Controller{
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
-        $this->generateInvoiceId();
+        $invoiceidd=$this->generateInvoiceId();
+        //var_dump($invoiceidd);
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
@@ -192,19 +193,28 @@ class SaleController extends Controller{
             ->with('sale',$sale);
 
     }
-    public function getMake()
+    public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
         $saleDetails = new SAleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-       // $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
-       // $transactionsPaid = $transactions->getTotalPaid($invoice_id);
-        //$saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
-        return view('Sales.paymentAdd',compact('accountCategoriesAll'));
-          //  ->with('saleDetailsAmount',$saleDetailsAmount)
-           // ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
-           // ->with('transactionsPaid',$transactionsPaid);
+        $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
+        $transactionsPaid = $transactions->getTotalPaid($invoice_id);
+        $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
+        return view('Sales.paymentAdd',compact('accountCategoriesAll'))
+            ->with('saleDetailsAmount',$saleDetailsAmount)
+            ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
+            ->with('transactionsPaid',$transactionsPaid);
+    }
+    public function getMakeall()
+    {
+        $accountCategories = new AccountCategory();
+        $saleDetails = new SAleDetail();
+        $transactions = new Transaction();
+        $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
+
+        return view('Sales.paymentAddAll',compact('accountCategoriesAll'));
     }
     public function postSaveReceive()
     {
@@ -367,6 +377,7 @@ class SaleController extends Controller{
             $dd = substr($invDescId, 0, 2);
             $mm = substr($invDescId, -8, -6);
             $yy = substr($invDescId, -6, -4);
+            //echo "d1 ".$yy;
 
             $tz = 'Asia/Dhaka';
             $timestamp = time();
@@ -375,15 +386,17 @@ class SaleController extends Controller{
             $Today = $dt->format('d.m.Y');
 
             $explodToday = explode(".", $Today);
-            $dd2 = $explodToday[1];
-            $mm2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
             $yy1 = $explodToday[2];
-            $yy2 = substr($invDescId, 2);
+            $yy2 = substr($yy1, 2);
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
                 $invoiceidd = $dd2 . $mm2 . $yy2 . $invDescIdNo + 1;
+                return $invoiceidd;
             } else {
                 $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+                return $invoiceidd;
             }
         } else {
             $tz = 'Asia/Dhaka';
@@ -393,14 +406,14 @@ class SaleController extends Controller{
             $Today = $dt->format('d.m.Y');
 
             $explodToday = explode(".", $Today);
-            $dd2 = $explodToday[1];
-            $mm2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
 
 
             $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
-
+            return $invoiceidd;
         }
     }
     public function getProducts($branch_id)
