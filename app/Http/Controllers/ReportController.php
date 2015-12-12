@@ -351,8 +351,10 @@ class ReportController extends Controller{
         $account2 = Input::get('to_account_id');
 
         $report = new Report();
-        //$results = $report->getExpensePaymentReport($date1,$date2,$branch_id);
-        return view('Reports.balanceTransferReportResult',compact('results'));
+        $results = $report->getBalanceTransferReport($account1,$account2);
+        $results2 = $report->getBalanceTransferReport2($account1,$account2);
+        return view('Reports.balanceTransferReportResult',compact('results'))
+            ->with('results2',$results2);
 
     }
 }

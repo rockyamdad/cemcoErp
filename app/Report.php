@@ -333,4 +333,36 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getBalanceTransferReport($account_id1,$account_id2)
+    {
+        return DB::table('balance_transfers')
+            ->where('balance_transfers.from_account_name_id', '=', $account_id1)
+            ->where('balance_transfers.to_account_name_id', '=',$account_id2)
+            ->select('balance_transfers.created_at AS date',
+                'balance_transfers.from_branch_id AS fromBranch',
+                'balance_transfers.to_branch_id AS toBranch',
+                'balance_transfers.from_account_name_id AS fromAccount',
+                'balance_transfers.to_account_name_id AS toAccount',
+                'balance_transfers.amount',
+                'balance_transfers.remarks',
+                'balance_transfers.user_id'
+            )
+            ->get();
+    }
+    public function getBalanceTransferReport2($account_id1,$account_id2)
+    {
+        return DB::table('balance_transfers')
+            ->where('balance_transfers.from_account_name_id', '=', $account_id2)
+            ->where('balance_transfers.to_account_name_id', '=',$account_id1)
+            ->select('balance_transfers.created_at AS date',
+                'balance_transfers.from_branch_id AS fromBranch',
+                'balance_transfers.to_branch_id AS toBranch',
+                'balance_transfers.from_account_name_id AS fromAccount',
+                'balance_transfers.to_account_name_id AS toAccount',
+                'balance_transfers.amount',
+                'balance_transfers.remarks',
+                'balance_transfers.user_id'
+            )
+            ->get();
+    }
 }
