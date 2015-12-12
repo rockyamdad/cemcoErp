@@ -2,6 +2,7 @@
 
 use App\Branch;
 use App\Category;
+use App\NameOfAccount;
 use App\Party;
 use App\Product;
 use App\ProformaInvoice;
@@ -335,5 +336,23 @@ class ReportController extends Controller{
             ->with('branch_id',$branch_id)
             ->with('date1',$date1)
             ->with('date2',$date2);
+    }
+    public function getBalancetransfer()
+    {
+        $accounts = new NameOfAccount();
+        $accountAll = $accounts->getAccountsDropDown();
+        return view('Reports.balanceTransfer')
+            ->with('accountAll',$accountAll);
+
+    }
+    public function postBalanceTransferReportResult()
+    {
+        $account1 = Input::get('from_account_id');
+        $account2 = Input::get('to_account_id');
+
+        $report = new Report();
+        //$results = $report->getExpensePaymentReport($date1,$date2,$branch_id);
+        return view('Reports.balanceTransferReportResult',compact('results'));
+
     }
 }

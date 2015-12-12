@@ -13,4 +13,23 @@ class NameOfAccount extends Eloquent
     {
         return $this->belongsTo('App\User');
     }
+    public function getAccounts()
+    {
+
+        $accounts = NameOfAccount::all();
+        return $accounts;
+    }
+
+    public function getAccountsDropDown()
+    {
+        $accounts = $this->getAccounts();
+
+        $array = array();
+
+        foreach($accounts as $account){
+            $array[$account->id] = $account->name;
+        }
+
+        return $array;
+    }
 }
