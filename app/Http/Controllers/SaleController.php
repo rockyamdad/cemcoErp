@@ -214,8 +214,13 @@ class SaleController extends Controller{
         $saleDetails = new SAleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
-
-        return view('Sales.paymentAddAll',compact('accountCategoriesAll'));
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $buyers = new Party();
+        $partyAll = $buyers->getPartiesDropDown();
+        return view('Sales.paymentAddAll',compact('accountCategoriesAll'))
+            ->with('branchAll',$branchAll)
+            ->with('partyAll',$partyAll);
     }
     public function postSaveReceive()
     {
@@ -364,7 +369,7 @@ class SaleController extends Controller{
     public function getAccountbalance($account_id)
     {
         $accountBalance = NameOfAccount::find($account_id);
-        echo "<p3 style='color: blue;font-size: 150%'>Your Current Balance $accountBalance->opening_balance</p3>";
+        echo "<p3 style='color: blue;font-size: 110%'>Your Current Balance $accountBalance->opening_balance</p3>";
     }
 
     private function generateInvoiceId()
@@ -460,6 +465,36 @@ class SaleController extends Controller{
 
         }else{
             echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
+
+        }
+
+    }
+    public function getPartydue($party_id)
+    {
+        $partySales = Sale::where('party_id','=',$party_id)
+            ->where('status','!=','Completed')
+            ->get();
+        if(count($partySales)>0){
+            $totalAmount = 0;
+            $totalPrice = 0;
+            foreach ($partySales as $sale) {
+
+                $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)->get();
+                foreach($saleDetails as $saleDetail)
+                {
+                    $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
+                }
+                foreach($transactions as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+            }
+            $due = $totalPrice - $totalAmount;
+            echo "<p3 style='color: red;font-size: 114%; margin-left: 32px;'>Due is $due</p3>";
+
+        }else{
+            echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px; '>No Due</p3>";
 
         }
 
