@@ -49,7 +49,7 @@
                                 class="fa fa-plus"></i></a>
                     </div>
                     <div class="btn-group">
-                        <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/') }}" >
+                        <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('sales/makeall/') }}" >
                             <i class="fa fa-plus"></i>Make Payment</a>
                     </div>
 
