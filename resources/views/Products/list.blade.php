@@ -42,15 +42,37 @@
             </div>
 
             <div class="portlet-body">
-
                 <div class="table-toolbar">
                     <div class="btn-group">
                         <a class="btn green" href="{{ URL::to('products/create') }}">Add Product &nbsp;&nbsp;<i
-                                class="fa fa-plus"></i></a>
-
+                                    class="fa fa-plus"></i></a>
                     </div>
 
                 </div>
+
+                {!!Form::open(array('action'=>'ProductController@getIndex','method' => 'get', 'class'=>'form-horizontal'
+                ))!!}
+                <div class="form-group">
+
+                    <div class="col-md-4">
+                        {!!Form::select('category_id',[null=>'Please Select Category'] +$categoryAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}
+                    </div>
+                    <div class="col-md-4">
+                        <select id="product_id" name="product_id" class="form-control">
+                            <option value="">Select Product</option>
+                        </select>
+
+                    </div>
+
+                    <div class=" fluid">
+                        <div class=" col-md-3">
+                            <button type="submit" class="btn blue btn-block " >SEARCH <i class="m-icon-swapright m-icon-white"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                {!!Form::close()!!}
                 <table class="table table-striped table-bordered table-hover" id="product_table">
                     <thead>
                     <tr>
@@ -70,36 +92,74 @@
                     <?php
                     $sl=1;
                     ?>
-                    @foreach($products as $product )
-                        <?php
-                        $subCategoryName = \App\SubCategory::find($product->sub_category_id);
-                        ?>
-                    <tr class="odd gradeX">
-                        <td><?php echo $sl; ?></td>
-                        <td>{{$product->name}}</td>
-                        <td>{{$product->branch->name}}</td>
-                        <td>{{$product->category->name}}</td>
-                        @if($product->sub_category_id == 0)
-                            <td>N/A</td>
-                        @else
-                            <td>{{$subCategoryName->name}}</td>
-                        @endif
+                    @if(count($productsName) > 0)
+                        @foreach($productsName as $product )
+                            <?php
+                            $subCategoryName = \App\SubCategory::find($product->sub_category_id);
+                            ?>
+                            <tr class="odd gradeX">
+                                <td><?php echo $sl; ?></td>
+                                <td>{{$product->name}}</td>
+                                <td>{{$product->branch->name}}</td>
+                                <td>{{$product->category->name}}</td>
+                                @if($product->sub_category_id == 0)
+                                    <td>N/A</td>
+                                @else
+                                    <td>{{$subCategoryName->name}}</td>
+                                @endif
 
-                        <td>{{$product->total_quantity}}</td>
-                        <td>{{$product->user->username}}</td>
-                        <td>
-                            <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit Product</a>
-                            <a class="btn red btn-sm" href="{{ URL::to('products/delete/'.$product->id)}}"
-                               onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                    class="fa fa-trash-o"></i> Delete</a>
-                        </td>
+                                <td>{{$product->total_quantity}}</td>
+                                <td>{{$product->user->username}}</td>
+                                <td>
+                                    <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
+                                                class="fa fa-edit"></i>Edit </a>
+                                    <a class="btn red btn-sm" href="{{ URL::to('products/delete/'.$product->id)}}"
+                                       onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                class="fa fa-trash-o"></i> Delete</a>
+                                </td>
 
-                    </tr>
-                    <?php
-                    $sl++;
-                    ?>
-                    @endforeach
+                            </tr>
+                            <?php
+                            $sl++;
+                            ?>
+                        @endforeach
+
+
+                    @else
+                        @foreach($products as $product )
+                            <?php
+                            $subCategoryName = \App\SubCategory::find($product->sub_category_id);
+                            ?>
+                            <tr class="odd gradeX">
+                                <td><?php echo $sl; ?></td>
+                                <td>{{$product->name}}</td>
+                                <td>{{$product->branch->name}}</td>
+                                <td>{{$product->category->name}}</td>
+                                @if($product->sub_category_id == 0)
+                                    <td>N/A</td>
+                                @else
+                                    <td>{{$subCategoryName->name}}</td>
+                                @endif
+
+                                <td>{{$product->total_quantity}}</td>
+                                <td>{{$product->user->username}}</td>
+                                <td>
+                                    <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
+                                                class="fa fa-edit"></i>Edit </a>
+                                    <a class="btn red btn-sm" href="{{ URL::to('products/delete/'.$product->id)}}"
+                                       onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                class="fa fa-trash-o"></i> Delete</a>
+                                </td>
+
+                            </tr>
+                            <?php
+                            $sl++;
+                            ?>
+                        @endforeach
+
+                    @endif
+
+
 
                     </tbody>
                 </table>

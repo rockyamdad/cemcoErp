@@ -143,7 +143,6 @@ jQuery(document).ready(function() {
         }
     });*/
     $('#party_id').live("change", function () {
-       $('#invoice_id').val(Math.floor(Math.random()*9999999999));
         $("#party_id").attr('readonly','readonly');
     });
 

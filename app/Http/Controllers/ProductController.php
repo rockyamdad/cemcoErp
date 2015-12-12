@@ -19,7 +19,16 @@ class ProductController extends Controller{
     {
         $products = Product::orderBy('id','DESC')
         ->paginate(25);
-        return view('Products.list', compact('products'));
+        $categories = new Category();
+        $categoryAll = $categories->getCategoriesDropDown();
+        $category_id = Input::get('category_id');
+        $product_id = Input::get('product_id');
+        $productsName = Product::where('category_id','=',$category_id)
+            ->where('id','=',$product_id)
+            ->get();
+        return view('Products.list', compact('products'))
+            ->with('categoryAll',$categoryAll)
+            ->with('productsName',$productsName);
     }
     public function getCreate()
     {
@@ -144,5 +153,17 @@ class ProductController extends Controller{
         $product->delete();
         Session::flash('message', 'Product  has been Successfully Deleted.');
         return Redirect::to('products/index');
+    }
+    public function getProducts($category_id)
+    {
+
+        $poductsNames = Product::where('category_id','=',$category_id)
+            ->get();
+
+        foreach ($poductsNames as $product) {
+
+            echo "<option value = $product->id > $product->name</option> ";
+
+        }
     }
 }

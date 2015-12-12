@@ -46,12 +46,13 @@ class SaleController extends Controller{
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
-        $invoiceidd=$this->generateInvoiceId();
+        $invoiceid =$this->generateInvoiceId();
         //var_dump($invoiceidd);
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
             ->with('branchAll',$branchAll)
+            ->with('invoiceid',$invoiceid)
             ->with('allStockInfos',$allStockInfos);
     }
     public function postSaveSales()
