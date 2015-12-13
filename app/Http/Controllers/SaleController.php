@@ -501,4 +501,151 @@ class SaleController extends Controller{
     }
 
 
+    public function postSaveReceiveAll()
+    {
+        $ruless = array(
+            'party_id' => 'required',
+            //'cus_ref_no' => 'required',
+            'branch_id' => 'required',
+            'account_category_id' => 'required',
+            'account_name_id' => 'required',
+            'payment_method' => 'required',
+            'amount' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('sales/index/')
+                ->withErrors($validate);
+        }
+        else{
+            //$this->setReceiveSalePaymentAll();
+
+            //return Redirect::to('sales/index');
+
+
+
+            //$salesreturn = new SalesReturn();
+
+            //$this->setSalesReturnData($salesreturn);
+
+            //automatically reduce sales payment starts
+            $return_amount=Input::get('amount');
+            $remaining_amount=$return_amount;
+            //var_dump($remaining_amount);
+            $partyId=Input::get('party_id');
+            if($remaining_amount>0)
+            {
+                $invoiceId = Sale::where('party_id','=',$partyId)->get();
+                foreach($invoiceId as $invid)
+                {
+                    $price = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
+                    $detailsPrice=0;
+                    foreach($price as $prc)
+                    {
+                        $detailsPrice=$detailsPrice+($prc->price*$prc->quantity);
+                    }
+                    //var_dump($detailsPrice);
+                    $amount=Transaction::where('invoice_id','=',$invid->invoice_id)
+                        ->where('type','=','Receive')
+                        ->get();
+                    $paid=0;
+                    foreach($amount as $amnt)
+                    {
+                        $paid=$paid+$amnt->amount;
+                    }
+                    $difference=$detailsPrice-$paid;
+                    if($difference>0)
+                    {
+
+                        //echo 'greater than 0 difference';
+                        if($remaining_amount<=$difference)
+                        {
+                            if($remaining_amount>0) {
+                                $sale = Sale::find( $invid->id);
+                                if($remaining_amount<$difference)
+                                {
+                                    $sale->status = "Partial";
+                                }
+                                elseif($remaining_amount==$difference)
+                                {
+                                    $sale->status = "Completed";
+                                }
+
+                                $transaction = new Transaction();
+
+                                $transaction->invoice_id = $invid->invoice_id;
+                                $transaction->amount = $remaining_amount;
+                                $transaction->type = 'Receive';
+                                $transaction->payment_method = Input::get('payment_method');
+                                $transaction->account_category_id = Input::get('account_category_id');
+                                $transaction->remarks = Input::get('remarks');
+                                $transaction->account_name_id = Input::get('account_name_id');
+                                $transaction->user_id = Session::get('user_id');
+                                $transaction->cheque_no = Input::get('cheque_no');
+                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                $transaction->branch_id = $branch->branch_id;
+
+                                $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
+
+                                $accountPayment->save();
+                                $transaction->save();
+                                $remaining_amount = 0;
+
+                            }
+
+                        }
+                        elseif($remaining_amount>$difference)
+                        {
+                            if($remaining_amount>0) {
+                                $sale = Sale::find( $invid->id);
+
+                                $sale->status = "Completed";
+
+                                $toBePaid=$remaining_amount-$difference;
+
+
+                                $transaction = new Transaction();
+
+                                $transaction->invoice_id = $invid->invoice_id;
+                                $transaction->amount = $difference;
+                                $transaction->type = 'Receive';
+                                $transaction->payment_method = Input::get('payment_method');
+                                $transaction->account_category_id = Input::get('account_category_id');
+                                $transaction->remarks = Input::get('remarks');
+                                $transaction->account_name_id = Input::get('account_name_id');
+                                $transaction->user_id = Session::get('user_id');
+                                $transaction->cheque_no = Input::get('cheque_no');
+                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                $transaction->branch_id = $branch->branch_id;
+
+                                $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
+
+                                $accountPayment->save();
+                                $transaction->save();
+                                $remaining_amount = $toBePaid;
+                            }
+
+
+
+                        }
+                        $sale->save();
+                    }
+                }
+            }
+            /*if($remaining_amount>0)
+            {
+                echo "How come its possible! Consult with DEVELOPERS!!!";
+            }*/
+            //automatically reduce sales payment ends
+
+            return Redirect::to('salesreturn/create');
+        }
+    }
+
+
+
 }

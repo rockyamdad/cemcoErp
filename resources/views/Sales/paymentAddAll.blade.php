@@ -15,7 +15,7 @@ function closeModal() {
 
         </div>
         <div class="modal-body">
-            {!!Form::open(array('url' => '/saveReceive', 'method' => 'post', 'class'=>'form-horizontal payment_form',
+            {!!Form::open(array('url' => '/savereceiveall', 'method' => 'post', 'class'=>'form-horizontal payment_form',
                      ))!!}
             <div class="form-body">
 

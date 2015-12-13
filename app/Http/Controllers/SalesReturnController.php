@@ -115,7 +115,7 @@ class SalesReturnController extends Controller{
                     {
                         $detailsPrice=$detailsPrice+($prc->price*$prc->quantity);
                     }
-                    var_dump($detailsPrice);
+                    //var_dump($detailsPrice);
                     $amount=Transaction::where('invoice_id','=',$invid->invoice_id)
                         ->where('type','=','Receive')
                         ->get();
@@ -127,47 +127,72 @@ class SalesReturnController extends Controller{
                     $difference=$detailsPrice-$paid;
                     if($difference>0)
                     {
-                        echo 'greater than 0 difference';
+
+                        //echo 'greater than 0 difference';
                         if($remaining_amount<=$difference)
                         {
-                            $transaction=new Transaction();
+                            if($remaining_amount>0) {
+                            $sale = Sale::find( $invid->id);
+                            if($remaining_amount<$difference)
+                            {
+                                $sale->status = "Partial";
+                            }
+                            elseif($remaining_amount==$difference)
+                            {
+                                $sale->status = "Completed";
+                            }
 
-                            $transaction->invoice_id=$invid->invoice_id;
-                            $transaction->amount=$remaining_amount;
-                            $transaction->type='Receive';
-                            $transaction->payment_method='Sales Return';
-                            $transaction->account_category_id=7;
-                            $transaction->remarks='Sales Return';
-                            $transaction->account_name_id=8;
-                            $transaction->user_id=Session::get('user_id');
-                            $transaction->cheque_no='';
-                            $branch=SAleDetail::where('invoice_id','=',$invid->invoice_id)->first();
-                            $transaction->branch_id=$branch->branch_id;
+                            $transaction = new Transaction();
+
+                            $transaction->invoice_id = $invid->invoice_id;
+                            $transaction->amount = $remaining_amount;
+                            $transaction->type = 'Receive';
+                            $transaction->payment_method = 'Sales Return';
+                            $transaction->account_category_id = 7;
+                            $transaction->remarks = 'Sales Return';
+                            $transaction->account_name_id = 8;
+                            $transaction->user_id = Session::get('user_id');
+                            $transaction->cheque_no = '';
+                            $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                            $transaction->branch_id = $branch->branch_id;
 
                             $transaction->save();
-                            $remaining_amount=0;
+                            $remaining_amount = 0;
+                        }
+
                         }
                         elseif($remaining_amount>$difference)
                         {
+                            if($remaining_amount>0) {
+                            $sale = Sale::find( $invid->id);
+
+                            $sale->status = "Completed";
+
                             $toBePaid=$remaining_amount-$difference;
 
-                            $transaction=new Transaction();
 
-                            $transaction->invoice_id=$invid->invoice_id;
-                            $transaction->amount=$difference;
-                            $transaction->type='Receive';
-                            $transaction->payment_method='Sales Return';
-                            $transaction->account_category_id=7;
-                            $transaction->remarks='Sales Return';
-                            $transaction->account_name_id=8;
-                            $transaction->user_id=Session::get('user_id');
-                            $transaction->cheque_no='';
-                            $branch=SAleDetail::where('invoice_id','=',$invid->invoice_id)->first();
-                            $transaction->branch_id=$branch->branch_id;
+                                $transaction = new Transaction();
 
-                            $transaction->save();
-                            $remaining_amount=$toBePaid;
+                                $transaction->invoice_id = $invid->invoice_id;
+                                $transaction->amount = $difference;
+                                $transaction->type = 'Receive';
+                                $transaction->payment_method = 'Sales Return';
+                                $transaction->account_category_id = 7;
+                                $transaction->remarks = 'Sales Return';
+                                $transaction->account_name_id = 8;
+                                $transaction->user_id = Session::get('user_id');
+                                $transaction->cheque_no = '';
+                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                $transaction->branch_id = $branch->branch_id;
+
+                                $transaction->save();
+                                $remaining_amount = $toBePaid;
+                            }
+
+
+
                         }
+                        $sale->save();
                     }
                 }
             }

@@ -119,6 +119,7 @@ Route::get('/delete/{id}','SaleController@getDelete');
 Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
 Route::get('/make/{id}','SaleController@getMake');
 Route::post('/saveReceive','SaleController@postSaveReceive');
+Route::post('/savereceiveall','SaleController@postSaveReceiveAll');
 Route::get('/categories/{id}','SaleController@getCategories');
 Route::get('/deleteTransaction/{id}','SaleController@getDeleteTransaction');
 
