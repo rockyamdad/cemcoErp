@@ -5,7 +5,7 @@
       href="{{ URL::asset('assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}"/>
 <link rel="stylesheet" type="text/css"
       href="{{ URL::asset('assets/plugins/jquery-tags-input/jquery.tagsinput.css') }}"/>
-
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/bootstrap-datepicker/css/datepicker.css') }}" />
 @stop
 @section('content')
 <div class="row">
@@ -82,6 +82,7 @@
 @stop
 @section('javascript')
 {!! HTML::script('js/imports.js') !!}
+{!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
 @stop
 
 
