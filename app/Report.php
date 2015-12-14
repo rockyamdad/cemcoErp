@@ -365,4 +365,19 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getAccountsReportData($date1,$date2,$account_id)
+    {
+        return DB::table('transactions')
+            ->where('transactions.account_name_id', '=', $account_id)
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('transactions.created_at AS date',
+                'transactions.type',
+                'transactions.amount',
+                'transactions.payment_method',
+                'transactions.account_name_id',
+                'transactions.cheque_no',
+                'transactions.remarks'
+            )
+            ->get();
+    }
 }

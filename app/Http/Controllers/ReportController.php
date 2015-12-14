@@ -357,4 +357,24 @@ class ReportController extends Controller{
             ->with('results2',$results2);
 
     }
+    public function getAccountsreport()
+    {
+        $accounts = new NameOfAccount();
+        $accountAll = $accounts->getAccountsDropDown();
+        return view('Reports.accountsReport')
+            ->with('accountAll',$accountAll);
+
+    }
+    public function postAccountsresult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        $account_id = Input::get('account_id');
+        $report = new Report();
+        $results = $report->getAccountsReportData($date1,$date2,$account_id);
+        return view('Reports.accountsReportResult',compact('results'))
+            ->with('account_id',$account_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
 }

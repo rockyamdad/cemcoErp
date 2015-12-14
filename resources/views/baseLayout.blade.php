@@ -428,6 +428,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/balancetransfer'))class="active"@endif>
                         <a href="{{ URL::to('reports/balancetransfer') }}">Balance Transfer Report</a>
                     </li>
+                    <li
+                            @if (Request::is('reports/accountsreport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/accountsreport') }}">Accounts Report</a>
+                    </li>
                 </ul>
             </li>
             </ul>
