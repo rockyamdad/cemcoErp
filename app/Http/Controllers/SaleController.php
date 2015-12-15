@@ -47,7 +47,7 @@ class SaleController extends Controller{
         $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
         $invoiceid =$this->generateInvoiceId();
-        //var_dump($invoiceidd);
+        //var_dump($invoiceid);
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
@@ -377,13 +377,14 @@ class SaleController extends Controller{
         $invdesc = Sale::orderBy('id', 'DESC')->first();
         if ($invdesc != null) {
             $invDescId = $invdesc->invoice_id;
-            $invDescIdNo = substr($invDescId, 6);
+            $invDescIdNo = substr($invDescId, 7);
 
             $subinv1 = substr($invDescId, 6);
-            $dd = substr($invDescId, 0, 2);
-            $mm = substr($invDescId, -8, -6);
-            $yy = substr($invDescId, -6, -4);
+            $dd = substr($invDescId, 1, 2);
+            $mm = substr($invDescId, -7, -5);
+            $yy = substr($invDescId, -5, -3);
             //echo "d1 ".$yy;
+
 
             $tz = 'Asia/Dhaka';
             $timestamp = time();
@@ -392,16 +393,18 @@ class SaleController extends Controller{
             $Today = $dt->format('d.m.Y');
 
             $explodToday = explode(".", $Today);
-            $mm2 = $explodToday[1];
             $dd2 = $explodToday[0];
+            $mm2 = $explodToday[1];
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
 
+
+
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
-                $invoiceidd = $dd2 . $mm2 . $yy2 . $invDescIdNo + 1;
+                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . $invDescIdNo + 1;
                 return $invoiceidd;
             } else {
-                $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "0001";
                 return $invoiceidd;
             }
         } else {
@@ -418,7 +421,7 @@ class SaleController extends Controller{
             $yy2 = substr($yy1, 2);
 
 
-            $invoiceidd = $dd2 . $mm2 . $yy2 . "0001";
+            $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "0001";
             return $invoiceidd;
         }
     }
