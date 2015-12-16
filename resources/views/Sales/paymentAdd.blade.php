@@ -73,7 +73,7 @@ function closeModal() {
                                     <div class="col-md-7">
                                         <div class="input-append date input-icon" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                             <i class="fa fa-calendar"></i>
-                                            {!!Form::text('lc_date',null,array('size'=>'16','class' =>
+                                            {!!Form::text('cheque_date',null,array('size'=>'16','class' =>
                                             'form-control m-wrap m-ctrl-medium date-picker'))!!}
                                             <span class="add-on"><i class="icon-calendar"></i></span>
 

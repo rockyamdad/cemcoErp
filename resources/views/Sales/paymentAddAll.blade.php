@@ -87,6 +87,27 @@ function closeModal() {
                                 'form-control','id'=>'cheque_no'))!!}
                             </div>
                         </div>
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_date','Cheque Date',array('class' =>
+                            'control-label col-md-4')))!!}
+                                    <div class="col-md-7">
+                                        <div class="input-append date input-icon" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                            <i class="fa fa-calendar"></i>
+                                            {!!Form::text('cheque_date',null,array('size'=>'16','class' =>
+                                            'form-control m-wrap m-ctrl-medium date-picker'))!!}
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_bank','Cheque Bank',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::text('cheque_bank',null,array('placeholder' => 'Cheque Bank', 'class' =>
+                                'form-control','id'=>'cheque_bank'))!!}
+                            </div>
+                        </div>
                         <div class="form-group">
                             {!!HTML::decode(Form::label('amount','Amount<span class="required">*</span>',array('class' =>
                                            'control-label col-md-4')))!!}
