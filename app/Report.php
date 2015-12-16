@@ -380,4 +380,50 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getBalanceOut($date1,$date2,$account_id)
+    {
+        return DB::table('transactions')
+            ->where('created_at', '<',new \DateTime($date1))
+            ->where('type', '!=','Receive')
+            ->where('account_name_id', '=',$account_id)
+            ->select(
+                DB::raw('SUM(amount) as balanceOut')
+
+            )
+            ->get();
+    }
+    public function getBalanceIn($date1,$date2,$account_id)
+    {
+        return DB::table('transactions')
+            ->where('created_at', '<',new \DateTime($date1))
+            ->where('type', '=','Receive')
+            ->where('account_name_id', '=',$account_id)
+            ->select(
+                DB::raw('SUM(amount) as balanceIn')
+
+            )
+            ->get();
+    }
+    public function getTotalBalanceOut($account_id)
+    {
+        return DB::table('transactions')
+            ->where('type', '!=','Receive')
+            ->where('account_name_id', '=',$account_id)
+            ->select(
+                DB::raw('SUM(amount) as totalBalanceOut')
+
+            )
+            ->get();
+    }
+    public function getTotalBalanceIn($account_id)
+    {
+        return DB::table('transactions')
+            ->where('type', '=','Receive')
+            ->where('account_name_id', '=',$account_id)
+            ->select(
+                DB::raw('SUM(amount) as totalBalanceIn')
+
+            )
+            ->get();
+    }
 }

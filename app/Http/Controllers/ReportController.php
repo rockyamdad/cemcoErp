@@ -372,9 +372,19 @@ class ReportController extends Controller{
         $account_id = Input::get('account_id');
         $report = new Report();
         $results = $report->getAccountsReportData($date1,$date2,$account_id);
+        $currentBalance = NameOfAccount::find($account_id);
+
+        $balanceIn = $report->getBalanceIn($date1,$date2,$account_id);
+        $balanceOut = $report->getBalanceOut($date1,$date2,$account_id);
+        $totalBalanceOut = $report->getTotalBalanceOut($account_id);
+        $totalBalanceIn = $report->getTotalBalanceIn($account_id);
         return view('Reports.accountsReportResult',compact('results'))
             ->with('account_id',$account_id)
-            ->with('date1',$date1)
-            ->with('date2',$date2);
+            ->with('totalBalanceIn',$totalBalanceIn)
+            ->with('totalBalanceOut',$totalBalanceOut)
+            ->with('balanceIn',$balanceIn)
+            ->with('currentBalance',$currentBalance)
+            ->with('balanceOut',$balanceOut);
+
     }
 }

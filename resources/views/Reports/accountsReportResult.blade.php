@@ -33,7 +33,7 @@
 
                 <div class="portlet-body">
 
-                    <table class="table table-striped table-bordered table-hover" id="accounts_report_table">
+                    <table class="table table-striped table-bordered table-hover" id="accounts_report_table" cellspacing="0">
                         <thead style="background-color:cadetblue">
                             <tr>
                                 <th>Txn Date</th>
@@ -47,15 +47,36 @@
                         </thead>
                         <tbody>
                         <?php
-                        $total = 0;
+                            $flag = '';
+                            $openingBalance = ($balanceIn[0]->balanceIn - $balanceOut[0]->balanceOut) +($currentBalance->opening_balance - ($totalBalanceIn[0]->totalBalanceIn - $totalBalanceOut[0]->totalBalanceOut));
                         ?>
+                        <tr class="odd gradeX" >
+                            <td>Opening Balance</td>
+                            <td>
 
+                            </td>
+                            <td>
+
+                            </td>
+                            <td></td>
+
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                {{$openingBalance}}
+                            </td>
+
+                        </tr>
                         @foreach($results as $result )
 
                             <tr class="odd gradeX">
                                 <td>{{$result->date}}</td>
                                 <td>
-                                    @if($result->type == 'Payment')
+                                    @if($result->type != 'Receive')
                                         Withdrawal from account
                                     @else
                                         Deposit to account
@@ -69,20 +90,34 @@
                                 <td>{{$result->remarks}}</td>
 
                                 <td>
-                                    @if($result->type == 'Payment')
+                                    @if($result->type != 'Receive')
                                         {{$result->amount}}
                                     @endif
                                 </td>
                                 <td>
-                                    @if($result->type != 'Payment')
+                                    @if($result->type == 'Receive')
                                         {{$result->amount}}
                                     @endif
                                 </td>
-                                <td></td>
+                                <td>
+                                    @if($flag == '')
+                                        {{$openingBalance + $result->amount}}
+                                    @else
+                                        {{$balance + $result->amount}}
+                                    @endif
+
+                                </td>
 
                             </tr>
                             <?php
+                                    if($flag == ''){
+                                        $balance  = $openingBalance + $result->amount;
+                                    }else{
+                                        $balance  = $balance + $result->amount;
+                                    }
+                            $flag = 'value';
                             //$total = $total + ($result->amount);
+
                             ?>
                         @endforeach
                         <tr>
