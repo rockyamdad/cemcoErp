@@ -281,5 +281,8 @@ jQuery(document).ready(function() {
         $('.date-picker').datepicker();
     });
 
+    $("#salePayment2").on("shown.bs.modal", function() {
+        $('.date-picker').datepicker();
+    });
 
 });

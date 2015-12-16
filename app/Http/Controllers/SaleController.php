@@ -257,8 +257,10 @@ class SaleController extends Controller{
         $saleTransaction->user_id = Session::get('user_id');
         $saleTransaction->payment_method = Input::get('payment_method');
         $saleTransaction->cheque_no = Input::get('cheque_no');
+        $saleTransaction->cheque_date=Input::get('cheque_date');
+        $saleTransaction->cheque_bank=Input::get('cheque_bank');
         $saleTransaction->invoice_id = Input::get('invoice_id');
-
+        var_dump(Input::get('cheque_date'));
 
         $totalAmount = 0;
         $totalPrice = 0;
@@ -589,6 +591,8 @@ class SaleController extends Controller{
                                 $transaction->cheque_no = Input::get('cheque_no');
                                 $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                 $transaction->branch_id = $branch->branch_id;
+                                $transaction->cheque_date = Input::get('cheque_date');
+                                $transaction->cheque_bank = Input::get('cheque_bank');
 
                                 $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
                                 $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
@@ -623,6 +627,8 @@ class SaleController extends Controller{
                                 $transaction->cheque_no = Input::get('cheque_no');
                                 $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                 $transaction->branch_id = $branch->branch_id;
+                                $transaction->cheque_date = Input::get('cheque_date');
+                                $transaction->cheque_bank = Input::get('cheque_bank');
 
                                 $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
                                 $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
@@ -645,7 +651,7 @@ class SaleController extends Controller{
             }*/
             //automatically reduce sales payment ends
 
-            return Redirect::to('salesreturn/create');
+            return Redirect::to('sales/index');
         }
     }
 
