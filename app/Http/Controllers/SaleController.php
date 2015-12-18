@@ -31,9 +31,14 @@ class SaleController extends Controller{
     }
     public function getIndex()
     {
-       $sales = Sale::orderBy('id','DESC')->paginate(15);
-
-        return view('Sales.list',compact('sales'));
+        $sales = Sale::orderBy('id','DESC')->paginate(15);
+        $sale = new Sale();
+        $allInvoices = $sale->getSalesInvoiceDropDown();
+        $invoice = Input::get('invoice_id');
+        $saleInvoice = Sale::where('invoice_id',$invoice)->get();
+        return view('Sales.list',compact('sales'))
+            ->with('allInvoices',$allInvoices)
+            ->with('saleInvoice',$saleInvoice);
     }
     public function getCreate()
     {

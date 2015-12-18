@@ -59,7 +59,22 @@
                     </div>
 
                 </div>
+                {!!Form::open(array('action'=>'SaleController@getIndex','method' => 'get', 'class'=>'form-horizontal'
+                ))!!}
+                <div class="form-group">
 
+                    <div class="col-md-4">
+                        {!!Form::select('invoice_id',[null=>'Please Select Invoice'] +$allInvoices,'null', array('class'=>'form-control ','id'=>'invoice_id') )!!}
+                    </div>
+                    <div class=" fluid">
+                        <div class=" col-md-3">
+                            <button type="submit" class="btn blue btn-block " >SEARCH <i class="m-icon-swapright m-icon-white"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                {!!Form::close()!!}
 
                 <table class="table table-striped table-bordered table-hover" id="salestable">
                     <thead  style="background-color: #557386">
@@ -77,62 +92,127 @@
 
                     $sl=1;
                     ?>
-                    @foreach($sales as $sale )
-                        <?php
-                        $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
-                        ?>
-                        @if(count($hasDetails) > 0)
-                            <tr class="odd gradeX">
-                                <td><?php echo $sl; ?></td>
-                                <td>{{$sale->invoice_id}}</td>
-                                <td>{{$sale->party->name}}</td>
-                                @if($sale->status == 'Activate')
-                                    <td><span class="label label-sm label-danger">Due</span></td>
-                                @elseif($sale->status == 'Partial')
-                                    <td><span class="label label-sm label-warning">Partial</span></td>
-                                @elseif($sale->status == 'Completed')
-                                    <td><span class="label label-sm label-success">Completed</span></td>
-                                @endif
-                                <td>{{$sale->user->username}}</td>
-
-                               <td>
-                                    @if( Session::get('user_role') == "admin")
-                                       @if($sale->is_sale != 1)
-                                           <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
-                                            class="fa fa-edit"></i>Edit </a>
-                                           <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
-                                               Sale</a>
-                                       @endif
-                                    <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
-                                        <i class="fa fa-eye"></i> Detail</a>
-
-                                       @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                           <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice </a>
-                                           <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
-                                               <i class="fa fa-usd"></i> Payment</a>
-                                               <span class="label label-sm label-success">SoldOut</span>
-                                       @endif
-                                       @if($sale->is_sale != 1)
-                                    <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
-                                       onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                            class="fa fa-trash-o"></i> Delete</a>
-                                       @endif
-                                    @endif
-
-
-                                </td>
-
-                            </tr>
+                    @if(count($saleInvoice)>0)
+                        @foreach($saleInvoice as $sale )
                             <?php
-                            $sl++;
+                            $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             ?>
-                        @endif
-                    @endforeach
+                            @if(count($hasDetails) > 0)
+                                <tr class="odd gradeX">
+                                    <td><?php echo $sl; ?></td>
+                                    <td>{{$sale->invoice_id}}</td>
+                                    <td>{{$sale->party->name}}</td>
+                                    @if($sale->status == 'Activate')
+                                        <td><span class="label label-sm label-danger">Due</span></td>
+                                    @elseif($sale->status == 'Partial')
+                                        <td><span class="label label-sm label-warning">Partial</span></td>
+                                    @elseif($sale->status == 'Completed')
+                                        <td><span class="label label-sm label-success">Completed</span></td>
+                                    @endif
+                                    <td>{{$sale->user->username}}</td>
+
+                                    <td>
+                                        @if( Session::get('user_role') == "admin")
+                                            @if($sale->is_sale != 1)
+                                                <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
+                                                            class="fa fa-edit"></i>Edit </a>
+                                                <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
+                                                    Sale</a>
+                                            @endif
+                                            <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                                                <i class="fa fa-eye"></i> Detail</a>
+
+                                            @if($sale->status != 'Completed' && $sale->is_sale == 1)
+                                                <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice </a>
+                                                <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
+                                                    <i class="fa fa-usd"></i> Payment</a>
+                                                <span class="label label-sm label-success">SoldOut</span>
+                                            @endif
+                                            @if($sale->is_sale != 1)
+                                                <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
+                                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                            class="fa fa-trash-o"></i> Delete</a>
+                                            @endif
+                                        @endif
+
+
+                                    </td>
+
+                                </tr>
+                                <?php
+                                $sl++;
+                                ?>
+                            @endif
+                        @endforeach
+
+                    @else
+                        @foreach($sales as $sale )
+                            <?php
+                            $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                            ?>
+                            @if(count($hasDetails) > 0)
+                                <tr class="odd gradeX">
+                                    <td><?php echo $sl; ?></td>
+                                    <td>{{$sale->invoice_id}}</td>
+                                    <td>{{$sale->party->name}}</td>
+                                    @if($sale->status == 'Activate')
+                                        <td><span class="label label-sm label-danger">Due</span></td>
+                                    @elseif($sale->status == 'Partial')
+                                        <td><span class="label label-sm label-warning">Partial</span></td>
+                                    @elseif($sale->status == 'Completed')
+                                        <td><span class="label label-sm label-success">Completed</span></td>
+                                    @endif
+                                    <td>{{$sale->user->username}}</td>
+
+                                    <td>
+                                        @if( Session::get('user_role') == "admin")
+                                            @if($sale->is_sale != 1)
+                                                <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
+                                                            class="fa fa-edit"></i>Edit </a>
+                                                <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
+                                                    Sale</a>
+                                            @endif
+                                            <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
+                                                <i class="fa fa-eye"></i> Detail</a>
+
+                                            @if($sale->status != 'Completed' && $sale->is_sale == 1)
+                                                <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice </a>
+                                                <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
+                                                    <i class="fa fa-usd"></i> Payment</a>
+                                                <span class="label label-sm label-success">SoldOut</span>
+                                            @endif
+                                            @if($sale->is_sale != 1)
+                                                <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
+                                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                                            class="fa fa-trash-o"></i> Delete</a>
+                                            @endif
+                                        @endif
+
+
+                                    </td>
+
+                                </tr>
+                                <?php
+                                $sl++;
+                                ?>
+                            @endif
+                        @endforeach
+                    @endif
+
 
                     </tbody>
                 </table>
+
             </div>
         </div>
+        @if(count($saleInvoice)>0)
+            <center>
+            <div class="actions">
+                <a class="btn blue" href="/sales">Back</a>
+                {{--   <a class="btn dark" href="">Print</a>--}}
+            </div>
+            </center>
+        @endif
 
 
         <!-- END EXAMPLE TABLE PORTLET-->

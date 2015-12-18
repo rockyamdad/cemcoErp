@@ -62,7 +62,7 @@ jQuery(document).ready(function() {
             $('#invoice_id').val(invoice);
         });
     });
-    $('select').select2();
+    //$('select').select2();
 
 
     $('#account_category_id').live("change", function () {

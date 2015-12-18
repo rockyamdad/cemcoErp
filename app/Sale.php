@@ -23,5 +23,22 @@ class Sale extends Eloquent
         $this->saledetails()->delete();
         return parent::delete();
     }
+    public function getSalesInvoice()
+    {
+        $sales = DB::table('sales')->get();
+        return $sales;
+    }
+    public function getSalesInvoiceDropDown()
+    {
+        $saleInvoices = $this->getSalesInvoice();
+
+        $array = array();
+
+        foreach($saleInvoices as $invoice){
+            $array[$invoice->invoice_id] = $invoice->invoice_id;
+        }
+
+        return $array;
+    }
 
 }
