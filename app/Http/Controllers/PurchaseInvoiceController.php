@@ -29,8 +29,13 @@ class PurchaseInvoiceController extends Controller{
     public function getIndex()
     {
        $purchases = PurchaseInvoice::orderBy('id','DESC')->paginate(15);
-
-        return view('PurchaseInvoice.list',compact('purchases'));
+        $purchase = new PurchaseInvoice();
+        $allInvoices = $purchase->getPurchaseInvoiceDropDown();
+        $invoice = Input::get('invoice_id');
+        $purchaseInvoice = PurchaseInvoice::where('invoice_id',$invoice)->get();
+        return view('PurchaseInvoice.list',compact('purchases'))
+            ->with('allInvoices',$allInvoices)
+            ->with('purchaseInvoice',$purchaseInvoice);
     }
     public function getCreate()
     {

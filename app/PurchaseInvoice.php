@@ -23,5 +23,22 @@ class PurchaseInvoice extends Eloquent
         $this->purchaseinvoicedetails()->delete();
         return parent::delete();
     }
+    public function getPurchasesInvoice()
+    {
+        $purchase = DB::table('purchase_invoices')->get();
+        return $purchase;
+    }
+    public function getPurchaseInvoiceDropDown()
+    {
+        $purchaseInvoices = $this->getPurchasesInvoice();
+
+        $array = array();
+
+        foreach($purchaseInvoices as $invoice){
+            $array[$invoice->invoice_id] = $invoice->invoice_id;
+        }
+
+        return $array;
+    }
 
 }
