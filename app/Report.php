@@ -426,4 +426,35 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getBalanceTransferFullReport()
+    {
+        return DB::table('balance_transfers')
+            ->groupBy('balance_transfers.from_account_name_id')
+            ->select(
+                'balance_transfers.from_account_name_id AS fromAccount'
+            )
+            ->get();
+    }
+    public function getBalanceTransferForFromAccount($account_id)
+    {
+        return DB::table('balance_transfers')
+            ->where('from_account_name_id', '=',$account_id)
+            ->groupBy('balance_transfers.to_account_name_id')
+            ->select(
+                'balance_transfers.from_account_name_id AS fAccount',
+                'balance_transfers.to_account_name_id AS toAccount',
+                DB::raw('SUM(balance_transfers.amount) as fromAmount')
+            )
+            ->get();
+    }
+    public function getBalanceTransferForToAccount($from_account_id,$to_account_id)
+    {
+        return DB::table('balance_transfers')
+            ->where('from_account_name_id', '=',$to_account_id)
+            ->where('to_account_name_id', '=',$from_account_id)
+            ->select(
+                DB::raw('SUM(balance_transfers.amount) as toAmount')
+            )
+            ->get();
+    }
 }

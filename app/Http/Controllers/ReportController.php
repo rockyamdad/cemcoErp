@@ -387,4 +387,15 @@ class ReportController extends Controller{
             ->with('balanceOut',$balanceOut);
 
     }
+    public function getBalancetransferreport()
+    {
+        $reports = new Report();
+        $results = $reports->getBalanceTransferFullReport();
+
+        return view('Reports.balanceTransferFullReport')
+            ->with('results',$results);
+
+
+    }
+
 }

@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
             return true;
         }
     }
-   // $('select').select2();
+   $('select').select2();
     $('.deleteSale').live("click", function() {
 
         var saleDetailId = $(this).attr('rel');

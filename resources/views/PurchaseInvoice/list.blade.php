@@ -1,4 +1,8 @@
 @extends('baseLayout')
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
+
+@stop
 @section('content')
 <div class="row">
     <div class="col-md-12">
