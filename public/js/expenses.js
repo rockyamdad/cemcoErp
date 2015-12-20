@@ -1,8 +1,8 @@
 jQuery(document).ready(function() {
     // Put page-specific javascript here
-    $('#Expensetable').DataTable({
+    /*$('#Expensetable').DataTable({
         "bPaginate": false
-    });
+    });*/
     var form = $('#expense_form');
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);

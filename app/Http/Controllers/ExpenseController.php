@@ -26,9 +26,14 @@ class ExpenseController extends Controller{
     }
     public function getIndex()
     {
-       $expenseAll = Expense::orderBy('id','DESC')->paginate(15);
-
-        return view('Expenses.list',compact('expenseAll'));
+        $expenseAll = Expense::orderBy('id','DESC')->paginate(15);
+        $expense = new Expense();
+        $allInvoices = $expense->getExpenseInvoiceDropDown();
+        $invoice = Input::get('invoice_id');
+        $expenseInvoice = Expense::where('invoice_id',$invoice)->get();
+        return view('Expenses.list',compact('expenseAll'))
+            ->with('allInvoices',$allInvoices)
+            ->with('expenseInvoice',$expenseInvoice);
     }
     public function getCreate()
     {
