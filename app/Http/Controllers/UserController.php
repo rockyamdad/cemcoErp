@@ -36,10 +36,12 @@ class UserController extends Controller{
     public function postSaveUser()
     {
         $ruless = array(
-            'username' => 'required',
+            'username' => 'required|Unique:users',
             'role' => 'required',
             'email' =>  'required|email|unique:users|Unique:users',
-            'password' => 'required'
+            'password' => 'required||min:6',
+            'sex' => 'required',
+            'branch_id' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -73,9 +75,10 @@ class UserController extends Controller{
     {
         $ruless = array(
             'username' => 'required',
-            'branch_id' => 'required',
             'role' => 'required',
-            'email' =>  'required|email|Unique:users,email,'.$id
+            'email' =>  'required|email|Unique:users,email,'.$id,
+            'sex' => 'required',
+            'branch_id' => 'required'
 
         );
         $validate = Validator::make(Input::all(), $ruless);

@@ -31,7 +31,8 @@ class AuthController extends Controller{
 
         if($validate->fails())
         {
-            return Redirect::to('/');
+            return Redirect::to('/')
+                ->withErrors($validate);
         }
         else{
 
@@ -49,16 +50,19 @@ class AuthController extends Controller{
 
                 if($roles = 'admin' || 'manager')
                 {
-                    return  Redirect::to('dashboard');
+                    return  Redirect::to('dashboard')
+                        ->with('flash_notice', 'You are successfully logged in.');;
                 }elseif($roles = 'user')
                 {
-                    return  Redirect::to('profile');
+                    return  Redirect::to('profile')
+                        ->with('flash_notice', 'You are successfully logged in.');;
                 }
             }
             else
             {
-                Session::flash('message', 'Your username or password incorrect');
-                return   Redirect::to('/');
+                //Session::flash('message', 'Your username or password incorrect');
+                return   Redirect::to('/')
+                    ->with('flash_error', 'Your username/password combination was incorrect.');
             }
         }
     }

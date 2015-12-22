@@ -33,7 +33,15 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <!-- BEGIN FORM-->
+            @if ($errors->has())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}<br>
+                    @endforeach
+                </div>
+                @endif
+
+                        <!-- BEGIN FORM-->
             {!!Form::open(array('url' => 'users/saveUser/', 'method' => 'post', 'class'=>'form-horizontal',
             'id'=>'user_form'))!!}
             <div class="form-body">
@@ -56,22 +64,16 @@
                     {!!HTML::decode(Form::label('username','Username<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             {!!Form::text('username',null,array('placeholder' => 'Username', 'class' =>
                             'form-control','id' => 'username'))!!}
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     {!!HTML::decode(Form::label('email','Email<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             {!!Form::text('email',null,array('placeholder' => 'Email', 'class' => 'form-control','id' =>
                             'email'))!!}
-                        </div>
                     </div>
                 </div>
 
@@ -107,7 +109,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('sex','Gender',array('class' => 'control-label col-md-3')))!!}
+                    {!!HTML::decode(Form::label('sex','Gender<span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('sex',[null=>'Please Select Gender'] + array('m' => 'Male', 'f' => 'Female'),'null',
                         array('class'=>'form-control'))!!}

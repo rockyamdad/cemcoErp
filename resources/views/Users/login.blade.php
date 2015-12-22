@@ -2,15 +2,17 @@
 @section('content')
 {!!Form::open(['url'=>'/auth/login','class'=>'login-form1','id'=>'login_form'])!!}
 <h3 class="form-title">Login to your account</h3>
-@if (Session::has('message'))
-<div class="alert alert-danger display-hide">
-    <button class="close" data-close="alert"></button>
-    <span> {{ Session::get('message') }}</span>
-</div>
+@if (Session::has('flash_error'))
+    <div id="flash_error" class="alert alert-danger">{{ Session::get('flash_error') }}</div>
 @endif
-@foreach($errors->all() as $error)
-<p class="alert alert-danger">{!!$error!!}</p>
-@endforeach
+@if ($errors->has())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            {{ $error }}<br>
+        @endforeach
+    </div>
+@endif
+
 <div class="form-group">
     {!! Form::label('email','Email',array('class' => 'control-label visible-ie8 visible-ie9')) !!}
     <div class="input-icon">
@@ -36,10 +38,10 @@
 </div>
 
 {!! Form::close() !!}
-
+@stop
 <script type="text/javascript">
-    @
-    section('javascript')
+    @section('javascript')
+
     // Put page-specific javascript here
     jQuery(document).ready(function () {
         var form1 = $('#login_form');
@@ -53,7 +55,8 @@
             focusInvalid: false, // do not focus the last invalid input
             rules: {
                 email: {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 password: {
                     required: true
@@ -95,7 +98,6 @@
         error1.show();
     });
 
-    @
-    stop
+    @stop
+
 </script>
-@stop

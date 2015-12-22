@@ -19,6 +19,12 @@ jQuery(document).ready(function() {
             role: {
                 required: true
             },
+            branch_id: {
+                required: true
+            },
+            sex: {
+                required: true
+            },
             password: {
                 minlength: 6,
                 required: true

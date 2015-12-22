@@ -16,7 +16,9 @@
 
             <li><a href="{{URL::to('dashboard')}}">dashboard</a></li>
         </ul>
-        <!-- END PAGE TITLE & BREADCRUMB-->
+        @if (Session::has('flash_notice'))
+            <div id="flash_notice" class="alert alert-success">{{ Session::get('flash_notice') }}</div>
+        @endif
     </div>
 </div>
 @stop

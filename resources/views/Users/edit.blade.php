@@ -33,7 +33,13 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <!-- BEGIN FORM-->
+            @if ($errors->has())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}<br>
+                    @endforeach
+                </div>
+            @endif
             {!!Form::model($userdata,array('action' => array('UserController@putCheckupdate', $userdata->id), 'method'
             => 'PUT', 'class'=>'form-horizontal', 'id'=>'user_form'))!!}
             <div class="form-body">
@@ -56,22 +62,16 @@
                     {!!HTML::decode(Form::label('username','Username<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             {!!Form::text('username',null,array('placeholder' => 'Username', 'class' =>
                             'form-control','id' => 'username'))!!}
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     {!!HTML::decode(Form::label('email','Email<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                             {!!Form::text('email',null,array('placeholder' => 'Email', 'class' => 'form-control','id' =>
                             'email'))!!}
-                        </div>
                     </div>
                 </div>
 
