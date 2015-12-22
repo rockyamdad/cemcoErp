@@ -26,8 +26,8 @@
                             <th>SL</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
-                            <th>Total Booking Price</th>
-                            <th>Total CFR Price</th>
+                            <th>Booking Price</th>
+                            <th>CFR Price</th>
                             <th>Created By</th>
                             <th>Action</th>
                         </tr>
