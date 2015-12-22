@@ -23,15 +23,15 @@
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('total_booking_price','Total Booking Price',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('total_booking_price','Booking Price/Unit',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
-                {!!Form::text('total_booking_price',null,array('placeholder' => 'Total Booking Price', 'class' => 'form-control','id' => 'total_booking_price'))!!}
+                {!!Form::text('total_booking_price',null,array('placeholder' => 'Booking Price', 'class' => 'form-control','id' => 'total_booking_price'))!!}
             </div>
         </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('total_cfr_price','Total CFR Price',array('class' => 'control-label col-md-3'))) !!}
+            {!! HTML::decode(Form::label('total_cfr_price','CFR Price/Unit',array('class' => 'control-label col-md-3'))) !!}
             <div class="col-md-4">
-                {!!Form::text('total_cfr_price',null,array('placeholder' => 'Total CFR Price', 'class' => 'form-control','id' => 'total_cfr_price'))!!}
+                {!!Form::text('total_cfr_price',null,array('placeholder' => 'CFR Price', 'class' => 'form-control','id' => 'total_cfr_price'))!!}
             </div>
         </div>
 
