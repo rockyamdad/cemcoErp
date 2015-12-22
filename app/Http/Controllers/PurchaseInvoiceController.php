@@ -388,12 +388,12 @@ class PurchaseInvoiceController extends Controller{
             $category = $productName->category->name;
             if($productName->sub_category_id){
                 $subCategory = SubCategory::find($productName->sub_category_id);
-                $subCategoryName = $subCategory->name;
+                $subCategoryName = '('.$subCategory->name.')';
             }else{
                 $subCategoryName = '';
             }
 
-            echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName)</option> ";
+            echo "<option value = $productName->id > $productName->name ($category) $subCategoryName</option> ";
 
         }
     }

@@ -101,7 +101,7 @@ jQuery(document).ready(function() {
         });
     });
 
-   // $('select').select2();
+    $('select').select2();
 
     $('#products_edit_branch_id').live("change", function () {
         var branch_id = $('#products_edit_branch_id').val();

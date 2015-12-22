@@ -156,13 +156,20 @@ class ProductController extends Controller{
     }
     public function getProducts($category_id)
     {
-
-        $poductsNames = Product::where('category_id','=',$category_id)
+        $productsNames = Product::where('category_id','=',$category_id)
             ->get();
 
-        foreach ($poductsNames as $product) {
+        foreach ($productsNames as $product) {
+            $category = Category::find($product->category_id);
+            $categoryName = $category->name;
+            if($product->sub_category_id){
+                $subCategory = SubCategory::find($product->sub_category_id);
+                $subCategoryName = '('.$subCategory->name.')';
+            }else{
+                $subCategoryName = '';
+            }
 
-            echo "<option value = $product->id > $product->name</option> ";
+            echo "<option value = $product->id > $product->name ($categoryName) $subCategoryName</option> ";
 
         }
     }
