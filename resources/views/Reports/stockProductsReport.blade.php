@@ -93,14 +93,21 @@
                             <?php
                             $pName = \App\Product::find($result->product_id);
                             $categoryName = \App\Category::find($pName->category_id);
-                            $subCategoryName = \App\SubCategory::find($pName->sub_category_id);
+                               if($pName->sub_category_id){
+                                   $subCategory = \App\SubCategory::find($pName->sub_category_id);
+                                   $subCategoryName = $subCategory->name;
+                               }
+                                 else{
+                                     $subCategoryName = '';
+                                 }
+
                             $grandTotal = $grandTotal + $result->product_quantity;
                                     ?>
 
                             <tr class="odd gradeX">
                                 <td>{{$pName->name}}</td>
                                 <td>{{$categoryName->name}}</td>
-                                <td>{{$subCategoryName->name}}</td>
+                                <td>{{$subCategoryName}}</td>
                                 <td>{{$result->product_quantity}}</td>
 
 
