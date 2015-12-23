@@ -265,7 +265,7 @@ class SaleController extends Controller{
         $saleTransaction->cheque_date=Input::get('cheque_date');
         $saleTransaction->cheque_bank=Input::get('cheque_bank');
         $saleTransaction->invoice_id = Input::get('invoice_id');
-        var_dump(Input::get('cheque_date'));
+
 
         $totalAmount = 0;
         $totalPrice = 0;

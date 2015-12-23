@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use App\Branch;
+use App\Report;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +27,16 @@ class UserController extends Controller{
     }
     public function getDashboard()
     {
-        return view('Users.dashboard');
+        $reports = new Report();
+        $totalProducts = $reports->getTotalProducts();
+        $totalImports = $reports->getTotalImports();
+        $totalSales = $reports->getTotalSalesToday();
+        $totalPurchase = $reports->getTotalPurchaseToday();
+        return view('Users.dashboard')
+            ->with('totalProducts',$totalProducts)
+            ->with('totalSales',$totalSales)
+            ->with('totalPurchase',$totalPurchase)
+            ->with('totalImports',$totalImports);
     }
     public function getuserAdd()
     {

@@ -457,4 +457,40 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getTotalProducts()
+    {
+        return DB::table('stock_counts')
+            ->select(
+                DB::raw('SUM(stock_counts.product_quantity) as totalQuantity')
+            )
+            ->get();
+    }
+    public function getTotalImports()
+    {
+        return DB::table('imports')
+            ->select(
+                DB::raw('COUNT(imports.import_num) as totalImport')
+            )
+            ->get();
+    }
+    public function getTotalSalesToday()
+    {
+        return DB::table('transactions')
+            ->where('transactions.type', '=', 'Receive')
+            ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->select(
+                DB::raw('SUM(transactions.amount) as todaySale')
+            )
+            ->get();
+    }
+    public function getTotalPurchaseToday()
+    {
+        return DB::table('transactions')
+            ->where('transactions.type', '=', 'Payment')
+            ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->select(
+                DB::raw('SUM(transactions.amount) as todayPurchase')
+            )
+            ->get();
+    }
 }

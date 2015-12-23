@@ -116,7 +116,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </li>
             <li>
                 <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-                <form class="sidebar-search" action="extra_search.html" method="POST">
+            {{--    <form class="sidebar-search" action="extra_search.html" method="POST">
                     <div class="form-container">
                         <div class="input-box">
                             <a href="javascript:;" class="remove"></a>
@@ -124,7 +124,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             <input type="button" class="submit" value=" "/>
                         </div>
                     </div>
-                </form>
+                </form>--}}
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
             <li class="start @if (Request::is('dashboard/'))active @endif">
