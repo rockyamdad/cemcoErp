@@ -3,10 +3,11 @@
 {!!Form::open(['url'=>'/auth/login','class'=>'login-form1','id'=>'login_form'])!!}
 <h3 class="form-title">Login to your account</h3>
 @if (Session::has('flash_error'))
-    <div id="flash_error" class="alert alert-danger">{{ Session::get('flash_error') }}</div>
+    <div id="flash_error" class="alert alert-danger"> <a href="#" class="close" data-dismiss="alert">&times;</a>{{ Session::get('flash_error') }}</div>
 @endif
 @if ($errors->has())
     <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
         @foreach ($errors->all() as $error)
             {{ $error }}<br>
         @endforeach

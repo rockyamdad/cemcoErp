@@ -17,7 +17,8 @@
             <li><a href="{{URL::to('dashboard')}}">dashboard</a></li>
         </ul>
         @if (Session::has('flash_notice'))
-            <div id="flash_notice" class="alert alert-success">{{ Session::get('flash_notice') }}</div>
+
+            <div id="flash_notice"  class="alert alert-success fade in"> <a href="#" class="close" data-dismiss="alert">&times;</a>{{ Session::get('flash_notice') }}</div>
         @endif
     </div>
 
