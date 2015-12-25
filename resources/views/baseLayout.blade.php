@@ -135,7 +135,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </a>
             </li>
 
-            <li class=" @if (Request::is('users/')) active @endif">
+            <li class=" @if (Request::is('add')||Request::is('list')) active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-group"></i>
                     <span class="title">Users</span>
@@ -155,7 +155,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
-        <li class="@if (Request::is('branches/branchList'))active @endif">
+        <li class="@if (Request::is('branchAdd')||Request::is('branchList'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-puzzle-piece"></i>
                 <span class="title">Branch</span>
@@ -175,7 +175,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
-        <li class="@if (Request::is('productCategories/'))active @endif">
+        <li class="@if (Request::is('productCategories/*')||Request::is('productsubcategories/*')||Request::is('products/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-barcode"></i>
                 <span class="title">Products</span>
@@ -203,7 +203,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
-        <li class="@if (Request::is('imports/'))active @endif">
+        <li class="@if (Request::is('imports/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-plane"></i>
                 <span class="title">Import</span>
@@ -284,7 +284,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
-            <li class="@if (Request::is('partilizers/*'))active @endif">
+            <li class="@if (Request::is('accountcategory/*')||Request::is('accountnames/*')||Request::is('sales/*')||Request::is('salesreturn/*')||Request::is('purchases/*')||Request::is('expenses/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-bar-chart-o"></i>
                     <span class="title">Accounts Section</span>
@@ -322,7 +322,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </li>
 
 
-        <li class="@if (Request::is('parties/'))active @endif">
+        <li class="@if (Request::is('parties/*')||Request::is('stockInfos/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-gears"></i>
                 <span class="title">Settings</span>
