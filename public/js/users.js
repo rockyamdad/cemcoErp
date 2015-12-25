@@ -1,6 +1,8 @@
 jQuery(document).ready(function() {
     $('#user_table').DataTable({
-        "bPaginate": false
+        "bPaginate": false,
+        "scrollX": false,
+        "scrollCollapse": true,
     });
     var form1 = $('#user_form');
     var error1 = $('.alert-danger', form1);

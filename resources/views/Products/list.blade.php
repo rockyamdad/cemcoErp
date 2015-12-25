@@ -88,7 +88,7 @@
 
                         <th>Total Qty</th>
                         <th>Created By</th>
-                        <th>Action</th>
+                        <th width="200px;">Action</th>
                     </tr>
                     </thead>
 

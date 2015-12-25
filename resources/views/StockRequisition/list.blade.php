@@ -51,17 +51,17 @@
                     </div>
 
                 </div>
-                <table class="table table-striped table-bordered table-hover" id="Requisitiontable">
-                    <thead>
+                <table class="table table-bordered table-striped table-condensed flip-content" id="Requisitiontable">
+                    <thead class="flip-content">
                     <tr>
                         <th>SL</th>
                         <th>Branch</th>
                         <th>Product</th>
                         <th>Party</th>
                         <th>Req No</th>
-                        <th>Req Qty</th>
-                        <th>Issued</th>
-                        <th>Remaining</th>
+                        <th class="numeric">Req Qty</th>
+                        <th class="numeric">Issued</th>
+                        <th class="numeric">Remaining</th>
                         <th>Remarks</th>
                         <th>Created By</th>
                       <!--  <th>Status</th>-->
@@ -84,9 +84,9 @@
                         <td>{{$requisition->product->name."(".$requisition->product->category->name.")".$subCategoryName}}</td>
                         <td>{{$requisition->party->name}}</td>
                         <td>{{$requisition->requisition_id}}</td>
-                        <td>{{$requisition->requisition_quantity}}</td>
-                        <td>{{$requisition->issued_quantity}}</td>
-                        <td>{{$requisition->requisition_quantity-$requisition->issued_quantity}}</td>
+                        <td class="numeric">{{$requisition->requisition_quantity}}</td>
+                        <td class="numeric">{{$requisition->issued_quantity}}</td>
+                        <td class="numeric">{{$requisition->requisition_quantity-$requisition->issued_quantity}}</td>
                         <td>{{$requisition->remarks}}</td>
                         <td>{{$requisition->user->username}}</td>
                       <!--  <td>@if($requisition->status == 'Activate')

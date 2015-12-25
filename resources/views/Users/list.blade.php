@@ -50,20 +50,22 @@
                     </div>
 
                 </div>
-                <table class="table table-striped table-bordered table-hover" id="user_table">
+                <div class="table-responsive">
+
+                <table class="table" id="user_table">
                     <thead>
-                    <tr>
-                        <th>SL</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>UserName</th>
-                        <th>Role</th>
-                        <th>Gender</th>
-                        <th>Branch</th>
-                        <th>Address</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th>SL</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>UserName</th>
+                            <th>Role</th>
+                            <th>Gender</th>
+                            <th>Branch</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                     <?php
@@ -113,6 +115,7 @@
 
                     </tbody>
                 </table>
+                    </div>
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->

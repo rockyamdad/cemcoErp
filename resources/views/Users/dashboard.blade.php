@@ -86,4 +86,282 @@
 
 
 </div>
+
+<div class="row ">
+    <div class="col-md-6 col-sm-6">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-bell-o"></i>Recent Activities</div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="scroller-footer">
+                    <div class="pull-right">
+                        <a href="index.html#">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="portlet box green tasks-widget">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-check"></i>Tasks</div>
+                <div class="tools">
+                    <a href="index.html#portlet-config" data-toggle="modal" class="config"></a>
+                    <a href="index.html" class="reload"></a>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <div class="task-footer">
+								<span class="pull-right">
+								<a href="index.html#">See All Tasks <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+								</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Accounts</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Branch Name</th>
+                            <th>Account Name</th>
+                            <th>Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $slNo = 1;
+                        ?>
+                            @foreach($accountsBalance as $account)
+                                <?php
+                                    $branch = \App\Branch::find($account->branch_id);
+                                ?>
+                                <tr>
+                                    <td>{{$slNo}}</td>
+                                    <td>{{$branch->name}}</td>
+                                    <td>{{$account->name}}</td>
+                                    <td>{{$account->opening_balance}}</td>
+                                </tr>
+                                <?php
+                                    $slNo++;
+                                ?>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Account Balance Transfer</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>From Account</th>
+                            <th>To  Account</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            $slNo = 1;
+                        ?>
+
+                        @foreach($accountBalanceTransfers as $result )
+                            <?php
+                            $reports = new \App\Report();
+                            $results2 = $reports->getBalanceTransferForFromAccount($result->fromAccount);
+                            $fromAccount = \App\NameOfAccount::find($result->fromAccount);
+                            ?>
+
+                            @foreach($results2 as $result2 )
+                                <?php
+                                $reports = new \App\Report();
+                                $results3 = $reports->getBalanceTransferForToAccount($result->fromAccount, $result2->toAccount);
+                                $remainingAmount = $result2->fromAmount - $results3[0]->toAmount;
+                                $toAccount = \App\NameOfAccount::find($result2->toAccount);
+                                ?>
+                                @if($remainingAmount >= 0)
+                                    <tr>
+                                        <td>{{$slNo}}</td>
+                                        <td>{{$fromAccount->name}}</td>
+                                        <td>{{$toAccount->name}}</td>
+                                        <td>{{$remainingAmount}}</td>
+                                    </tr>
+                                @else
+                                    <tr>
+                                        <td>{{$slNo}}</td>
+                                        <td>{{$toAccount->name}}</td>
+                                        <td>{{$fromAccount->name}}</td>
+                                        <td>{{-$remainingAmount}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            <?php
+                                $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Today's Stocks</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Branch Name</th>
+                            <th>Total StocktIn</th>
+                            <th>Total StocktOut</th>
+                            <th>Total StocktTransfer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $slNo = 1;
+                        ?>
+                        @foreach($stocksBranch as $stockBranch)
+                            <?php
+                            $branchs = \App\Branch::find($stockBranch->branch);
+                                    $reports = new \App\Report();
+                                    $stockIn = $reports->getStockInTotal($stockBranch->branch);
+                                    $stockOut = $reports->getStockOutTotal($stockBranch->branch);
+                                    $stockTransfer = $reports->getStockTransferTotal($stockBranch->branch);
+                            ?>
+                            <tr>
+                                <td>{{$slNo}}</td>
+                                <td>{{$branchs->name}}</td>
+                                <td>{{$stockIn[0]->totalStockIn}}</td>
+                                <td>{{$stockOut[0]->totalStockOut}}</td>
+                                <td>{{$stockTransfer[0]->totalStockTransfer}}</td>
+                            </tr>
+                            <?php
+                            $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroller-footer">
+                    <div class="pull-right">
+                        <a href="{{URL::to('stocks/index')}}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Order Requisition</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product</th>
+                            <th>Party</th>
+                            <th>Req Quantity</th>
+                            <th>Issued</th>
+                            <th>Remaining</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $slNo = 1;
+                        ?>
+                        @foreach($stockRequisitions as $requisition)
+                            <?php
+                                $branchName = \App\Branch::find($requisition->branch_id);
+                                $subCategory = \App\SubCategory::find($requisition->product->sub_category_id);
+                                $subCategoryName =  '('.$subCategory->name.')';
+                            ?>
+                            <tr>
+                                <td>{{$slNo}}</td>
+                                <td>{{$requisition->product->name."(".$requisition->product->category->name.")".$subCategoryName}}</td>
+                                <td>{{$requisition->party->name}}</td>
+                                <td>{{$requisition->requisition_quantity}}</td>
+                                <td>{{$requisition->issued_quantity}}</td>
+                                <td>{{$requisition->requisition_quantity-$requisition->issued_quantity}}</td>
+                            </tr>
+                            <?php
+                            $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="scroller-footer">
+                    <div class="pull-right">
+                        <a href="{{URL::to('requisitions/')}}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
 @stop

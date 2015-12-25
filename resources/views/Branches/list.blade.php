@@ -41,7 +41,7 @@
                 @endif
             </div>
 
-            <div class="portlet-body">
+            <div class="portlet-body flip-scroll">
 
                 <div class="table-toolbar">
                     <div class="btn-group">
@@ -50,16 +50,16 @@
                     </div>
 
                 </div>
-                <table class="table table-striped table-bordered table-hover" id="branch_table">
-                    <thead>
+                <table class="table table-bordered table-striped table-condensed flip-content" id="branch_table">
+                    <thead class="flip-content">
                     <tr>
                         <th>SL</th>
-                        <th>Name</th>
+                        <th >Name</th>
                         <th >Location</th>
                         <th >Description</th>
                         <th >Created By</th>
                         <th >Status</th>
-                        <th >Action</th>
+                        <th width="200px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -79,7 +79,7 @@
                         <td class="branch-status"><span class="label label-sm label-danger">Deactivate</span></td>
                         @endif
                         <td>
-                            <a class="btn blue btn-sm" href="{{ URL::to('branch/edit/'. $branch->id ) }}"><i class="fa fa-edit"></i>Edit Branch</a>
+                            <a class="btn blue btn-sm" href="{{ URL::to('branch/edit/'. $branch->id ) }}"><i class="fa fa-edit"></i>Edit </a>
                             <a data-id="{{$branch->id}}" class="btn btn-sm purple changeStatus" href="{{ URL::to('changeStatusBranch/'.$branch->status.'/'. $branch->id ) }}"><i class="fa fa-link"></i>Change Status</a>
 
                         </td>

@@ -493,4 +493,57 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getAccountBalances()
+    {
+        return DB::table('name_of_accounts')
+            ->select(
+                'name_of_accounts.branch_id',
+                'name_of_accounts.name',
+                'name_of_accounts.opening_balance'
+            )
+            ->get();
+    }
+    public function getStocksBranch()
+    {
+        return DB::table('stocks')
+            ->groupBy('stocks.branch_id')
+            ->select(
+                'stocks.branch_id AS branch'
+            )
+            ->get();
+    }
+    public function getStockInTotal($branch)
+    {
+        return DB::table('stocks')
+            ->where('stocks.entry_type', '=', 'StockIn')
+            ->where('stocks.branch_id', '=',$branch)
+            ->whereBetween('stocks.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->select(
+                DB::raw('COUNT(stocks.entry_type) as totalStockIn')
+            )
+            ->get();
+    }
+    public function getStockOutTotal($branch)
+    {
+        return DB::table('stocks')
+            ->where('stocks.entry_type', '=', 'StockOut')
+            ->where('stocks.branch_id', '=',$branch)
+            ->whereBetween('stocks.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->select(
+                DB::raw('COUNT(stocks.entry_type) as totalStockOut')
+            )
+            ->get();
+    }
+    public function getStockTransferTotal($branch)
+    {
+        return DB::table('stocks')
+            ->where('stocks.entry_type', '=', 'Transfer')
+            ->where('stocks.branch_id', '=',$branch)
+            ->whereBetween('stocks.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->select(
+                DB::raw('COUNT(stocks.entry_type) as totalStockTransfer')
+            )
+            ->get();
+    }
+//DB::table('rows')->orderBy('id', 'desc')->take(5)->get();
 }

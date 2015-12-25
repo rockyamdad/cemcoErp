@@ -2,6 +2,7 @@
 
 use App\Branch;
 use App\Report;
+use App\StockRequisition;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
@@ -32,9 +33,17 @@ class UserController extends Controller{
         $totalImports = $reports->getTotalImports();
         $totalSales = $reports->getTotalSalesToday();
         $totalPurchase = $reports->getTotalPurchaseToday();
+        $accountsBalance = $reports->getAccountBalances();
+        $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
+        $stocksBranch = $reports->getStocksBranch();
+        $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();;
         return view('Users.dashboard')
             ->with('totalProducts',$totalProducts)
             ->with('totalSales',$totalSales)
+            ->with('stockRequisitions',$stockRequisitions)
+            ->with('stocksBranch',$stocksBranch)
+            ->with('accountsBalance',$accountsBalance)
+            ->with('accountBalanceTransfers',$accountBalanceTransfers)
             ->with('totalPurchase',$totalPurchase)
             ->with('totalImports',$totalImports);
     }
