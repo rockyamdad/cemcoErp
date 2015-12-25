@@ -59,10 +59,10 @@
                     <tr>
                         <th>SL</th>
                         <th>From Branch</th>
-                        <th>From Category</th>
+
                         <th>From Account</th>
                         <th>To Branch</th>
-                        <th>To Category</th>
+
                         <th>To Account</th>
                         <th>Amount</th>
                         <th>Remarks</th>
@@ -87,11 +87,11 @@
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$branch1->name}}</td>
-                        <td>{{$category1->name}}</td>
-                        <td>{{$account1->name}}</td>
+
+                        <td>{{$account1->name."(".$category1->name.")"}}</td>
                         <td>{{$branch2->name}}</td>
-                        <td>{{$category2->name}}</td>
-                        <td>{{$account2->name}}</td>
+
+                        <td>{{$account2->name."(".$category2->name.")"}}</td>
                         <td>{{$transfer->amount}}</td>
                         <td>{{$transfer->remarks}}</td>
                         <td>{{$user->name}}</td>
