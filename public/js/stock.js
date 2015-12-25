@@ -195,17 +195,7 @@ jQuery(document).ready(function() {
     }
 
 
-    var edit_product_id = $('#edit_product_id').attr('rel');
-    var edit_product_type = $('#edit_product_type').val();
-    $.ajax({
-        type: "get",
-        url: "../products/"+edit_product_type,
-        data:{'data':edit_product_id},
-        success: function (html) {
-            $('#edit_product_id').append(html);
 
-        }
-    });
 
     $('#product_id').live("change", function () {
         var product_id = $('#product_id').val();
@@ -251,4 +241,36 @@ jQuery(document).ready(function() {
         });
 
     }
+    $('#edit_product_type').live("change", function () {
+        var branch = $('#products_branch_id').val();
+        var edit_product_id = $('#edit_product_id').attr('rel');
+        var edit_product_type = $('#edit_product_type').val();
+        $('#edit_product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#edit_product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "../products/"+edit_product_type,
+            data:{'branch_id':branch,'product_id':edit_product_id},
+            success: function (html) {
+                $('#edit_product_id').append(html);
+
+            }
+        });
+    });
+    var branch = $('#products_branch_id').val();
+    var edit_product_id = $('#edit_product_id').attr('rel');
+    var edit_product_type = $('#edit_product_type').val();
+    $('#edit_product_id').empty();
+    var newOption = $('<option value="">Select Product</option>');
+    $('#edit_product_id').append(newOption);
+    $.ajax({
+        type: "get",
+        url: "../products/"+edit_product_type,
+        data:{'branch_id':branch,'product_id':edit_product_id},
+        success: function (html) {
+            $('#edit_product_id').append(html);
+
+        }
+    });
 });
