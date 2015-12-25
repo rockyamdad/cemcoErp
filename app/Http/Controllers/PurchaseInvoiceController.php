@@ -180,7 +180,7 @@ class PurchaseInvoiceController extends Controller{
         if(empty($hasInvoice[0])){
             $purchases->party_id = Input::get('party_id');
             $purchases->status = "Activate";
-            $purchases->invoice_id = (int)Input::get('invoice_id');
+            $purchases->invoice_id = \Input::get('invoice_id');
             $purchases->user_id = Session::get('user_id');
             $purchases->save();
         }
@@ -224,6 +224,7 @@ class PurchaseInvoiceController extends Controller{
         $transactionsPaid = $transactions->getTotalPaidPurchase($invoice_id);
         return view('PurchaseInvoice.paymentAdd',compact('accountCategoriesAll'))
             ->with('purchaseDetailsAmount',$purchaseDetailsAmount)
+            ->with('invoice_id',$invoice_id)
             ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveMake()
@@ -254,7 +255,8 @@ class PurchaseInvoiceController extends Controller{
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
         if($accountPayment->opening_balance >= Input::get('amount')){
 
-                $purchases[0] = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
+
+                $purchases = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->first();
                 $purchaseTransaction = new Transaction();
                 $purchaseTransaction->account_category_id = Input::get('account_category_id');
                 $purchaseTransaction->account_name_id = Input::get('account_name_id');
@@ -279,13 +281,14 @@ class PurchaseInvoiceController extends Controller{
                 {
                     $totalAmount =$totalAmount + ($transaction->amount);
                 }
-                $purchaseInvoice = PurchaseInvoice::find( $purchases[0][0]['id']);
+                $purchaseInvoice = PurchaseInvoice::find( $purchases->id);
                 if($totalAmount == $totalPrice)
                 {
                     $purchaseInvoice->status = "Completed";
                 }else{
                     $purchaseInvoice->status = "Partial";
                 }
+
                 $purchaseInvoice->save();
                 $purchaseTransaction->save();
                 $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
