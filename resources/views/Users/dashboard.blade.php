@@ -29,7 +29,7 @@
                 </div>
                 <div class="details">
                     <div class="number">
-                       {{$totalProducts[0]->totalQuantity ? $totalProducts[0]->totalQuantity : 0}}
+                       {{$totalProducts}}
                     </div>
                     <div class="desc">
                        Total Products
