@@ -459,11 +459,8 @@ class Report extends Eloquent
     }
     public function getTotalProducts()
     {
-        return DB::table('stock_counts')
-            ->select(
-                DB::raw('SUM(stock_counts.product_quantity) as totalQuantity')
-            )
-            ->get();
+        $totalQuantity = DB::table('products')->count();
+        return $totalQuantity;
     }
     public function getTotalImports()
     {
