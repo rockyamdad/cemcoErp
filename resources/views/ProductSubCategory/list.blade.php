@@ -9,11 +9,11 @@
         <ul class="page-breadcrumb breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="{{URL::to('dasboard/')}}">Home</a>
+                <a href="{{URL::to('dashboard/')}}">Home</a>
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('productSubCategories/index')}}">Product SubCategory List</a></li>
+            <li><a href="{{URL::to('productsubcategories/index')}}">Product SubCategory List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -76,7 +76,7 @@
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productsubcategories/edit/'. $subCategory->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit Category</a>
+                                    class="fa fa-edit"></i>Edit SubCategory</a>
                             <a class="btn red btn-sm"
                                href="{{ URL::to('productsubcategories/delete/'.$subCategory->id)}}"
                                onclick="return confirm('Are You Sure Want To Delete This Sub Category?')"><i

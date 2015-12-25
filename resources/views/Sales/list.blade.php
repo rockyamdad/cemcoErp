@@ -15,7 +15,7 @@
         <ul class="page-breadcrumb breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="{{URL::to('dasboard/')}}">Home</a>
+                <a href="{{URL::to('dashboard/')}}">Home</a>
                 <i class="fa fa-angle-right"></i>
             </li>
 
@@ -124,7 +124,7 @@
                                                 <i class="fa fa-eye"></i> Detail</a>
 
                                             @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                                <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice </a>
+                                                <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice</a>
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                     <i class="fa fa-usd"></i> Payment</a>
                                                 <span class="label label-sm label-success">SoldOut</span>
@@ -177,7 +177,7 @@
                                                 <i class="fa fa-eye"></i> Detail</a>
 
                                             @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                                <a class="btn blue btn-sm" style="background-color:chartreuse" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice </a>
+                                                <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice</a>
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                     <i class="fa fa-usd"></i> Payment</a>
                                                 <span class="label label-sm label-success">SoldOut</span>

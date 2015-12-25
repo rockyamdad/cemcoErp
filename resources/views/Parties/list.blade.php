@@ -9,7 +9,7 @@
         <ul class="page-breadcrumb breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="{{URL::to('dasboard/')}}">Home</a>
+                <a href="{{URL::to('dashboard/')}}">Home</a>
                 <i class="fa fa-angle-right"></i>
             </li>
 
