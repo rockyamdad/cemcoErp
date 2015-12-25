@@ -211,6 +211,7 @@ class SaleController extends Controller{
         return view('Sales.paymentAdd',compact('accountCategoriesAll'))
             ->with('saleDetailsAmount',$saleDetailsAmount)
             ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
+            ->with('invoice_id',$invoice_id)
             ->with('transactionsPaid',$transactionsPaid);
     }
     public function getMakeall()
@@ -252,7 +253,7 @@ class SaleController extends Controller{
     }
     private function setReceiveSalePayment()
     {
-        $sales[0] = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
+        $sales = Sale::where('invoice_id','=',Input::get('invoice_id'))->first();
         $saleTransaction = new Transaction();
         $saleTransaction->account_category_id = Input::get('account_category_id');
         $saleTransaction->account_name_id = Input::get('account_name_id');
@@ -279,7 +280,7 @@ class SaleController extends Controller{
         {
             $totalAmount =$totalAmount + ($transaction->amount);
         }
-        $sale = Sale::find( $sales[0][0]['id']);
+        $sale = Sale::find( $sales->id);
         if($totalAmount == $totalPrice)
         {
             $sale->status = "Completed";
