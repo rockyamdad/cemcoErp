@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
         $.ajax({
             type: "get",
             url: "products/"+product_type,
-            data:{'data':branch},
+            data:{'branch_id':branch},
             success: function (html) {
                 $('#product_id').append(html);
 

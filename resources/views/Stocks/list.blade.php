@@ -63,10 +63,10 @@
                         <th>SL</th>
                         <th>Branch</th>
                         <th>Product</th>
-                        <th>Qty</th>
-                        <th>From Stock</th>
+                        <th> Stock</th>
                         <th>To Stock</th>
                         <th>Entry Type</th>
+                        <th>Qty</th>
                         <th>Remarks</th>
                         <th>Consignment</th>
                         <th>Created By</th>
@@ -82,14 +82,14 @@
                         <?php
                         $categoryName = \App\Category::find($stock->product->category_id);
                         $subCategoryName = \App\SubCategory::find($stock->product->sub_category_id);
+                        $stockTo = \App\StockInfo::find($stock->to_stock_info_id);
                         ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$stock->branch->name}}</td>
                         <td>{{$stock->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
-                        <td>{{$stock->product_quantity}}</td>
                         <td>{{$stock->stockInfo->name}}</td>
-                        <td></td>
+                        <td>{{$stock->to_stock_info_id ? $stockTo->name : '' }}</td>
                         <td>@if($stock->entry_type == 'StockIn')
                                 <span class="label label-sm label-success">StockIn</span>
                             @elseif($stock->entry_type == 'StockOut')
@@ -100,6 +100,7 @@
                                 <span class="label label-warning ">Wastage</span>
                             @endif
                         </td>
+                        <td>{{$stock->product_quantity}}</td>
                         <td>{{$stock->remarks}}</td>
                         <td>{{$stock->consignment_name}}</td>
                         <td>{{$stock->user->username}}</td>
