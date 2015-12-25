@@ -9,7 +9,7 @@
         <ul class="page-breadcrumb breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="{{URL::to('dasboard/')}}">Home</a>
+                <a href="{{URL::to('dashboard/')}}">Home</a>
                 <i class="fa fa-angle-right"></i>
             </li>
 
@@ -64,7 +64,8 @@
                         <th>Branch</th>
                         <th>Product</th>
                         <th>Qty</th>
-                        <th>Stock</th>
+                        <th>From Stock</th>
+                        <th>To Stock</th>
                         <th>Entry Type</th>
                         <th>Remarks</th>
                         <th>Consignment</th>
@@ -88,6 +89,7 @@
                         <td>{{$stock->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$stock->product_quantity}}</td>
                         <td>{{$stock->stockInfo->name}}</td>
+                        <td></td>
                         <td>@if($stock->entry_type == 'StockIn')
                                 <span class="label label-sm label-success">StockIn</span>
                             @elseif($stock->entry_type == 'StockOut')

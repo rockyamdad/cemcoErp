@@ -16,12 +16,16 @@ function closeModal() {
             $partyName = \App\Party::find($sale->party_id);
                     ?>
             <h3>Sales Detail for {{$partyName->name}}</h3>
+            <?php
+                $saledetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->first();
+                $branchname= \App\Branch::find($saledetails->branch_id);
+            ?>
+            <h3>Branch Name : <?php echo $branchname->name; ?></h3>
         </div>
         <div class="modal-body">
             <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">
                 <thead style="background-color: #68bbec">
                 <tr>
-                    <th>Branch Name</th>
                     <th>Stock Name</th>
                     <th>Product Type</th>
                     <th>Product Name</th>
@@ -40,12 +44,14 @@ function closeModal() {
                     $branch = new \App\Branch();
                     $stockName = \App\StockInfo::find($saleDetail->stock_info_id);
                     $branchName = \App\Branch::find($saleDetail->branch_id);
+
+                    $categoryName = \App\Category::find($saleDetail->product->category_id);
+                    $subCategoryName = \App\SubCategory::find($saleDetail->product->sub_category_id);
                     ?>
                     <tr class="odd gradeX">
-                        <td>{{$branchName->name}}</td>
                         <td>{{$stockName->name}}</td>
                         <td>{{$saleDetail->product_type}}</td>
-                        <td>{{$saleDetail->product->name}}</td>
+                        <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
                         <td>{{$saleDetail->quantity * $saleDetail->price }}</td>
@@ -75,10 +81,10 @@ function closeModal() {
                    <td></td>
                    <td></td>
                    <td></td>
+                   <td>{{ $total }}</td>
                    <td></td>
                    <td></td>
-                   <td></td>
-                   <td> {{ $total }}</td>
+
                 </tr>
 
                 </tbody>
@@ -88,8 +94,7 @@ function closeModal() {
             <table class="table table-striped table-bordered table-hover"  id="saleTransactiontable">
                 <thead style="background-color:darkslateblue">
                 <tr>
-                    <th class="table-checkbox"><input type="checkbox" class="group-checkable"
-                                                      data-set="#user_table .checkboxes"/></th>
+
                     <th>Account Category</th>
                     <th>Account Name</th>
                     <th>Payment Method</th>
@@ -103,7 +108,7 @@ function closeModal() {
                 <?php $totalTransaction = 0; ?>
                 @foreach($saleTransactions as $saleTransaction )
                     <tr class="odd gradeX">
-                        <td><input type="checkbox" class="checkboxes" value="1"/></td>
+
                         <td>{{$saleTransaction->accountCategory->name}}</td>
                         <td>{{$saleTransaction->accountName->name}}</td>
                         <td>{{$saleTransaction->payment_method}}</td>
@@ -133,14 +138,14 @@ function closeModal() {
                     </tr>
                 @endforeach
                 <tr style="background-color:#b2b2b2">
-                    <td></td>
+
                     <td>Total Amount</td>
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>{{ $totalTransaction }}</td>
                     <td></td>
                     <td></td>
-                    <td> {{ $totalTransaction }}</td>
                 </tr>
                 </tbody>
             </table>

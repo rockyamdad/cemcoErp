@@ -17,7 +17,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('productsubcategories/create')}}">Add SubCategory Category</a></li>
+            <li><a href="{{URL::to('productsubcategories/create')}}">Add SubCategory</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -27,7 +27,7 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>Add SubCategory Category</div>
+            <div class="caption"><i class="fa fa-reorder"></i>Add SubCategory</div>
             <div class="actions">
                 <a class="btn dark" href="{{ URL::to('productsubcategories/index') }}">Product SubCategory List</a>
             </div>
