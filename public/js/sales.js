@@ -126,7 +126,7 @@ jQuery(document).ready(function() {
             });
         }
     });
-/*    $('.deleteSaleDetail').live("click", function() {
+    $('.deleteSaleDetail').live("click", function() {
 
         var saleDetailId = $(this).attr('rel');
         var parent = $(this).closest('tr');
@@ -141,7 +141,7 @@ jQuery(document).ready(function() {
                 }
             });
         }
-    });*/
+    });
     $('#party_id').live("change", function () {
         $("#party_id").attr('readonly','readonly');
     });
