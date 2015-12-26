@@ -124,10 +124,16 @@ jQuery(document).ready(function() {
         var to_account_id = $('#to_account_name_id').val();
         var from_account_id = $('#from_account_name_id').val();
         if(to_account_id == from_account_id){
-            alert('Sorry!!You have to choose different Account for transfer' );
+            alert('Opps!! You choose same Account' );
             var url      = window.location.pathname;
             window.location.href = url;
         }
+        if(!from_account_id){
+            alert('Opps!!You have to choose from Account name' );
+            var url      = window.location.pathname;
+            window.location.href = url;
+        }
+
 
 
     });
