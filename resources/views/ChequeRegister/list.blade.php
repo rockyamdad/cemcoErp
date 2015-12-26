@@ -1,0 +1,106 @@
+@extends('baseLayout')
+@section('content')
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            Cheque Register Section
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="{{URL::to('dashboard')}}">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+
+            <li><a href="{{URL::to('list')}}">Cheque Register List</a></li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box light-grey">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-globe"></i>Cheque Register</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div style="float: left;width: 80%; margin-left: 20px">
+                @if (Session::has('message'))
+                <div class="alert alert-success">
+                    <button data-close="alert" class="close"></button>
+                    {{ Session::get('message') }}
+                </div>
+                @endif
+            </div>
+
+            <div class="portlet-body">
+
+
+                <div class="table-responsive">
+
+                <table class="table" id="user_table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Party Name</th>
+                            <th>Bannk Name</th>
+                            <th>Cheque No</th>
+                            <th>Cheque Date</th>
+                            <th>Received By</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $sl=1;
+                    ?>
+                    @foreach($register as $reg )
+                        <?php
+                        $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)
+                                    ->first();
+                        $partyname = \App\Party::find($sale->party_id);
+
+                        ?>
+                    <tr class="odd gradeX">
+                        <td><?php echo $sl; ?></td>
+                        <td>{{$partyname->name}}</td>
+                        <td>{{$reg->cheque_bank}}</td>
+                        <td>{{$reg->cheque_no}}</td>
+                        <td>{{$reg->cheque_date}}</td>
+                        <td>{{$reg->user->username}}</td>
+                        @if($reg->status == 1)
+                        <td class="party-status"><span class="label label-sm label-success">Completed</span></td>
+                        @else
+                        <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                        @endif
+                    </tr>
+                    <?php
+                    $sl++;
+                    ?>
+                    @endforeach
+
+
+                    </tbody>
+                </table>
+                    </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+@stop
+@section('javascript')
+
+
+
+@stop

@@ -123,6 +123,9 @@ Route::post('/savereceiveall','SaleController@postSaveReceiveAll');
 Route::get('/categories/{id}','SaleController@getCategories');
 Route::get('/deleteTransaction/{id}','SaleController@getDeleteTransaction');
 
+//ChequeRegister Controller
+Route::controller('chequeregister','ChequeRegisterController');
+
 //StockInfo Controller
 Route::controller('stockInfos','StockInfoController');
 Route::post('saveStockInfo','StockInfoController@postSaveStockInfo');
