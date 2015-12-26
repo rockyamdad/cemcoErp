@@ -54,7 +54,7 @@
 
                 </div>
 
-                {!!Form::open(array('action'=>'ProductController@getIndex','method' => 'get', 'class'=>'form-horizontal'
+                {!!Form::open(array('action'=>'ProductController@postSearch','method' => 'post', 'class'=>'form-horizontal'
                 ))!!}
                 <div class="form-group">
 

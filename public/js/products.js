@@ -86,7 +86,6 @@ jQuery(document).ready(function() {
     });
 
     $('#category_id').live("change", function () {
-
         var category_id = $('#category_id').val();
         $('#product_id').empty();
         var newOption = $('<option value="">Choose Product</option>');

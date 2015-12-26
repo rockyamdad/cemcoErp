@@ -30,6 +30,21 @@ class ProductController extends Controller{
             ->with('categoryAll',$categoryAll)
             ->with('productsName',$productsName);
     }
+    public function postSearch()
+    {
+        $products = Product::orderBy('id','DESC')
+            ->paginate(25);
+        $categories = new Category();
+        $categoryAll = $categories->getCategoriesDropDown();
+        $category_id = Input::get('category_id');
+        $product_id = Input::get('product_id');
+        $productsName = Product::where('category_id','=',$category_id)
+            ->where('id','=',$product_id)
+            ->get();
+        return view('Products.list', compact('products'))
+            ->with('categoryAll',$categoryAll)
+            ->with('productsName',$productsName);
+    }
     public function getCreate()
     {
         $branches = new Branch();
