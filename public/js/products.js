@@ -117,12 +117,15 @@ jQuery(document).ready(function() {
     $('#products_edit_category_id').live("change", function () {
         var category_id = $('#products_edit_category_id').val();
         var branch_id = $('#products_edit_branch_id').val();
+        $('#products_edit_sub_category_id').empty();
+        var newOption = $('<option value="">Select Sub Category</option>');
+        $('#products_edit_sub_category_id').append(newOption);
         $.ajax({
             type: "get",
             url: "../sub/"+category_id,
             data: {'branch_id':branch_id},
             success: function (html) {
-                $('#products_edit_sub_category_id').html(html);
+                $('#products_edit_sub_category_id').append(html);
 
             }
         });
@@ -135,7 +138,7 @@ jQuery(document).ready(function() {
         url: "../category/"+branch_id,
         data:{'data':category_id},
         success: function (html) {
-            $('#products_edit_category_id').html(html);
+            $('#products_edit_category_id').append(html);
 
         }
     });
@@ -148,7 +151,7 @@ jQuery(document).ready(function() {
         url: "../sub/"+category_id,
         data: {'branch_id':branch_id,'data':sub_category_id},
         success: function (html) {
-            $('#products_edit_sub_category_id').html(html);
+            $('#products_edit_sub_category_id').append(html);
 
         }
     });

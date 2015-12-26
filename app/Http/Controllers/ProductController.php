@@ -75,6 +75,7 @@ class ProductController extends Controller{
                 echo "<option value = $categoryName->id > $categoryName->name</option> ";
             }
 
+
         }
     }
     public function getSub($category_id)
