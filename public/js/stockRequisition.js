@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
                     }else{
                         html.push('<td>' + requisition.remarks + '</td>');
                     }
-                    html.push('<td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisition" rel=' + requisition.id + ' ></td>');
+                    html.push('<td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisition deleteRequisitionEdit" rel=' + requisition.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#requisitionTable  > tbody:first').append(html);
@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
         if(answer) {
             $.ajax({
                 type: "Get",
-                url: "/delete/"+requisitionId,
+                url: "requisitions/delete/"+requisitionId,
                 dateType: 'json',
                 success: function (data) {
                     parent.remove();
@@ -57,6 +57,21 @@ jQuery(document).ready(function() {
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#requisition_quantity').val());
+        alert(branch);
+
+        if (party === '' || (product === '') || (quantity === '') || (branch ==='')) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    function requisitionEditFormValidation() {
+
+        var branch = $.trim($('#edit_branch_id').val());
+        var party = $.trim($('#party_id').val());
+        var product = $.trim($('#product_id').val());
+        var quantity = $.trim($('#requisition_quantity').val());
+        alert(branch);
 
         if (party === '' || (product === '') || (quantity === '') || (branch ==='')) {
             return false;
@@ -114,5 +129,81 @@ jQuery(document).ready(function() {
         $('#requisitionId').val(id);
 
     });
+    $('#branch_id').live("change", function () {
+        var branch_id = $('#branch_id').val();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "products/"+branch_id,
+            success: function (html) {
+                $('#product_id').append(html);
 
-})
+            }
+        });
+    });
+
+    $('.deleteRequisitionEdit').live("click", function() {
+        var requisitionId = $(this).attr('rel');
+        var parent = $(this).closest('tr');
+        var answer     = confirm("Are you sure you want to delete this Requisition?");
+        if(answer) {
+            $.ajax({
+                type: "Get",
+                url: "../delete/"+requisitionId,
+                dateType: 'json',
+                success: function (data) {
+                    parent.remove();
+                }
+            });
+        }
+    });
+    $('#edit_branch_id').live("change", function () {
+        var branch_id = $('#edit_branch_id').val();
+        $('#product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "../products/"+branch_id,
+            success: function (html) {
+                $('#product_id').append(html);
+
+            }
+        });
+    });
+    $("#saveRequisitionEdit").live("click", function () {
+        if(requisitionEditFormValidation()){
+            $('#requisition_id').val(Math.floor(Math.random()*9999999999));
+            $.ajax({
+                type: "POST",
+                url: "/saveRequisition",
+                data :  $('#stock_requisition_form').serialize(),
+                dataType:'json',
+                success:function(requisition)
+                {
+                    $("#stock_requisition_form")[0].reset();
+
+                    var html = [];
+                    html.push('<td>' + requisition.branch + '</td>');
+                    html.push('<td>' + requisition.party + '</td>');
+                    html.push('<td>' + requisition.product + '</td>');
+                    html.push('<td>' + requisition.quantity + '</td>');
+                    if( requisition.remarks == ''){
+                        html.push('<td>' + "Not Available" + '</td>');
+                    }else{
+                        html.push('<td>' + requisition.remarks + '</td>');
+                    }
+                    html.push('<td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red  deleteRequisitionEdit" rel=' + requisition.id + ' ></td>');
+
+                    html = '<tr>' + html.join('') + '<tr>';
+                    $('#requisitionTable  > tbody:first').append(html);
+                }
+            });
+        } else {
+            alert('You forgot to fill something out');
+        }
+    });
+
+});

@@ -5,6 +5,7 @@ use App\Party;
 use App\Product;
 use App\Stock;
 use App\StockRequisition;
+use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -135,6 +136,25 @@ class StockRequisitionController extends Controller{
         $stock->delete();
         Session::flash('message', 'Stock Requisition has been Successfully Deleted.');
         return Redirect::to('requisitions/index');
+    }
+
+    public function getProducts($branch_id)
+    {
+
+        $poductsNames = Product::where('branch_id','=',$branch_id)
+            ->get();
+
+        foreach ($poductsNames as $product) {
+            $category = $product->category->name;
+            if($product->sub_category_id){
+                $subCategory = SubCategory::find($product->sub_category_id);
+                $subCategoryName = '('.$subCategory->name.')';
+            }else{
+                $subCategoryName = '';
+            }
+            echo "<option value = $product->id > $product->name ($category) $subCategoryName</option> ";
+
+        }
     }
 
 }

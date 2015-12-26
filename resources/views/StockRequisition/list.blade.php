@@ -97,8 +97,8 @@
                         </td>-->
                         <td>
                             @if( Session::get('user_role') == "admin")
-                            <a class="btn blue btn-sm" href="{{ URL::to('requisitions/edit/'. $requisition->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit Product</a>
+                            {{--<a class="btn blue btn-sm" href="{{ URL::to('requisitions/edit/'. $requisition->id ) }}"><i
+                                    class="fa fa-edit"></i>Edit Product</a>--}}
                             <a class="btn red btn-sm" href="{{ URL::to('requisitions/del/'.$requisition->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>

@@ -84,7 +84,7 @@
                                             <td>{{$stockRequisition->product->name}}</td>
                                             <td>{{$stockRequisition->requisition_quantity}}</td>
                                             <td>{{$stockRequisition->remarks}}</td>
-                                            <td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisition" rel="{{ $stockRequisition->id }}" ></td>
+                                            <td><input type="button"  id="deleteRequisition" style="width:70px;" value="delete" class="btn red deleteRequisitionEdit" rel="{{ $stockRequisition->id }}" ></td>
 
                                         </tr>
                                 @endif
@@ -93,7 +93,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control branch_id','id'=>'edit_branch_id') )!!}
                                             </div>
                                         </div>
 
@@ -129,7 +129,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisition'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue','id' => 'saveRequisitionEdit'))!!}
                                     </td>
                                 </tr>
                             </table>

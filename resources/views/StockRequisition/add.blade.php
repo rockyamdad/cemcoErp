@@ -78,7 +78,7 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11">
-                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                                {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control branch_id','id'=>'branch_id') )!!}
                                             </div>
                                         </div>
 
