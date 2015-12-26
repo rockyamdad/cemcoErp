@@ -67,7 +67,7 @@
                         <td><?php echo $sl; ?></td>
                         <td>{{$category->name}}</td>
                         <td>
-                            <a class="btn blue btn-sm editAccount" rel="{{ $category->id }}" data-toggle="modal" href="#editAccountCategory" >
+                            <a class="btn blue btn-sm editAccount" rel="{{ $category->id }}" data-ref="{{$category->name}}" data-toggle="modal" href="#editAccountCategory" >
                                 <i class="fa fa-edit"></i> Edit AccountCategory</a>
                             <a class="btn red btn-sm" href="{{ URL::to('accountcategory/delete/'.$category->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
@@ -154,7 +154,7 @@
             </div>
             <div class="modal-body">
 
-                {!!Form::open(array('url' => '/updateAccountCategory', 'method' => 'post', 'class'=>'form-horizontal account_category_form',
+                {!!Form::open(array('url' => '/updateAccountCategory', 'method' => 'post', 'class'=>'form-horizontal account_category_form_edit',
               ))!!}
                 <div class="form-body">
 
@@ -175,7 +175,7 @@
                                 'control-label col-md-4')))!!}
                                 <div class="col-md-7">
                                     {!!Form::text('name',null,array('placeholder' => 'Name', 'class' =>
-                                    'form-control','id'=>'name'))!!}
+                                    'form-control ','id'=>'nameEdit'))!!}
                                 </div>
                             </div>
 
