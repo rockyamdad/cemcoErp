@@ -11,9 +11,9 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(purchase)
                 {
-                    $("#stock_info_id").val('');
-                    $("#product_type").val('');
-                    $("#product_id").val('');
+                    $("#stock_info_id").select2('val', '');
+                    $("#product_type").select2('val', '');
+                    $("#product_id").select2('val', '');
                     $("#price").val('');
                     $("#quantity").val('');
                     $("#remarks").val('');
@@ -49,9 +49,9 @@ jQuery(document).ready(function() {
                 dataType:'json',
                 success:function(purchase)
                 {
-                    $("#stock_info_id").val('');
-                    $("#edit_product_type").val('');
-                    $("#product_id").val('');
+                    $("#stock_info_id").select2('val', '');
+                    $("#edit_product_type").select2('val', '');
+                    $("#product_id").select2('val', '');
                     $("#price").val('');
                     $("#quantity").val('');
                     $("#remarks").val('');
