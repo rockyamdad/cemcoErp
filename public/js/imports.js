@@ -348,4 +348,5 @@ jQuery(document).ready(function() {
     $('#importAddTab a[href="' + hash + '"]').tab('show');
     $('select').select2();
     $('.date-picker').datepicker();
+
 });

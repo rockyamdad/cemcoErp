@@ -454,7 +454,7 @@ class ImportController extends Controller{
         $bankCost->lc_no = Input::get('lc_no');
         $bankCost->bank_name = Input::get('bank_name');
         $date = strtotime(Input::get('lc_date'));
-        $bankCost->lc_date = date('Y-m-d',$date);
+        $bankCost->lc_date = date('m-d-Y',$date);
         $bankCost->lc_commission_charge = Input::get('lc_commission_charge');
         $bankCost->vat_commission = Input::get('vat_commission');
         $bankCost->stamp_charge = Input::get('stamp_charge');

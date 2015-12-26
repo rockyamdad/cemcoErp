@@ -112,10 +112,18 @@ text-decoration: underline;
 
                             $totalLandingCost = $totalLandingCost + ($landingCost * $importt->quantity);
                             $categoryName = \App\Category::find($importt->category_id);
-                            $subCategoryName = \App\SubCategory::find($importt->sub_category_id);
+                            $products = \App\Product::find($importt->product_id);
+
+                            if($products->sub_category_id){
+                                $subCategory = \App\SubCategory::find($products->sub_category_id);
+                                $subCategoryName = '('.$subCategory->name.')';
+                            }
+                            else{
+                                $subCategoryName = '';
+                            }
                             ?>
                             <td>{{ $i }}</td>
-                            <td>{{ $importt->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')' }}</td>
+                            <td>{{ $importt->name.'('.$categoryName->name.')'.$subCategoryName }}</td>
                             <td style="text-align: right;">{{ $importt->total_booking_price }}</td>
                             <td style="text-align: right;">{{ $importt->total_booking_price * $importt->dollar_to_bd_rate }}</td>
                             <td style="text-align: right;">{{ $importt->total_cfr_price }}</td>
