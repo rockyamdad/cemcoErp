@@ -119,13 +119,17 @@ jQuery(document).ready(function() {
 
     });
 
-
-
-
     $('select').select2();
+    $('#to_account_name_id').live("change", function () {
+        var to_account_id = $('#to_account_name_id').val();
+        var from_account_id = $('#from_account_name_id').val();
+        if(to_account_id == from_account_id){
+            alert('Sorry!!You have to choose different Account for transfer' );
+            var url      = window.location.pathname;
+            window.location.href = url;
+        }
 
 
-
-
+    });
 
 });
