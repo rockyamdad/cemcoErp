@@ -52,7 +52,7 @@ Route::post('saveImportBankCost','ImportController@postSaveBankCost');
 Route::post('saveImportCnfCost','ImportController@postSaveCnfCost');
 Route::post('saveProformaInvoice','ImportController@postProformaInvoice');
 Route::post('saveOtherCost','ImportController@postOtherCost');
-Route::get('changeStatusImport/{status}/{id}','ImportController@getChangeStatus');
+Route::get('change-status/{status}/{id}','ImportController@getChangeStatus');
 
 //Stock Controller
 Route::controller('stocks','StockController');

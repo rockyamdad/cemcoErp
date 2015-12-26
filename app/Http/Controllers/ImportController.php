@@ -51,6 +51,7 @@ class ImportController extends Controller{
     {
         $ruless = array(
             'branch_id' => 'required',
+            'consignment_name' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -355,6 +356,7 @@ class ImportController extends Controller{
     {
         $ruless = array(
             'branch_id' => 'required',
+            'consignment_name' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
