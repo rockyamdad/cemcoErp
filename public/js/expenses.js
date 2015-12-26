@@ -52,9 +52,7 @@ jQuery(document).ready(function() {
     });
     $('select').select2();
 
-    $('#category').live("change", function () {
-        $('#invoice_id').val(Math.floor(Math.random()*9999999999));
-    });
+
     $('.deleteExpenseTransaction').live("click", function() {
         var transactionId = $(this).attr('rel');
         var account_id = $(this).attr('data-ref');
@@ -94,4 +92,6 @@ jQuery(document).ready(function() {
             }
         });
     });
+
+
 });

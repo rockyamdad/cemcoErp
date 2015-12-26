@@ -106,7 +106,7 @@ Route::get('/deleteTransaction/{id}','PurchaseInvoiceController@getDeleteTransac
 Route::controller('expenses','ExpenseController');
 Route::post('saveExpense','ExpenseController@postSaveExpense');
 Route::post('updateExpense/{id}','ExpenseController@postUpdateExpense');
-Route::get('/make','ExpenseController@getMake');
+Route::get('/make/{id}','ExpenseController@getMake');
 Route::post('/saveMake','ExpenseController@postSaveMake');
 Route::get('/deleteTransaction/{id}','ExpenseController@getDeleteTransaction');
 

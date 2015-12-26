@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-5">
-                                {!!Form::hidden('invoice_id',null,array('class' => 'form-control ','id'=>'invoice_id'))!!}
+                                {!!Form::hidden('invoice_id',$invoice_id,array('class' => 'form-control ','id'=>'invoice_id'))!!}
                             </div>
                         </div>
                         <div class="form-actions fluid">

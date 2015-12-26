@@ -84,7 +84,7 @@
                         <th>Remarks</th>
                         <th>Status</th>
                         <th>Created</th>
-                        <th>Action</th>
+                        <th width="300px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -138,7 +138,7 @@
                                 <a class="btn dark btn-sm" rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#Expense" href="{{ URL::to('expenses/details/'. $expense->invoice_id ) }}" >
                                     <i class="fa fa-eye"></i> Detail</a>
                                    @if($expense->status != 'Completed')
-                                       <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make') }}" >
+                                       <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make/'.$expense->invoice_id) }}" >
                                            <i class="fa fa-usd"></i> Payment</a>
                                     @endif
                                    @if($transaction == NULL)
@@ -204,7 +204,7 @@
                                         <a class="btn dark btn-sm" rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#Expense" href="{{ URL::to('expenses/details/'. $expense->invoice_id ) }}" >
                                             <i class="fa fa-eye"></i> Detail</a>
                                         @if($expense->status != 'Completed')
-                                            <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make') }}" >
+                                            <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make/'.$expense->invoice_id) }}" >
                                                 <i class="fa fa-usd"></i> Payment</a>
                                         @endif
                                         @if($transaction == NULL)

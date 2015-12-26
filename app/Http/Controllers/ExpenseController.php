@@ -39,12 +39,7 @@ class ExpenseController extends Controller{
     {
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
-
-        // Invoice Id Generation Starts
         $invoiceid =$this->generateInvoiceId();
-        //var_dump($invoiceid);
-        // Invoice Id Generation Starts
-
         return view('Expenses.add')
             ->with('branchAll',$branchAll)
             ->with('invoiceid',$invoiceid);
@@ -207,13 +202,14 @@ class ExpenseController extends Controller{
             ->with('expense',$expense[0]['amount']);
 
     }
-    public function getMake()
+    public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
         return view('Expenses.paymentAdd',compact('accountCategoriesAll'))
+            ->with('invoice_id',$invoice_id)
             ->with('branchAll',$branchAll);
     }
     public function postSaveMake()
