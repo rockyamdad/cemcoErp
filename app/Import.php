@@ -35,7 +35,7 @@ class Import extends Eloquent
         $imports = $this->getImports();
 
         $array = array();
-
+        $array['N/A'] = 'N/A';
         foreach($imports as $import){
             $array[$import->id] = $import->consignment_name;
         }
