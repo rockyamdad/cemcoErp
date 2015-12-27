@@ -79,7 +79,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ URL::to('logout') }}"><i class="fa fa-key"></i> Logas Out</a>
+                    <li><a href="{{ URL::to('profile') }}"><i class="fa fa-key"></i>Profile</a>
+                    <li><a href="{{ URL::to('logout') }}"><i class="fa fa-key"></i> Log Out</a>
                     </li>
                 </ul>
             </li>
