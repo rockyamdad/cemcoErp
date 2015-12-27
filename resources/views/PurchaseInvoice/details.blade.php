@@ -1,3 +1,12 @@
+<script>
+    function closeModal() {
+        /*$('#sale').modal('hide');
+         $('body').removeClass('modal-open');
+         $('.modal-backdrop').hide();*/
+        $("#purchaseInvoice").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $('.modal-backdrop').hide();
+    }
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -140,7 +149,7 @@
             @endif
 
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
                 <button type="button" class="btn blue">Save changes</button>
             </div>
 

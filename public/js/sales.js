@@ -17,6 +17,7 @@ jQuery(document).ready(function() {
                     $("#price").val('');
                     $("#quantity").val('');
                     $("#remarks").val('');
+                    $(".msg").hide();
 
                     var html = [];
                     html.push('<td>' + sale.stock_info_id + '</td>');
@@ -55,6 +56,7 @@ jQuery(document).ready(function() {
                     $("#price").val('');
                     $("#quantity").val('');
                     $("#remarks").val('');
+                    $(".msg").hide();
 
                     var html = [];
                     html.push('<td>' + sale.stock_info_id + '</td>');

@@ -1,3 +1,12 @@
+<script>
+    function closeModal() {
+        /*$('#sale').modal('hide');
+         $('body').removeClass('modal-open');
+         $('.modal-backdrop').hide();*/
+        $("#purchasePayment").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $('.modal-backdrop').hide();
+    }
+</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -81,7 +90,7 @@
                         <div class="form-actions fluid">
                             <div class="col-md-offset-3 col-md-9">
                                 {!!Form::button('Save',array('type' => 'submit','class' => 'btn blue','id' => 'savePayment'))!!}
-                                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
                             </div>
                         </div>
                     </div>

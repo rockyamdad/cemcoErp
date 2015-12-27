@@ -416,10 +416,10 @@ class PurchaseInvoiceController extends Controller{
             ->where('stock_info_id','=',Input::get('data'))
             ->first();
         if($stockCount){
-            echo "<p3 style='color: blue;font-size: 100%; margin-left: 32px;'>Your product Balance This Stock is $stockCount->product_quantity</p3>";
+            echo "<p3 class='msg' style='color: blue;font-size: 100%; margin-left: 32px;'>Your product Balance This Stock is $stockCount->product_quantity</p3>";
 
         }else{
-            echo "<p3 style='color: blue;font-size: 100%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
+            echo "<p3 class='msg' style='color: blue;font-size: 100%; margin-left: 32px; '>You Dont have this Product In this Stock</p3>";
 
         }
 
