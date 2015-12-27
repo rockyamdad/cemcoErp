@@ -35,7 +35,11 @@ class PurchaseInvoice extends Eloquent
         $array = array();
 
         foreach($purchaseInvoices as $invoice){
-            $array[$invoice->invoice_id] = $invoice->invoice_id;
+            $purchaseDetail = PurchaseInvoiceDetail::where('detail_invoice_id','=',$invoice->invoice_id)->first();
+            if($purchaseDetail){
+                $array[$invoice->invoice_id] = $invoice->invoice_id;
+            }
+
         }
 
         return $array;

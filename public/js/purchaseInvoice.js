@@ -118,7 +118,7 @@ jQuery(document).ready(function() {
         if(answer) {
             $.ajax({
                 type: "Get",
-                url: "/delete/"+purchaseId,
+                url: "/deletePurchase/"+purchaseId,
                 dateType: 'json',
                 success: function (data) {
                     parent.remove();

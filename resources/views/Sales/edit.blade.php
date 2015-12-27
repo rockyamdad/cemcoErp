@@ -84,6 +84,7 @@
                                     </tr>
 
                                     </thead>
+                                    @if(COUNT($saleDetails) > 0)
 
                                     @foreach($saleDetails as $saleDetail)
                                         <?php
@@ -111,6 +112,7 @@
                                         </tr>
 
                                     @endforeach
+                                    @endif
                                     <tbody>
 
                                     </tbody>

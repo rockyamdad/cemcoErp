@@ -97,6 +97,9 @@ class SaleController extends Controller{
         $sale[0] = Sale::where('invoice_id','=',$id)->get();
         $var = $sale[0];
         $saleDetails = SAleDetail::where('invoice_id','=',$id)->get();
+        if(count($saleDetails) < 1){
+            return Redirect::to('sales/index');
+        }
 
 
         return view('Sales.edit',compact('buyersAll'))
@@ -304,8 +307,8 @@ class SaleController extends Controller{
     {
         $saleDetail = SAleDetail::find($id);
         $saleDetail->delete();
-        Session::flash('message', 'Sale Detail   Successfully Deleted');
-        return Redirect::to('sales/index');
+        $message = array('Sale Detail   Successfully Deleted');
+        return new JsonResponse($message);
     }
     public function getSale($invoice_id)
     {

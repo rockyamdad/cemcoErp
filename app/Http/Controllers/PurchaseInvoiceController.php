@@ -317,6 +317,9 @@ class PurchaseInvoiceController extends Controller{
         $purchase[0] = PurchaseInvoice::where('invoice_id','=',$id)->get();
         $var = $purchase[0];
         $purchaseDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->get();
+        if(count($purchaseDetails) < 1){
+            return Redirect::to('purchases/index');
+        }
         return view('PurchaseInvoice.edit',compact('suppliersAll'))
             ->with('localProducts',$localProducts)
             ->with('purchaseDetails',$purchaseDetails)
@@ -353,13 +356,17 @@ class PurchaseInvoiceController extends Controller{
     }
     public function getDel($id)
     {
-        $del = PurchaseInvoice::where('invoice_id','=',$id)->get();
-        try {
-            $del[0]->deletee();
-            Session::flash('message', 'Purchase Invoice has been Successfully Deleted.');
-        } catch (Exception $e) {
-            Session::flash('message', 'This Purchase Invoice can\'t delete because it  is used to file');
-        }
+       /* Sale::where('invoice_id','=',$id)->delete();
+        SAleDetail::where('invoice_id','=',$id)->delete();
+
+        Session::flash('message', 'Sale has been Successfully Deleted.');
+        return Redirect::to('sales/index');*/
+
+        PurchaseInvoice::where('invoice_id','=',$id)->delete();
+        PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->delete();
+
+        Session::flash('message', 'Purchase Invoice has been Successfully Deleted.');
+
         return Redirect::to('purchases/index');
     }
     public function getCategories($category_id)
