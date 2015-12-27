@@ -86,6 +86,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!!HTML::decode(Form::label('password_confirmation','Password confirmation<span class="required">*</span>',array('class' =>
+                    'control-label col-md-3')))!!}
+                    <div class="col-md-4">
+                        {!!Form::password('password_confirmation',array('placeholder' => 'Password confirmation', 'class' => 'form-control','id'
+                        => 'password'))!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!! HTML::decode(Form::label('phone','Phone',array('class' => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('phone',null,array('placeholder' => 'Phone', 'class' => 'form-control','id' =>

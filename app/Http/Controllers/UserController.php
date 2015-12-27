@@ -66,7 +66,8 @@ class UserController extends Controller{
             'username' => 'required|Unique:users',
             'role' => 'required',
             'email' =>  'required|email|unique:users|Unique:users',
-            'password' => 'required||min:6',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
             'sex' => 'required',
             'branch_id' => 'required'
         );
