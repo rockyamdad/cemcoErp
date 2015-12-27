@@ -43,7 +43,6 @@ class UserController extends Controller{
             ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();
-        //$chequeInfo = $reports->getChequeInfo();
         return view('Users.dashboard')
             ->with('totalProducts',$totalProducts)
             ->with('totalSales',$totalSales)
@@ -54,7 +53,6 @@ class UserController extends Controller{
             ->with('totalPurchase',$totalPurchase)
             ->with('totalImports',$totalImports)
             ->with('register',$register);
-            //->with('chequeInfo',$chequeInfo);
     }
     public function getuserAdd()
     {
@@ -119,7 +117,7 @@ class UserController extends Controller{
         }
         else{
             $user = User::find($id);
-            $this->setUserData($user);
+            $this->updateUserData($user);
             $user->save();
             Session::flash('message', 'User has been Successfully Updated.');
             return Redirect::to('list/');
@@ -149,6 +147,19 @@ class UserController extends Controller{
         $user->role = Input::get('role');
         $user->sex = Input::get('sex');
         //$user->created_by = Session::get('user_id');
+        $user->branch_id = Input::get('branch_id');
+        $user->status = "Activate";
+    }
+    private function updateUserData($user)
+    {
+        $user->name  = Input::get('name');
+        $user->username = Input::get('username');
+        $user->email = Input::get('email');
+       // $user->password = Hash::make(Input::get('password'));
+        $user->phone = Input::get('phone');
+        $user->address = Input::get('address');
+        $user->role = Input::get('role');
+        $user->sex = Input::get('sex');
         $user->branch_id = Input::get('branch_id');
         $user->status = "Activate";
     }
