@@ -58,6 +58,7 @@
                             <div class="col-md-7 balance_show">
                             </div>
                         </div>
+                        <input name="branch_id" type="hidden" id="branch" value="{{$purchaseDetailsBranch}}"/>
                         <div class="form-group hidden  cheque_no_section">
                             {!!HTML::decode(Form::label('cheque_no','Cheque No',array('class' =>
                             'control-label col-md-4')))!!}

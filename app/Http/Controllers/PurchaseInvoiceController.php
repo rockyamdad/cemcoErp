@@ -225,9 +225,11 @@ class PurchaseInvoiceController extends Controller{
         $transactions = new Transaction();
         $purchaseDetailsAmount = $purchaseDetails->getTotalAmount($invoice_id);
         $transactionsPaid = $transactions->getTotalPaidPurchase($invoice_id);
+        $purchaseDetailsBranch = PurchaseInvoiceDetail::where('detail_invoice_id','=',$invoice_id)->first();
         return view('PurchaseInvoice.paymentAdd',compact('accountCategoriesAll'))
             ->with('purchaseDetailsAmount',$purchaseDetailsAmount)
             ->with('invoice_id',$invoice_id)
+            ->with('purchaseDetailsBranch',$purchaseDetailsBranch->branch_id)
             ->with('transactionsPaid',$transactionsPaid);
     }
     public function postSaveMake()
@@ -369,14 +371,14 @@ class PurchaseInvoiceController extends Controller{
 
         return Redirect::to('purchases/index');
     }
-    public function getCategories($category_id)
+    /*public function getCategories($category_id)
     {
         $categoriesName = NameOfAccount::where('account_category_id','=',$category_id)
             ->get();
         foreach ($categoriesName as $categoryName) {
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
-    }
+    }*/
     public function getProducts($branch_id)
     {
 
@@ -429,7 +431,15 @@ class PurchaseInvoiceController extends Controller{
         $accountBalance = NameOfAccount::find($account_id);
         echo "<p3 style='color: blue;font-size: 130%'>Your Current Balance $accountBalance->opening_balance</p3>";
     }
-
+    public function getCategories($category_id)
+    {
+        $categoriesName = NameOfAccount::where('account_category_id','=',$category_id)
+            ->where('branch_id','=',Input::get('data'))
+            ->get();
+        foreach ($categoriesName as $categoryName) {
+            echo "<option value = $categoryName->id > $categoryName->name</option> ";
+        }
+    }
 
 
 }
