@@ -155,7 +155,7 @@
     <div class="col-md-6 col-sm-6">
         <div class="portlet box green tasks-widget">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-money"></i>Latest Tracsections</div>
+                <div class="caption"><i class="fa fa-money"></i>Latest Transactions</div>
                 <div class="tools">
                     <a href="index.html#portlet-config" data-toggle="modal" class="config"></a>
                     <a href="index.html" class="reload"></a>
