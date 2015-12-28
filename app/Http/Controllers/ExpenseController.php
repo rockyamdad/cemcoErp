@@ -291,10 +291,17 @@ class ExpenseController extends Controller{
         $transaction = Transaction::find($id);
         $account_id = Input::get('data');
         $accounts = NameOfAccount::find($account_id);
-        $accounts->opening_balance = $accounts->opening_balance - $transaction->amount;
+        $accounts->opening_balance = $accounts->opening_balance + $transaction->amount;
+        $expense = Expense::where('invoice_id','=',$transaction->invoice_id)->first();
         $accounts->save();
         $transaction->delete();
-
+        $checkTransaction = Transaction::where('invoice_id','=',$transaction->invoice_id)->first();
+        if($checkTransaction){
+            $expense->status = "Partial";
+        }else{
+            $expense->status = "Activate";
+        }
+        $expense->save();
         $message = array('Transaction Successfully Deleted');
         return new JsonResponse($message);
     }

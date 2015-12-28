@@ -51,7 +51,7 @@
                         </td>
                         <td>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteExpenseTransaction" style="width:127px;" data-ref="{{$expenseTransaction->account_name_id}}" value="delete"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deleteExpenseTransaction" rel={{$expenseTransaction->id}}  />
+                                <input type="button"  id="deleteExpenseTransaction" style="width:127px;" data-ref="{{$expenseTransaction->account_name_id}}" value="delete"   class="btn red deleteExpenseTransaction" rel={{$expenseTransaction->id}}  />
                             @endif
 
                         </td>

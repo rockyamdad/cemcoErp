@@ -61,11 +61,13 @@ jQuery(document).ready(function() {
         if(answer) {
             $.ajax({
                 type: "Get",
-                url: "/deleteTransaction/"+transactionId,
+                url: "/deleteExpenseTransaction/"+transactionId,
                 dateType: 'json',
                 data:{'data':account_id},
                 success: function (data) {
                     parent.remove();
+                    var url = window.location.pathname;
+                    window.location.href = url;
                 }
             });
         }
