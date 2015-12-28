@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-             Stock Report
+                <span style="color: #4cae4c">{{$results ? $results[0]->category : ' ' }}</span> Category Stock Report
             </h3>
 
         </div>
