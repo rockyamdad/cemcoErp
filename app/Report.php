@@ -117,6 +117,8 @@ class Report extends Eloquent
     public function getSalesReport($date1,$date2,$branch_id)
     {
         return DB::table('sale_details')
+            ->join('sales', 'sale_details.invoice_id', '=', 'sales.invoice_id')
+            ->where('sales.is_sale', '=', 1)
             ->where('sale_details.branch_id', '=', $branch_id)
             ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
             ->groupBy('sale_details.invoice_id')

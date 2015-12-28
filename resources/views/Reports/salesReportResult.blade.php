@@ -8,10 +8,10 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-            <h3 class="page-title">
-             Sales Report
+           <center> <h3 class="page-title">
+                Sales Report of From Date to To Date
             </h3>
-
+           </center>
          </div>
     </div>
 
