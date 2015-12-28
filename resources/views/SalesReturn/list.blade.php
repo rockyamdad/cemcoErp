@@ -92,8 +92,8 @@
                         <td>{{$stock->consignment_name}}</td>
 
                         <td>
-                            <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
-                                    class="fa fa-edit"></i>Edit</a>
+                            {{--<a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
+                                    class="fa fa-edit"></i>Edit</a>--}}
                             <a class="btn red btn-sm" href="{{ URL::to('stocks/delete/'.$stock->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
