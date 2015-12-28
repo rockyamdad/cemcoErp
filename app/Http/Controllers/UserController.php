@@ -37,13 +37,15 @@ class UserController extends Controller{
         $accountsBalance = $reports->getAccountBalances();
         $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
         $stocksBranch = $reports->getStocksBranch();
-        $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();;
+        $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();
+        $latestTransactions = Transaction::orderBy('id','desc')->take(5)->get();;
         $register = Transaction::where('payment_method','=','check')
             ->where('type','=','Receive')
             ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();
         return view('Users.dashboard')
+            ->with('latestTransactions',$latestTransactions)
             ->with('totalProducts',$totalProducts)
             ->with('totalSales',$totalSales)
             ->with('stockRequisitions',$stockRequisitions)

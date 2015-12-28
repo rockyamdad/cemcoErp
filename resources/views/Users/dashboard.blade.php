@@ -88,7 +88,7 @@
 </div>
 
 <div class="row ">
-    <div class="col-md-6 col-sm-6">
+    <div class="col-md-12 col-sm-12">
         <div class="portlet box blue">
             <div class="portlet-title">
                 <div class="caption"><i class="fa fa-bell-o"></i>Pending Cheque Register</div>
@@ -152,23 +152,65 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-6">
-        <div class="portlet box green tasks-widget">
+
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="portlet box yellow tasks-widget">
             <div class="portlet-title">
                 <div class="caption"><i class="fa fa-money"></i>Latest Transactions</div>
                 <div class="tools">
-                    <a href="index.html#portlet-config" data-toggle="modal" class="config"></a>
+
                     <a href="index.html" class="reload"></a>
                 </div>
 
             </div>
             <div class="portlet-body">
-                <div class="task-footer">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                    <thead>
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Account Category</th>
+                        <th>Account Name</th>
+                        <th>Transaction Type</th>
+                        <th>Payment Method</th>
+                        <th>Cheque No</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($latestTransactions as $transaction )
+                        <tr class="odd gradeX">
+
+                            <td>{{$transaction->created_at}}</td>
+                            <td>{{$transaction->accountCategory->name}}</td>
+                            <td>{{$transaction->accountName->name}}</td>
+                            <td>{{$transaction->type}}</td>
+                            <td>{{$transaction->payment_method}}</td>
+                            <td>
+                                @if($transaction->cheque_no)
+                                    {{ $transaction->cheque_no }}
+                                @else
+                                    {{"Not Available"}}
+                                @endif
+                            </td>
+                            <td>{{$transaction->amount}}</td>
+
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
+           {{--     <div class="task-footer">
 								<span class="pull-right">
 								<a href="index.html#">See All Tasks <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
 								</span>
-                </div>
+                </div>--}}
             </div>
+                </div>
         </div>
     </div>
 </div>
