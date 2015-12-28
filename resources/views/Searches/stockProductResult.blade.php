@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h4 class="page-title">
-             Stock Product Search Result
+                <span style="color: #4cae4c">{{$results[0] ? $results[0]->pName.'('.$results[0]->category.')' : 'Stock Product ' }}</span> Search Result
             </h4>
 
         </div>
@@ -16,7 +16,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Product Search Result</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>  <span style="color: #4cae4c">{{$results[0] ? $results[0]->sName : 'Stock Product ' }} </span>   Search Result </div>
                     <div class="actions">
                         <a class="btn blue" href="/stock-products">Back</a>
                      {{--   <a class="btn dark" href="">Print</a>--}}
@@ -29,33 +29,43 @@
                         <thead style="background-color:royalblue">
                         <tr>
 
-                            <th>Product Name</th>
-                            <th>Category Name</th>
-                            <th>Quantity</th>
-                            <th>Stock Name</th>
+                            <th>Date</th>
                             <th>Remarks</th>
                             <th>Consignment Name</th>
-                            <th>Date</th>
                             <th>Created By</th>
+                            <th>Quantity</th>
 
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                            $total = 0;
+                        ?>
 
                             @foreach($results as $result )
                                 <tr class="odd gradeX">
 
-                                    <td>{{$result->pName}}</td>
-                                    <td>{{$result->category}}</td>
-                                    <td>{{$result->product_quantity}}</td>
-                                    <td>{{$result->sName}}</td>
+                                    <td>{{$result->created_at}}</td>
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
-                                    <td>{{$result->created_at}}</td>
                                     <td>{{$result->uName}}</td>
+                                    <td>{{$result->product_quantity}}</td>
 
                                 </tr>
+                                <?php
+                                $total = $total + $result->product_quantity;
+                                ?>
                             @endforeach
+                            <tr class="odd gradeX">
+
+                                <td>Total Quantity</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>{{$total}}</td>
+
+
+                            </tr>
                         </tbody>
                     </table>
                         @else
