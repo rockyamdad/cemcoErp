@@ -20,7 +20,7 @@
             $type  = $product_type;
             $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type.'/'.$branch_id.'/'.$category_id);
             ?>
-            @if($results)
+
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
@@ -40,13 +40,13 @@
 
                     <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date001}} to {{$date002}} for {{$product_type}} Products</div>
                     <div class="actions">
-                        <a class="btn blue" href="/stocks">Back</a>
+                        <a class="btn blue" href="reports/stocks">Back</a>
 
                         <a class="btn dark" onclick="javascript: window.open('{{$url}}','MsgWindow', 'width=1100,height=500').print();">Print</a>
                     </div>
 
                 </div>
-
+                @if($results)
                 <div class="portlet-body">
 
 
@@ -126,10 +126,11 @@
                     </table>
 
                 </div>
+                @else
+                    <h4  style="color:red">No Search Result</h4>
+                @endif
             </div>
-            @else
-                <h4  style="color:red">No Search Result</h4>
-            @endif
+
         </div>
 
     </div>
