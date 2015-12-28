@@ -8,9 +8,20 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-            <h3 class="page-title">
-             Stock Products Report
-            </h3>
+
+                <?php
+                use Illuminate\Support\Facades\URL;
+                $curent_url = $_SERVER['REQUEST_URI'];
+
+                if($curent_url == '/reports/stocksproductsresult')
+                { ?>
+                        <h3 class="page-title"> Stock Name Stock Report  </h3>
+            <?php }else{?>
+                    <h3 class="page-title"> All Stock Report  </h3>
+
+            <?php  }
+                ?>
+
 
          </div>
     </div>
@@ -19,7 +30,7 @@
 
         <div class="col-md-12">
             <?php
-            use Illuminate\Support\Facades\URL;
+
                     $curent_url = $_SERVER['REQUEST_URI'];
 
                     if($curent_url == '/reports/stocksproductsresult')
@@ -34,7 +45,7 @@
                 <div class="portlet-title">
                     <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of Products</div>
                     <div class="actions">
-
+                        <a class="btn blue" href="/reports/stocksproducts">Back</a>
                         <a class="btn dark" onclick="javascript: window.open('{{$url}}','MsgWindow', 'width=1100,height=500').print();">Print</a>
                     </div>
 
