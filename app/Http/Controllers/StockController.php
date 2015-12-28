@@ -306,6 +306,8 @@ class StockController extends Controller{
                     if(!empty($stockCountTo[0])) {
                         $stockCountTo[0]->product_quantity = ($stockCountTo[0]->product_quantity - $stock->product_quantity) + Input::get('product_quantity');
                         $stockCountTo[0]->save();
+                        $this->insertStockData($stock);
+                        $stock->save();
                     }else{
                         $stockCountToOld = StockCount::where('product_id','=',$stock->product_id)
                             ->where('stock_info_id','=',$stock->to_stock_info_id)

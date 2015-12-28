@@ -112,7 +112,7 @@
                                                     class="fa fa-try"></i>Landing Cost </a>
                                             @endif
                                         <li><a data-id="{{$import->id}}" class="changeStatusImport"
-                                               href="{{ URL::to('changeStatusImport/'.$import->status.'/'. $import->id ) }}"><i
+                                               href="{{ URL::to('change-status/'.$import->status.'/'. $import->id ) }}"><i
                                                     class="fa fa-link"></i>Change Status</a></li>
                                         </li>
 

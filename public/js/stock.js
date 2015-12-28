@@ -273,4 +273,21 @@ jQuery(document).ready(function() {
 
         }
     });
+
+    $('#to_stock_info_id').live("change", function () {
+        var to_stock_info_id = $('#to_stock_info_id').val();
+        var from_stock_info_id = $('#stock_info_id').val();
+        if(to_stock_info_id == from_stock_info_id){
+            alert('Opps!! You choose same stock' );
+            var url      = window.location.pathname;
+            window.location.href = url;
+        }
+        if(!from_stock_info_id){
+            alert('Opps!!You have choose from Stock' );
+            var url      = window.location.pathname;
+            window.location.href = url;
+        }
+
+
+    });
 });

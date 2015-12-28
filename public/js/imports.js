@@ -13,6 +13,9 @@ jQuery(document).ready(function() {
         rules: {
             branch_id: {
                 required: true
+            },
+            consignment_name: {
+                required: true
             }
         },
 
@@ -63,11 +66,12 @@ jQuery(document).ready(function() {
                     .addClass("label-" + labelClass[data.status]);
 
                 el
-                    .attr('href', "changeStatusImport/" + data.status + "/" + data.id)
+                    .attr('href', "change-status/" + data.status + "/" + data.id)
 
             }
         });
     });
+
 
 
 
@@ -344,4 +348,5 @@ jQuery(document).ready(function() {
     $('#importAddTab a[href="' + hash + '"]').tab('show');
     $('select').select2();
     $('.date-picker').datepicker();
+
 });

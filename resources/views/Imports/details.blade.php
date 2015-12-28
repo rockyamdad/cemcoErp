@@ -2,7 +2,7 @@
 @section('content')
 <div class="table-toolbar">
     <div class="btn-group">
-        @if((!$pi->isEmpty()) or (!$bankCost->isEmpty()) or (!$cnfCost->isEmpty()) or (!$otherCost->isEmpty()))
+        @if((!$pi->isEmpty()) and (!$bankCost->isEmpty()) or (!$cnfCost->isEmpty()) or (!$otherCost->isEmpty()))
         <a class="btn blue" href="{{ URL::to('imports/editcost',$pi[0]['import_id']) }}">Edit Import Cost&nbsp;&nbsp;<i
                 class="fa fa-pencil"></i></a>
         @endif
@@ -39,12 +39,21 @@
                         @foreach($imports as $importt )
                             <?php
                             $categoryName = \App\Category::find($importt->product->category_id);
-                            $subCategoryName = \App\SubCategory::find($importt->product->sub_category_id);
+
+                            $products = \App\Product::find($importt->product_id);
+
+                            if($products->sub_category_id){
+                                $subCategory = \App\SubCategory::find($products->sub_category_id);
+                                $subCategoryName = '('.$subCategory->name.')';
+                            }
+                            else{
+                                $subCategoryName = '';
+                            }
                             ?>
 
                         <tr class="odd gradeX">
                             <td><?php echo $sl; ?></td>
-                            <td>{{$importt->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
+                            <td>{{$importt->product->name.'('.$categoryName->name.')'.$subCategoryName}}</td>
                             <td>{{$importt->quantity}}</td>
                             <td>{{$importt->total_booking_price}}</td>
                             <td>{{$importt->total_cfr_price}}</td>
