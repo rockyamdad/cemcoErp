@@ -551,7 +551,9 @@ class SaleController extends Controller{
             $partyId=Input::get('party_id');
             if($remaining_amount>0)
             {
-                $invoiceId = Sale::where('party_id','=',$partyId)->get();
+                $invoiceId = Sale::where('party_id','=',$partyId)
+                    ->where('is_sale','=',1)
+                    ->get();
                 foreach($invoiceId as $invid)
                 {
                     $price = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
