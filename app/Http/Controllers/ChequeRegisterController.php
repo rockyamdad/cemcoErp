@@ -28,8 +28,28 @@ class ChequeRegisterController extends Controller{
     {
         $register = Transaction::where('payment_method','=','check')
             ->where('type','=','Receive')
+            ->orderBy('id', 'desc')
             ->get();
         return view('ChequeRegister.list',compact('register'));
+    }
+    public function getComplete($id)
+    {
+        $register2 = Transaction::find($id);
+        $register2->cheque_status = 1;
+        $register2->save();
+
+        $register = Transaction::where('payment_method','=','check')
+            ->where('type','=','Receive')
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('ChequeRegister.list',compact('register'));
+    }
+    public function getComplete2($id)
+    {
+        $register2 = Transaction::find($id);
+        $register2->cheque_status = 1;
+        $register2->save();
+        return  Redirect::to('dashboard');
     }
 
 }

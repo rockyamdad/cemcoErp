@@ -61,7 +61,7 @@
                 </div>
                 <div class="details">
                     <div class="number">{{$totalSales[0]->todaySale ? $totalSales[0]->todaySale : 0.00}}&nbsp;Tk</div>
-                    <div class="desc">Today's Sale</div>
+                    <div class="desc">Today's Sales Collection</div>
                 </div>
                 <a class="more" href="{{URL::to('sales/')}}">
                     View more <i class="m-icon-swapright m-icon-white"></i>
@@ -91,13 +91,62 @@
     <div class="col-md-6 col-sm-6">
         <div class="portlet box blue">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-bell-o"></i>Recent Activities</div>
+                <div class="caption"><i class="fa fa-bell-o"></i>Pending Cheque Register</div>
 
             </div>
             <div class="portlet-body">
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Party Name</th>
+                                            <th>Bank Name</th>
+                                            <th>Cheque No</th>
+                                            <th>Cheque Date</th>
+                                            <th>Amount</th>
+                                            <th>Received by</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $slNo = 1;
+                                        ?>
+                                            @foreach($register as $reg)
+                                                <?php
+                                                    $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)->first();
+                                                    $partyname = \App\Party::find($sale->party_id);
+                                                ?>
+                                                <tr>
+                                                    <td>{{$slNo}}</td>
+                                                    <td>{{$partyname->name}}</td>
+                                                    <td>{{$reg->cheque_bank}}</td>
+                                                    <td>{{$reg->cheque_no}}</td>
+                                                    <td>{{$reg->cheque_date}}</td>
+                                                    <td>{{$reg->amount}}</td>
+                                                    <td>{{$reg->user->username}}</td>
+                                                    <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                                                    <td>
+                                                        <a data-id="" class="btn btn-sm purple changeStatus"
+                                                        href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
+                                                        class="fa fa-check"></i>Complete</a>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                                    $slNo++;
+                                                ?>
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
                 <div class="scroller-footer">
                     <div class="pull-right">
-                        <a href="index.html#">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                        <a href="{{ URL::to('chequeregister/index') }}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
                     </div>
                 </div>
             </div>
@@ -106,7 +155,7 @@
     <div class="col-md-6 col-sm-6">
         <div class="portlet box green tasks-widget">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-check"></i>Tasks</div>
+                <div class="caption"><i class="fa fa-money"></i>Latest Tracsections</div>
                 <div class="tools">
                     <a href="index.html#portlet-config" data-toggle="modal" class="config"></a>
                     <a href="index.html" class="reload"></a>

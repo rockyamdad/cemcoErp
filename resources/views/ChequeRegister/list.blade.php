@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('list')}}">Cheque Register List</a></li>
+            <li><a href="{{URL::to('chequeregister/index')}}">Cheque Register List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -51,12 +51,13 @@
                         <tr>
                             <th>SL</th>
                             <th>Party Name</th>
-                            <th>Bannk Name</th>
+                            <th>Bank Name</th>
                             <th>Cheque No</th>
                             <th>Cheque Date</th>
+                            <th>Amount</th>
                             <th>Received By</th>
                             <th>Status</th>
-
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,11 +77,21 @@
                         <td>{{$reg->cheque_bank}}</td>
                         <td>{{$reg->cheque_no}}</td>
                         <td>{{$reg->cheque_date}}</td>
+                        <td>{{$reg->amount}}</td>
                         <td>{{$reg->user->username}}</td>
-                        @if($reg->status == 1)
+                        @if($reg->cheque_status == 1)
                         <td class="party-status"><span class="label label-sm label-success">Completed</span></td>
                         @else
                         <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                        @endif
+                        @if($reg->cheque_status == 1)
+                        <td></td>
+                        @else
+                        <td>
+                            <a data-id="" class="btn btn-sm purple changeStatus"
+                            href="{{ URL::to('chequeregister/complete/'. $reg->id ) }}"><i
+                            class="fa fa-check"></i>Complete</a>
+                        </td>
                         @endif
                     </tr>
                     <?php

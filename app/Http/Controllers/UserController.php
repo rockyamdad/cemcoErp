@@ -3,6 +3,7 @@
 use App\Branch;
 use App\Report;
 use App\StockRequisition;
+use App\Transaction;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Routing\Controller;
@@ -37,6 +38,12 @@ class UserController extends Controller{
         $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
         $stocksBranch = $reports->getStocksBranch();
         $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();;
+        $register = Transaction::where('payment_method','=','check')
+            ->where('type','=','Receive')
+            ->where('cheque_status','=',0)
+            ->orderBy('id', 'desc')
+            ->get();
+        //$chequeInfo = $reports->getChequeInfo();
         return view('Users.dashboard')
             ->with('totalProducts',$totalProducts)
             ->with('totalSales',$totalSales)
@@ -45,7 +52,9 @@ class UserController extends Controller{
             ->with('accountsBalance',$accountsBalance)
             ->with('accountBalanceTransfers',$accountBalanceTransfers)
             ->with('totalPurchase',$totalPurchase)
-            ->with('totalImports',$totalImports);
+            ->with('totalImports',$totalImports)
+            ->with('register',$register);
+            //->with('chequeInfo',$chequeInfo);
     }
     public function getuserAdd()
     {

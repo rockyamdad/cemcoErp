@@ -245,7 +245,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </li>
             <li class="@if (Request::is('balancetransfers/*'))active @endif">
                 <a href="javascript:;">
-                    <i class="fa fa-archive"></i>
+                    <i class="fa fa-random"></i>
                     <span class="title">Balance Transfer</span>
                     @if (Request::is('balancetransfers/*'))<span class="selected"></span>@endif
                     <span class="arrow @if (Request::is('balancetransfers/*'))open @endif"></span>
