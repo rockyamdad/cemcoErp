@@ -18,7 +18,7 @@
                 <div class="portlet-title">
                     <div class="caption"><i class="fa fa-reorder"></i>  <span style="color: #4cae4c">{{$results[0] ? $results[0]->sName : 'Stock Product ' }} </span>   Search Result </div>
                     <div class="actions">
-                        <a class="btn blue" href="/stock-products">Back</a>
+                        <a class="btn blue" href="searches/stock-products">Back</a>
                      {{--   <a class="btn dark" href="">Print</a>--}}
                     </div>
                 </div>
