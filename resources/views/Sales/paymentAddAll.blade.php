@@ -30,7 +30,7 @@ function closeModal() {
                     <!-- BEGIN FORM-->
                     <div class="form-body">
                         <div class="form-group">
-                            {!!HTML::decode(Form::label('party_id','Choose Branch<span class="required">*</span>',array('class'
+                            {!!HTML::decode(Form::label('party_id','Choose Party<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::select('party_id',[null=>'Please Select Party'] +$partyAll,'null',

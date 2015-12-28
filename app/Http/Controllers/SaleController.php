@@ -487,6 +487,7 @@ class SaleController extends Controller{
     {
         $partySales = Sale::where('party_id','=',$party_id)
             ->where('status','!=','Completed')
+            ->where('is_sale','=',1)
             ->get();
         if(count($partySales)>0){
             $totalAmount = 0;
