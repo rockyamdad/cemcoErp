@@ -205,11 +205,16 @@ class ExpenseController extends Controller{
     public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
+        $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
+        $expense = Expense::where('invoice_id','=',$invoice_id)->first();
+        $transactionsPaid = $transactions->getTotalExpensePaid($invoice_id);
         return view('Expenses.paymentAdd',compact('accountCategoriesAll'))
             ->with('invoice_id',$invoice_id)
+            ->with('totalExpense',$expense->amount)
+            ->with('transactionsPaid',$transactionsPaid)
             ->with('branchAll',$branchAll);
     }
     public function postSaveMake()

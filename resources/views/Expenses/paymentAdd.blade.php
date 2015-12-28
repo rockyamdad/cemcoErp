@@ -12,6 +12,7 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Make Payment</h3>
+            <h5 style="color: red ;">You have {{$totalExpense - $transactionsPaid[0]->totalPaid}} taka Due </h5>
         </div>
         <div class="modal-body">
             {!!Form::open(array('url' => '/saveMake', 'method' => 'post', 'class'=>'form-horizontal payment_form',

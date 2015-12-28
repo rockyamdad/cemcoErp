@@ -25,6 +25,14 @@ class Transaction extends Eloquent
             ->where('type', '=', 'Receive')
             ->get();
     }
+    public function getTotalExpensePaid($invoice_id)
+    {
+        return DB::table('transactions')
+            ->selectRaw('sum(amount) as totalPaid')
+            ->where('invoice_id', '=', $invoice_id)
+            ->where('type', '=', 'Expense')
+            ->get();
+    }
     public function getTotalPaidPurchase($invoice_id)
     {
         return DB::table('transactions')
