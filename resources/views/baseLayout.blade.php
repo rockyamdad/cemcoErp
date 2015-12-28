@@ -80,7 +80,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ URL::to('profile') }}"><i class="fa fa-user"></i>Profile</a>
-                    <li><a href="{{ URL::to('changePassword') }}"><i class="fa fa-unlock-o"></i>Change Password</a>
+                    <li><a href="{{ URL::to('users/change-password') }}"><i class="fa fa-unlock-o"></i>Change Password</a>
                     <li><a href="{{ URL::to('logout') }}"><i class="fa fa-key"></i> Log Out</a>
                     </li>
                 </ul>

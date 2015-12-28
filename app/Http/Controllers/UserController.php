@@ -56,6 +56,10 @@ class UserController extends Controller{
             ->with('totalImports',$totalImports)
             ->with('register',$register);
     }
+    public function getChangePassword()
+    {
+        var_dump("code kor akhan a");exit;
+    }
     public function getuserAdd()
     {
         $branches = new Branch();
