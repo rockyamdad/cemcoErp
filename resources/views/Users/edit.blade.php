@@ -90,6 +90,7 @@
                         'rows'=>'3'))!!}
                     </div>
                 </div>
+                @if(Session::get('user_role')== 'admin' )
                 <div class="form-group">
                     {!!HTML::decode(Form::label('role','Role<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
@@ -98,6 +99,7 @@
                         'Manager','user'=>'User'),$userdata->role, array('class'=>'form-control'))!!}
                     </div>
                 </div>
+                @endif
                 <div class="form-group">
                     {!!HTML::decode(Form::label('sex','Gender',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">

@@ -90,7 +90,10 @@ class UserController extends Controller{
     }
     public function getProfile()
     {
+        $user = Session::get('user_id');
+        $profile = User::find($user);
 
+        return view('Users.profile',compact('profile'));
     }
     public function getEdit($id)
     {
@@ -105,7 +108,6 @@ class UserController extends Controller{
     {
         $ruless = array(
             'username' => 'required',
-            'role' => 'required',
             'email' =>  'required|email|Unique:users,email,'.$id,
             'sex' => 'required',
             'branch_id' => 'required'
@@ -158,10 +160,12 @@ class UserController extends Controller{
         $user->name  = Input::get('name');
         $user->username = Input::get('username');
         $user->email = Input::get('email');
-       // $user->password = Hash::make(Input::get('password'));
         $user->phone = Input::get('phone');
         $user->address = Input::get('address');
-        $user->role = Input::get('role');
+        if(Session::get('user_role') == 'admin'){
+            $user->role = Input::get('role');
+        }
+
         $user->sex = Input::get('sex');
         $user->branch_id = Input::get('branch_id');
         $user->status = "Activate";
