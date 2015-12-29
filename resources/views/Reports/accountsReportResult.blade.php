@@ -21,9 +21,10 @@
             <div class="portlet box light-grey">
                 <?php
                 $account = \App\NameOfAccount::find($account_id);
+                $accountCat = \App\AccountCategory::find($account->account_category_id);
                 ?>
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Accounts Report  for  {{$account->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Accounts Report  for <span style="color: black"> {{$account->name}} ({{$accountCat->name}})</span></div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -100,24 +101,41 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($flag == '')
-                                        {{$openingBalance + $result->amount}}
+                                    @if($result->type != 'Receive')
+                                        @if($flag == '')
+                                            {{$openingBalance - $result->amount}}
+                                        @else
+                                            {{$balance - $result->amount}}
+                                        @endif
                                     @else
-                                        {{$balance + $result->amount}}
+                                        @if($flag == '')
+                                            {{$openingBalance + $result->amount}}
+                                        @else
+                                            {{$balance + $result->amount}}
+                                        @endif
+
                                     @endif
 
                                 </td>
 
                             </tr>
                             <?php
+                                if($result->type != 'Receive'){
+                                    if($flag == ''){
+                                        $balance  = $openingBalance - $result->amount;
+                                    }else{
+                                        $balance  = $balance - $result->amount;
+                                    }
+                                } else{
                                     if($flag == ''){
                                         $balance  = $openingBalance + $result->amount;
                                     }else{
                                         $balance  = $balance + $result->amount;
                                     }
+                                }
+
                             $flag = 'value';
                             //$total = $total + ($result->amount);
-
                             ?>
                         @endforeach
                         <tr>
