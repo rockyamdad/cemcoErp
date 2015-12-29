@@ -546,5 +546,20 @@ class Report extends Eloquent
             )
             ->get();
     }
-//DB::table('rows')->orderBy('id', 'desc')->take(5)->get();
+    public function getSalesReturnReport($date1,$date2,$branch_id)
+    {
+        return DB::table('sales_return')
+            ->where('sales_return.branch_id', '=', $branch_id)
+            ->whereBetween('sales_return.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('sales_return.created_at AS date',
+                'sales_return.branch_id AS branch',
+                'sales_return.return_amount',
+                'sales_return.party_id',
+                'sales_return.product_id',
+                'sales_return.cus_ref_no',
+                'sales_return.consignment_name',
+                'sales_return.quantity'
+            )
+            ->get();
+    }
 }

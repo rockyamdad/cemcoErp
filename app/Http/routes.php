@@ -159,6 +159,7 @@ Route::post('/purchase-collection-report','ReportController@postPurchaseCollecti
 Route::post('/expense-report','ReportController@postExpenseReportResult');
 Route::post('/expense-payment-report','ReportController@postExpensePaymentReportResult');
 Route::post('/balance-transfer-report','ReportController@postBalanceTransferReportResult');
+Route::post('/sales-return-report','ReportController@postSalesReturnReportResult');
 
 //Balance Controller
 Route::controller('balancetransfers','BalanceTransferController');

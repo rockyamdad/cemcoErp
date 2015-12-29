@@ -2,21 +2,16 @@
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/bootstrap-datepicker/css/datepicker.css') }}" />
-
 @stop
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
              Accounts  Report
             </h3>
-
          </div>
     </div>
-
     <div class="row">
-
         <div class="col-md-12">
             <div class="portlet box light-grey">
                 <?php
@@ -29,11 +24,8 @@
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
                        </div>
-
                 </div>
-
                 <div class="portlet-body">
-
                     <table class="table table-striped table-bordered table-hover" id="accounts_report_table" cellspacing="0">
                         <thead style="background-color:cadetblue">
                             <tr>
@@ -54,18 +46,13 @@
                         <tr class="odd gradeX" >
                             <td>Opening Balance</td>
                             <td>
-
                             </td>
                             <td>
-
                             </td>
                             <td></td>
-
                             <td>
-
                             </td>
                             <td>
-
                             </td>
                             <td>
                                 {{$openingBalance}}
