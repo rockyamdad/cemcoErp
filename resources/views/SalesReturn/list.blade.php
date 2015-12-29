@@ -77,24 +77,24 @@
                     <?php
                     $sl=1;
                     ?>
-                    @foreach($salesreturn as $stock )
+                    @foreach($salesreturn as $return )
 
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$stock->cus_ref_no}}</td>
-                        <td>{{$stock->party_id}}</td>
-                        <td>{{$stock->branch_id}}</td>
-                        <td>{{$stock->product_id}}</td>
-                        <td>{{$stock->quantity}}</td>
-                        <td>{{$stock->return_amount}}</td>
-                        <td>{{$stock->consignment_name}}</td>
-                        <td>{{$stock->remarks}}</td>
-                        <td>{{$stock->consignment_name}}</td>
+                        <td>{{$return->cus_ref_no}}</td>
+                        <td>{{$return->party_id}}</td>
+                        <td>{{$return->branch_id}}</td>
+                        <td>{{$return->product_id}}</td>
+                        <td>{{$return->quantity}}</td>
+                        <td>{{$return->return_amount}}</td>
+                        <td>{{$return->consignment_name}}</td>
+                        <td>{{$return->remarks}}</td>
+                        <td>{{$return->consignment_name}}</td>
 
                         <td>
                             {{--<a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
                                     class="fa fa-edit"></i>Edit</a>--}}
-                            <a class="btn red btn-sm" href="{{ URL::to('stocks/delete/'.$stock->id)}}"
+                            <a class="btn red btn-sm" href="{{ URL::to('salesreturn/delete/'.$return->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                     class="fa fa-trash-o"></i> Delete</a>
                         </td>

@@ -226,4 +226,68 @@ class SalesReturnController extends Controller{
         //$salesreturn->status = "Activate";
         //$salesreturn->user_id = Session::get('user_id');
     }
+    public function getDelete($id)
+    {
+        $salesreturn=SalesReturn::find($id);
+        $salesreturn->delete();
+
+        $remaining_amount=$salesreturn->return_amount;
+        $partyId=$salesreturn->party_id;
+        if($remaining_amount>0)
+        {
+            $invoiceId = Sale::where('party_id','=',$partyId)
+                ->where('is_sale','=',1)
+                ->get();
+            foreach($invoiceId as $invid)
+            {
+
+                $amount=Transaction::where('invoice_id','=',$invid->invoice_id)
+                    ->where('type','=','Receive')
+                    ->where('account_category_id','=',7)
+                    ->get();
+
+                foreach($amount as $amnt)
+                {
+                    if($amnt->amount>$remaining_amount)
+                    {
+                        $transaction=Transaction::find($amnt->id);
+                        $transaction->amount=$transaction->amount-$remaining_amount;
+                        $transaction->save();
+
+                        $sale = Sale::find( $invid->id);
+                        $sale->status='Partial';
+                        $sale->save();
+
+                        $remaining_amount=0;
+                    }
+                    elseif($amnt->amount<$remaining_amount)
+                    {
+                        $transaction=Transaction::find($amnt->id);
+                        $transacamount=$transaction->amount;
+                        $transaction->delete();
+
+                        $sale = Sale::find( $invid->id);
+                        $sale->status='Partial';
+                        $sale->save();
+
+                        $remaining_amount=$remaining_amount-$transacamount;
+                    }
+                    elseif($amnt->amount==$remaining_amount)
+                    {
+                        $transaction=Transaction::find($amnt->id);
+                        $transaction->delete();
+
+                        $sale = Sale::find( $invid->id);
+                        $sale->status='Partial';
+                        $sale->save();
+
+                        $remaining_amount=0;
+                    }
+
+                }
+
+            }
+        }
+        return Redirect::to('salesreturn/index');
+    }
 }
