@@ -280,8 +280,8 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>From Account</th>
-                            <th>To  Account</th>
+                            <th>Lender Account</th>
+                            <th>Borrower Account</th>
                             <th>Amount</th>
                         </tr>
                         </thead>
@@ -289,7 +289,11 @@
                         <?php
                             $slNo = 1;
                         ?>
-
+                        <?php
+                            $values = array();
+                            $count=0;
+                            $count2=0;
+                        ?>
                         @foreach($accountBalanceTransfers as $result )
                             <?php
                             $reports = new \App\Report();
@@ -304,25 +308,64 @@
                                 $remainingAmount = $result2->fromAmount - $results3[0]->toAmount;
                                 $toAccount = \App\NameOfAccount::find($result2->toAccount);
                                 ?>
-                                @if($remainingAmount >= 0)
+                                @if($remainingAmount > 0)
+                                    <?php
+                                        for($i=0;$i<$count;$i++)
+                                        {
+
+                                            $from = $values[$i]["from"];
+                                            $to = $values[$i]["to"];
+                                            //var_dump($from." ".$to);
+                                            if($from==$fromAccount->name && $to==$toAccount->name)
+                                            {
+                                                $count2=1;
+                                            }
+                                        }
+                                    ?>
+                                    @if($count2==0)
                                     <tr>
                                         <td>{{$slNo}}</td>
                                         <td>{{$fromAccount->name}}</td>
                                         <td>{{$toAccount->name}}</td>
                                         <td>{{$remainingAmount}}</td>
                                     </tr>
-                                @else
+                                        <?php
+                                            array_push($values, array("from" => $fromAccount->name, "to" => $toAccount->name));
+                                            $count++;
+                                            $slNo++;
+                                        ?>
+                                    @endif
+                                    <?php $count2=0; ?>
+                                @elseif($remainingAmount < 0)
+                                    <?php
+                                        for($i=0;$i<$count;$i++)
+                                        {
+                                            $from = $values[$i]["to"];
+                                            $to = $values[$i]["from"];
+                                            //var_dump($from." ".$to);
+                                            if($from==$fromAccount->name && $to==$toAccount->name)
+                                            {
+                                                $count2=1;
+                                            }
+                                        }
+                                    ?>
+                                    @if($count2==0)
                                     <tr>
                                         <td>{{$slNo}}</td>
                                         <td>{{$toAccount->name}}</td>
                                         <td>{{$fromAccount->name}}</td>
                                         <td>{{-$remainingAmount}}</td>
                                     </tr>
+                                    <?php
+                                        array_push($values, array("from" => $fromAccount->name, "to" => $toAccount->name));
+                                        $count++;
+                                        $slNo++;
+                                    ?>
+                                @endif
+                                <?php $count2=0; ?>
                                 @endif
                             @endforeach
-                            <?php
-                                $slNo++;
-                            ?>
+
                         @endforeach
 
                         </tbody>
