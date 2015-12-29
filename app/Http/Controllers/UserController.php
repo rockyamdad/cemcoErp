@@ -58,7 +58,38 @@ class UserController extends Controller{
     }
     public function getChangePassword()
     {
-        var_dump("code kor akhan a");exit;
+        return view('Users.changePassword');
+
+    }
+    public function postChangePassword()
+    {
+        $ruless = array(
+            'oldPassword'=>'required',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('users/change-password')
+                ->withErrors($validate);
+        }
+        else{
+            $oldpass  = Input::get('oldPassword');
+            $newpass = Input::get('password');
+            $userid=Session::get('user_id');
+            $uerInfo = User::find($userid);
+            $userpass=$uerInfo->password;
+            if(crypt($oldpass, $userpass) === $userpass)
+            {
+                $passw= Hash::make($newpass);
+                $uerInfo->password=$passw;
+                $uerInfo->save();
+            }
+            Session::flash('message', 'Password has been Updated Successfully.');
+            return Redirect::to('users/change-password');
+        }
     }
     public function getuserAdd()
     {

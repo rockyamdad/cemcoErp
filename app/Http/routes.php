@@ -17,6 +17,7 @@ Route::get('/edit/{id}','UserController@getEdit');
 Route::put('/update/{id}','UserController@putCheckupdate');
 Route::get('changeStatus/{status}/{id}','UserController@getChangeStatus');
 Route::get('users/change-password','UserController@getChangePassword');
+Route::post('users/changePassword','UserController@postChangePassword');
 //Branch Controller
 Route::controller('branches','BranchController');
 Route::get('branchAdd','BranchController@getAddBranch');
