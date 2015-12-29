@@ -33,7 +33,7 @@
                             => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
-                                array('class'=>'form-control ','id'=>'branch_id') )!!}
+                                array('class'=>'form-control ','id'=>'branch') )!!}
                             </div>
                         </div>
                         <div class="form-group">

@@ -68,6 +68,9 @@ jQuery(document).ready(function() {
     $('#account_category_id').live("change", function () {
         var account_category = $('#account_category_id').val();
         var branch = $('#branch').val();
+        $('#account_name_id').empty();
+        var newOption = $('<option value="">Select Account</option>');
+        $('#account_name_id').append(newOption);
         $.ajax({
             type: "get",
             url: "categories/"+account_category,
@@ -92,6 +95,9 @@ jQuery(document).ready(function() {
     $('#p_account_category_id').live("change", function () {
         var account_category = $('#p_account_category_id').val();
         var branch = $('#p_branch_id').val();
+        $('#p_account_name_id').empty();
+        var newOption = $('<option value="">Select Account</option>');
+        $('#p_account_name_id').append(newOption);
         $.ajax({
             type: "get",
             url: "categories/"+account_category,
