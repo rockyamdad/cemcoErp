@@ -29,7 +29,7 @@ class ChequeRegisterController extends Controller{
         $register = Transaction::where('payment_method','=','check')
             ->where('type','=','Receive')
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate(15);
         return view('ChequeRegister.list',compact('register'));
     }
     public function getComplete($id)

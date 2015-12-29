@@ -21,7 +21,7 @@ class StockRequisitionController extends Controller{
     }
     public function getIndex()
     {
-        $requisitions = StockRequisition::where('status','=','Activate')->get();
+        $requisitions = StockRequisition::where('status','=','Activate')->paginate(25);
         return view('StockRequisition.list',compact('requisitions'));
     }
 

@@ -15,7 +15,7 @@ class BranchController extends Controller{
     }
     public function getIndex()
     {
-        $branches = Branch::with('user')->get();
+        $branches = Branch::with('user')->paginate(10);
         return view('Branches.list',compact('branches'));
     }
     public function getAddbranch()
