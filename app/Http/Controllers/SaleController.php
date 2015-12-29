@@ -669,6 +669,10 @@ class SaleController extends Controller{
             return Redirect::to('sales/index');
         }
     }
+    public function getProductprice($id){
+        $product = Product::find($id);
+        return new JsonResponse($product->price);
+    }
 
 
 

@@ -52,7 +52,7 @@ jQuery(document).ready(function() {
                 {
                     $("#stock_info_id").select2('val', '');
                     $("#edit_product_type").select2('val', '');
-                    $("#product_id").select2('val', '');
+                    $("#edit_product_id").select2('val', '');
                     $("#price").val('');
                     $("#quantity").val('');
                     $("#remarks").val('');
@@ -285,6 +285,29 @@ jQuery(document).ready(function() {
 
     $("#salePayment2").on("shown.bs.modal", function() {
         $('.date-picker').datepicker();
+    });
+
+    $('#product_id').live("change", function () {
+        var product_id = $('#product_id').val();
+        $.ajax({
+            type: "get",
+            url: "productprice/"+product_id,
+            success: function (html) {
+                $('#price').val(html);
+
+            }
+        });
+    });
+    $('#edit_product_id').live("change", function () {
+        var product_id = $('#edit_product_id').val();
+        $.ajax({
+            type: "get",
+            url: "../productprice/"+product_id,
+            success: function (html) {
+                $('#price').val(html);
+
+            }
+        });
     });
 
 });

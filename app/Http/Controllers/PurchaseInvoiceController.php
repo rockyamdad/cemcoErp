@@ -440,6 +440,10 @@ class PurchaseInvoiceController extends Controller{
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
     }
+    public function getProductprice($id){
+        $product = Product::find($id);
+        return new JsonResponse($product->price);
+    }
 
 
 }
