@@ -98,7 +98,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $branches->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/branches.js') !!}

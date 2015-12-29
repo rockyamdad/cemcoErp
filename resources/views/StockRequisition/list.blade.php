@@ -181,7 +181,7 @@
 </div>
     </div>
 
-
+{!! $requisitions->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/stockRequisition.js') !!}

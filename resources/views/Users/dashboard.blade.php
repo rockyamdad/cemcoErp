@@ -57,7 +57,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat purple">
                 <div class="visual">
-
+                    <i class="fa fa-level-down"></i>
                 </div>
                 <div class="details">
                     <div class="number">{{$totalSales[0]->todaySale ? $totalSales[0]->todaySale : 0.00}}&nbsp;Tk</div>
@@ -71,12 +71,13 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat yellow">
                 <div class="visual">
+                <i class="fa fa-level-up"></i>
                 </div>
                 <div class="details">
                     <div class="number">
                         {{$totalPurchase[0]->todayPurchase ? $totalPurchase[0]->todayPurchase : 0.00}} &nbsp;Tk
                     </div>
-                    <div class="desc">Today's Purchase</div>
+                    <div class="desc">Today's Purchase Payment</div>
                 </div>
                 <a class="more" href="{{URL::to('purchases/')}}">
                     View more <i class="m-icon-swapright m-icon-white"></i>
