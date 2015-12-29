@@ -37,7 +37,6 @@
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
                         <tr>
-                            <th>Date</th>
                             <th>Party</th>
                             <th>Total Sale</th>
                             <th>Total Payment </th>
@@ -59,7 +58,6 @@
                                     ?>
                             @if(($result->totalSale - $payment[0]->totalPayment) > 1)
                                 <tr class="odd gradeX">
-                                    <td>{{$result->date}}</td>
                                     <td>{{$party->name}}</td>
                                     <td>{{$result->totalSale}}</td>
                                     <td>
@@ -80,7 +78,6 @@
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
-                            <td></td>
                             <td>{{$totalSale}}</td>
                             <td>{{$totalPayment}}</td>
                             <td>{{$totalDue}}</td>

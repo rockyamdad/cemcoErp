@@ -32,7 +32,10 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Purchase Report of Products</div>
+                    <?php
+                    $branches = \App\Branch::find($branch_id);
+                    ?>
+                    <div class="caption"><i class="fa fa-reorder"></i>Branch Name : {{$branches->name}}</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -45,8 +48,6 @@
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
                         <tr>
-
-                            <th>Date</th>
                             <th>Invoice No</th>
                             <th>Total Sale</th>
                             <th>Total Payment </th>
@@ -68,7 +69,6 @@
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
                                 <td>{{$result->invoice}}</td>
                                 <td>{{$result->totalSale}}</td>
                                 <td>
@@ -90,7 +90,6 @@
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
-                            <td></td>
                             <td>{{$totalSale}}</td>
                             <td>{{$totalPayment}}</td>
                             <td>{{$totalDue}}</td>

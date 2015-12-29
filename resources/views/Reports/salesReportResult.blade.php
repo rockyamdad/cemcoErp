@@ -46,7 +46,6 @@
                         <thead style="background-color:cadetblue">
                         <tr>
 
-                            <th>Date</th>
                             <th>Invoice No</th>
                             <th>Total Sale</th>
                             <th>Total Payment </th>
@@ -68,7 +67,6 @@
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
                                 <td>{{$result->invoice}}</td>
                                 <td>{{$result->totalSale}}</td>
                                 <td>
@@ -83,14 +81,13 @@
 
                             </tr>
                             <?php
-                            $totalSale = $totalSale + $result->totalSale;
-                            $totalPayment = $totalPayment + $payment[0]->totalPayment;
-                            $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
+                                $totalSale = $totalSale + $result->totalSale;
+                                $totalPayment = $totalPayment + $payment[0]->totalPayment;
+                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
                             ?>
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
-                            <td></td>
                             <td>{{$totalSale}}</td>
                             <td>{{$totalPayment}}</td>
                             <td>{{$totalDue}}</td>

@@ -23,7 +23,7 @@
                 $branches = \App\Branch::find($branch_id);
                 ?>
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Sales Details Report of Products for Branch {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Branch Name :  {{$branches->name}}</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
