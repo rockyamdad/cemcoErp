@@ -148,6 +148,7 @@ class Report extends Eloquent
             ->where('sales.is_sale', '=', 1)
             ->where('sale_details.branch_id', '=', $branch_id)
             ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->orderBy('sale_details.invoice_id')
             ->select('sale_details.created_at AS date',
                 'sale_details.branch_id AS branch',
                 'sale_details.stock_info_id AS stock',
@@ -240,6 +241,7 @@ class Report extends Eloquent
             ->join('products', 'purchase_invoice_details.product_id', '=', 'products.id')
             ->where('purchase_invoice_details.branch_id', '=', $branch_id)
             ->whereBetween('purchase_invoice_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->orderBy('purchase_invoice_details.detail_invoice_id')
             ->select('purchase_invoice_details.created_at AS date',
                 'purchase_invoice_details.branch_id AS branch',
                 'purchase_invoice_details.stock_info_id AS stock',

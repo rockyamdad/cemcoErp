@@ -37,8 +37,8 @@
                         <thead style="background-color:cadetblue">
                         <tr>
 
-                            <th>Date</th>
                             <th>Invoice No</th>
+                            <th>Date</th>
                             <th>Product Name</th>
                             <th>Stock Name</th>
                             <th>Unit Price</th>
@@ -51,6 +51,7 @@
                         <tbody>
                         <?php
                         $totalSale = 0;
+                        $invoiceSave = array();
                         ?>
 
                         @foreach($results as $result )
@@ -59,12 +60,24 @@
                          $stocks = \App\StockInfo::find($result->stock);
                          $categories = \App\Category::find($result->category_id);
                          $subCategories = \App\SubCategory::find($result->sub_category_id);
+                            if($result->sub_category_id)
+                            {
+                                $subCategoryName = '('.$subCategories->name.')';
+                            }else{
+                                $subCategoryName = '';
+                            }
                                     ?>
 
                             <tr class="odd gradeX">
+                                <td>
+                                    @if(in_array($result->invoice,$invoiceSave))
+
+                                    @else
+                                        {{$result->invoice}}
+                                    @endif
+                                </td>
                                 <td>{{$result->date}}</td>
-                                <td>{{$result->invoice}}</td>
-                                <td>{{$products->name.'('.$categories->name.')'.'('.$subCategories->name.')'}}</td>
+                                <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
                                 <td>{{$stocks->name}}</td>
                                 <td>{{$result->price}}</td>
                                 <td>{{$result->quantity}}</td>
@@ -75,6 +88,7 @@
 
                             </tr>
                             <?php
+                            $invoiceSave[] = $result->invoice;
                             $totalSale = $totalSale + ($result->quantity * $result->price);
                             ?>
                         @endforeach
