@@ -86,7 +86,7 @@
                         <th>Category</th>
                         <th>Sub Category</th>
 
-                        <th>Total Qty</th>
+                        <th>Price</th>
                         <th>Created By</th>
                         <th width="200px;">Action</th>
                     </tr>
@@ -112,7 +112,7 @@
                                     <td>{{$subCategoryName->name}}</td>
                                 @endif
 
-                                <td>{{$product->total_quantity}}</td>
+                                <td>{{$product->price}}</td>
                                 <td>{{$product->user->username}}</td>
                                 <td>
                                     <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
@@ -145,7 +145,7 @@
                                     <td>{{$subCategoryName->name}}</td>
                                 @endif
 
-                                <td>{{$product->total_quantity}}</td>
+                                <td>{{$product->price}}</td>
                                 <td>{{$product->user->username}}</td>
                                 <td>
                                     <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
