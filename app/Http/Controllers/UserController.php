@@ -86,8 +86,13 @@ class UserController extends Controller{
                 $passw= Hash::make($newpass);
                 $uerInfo->password=$passw;
                 $uerInfo->save();
+                Session::flash('message', 'Password has been Updated Successfully.');
             }
-            Session::flash('message', 'Password has been Updated Successfully.');
+            else
+            {
+                Session::flash('message2', 'Old Password Does Not Match.');
+            }
+
             return Redirect::to('users/change-password');
         }
     }
