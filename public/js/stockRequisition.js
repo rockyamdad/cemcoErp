@@ -13,6 +13,9 @@ jQuery(document).ready(function() {
                 success:function(requisition)
                 {
                     $("#stock_requisition_form")[0].reset();
+                    $("#branch_id").select2('val', '');
+                    $("#product_id").select2('val', '');
+                    $("#party_id").select2('val', '');
 
                     var html = [];
                     html.push('<td>' + requisition.branch + '</td>');
@@ -57,8 +60,6 @@ jQuery(document).ready(function() {
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#requisition_quantity').val());
-        alert(branch);
-
         if (party === '' || (product === '') || (quantity === '') || (branch ==='')) {
             return false;
         } else {
