@@ -24,7 +24,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Sales Due Report of Products for {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Branch Name:  {{$branches->name}}</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -57,26 +57,26 @@
                            $reports = new \App\Report();
                            $payment = $reports->getPaymentForSalesDueReport($date1,$date2,$result->party);
                                     ?>
-                            <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
-                                <td>{{$party->name}}</td>
-                                <td>{{$result->totalSale}}</td>
-                                <td>
-                                    @if($payment[0]->totalPayment)
-                                        {{$payment[0]->totalPayment}}
-                                    @else
-                                         {{0}}
-                                    @endif
-                                </td>
-                                <td>{{$result->totalSale - $payment[0]->totalPayment}}</td>
-
-
-                            </tr>
-                            <?php
-                            $totalSale = $totalSale + $result->totalSale;
-                            $totalPayment = $totalPayment + $payment[0]->totalPayment;
-                            $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
-                            ?>
+                            @if(($result->totalSale - $payment[0]->totalPayment) > 1)
+                                <tr class="odd gradeX">
+                                    <td>{{$result->date}}</td>
+                                    <td>{{$party->name}}</td>
+                                    <td>{{$result->totalSale}}</td>
+                                    <td>
+                                        @if($payment[0]->totalPayment)
+                                            {{$payment[0]->totalPayment}}
+                                        @else
+                                             {{0}}
+                                        @endif
+                                    </td>
+                                    <td>{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                </tr>
+                                <?php
+                                $totalSale = $totalSale + $result->totalSale;
+                                $totalPayment = $totalPayment + $payment[0]->totalPayment;
+                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
+                                ?>
+                            @endif
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
