@@ -90,7 +90,6 @@
                         'Foreign','Finish Goods'=>'Finish Goods'),$products->product_type, array('class'=>'form-control'))!!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! HTML::decode(Form::label('price','Product Price',array('class' =>
                     'control-label col-md-3'))) !!}
@@ -99,7 +98,6 @@
                         'price'))!!}
                     </div>
                 </div>
-
                 <div class="form-group">
                     {!! HTML::decode(Form::label('hs_code','HS Code<span class="required">*</span>',array('class' =>
                     'control-label col-md-3'))) !!}
