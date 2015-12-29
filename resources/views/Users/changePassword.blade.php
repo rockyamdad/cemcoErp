@@ -30,7 +30,27 @@
             <div class="caption"><i class="fa fa-reorder"></i>Change Password</div>
 
         </div>
+
+
         <div class="portlet-body form">
+        <div style="float: left;width: 80%; margin-left: 20px">
+                                @if (Session::has('message'))
+                                <div class="alert alert-success">
+                                    <button data-close="alert" class="close"></button>
+                                    {{ Session::get('message') }}
+                                </div>
+                                @endif
+                            </div>
+
+        <div style="float: left;width: 80%; margin-left: 20px">
+                                @if (Session::has('message2'))
+                                <div class="alert alert-danger">
+                                    <button data-close="alert" class="close"></button>
+                                    {{ Session::get('message2') }}
+                                </div>
+                                @endif
+                            </div>
+
             @if ($errors->has())
                 <div class="alert alert-danger">
                     @foreach ($errors->all() as $error)
