@@ -6,9 +6,13 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+         <?php
+                        $account = \App\NameOfAccount::find($account_id);
+                        $accountCat = \App\AccountCategory::find($account->account_category_id);
+                        ?>
         <center>
             <h3 class="page-title">
-             Accounts  Report
+             Accounts Report  for <span style="color: black"> {{$account->name}} ({{$accountCat->name}})</span>
             </h3>
             </center>
          </div>
@@ -17,12 +21,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="portlet box light-grey">
-                <?php
-                $account = \App\NameOfAccount::find($account_id);
-                $accountCat = \App\AccountCategory::find($account->account_category_id);
-                ?>
+
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Accounts Report  for <span style="color: black"> {{$account->name}} ({{$accountCat->name}})</span></div>
+                    <?php
+                    $date01 = explode('/', $date1);
+                    $month1  = $date01[0];
+                    $day1 = $date01[1];
+                    $year1   = $date01[2];
+                    $date001=$day1.'/'.$month1.'/'.$year1;
+
+                    $date02 = explode('/', $date2);
+                    $month2  = $date02[0];
+                    $day2 = $date02[1];
+                    $year2   = $date02[2];
+                    $date002=$day2.'/'.$month2.'/'.$year2;
+                    ?>
+                    <div class="caption"><i class="fa fa-reorder"></i>Date : {{$date001}} to {{$date002}}</div>
+
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>

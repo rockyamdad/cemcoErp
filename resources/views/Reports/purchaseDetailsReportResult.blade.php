@@ -25,7 +25,20 @@
             <div class="portlet box light-grey">
 
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Date : From to To</div>
+                    <?php
+                    $date01 = explode('/', $date1);
+                    $month1  = $date01[0];
+                    $day1 = $date01[1];
+                    $year1   = $date01[2];
+                    $date001=$day1.'/'.$month1.'/'.$year1;
+
+                    $date02 = explode('/', $date2);
+                    $month2  = $date02[0];
+                    $day2 = $date02[1];
+                    $year2   = $date02[2];
+                    $date002=$day2.'/'.$month2.'/'.$year2;
+                    ?>
+                    <div class="caption"><i class="fa fa-reorder"></i>Date : {{$date001}} to {{$date002}}</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
