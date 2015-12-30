@@ -347,7 +347,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </li>
         </ul>
         </li>
-            <li class="@if (Request::is('searches/*'))active @endif">
+           {{-- <li class="@if (Request::is('searches/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-search"></i>
                     <span class="title">Search</span>
@@ -358,7 +358,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <ul class="sub-menu">
                     <li
                             @if (Request::is('searches/entry'))class="active"@endif>
-                        <a href="{{ URL::to('searches/entry') }}">Stock Entry Type </a>
+                        <a href="{{ URL::to('searches/entry') }}">Stock Entry </a>
                     </li>
                     <li
                             @if (Request::is('searches/requisition/'))class="active"@endif>
@@ -366,12 +366,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li
                             @if (Request::is('searches/stock-products'))class="active"@endif>
-                        <a href="{{ URL::to('searches/stock-products') }}">Stocks Products </a>
+                        <a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>
                     </li>
 
                  </ul>
                 </li>
-
+--}}
             <li class="@if (Request::is('reports/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-puzzle-piece"></i>
@@ -381,70 +381,84 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </a>
 
                 <ul class="sub-menu">
-                    <li
+                    <li style="background-color: #665062"
                             @if (Request::is('reports/stocks'))class="active"@endif>
                         <a href="{{ URL::to('reports/stocks') }}">Stocks </a>
                     </li>
-                    <li
+                    <li style="background-color: #665062"
                             @if (Request::is('reports/stocksproducts'))class="active"@endif>
-                        <a href="{{ URL::to('reports/stocksproducts') }}">Stocks Product </a>
+                        <a href="{{ URL::to('reports/stocksproducts') }}">Stock In Hand </a>
                     </li>
-                    <li
+                    <li style="background-color: #665062"
+                            @if (Request::is('searches/entry'))class="active"@endif>
+                        <a href="{{ URL::to('searches/entry') }}">Stock Entry </a>
+                    </li>
+                    <li style="background-color: #665062"
+                            @if (Request::is('searches/stock-products'))class="active"@endif>
+                        <a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>
+                    </li>
+                    <li style="background-color: #8f4fcc"
+                            @if (Request::is('searches/requisition/'))class="active"@endif>
+                        <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>
+                    </li>
+
+                    <li style="background-color: #006666"
                             @if (Request::is('reports/salesreport'))class="active"@endif>
-                        <a href="{{ URL::to('reports/salesreport') }}">Sales Report</a>
+                        <a href="{{ URL::to('reports/salesreport') }}">Periodic Sales Report</a>
                     </li>
-                    <li
+                    <li style="background-color: #006666"
                             @if (Request::is('reports/salesdetails'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesdetails') }}">Sales Details Report</a>
                     </li>
-                    <li
+                    <li style="background-color: #006666"
                             @if (Request::is('reports/salesdue'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesdue') }}">Sales Due Report</a>
                     </li>
-                    <li
+                    <li style="background-color: #006666"
                             @if (Request::is('reports/salescollection'))class="active"@endif>
                         <a href="{{ URL::to('reports/salescollection') }}">Sales Collection Report</a>
                     </li>
-                    <li
-                            @if (Request::is('reports/purchasereport'))class="active"@endif>
-                        <a href="{{ URL::to('reports/purchasereport') }}">Purchase Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/purchasedetails'))class="active"@endif>
-                        <a href="{{ URL::to('reports/purchasedetails') }}">Purchase Details Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/purchasedue'))class="active"@endif>
-                        <a href="{{ URL::to('reports/purchasedue') }}">Purchase Due Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/purchasecollection'))class="active"@endif>
-                        <a href="{{ URL::to('reports/purchasecollection') }}">Purchase Collection Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/expensereport'))class="active"@endif>
-                        <a href="{{ URL::to('reports/expensereport') }}">Expense Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/expensepayment'))class="active"@endif>
-                        <a href="{{ URL::to('reports/expensepayment') }}">Expense Payment Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/balancetransfer'))class="active"@endif>
-                        <a href="{{ URL::to('reports/balancetransfer') }}">Account Balance Transfer </a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/balancetransferreport'))class="active"@endif>
-                        <a href="{{ URL::to('reports/balancetransferreport') }}"> Balance Transfer Report</a>
-                    </li>
-                    <li
-                            @if (Request::is('reports/accountsreport'))class="active"@endif>
-                        <a href="{{ URL::to('reports/accountsreport') }}">Accounts Report</a>
-                    </li>
-                    <li
+                    <li style="background-color: #134266"
                             @if (Request::is('reports/salesreturn'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesreturn') }}">Sales Return Report</a>
                     </li>
+                    <li style="background-color: #cc5d5e"
+                            @if (Request::is('reports/purchasereport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/purchasereport') }}">Periodic Purchase Report</a>
+                    </li>
+                    <li style="background-color: #cc5d5e"
+                            @if (Request::is('reports/purchasedetails'))class="active"@endif>
+                        <a href="{{ URL::to('reports/purchasedetails') }}">Purchase Details Report</a>
+                    </li>
+                    <li style="background-color: #cc5d5e"
+                            @if (Request::is('reports/purchasedue'))class="active"@endif>
+                        <a href="{{ URL::to('reports/purchasedue') }}">Purchase Due Report</a>
+                    </li>
+                    <li style="background-color: #cc5d5e"
+                            @if (Request::is('reports/purchasecollection'))class="active"@endif>
+                        <a href="{{ URL::to('reports/purchasecollection') }}">Purchase Payment Report</a>
+                    </li>
+                    <li style="background-color: #2c91cc"
+                            @if (Request::is('reports/expensereport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/expensereport') }}">Expense Report</a>
+                    </li>
+                    <li style="background-color: #2c91cc"
+                            @if (Request::is('reports/expensepayment'))class="active"@endif>
+                        <a href="{{ URL::to('reports/expensepayment') }}">Expense Payment Report</a>
+                    </li>
+                    <li style="background-color: #aa6b10"
+                            @if (Request::is('reports/balancetransfer'))class="active"@endif>
+                        <a href="{{ URL::to('reports/balancetransfer') }}">Account Balance Transfer </a>
+                    </li>
+                    <li style="background-color: #aa6b10"
+                            @if (Request::is('reports/balancetransferreport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/balancetransferreport') }}"> Creditor Debtor Report</a>
+                    </li>
+                    <li style="background-color: #7a5f50"
+                            @if (Request::is('reports/accountsreport'))class="active"@endif>
+                        <a href="{{ URL::to('reports/accountsreport') }}">Accounts Report</a>
+                    </li>
+
                 </ul>
             </li>
             </ul>
@@ -463,7 +477,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN FOOTER -->
 <div class="footer">
     <div class="footer-inner">
-        2015 &copy; CEMCO.
+         &copy; CEMCO
     </div>
     <div class="footer-tools">
 			<span class="go-top">
@@ -509,14 +523,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="{{ URL::asset('assets/plugins/jquery.sparkline.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/data-tables/jquery.dataTables.js') }}"></script>
-
 <script type="text/javascript" src="{{ URL::asset('assets/plugins/data-tables/DT_bootstrap.js') }}"></script>
 <script src="{{ URL::asset('assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
         type="text/javascript"></script>
 <script src="{{ URL::asset('assets/plugins/bootstrap-modal/js/bootstrap-modal.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('assets/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}"
         type="text/javascript"></script>
-
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ URL::asset('assets/scripts/app.js') }}" type="text/javascript"></script>
@@ -564,7 +576,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(ga, s);
     })();</script>
-@yield('javascript');
+@yield('javascript')
 </body>
 <!-- END BODY -->
 </html>

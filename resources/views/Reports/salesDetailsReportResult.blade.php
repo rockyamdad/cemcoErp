@@ -7,11 +7,15 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+                <?php
+                $branches = \App\Branch::find($branch_id);
+                ?>
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <center>
             <h3 class="page-title">
-             Sales Details Report
+             Sales Details Report For Branch : {{$branches->name}}
             </h3>
-
+            </center>
          </div>
     </div>
 
@@ -19,11 +23,9 @@
 
         <div class="col-md-12">
             <div class="portlet box light-grey">
-                <?php
-                $branches = \App\Branch::find($branch_id);
-                ?>
+
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>For Branch {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Date : From to To</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -38,7 +40,7 @@
                         <tr>
 
                             <th>Invoice No</th>
-                            <th>Date</th>
+                            {{--<th>Date</th>--}}
                             <th>Product Name</th>
                             <th>Stock Name</th>
                             <th>Unit Price</th>
@@ -76,7 +78,7 @@
                                         {{$result->invoice}}
                                     @endif
                                 </td>
-                                <td>{{$result->date}}</td>
+                                {{--<td>{{$result->date}}</td>--}}
                                 <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
                                 <td>{{$stocks->name}}</td>
                                 <td>{{$result->price}}</td>
@@ -95,7 +97,7 @@
                         <tr>
                             <td><b>Grand Total</b></td>
                             <td></td>
-                            <td></td>
+                            {{--<td></td>--}}
                             <td></td>
                             <td></td>
                             <td></td>

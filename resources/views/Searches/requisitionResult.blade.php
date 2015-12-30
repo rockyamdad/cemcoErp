@@ -48,9 +48,9 @@
                             <tr class="odd gradeX">
                                 <td>{{$branchName->name}}</td>
                                 <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
-                                <td>{{$result->requisition_quantity}}</td>
-                                <td>{{$result->issued_quantity}}</td>
-                                <td>{{$result->requisition_quantity-$result->issued_quantity}}</td>
+                                <td style="text-align: right;">{{$result->requisition_quantity}}</td>
+                                <td style="text-align: right;">{{$result->issued_quantity}}</td>
+                                <td style="text-align: right;">{{$result->requisition_quantity-$result->issued_quantity}}</td>
                                 <td>{{$result->created_at}}</td>
                                 <td>{{$result->remarks}}</td>
                                 <td>{{$result->uName}}</td>

@@ -8,10 +8,14 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <?php
+                $branches = \App\Branch::find($branch_id);
+                ?>
+            <center>
             <h3 class="page-title">
-             Purchase Details Report
+             Purchase Details Report For {{$branches->name}}
             </h3>
-
+            </center>
          </div>
     </div>
 
@@ -19,11 +23,9 @@
 
         <div class="col-md-12">
             <div class="portlet box light-grey">
-                <?php
-                $branches = \App\Branch::find($branch_id);
-                ?>
+
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Purchase Details Report of Products for Branch {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Date : From to To</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -38,13 +40,13 @@
                         <tr>
 
                             <th>Invoice No</th>
-                            <th>Date</th>
+                            {{--<th>Date</th>--}}
                             <th>Product Name</th>
                             <th>Stock Name</th>
-                            <th>Unit Price</th>
-                            <th>Quantity</th>
+                            <th style="text-align: right;">Unit Price</th>
+                            <th style="text-align: right;">Quantity</th>
                             <th>Remarks</th>
-                            <th>Total Sale</th>
+                            <th style="text-align: right;">Total Amount</th>
 
                         </tr>
                         </thead>
@@ -76,13 +78,13 @@
                                         {{$result->invoice}}
                                 @endif
                                 </td>
-                                <td>{{$result->date}}</td>
+                                {{--<td>{{$result->date}}</td>--}}
                                 <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
                                 <td>{{$stocks->name}}</td>
-                                <td>{{$result->price}}</td>
-                                <td>{{$result->quantity}}</td>
+                                <td style="text-align: right;">{{$result->price}}</td>
+                                <td style="text-align: right;">{{$result->quantity}}</td>
                                 <td>{{$result->remarks}}</td>
-                                <td>{{$result->quantity * $result->price}}</td>
+                                <td style="text-align: right;">{{$result->quantity * $result->price}}</td>
 
 
 
@@ -96,12 +98,12 @@
                         <tr>
                             <td><b>Grand Total</b></td>
                             <td></td>
+                            {{--<td></td>--}}
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
-                            <td>{{$totalSale}}</td>
+                            <td style="text-align: right;">{{$totalSale}}</td>
 
 
                         </tr>

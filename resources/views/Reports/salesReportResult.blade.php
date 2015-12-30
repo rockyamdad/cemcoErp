@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
            <center> <h3 class="page-title">
-                Sales Report of From Date to To Date
+                Sales Report of Branch Name
             </h3>
            </center>
          </div>
@@ -32,7 +32,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>   Sales Report of Products</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Sales Report of From Date to To Date</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -47,9 +47,9 @@
                         <tr>
 
                             <th>Invoice No</th>
-                            <th>Total Sale</th>
-                            <th>Total Payment </th>
-                            <th>Due</th>
+                            <th style="text-align: right;">Total Sale</th>
+                            <th style="text-align: right;">Total Payment </th>
+                            <th style="text-align: right;">Due</th>
 
                         </tr>
                         </thead>
@@ -68,15 +68,15 @@
 
                             <tr class="odd gradeX">
                                 <td>{{$result->invoice}}</td>
-                                <td>{{$result->totalSale}}</td>
-                                <td>
+                                <td style="text-align: right;">{{$result->totalSale}}</td>
+                                <td style="text-align: right;">
                                     @if($payment[0]->totalPayment)
                                         {{$payment[0]->totalPayment}}
                                     @else
                                          {{0}}
                                     @endif
                                 </td>
-                                <td>{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment}}</td>
 
 
                             </tr>
@@ -88,9 +88,9 @@
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
-                            <td>{{$totalSale}}</td>
-                            <td>{{$totalPayment}}</td>
-                            <td>{{$totalDue}}</td>
+                            <td style="text-align: right;">{{$totalSale}}</td>
+                            <td style="text-align: right;">{{$totalPayment}}</td>
+                            <td style="text-align: right;">{{$totalDue}}</td>
 
                         </tr>
 

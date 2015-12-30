@@ -6,10 +6,13 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+        <center>
             <h3 class="page-title">
              Accounts  Report
             </h3>
+            </center>
          </div>
+
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -33,9 +36,9 @@
                                 <th>Txn Type</th>
                                 <th>Cheque</th>
                                 <th>Description</th>
-                                <th>Withdrawal</th>
-                                <th>Deposit</th>
-                                <th>Balance</th>
+                                <th style="text-align: right;">Withdrawal</th>
+                                <th style="text-align: right;">Deposit</th>
+                                <th style="text-align: right;">Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,7 +57,7 @@
                             </td>
                             <td>
                             </td>
-                            <td>
+                            <td style="text-align: right;">
                                 {{$openingBalance}}
                             </td>
 
@@ -77,17 +80,17 @@
                                 </td>
                                 <td>{{$result->remarks}}</td>
 
-                                <td>
+                                <td style="text-align: right;">
                                     @if($result->type != 'Receive')
                                         {{$result->amount}}
                                     @endif
                                 </td>
-                                <td>
+                                <td style="text-align: right;">
                                     @if($result->type == 'Receive')
                                         {{$result->amount}}
                                     @endif
                                 </td>
-                                <td>
+                                <td style="text-align: right;">
                                     @if($result->type != 'Receive')
                                         @if($flag == '')
                                             {{$openingBalance - $result->amount}}
@@ -125,7 +128,7 @@
                             //$total = $total + ($result->amount);
                             ?>
                         @endforeach
-                        <tr>
+                        {{--<tr>
                             <td><b>Grand Total</b></td>
                             <td></td>
                             <td></td>
@@ -133,7 +136,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr>
+                        </tr>--}}
 
                         </tbody>
                     </table>

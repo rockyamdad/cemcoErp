@@ -38,7 +38,7 @@ text-decoration: underline;
                 $userName = \App\User::find($userId);
             ?>
 <center>
-            <h3>{{$product_type}} Stock Report</h3>
+            <h3>{{$results ? $results[0]->category : ' ' }} ({{$product_type}}) Stock Report</h3>
             <b>Date: {{$date001}} to {{$date002}}</b><br>
             <label>Printed by : {{$userName->name}}</label>
             </center>

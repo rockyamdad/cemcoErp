@@ -8,10 +8,11 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <center>
             <h3 class="page-title">
-             Balance Transfer  Report
+             Creditor Debtor Report
             </h3>
-
+            </center>
          </div>
     </div>
 
@@ -21,7 +22,7 @@
             <div class="portlet box light-grey">
 
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i> Balance Transfer Report </div>
+                    <div class="caption"><i class="fa fa-reorder"></i> Creditor Debtor Report </div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -34,8 +35,8 @@
                     <table class="table table-striped table-bordered table-hover" id="expense_products_report_table">
                         <thead style="background-color:cadetblue">
                         <tr>
-                            <th>Lender Account</th>
-                            <th>Borrower Account</th>
+                            <th>Creditor Account</th>
+                            <th>Debtor Account</th>
                             <th>Amount</th>
 
                         </tr>
@@ -120,12 +121,12 @@
 
                         @endforeach
 
-
+{{--
                         <tr>
                             <td><b>Grand Total</b></td>
                             <td></td>
                             <td></td>
-                        </tr>
+                        </tr>--}}
                         </tbody>
                     </table>
 

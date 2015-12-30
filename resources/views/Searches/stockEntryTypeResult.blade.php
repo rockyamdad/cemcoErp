@@ -32,12 +32,12 @@
                         <thead style="background-color:royalblue">
                         <tr>
 
-                            <th>Product Name</th>
-                            <th>Stock Name</th>
+                            <th>Product</th>
+                            <th>Stock</th>
                             <th>Entry Type</th>
                             <th>Quantity</th>
                             <th>Remarks</th>
-                            <th>Consignment Name</th>
+                            <th>Consignment</th>
 
                         </tr>
                         </thead>
@@ -53,7 +53,7 @@
                                     <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                                     <td>{{$result->sName}}</td>
                                     <td>{{$result->entry_type}}</td>
-                                    <td>{{$result->product_quantity}}</td>
+                                    <td style="text-align: right;">{{$result->product_quantity}}</td>
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
 

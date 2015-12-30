@@ -8,10 +8,11 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <center>
             <h3 class="page-title">
              Balance Transfer  Report
             </h3>
-
+            </center>
          </div>
     </div>
 
@@ -21,7 +22,7 @@
             <div class="portlet box light-grey">
 
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i> Balance Transfer Report </div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Account1 and Account2</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -36,10 +37,10 @@
                         <tr>
                             <th>Date</th>
                             <th>From Branch</th>
-                            <th>To Branch</th>
                             <th>From Account</th>
+                            <th>To Branch</th>
                             <th>To  Account</th>
-                            <th>Amount</th>
+                            <th style="text-align: right;">Amount</th>
                             <th>Remarks</th>
                             <th>Created By</th>
                         </tr>
@@ -61,10 +62,10 @@
                             <tr class="odd gradeX">
                                 <td>{{$result->date}}</td>
                                 <td>{{$fromBranch->name}}</td>
-                                <td>{{$toBranch->name}}</td>
                                 <td>{{$fromAccount->name}}</td>
+                                <td>{{$toBranch->name}}</td>
                                 <td>{{$toAccount->name}}</td>
-                                <td>{{$result->amount}}</td>
+                                <td style="text-align: right;">{{$result->amount}}</td>
                                 <td>{{$result->remarks}}</td>
                                 <td>{{$user->name}}</td>
                             </tr>
@@ -84,10 +85,10 @@
                             <tr class="odd gradeX">
                                 <td>{{$result->date}}</td>
                                 <td>{{$fromBranch->name}}</td>
-                                <td>{{$toBranch->name}}</td>
                                 <td>{{$fromAccount->name}}</td>
+                                <td>{{$toBranch->name}}</td>
                                 <td>{{$toAccount->name}}</td>
-                                <td>{{$result->amount}}</td>
+                                <td style="text-align: right;">{{$result->amount}}</td>
                                 <td>{{$result->remarks}}</td>
                                 <td>{{$user->name}}</td>
                             </tr>
@@ -101,7 +102,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>{{$total}}</td>
+                            <td style="text-align: right;">{{$total}}</td>
                             <td></td>
                             <td></td>
                         </tr>

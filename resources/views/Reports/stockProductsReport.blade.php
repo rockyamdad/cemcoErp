@@ -91,7 +91,7 @@
                             <th>Product Name</th>
                             <th>Category Name</th>
                             <th>Sub-Category Name</th>
-                            <th>Total Quantity On Hand</th>
+                            <th>Quantity On Hand</th>
 
                         </tr>
                         </thead>

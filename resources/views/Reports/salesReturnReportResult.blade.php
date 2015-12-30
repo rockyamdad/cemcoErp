@@ -8,10 +8,14 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                            <?php
+                            $branches = \App\Branch::find($branch_id);
+                            ?>
+            <center>
             <h3 class="page-title">
-             Sales Return  Report
+             Sales Return  Report For {{$branches->name}}
             </h3>
-
+            </center>
          </div>
     </div>
 
@@ -19,11 +23,9 @@
 
         <div class="col-md-12">
             <div class="portlet box light-grey">
-                <?php
-                $branches = \App\Branch::find($branch_id);
-                ?>
+
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>  Branch {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>  Date : From to To </div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -42,8 +44,8 @@
                             <th>Product Name</th>
                             <th>Customer Ref No</th>
                             <th>Consignment Name</th>
-                            <th>Quantity</th>
-                            <th>Return Amount</th>
+                            <th style="text-align: right;">Quantity</th>
+                            <th style="text-align: right;">Return Amount</th>
 
                         </tr>
                         </thead>
@@ -72,8 +74,8 @@
                                 <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
                                 <td>{{$result->cus_ref_no}}</td>
                                 <td>{{$result->consignment_name}}</td>
-                                <td>{{$result->quantity}}</td>
-                                <td>{{$result->return_amount}}</td>
+                                <td style="text-align: right;">{{$result->quantity}}</td>
+                                <td style="text-align: right;">{{$result->return_amount}}</td>
                             </tr>
                             <?php
                             $total = $total + ($result->return_amount );
@@ -86,7 +88,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>{{$total}}</td>
+                            <td style="text-align: right;">{{$total}}</td>
 
 
                         </tr>

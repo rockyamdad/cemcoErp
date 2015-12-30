@@ -8,8 +8,11 @@
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <?php
+                $branches = \App\Branch::find($branch_id);
+            ?>
             <h3 class="page-title">
-             Sales Due Report
+             Sales Due Report for {{$branches->name}}
             </h3>
 
          </div>
@@ -18,13 +21,11 @@
     <div class="row">
 
         <div class="col-md-12">
-            <?php
-            $branches = \App\Branch::find($branch_id);
-            ?>
+
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Branch Name:  {{$branches->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>Date From to To  </div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
@@ -38,9 +39,9 @@
                         <thead style="background-color:cadetblue">
                         <tr>
                             <th>Party</th>
-                            <th>Total Sale</th>
-                            <th>Total Payment </th>
-                            <th>Due</th>
+                            <th style="text-align: right;">Total Sale</th>
+                            <th style="text-align: right;">Total Payment </th>
+                            <th style="text-align: right;">Due</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -59,15 +60,15 @@
                             @if(($result->totalSale - $payment[0]->totalPayment) > 1)
                                 <tr class="odd gradeX">
                                     <td>{{$party->name}}</td>
-                                    <td>{{$result->totalSale}}</td>
-                                    <td>
+                                    <td style="text-align: right;">{{$result->totalSale}}</td>
+                                    <td style="text-align: right;">
                                         @if($payment[0]->totalPayment)
                                             {{$payment[0]->totalPayment}}
                                         @else
                                              {{0}}
                                         @endif
                                     </td>
-                                    <td>{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                    <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment}}</td>
                                 </tr>
                                 <?php
                                 $totalSale = $totalSale + $result->totalSale;
@@ -78,9 +79,9 @@
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
-                            <td>{{$totalSale}}</td>
-                            <td>{{$totalPayment}}</td>
-                            <td>{{$totalDue}}</td>
+                            <td style="text-align: right;">{{$totalSale}}</td>
+                            <td style="text-align: right;">{{$totalPayment}}</td>
+                            <td style="text-align: right;">{{$totalDue}}</td>
 
                         </tr>
 
