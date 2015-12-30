@@ -30,6 +30,7 @@
                         <tr>
 
                             <th>Date</th>
+                            <th>Entry Type</th>
                             <th>Remarks</th>
                             <th>Consignment Name</th>
                             <th>Created By</th>
@@ -46,6 +47,7 @@
                                 <tr class="odd gradeX">
 
                                     <td>{{$result->created_at}}</td>
+                                    <td>{{$result->entry_type}}</td>
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
                                     <td>{{$result->uName}}</td>
@@ -59,6 +61,7 @@
                             <tr class="odd gradeX">
 
                                 <td>Total Quantity</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
