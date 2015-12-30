@@ -6,12 +6,31 @@
                 $userId=Session::get('user_id');
                 $userName = \App\User::find($userId);
             ?>
+            <?php
+            use Illuminate\Support\Facades\URL;
+            $curent_url = $_SERVER['REQUEST_URI'];
+
+            if($curent_url == '/reports/printstocksproducts')
+            {
+            ?>
+            <h3 class="page-title"> All Stock Report  </h3>
+            <?php }else{
+            $stock = \App\StockInfo::find($stock_info_id);
+            $cat = \App\Category::find($category_id);
+            $branch = \App\Branch::find($branch_id);
+            ?>
             <center>
+
                 <h3>Stock In Hand Report</h3>
-                <b>For Category: and Stock:<br>
-                <b>Date:  to </b><br>
-                <label>Printed by : {{$userName->name}}</label>
+                <b>For Category: {{$cat->name}} and Stock:{{$stock->name}} and Branch {{$branch->name}}<br>
+                    <label>Printed by : {{$userName->name}}</label>
             </center>
+
+
+
+            <?php  }
+            ?>
+
         </div>
         <div class="modal-body">
         <center>
