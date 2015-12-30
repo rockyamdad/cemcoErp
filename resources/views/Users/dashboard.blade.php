@@ -87,249 +87,276 @@
 
 
 </div>
+    @if(Session::get('user_role') == 'admin' || Session::get('user_role') == 'user')
+    <div class="row ">
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-bell-o"></i>Pending Cheque Register</div>
 
-<div class="row ">
-    <div class="col-md-12 col-sm-12">
-        <div class="portlet box blue">
-            <div class="portlet-title">
-                <div class="caption"><i class="fa fa-bell-o"></i>Pending Cheque Register</div>
+                </div>
+                <div class="portlet-body">
 
-            </div>
-            <div class="portlet-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Party Name</th>
+                                                <th>Bank Name</th>
+                                                <th>Cheque No</th>
+                                                <th>Cheque Date</th>
+                                                <th>Amount</th>
+                                                <th>Received by</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                                $slNo = 1;
+                                            ?>
+                                                @foreach($register as $reg)
+                                                    <?php
+                                                        $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)->first();
+                                                        $partyname = \App\Party::find($sale->party_id);
+                                                    ?>
+                                                    <tr>
+                                                        <td>{{$slNo}}</td>
+                                                        <td>{{$partyname->name}}</td>
+                                                        <td>{{$reg->cheque_bank}}</td>
+                                                        <td>{{$reg->cheque_no}}</td>
+                                                        <td>{{$reg->cheque_date}}</td>
+                                                        <td>{{$reg->amount}}</td>
+                                                        <td>{{$reg->user->username}}</td>
+                                                        <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                                                        <td>
+                                                            <a data-id="" class="btn btn-sm purple changeStatus"
+                                                            href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
+                                                            class="fa fa-check"></i>Complete</a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php
+                                                        $slNo++;
+                                                    ?>
+                                                @endforeach
 
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Party Name</th>
-                                            <th>Bank Name</th>
-                                            <th>Cheque No</th>
-                                            <th>Cheque Date</th>
-                                            <th>Amount</th>
-                                            <th>Received by</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                            $slNo = 1;
-                                        ?>
-                                            @foreach($register as $reg)
-                                                <?php
-                                                    $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)->first();
-                                                    $partyname = \App\Party::find($sale->party_id);
-                                                ?>
-                                                <tr>
-                                                    <td>{{$slNo}}</td>
-                                                    <td>{{$partyname->name}}</td>
-                                                    <td>{{$reg->cheque_bank}}</td>
-                                                    <td>{{$reg->cheque_no}}</td>
-                                                    <td>{{$reg->cheque_date}}</td>
-                                                    <td>{{$reg->amount}}</td>
-                                                    <td>{{$reg->user->username}}</td>
-                                                    <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
-                                                    <td>
-                                                        <a data-id="" class="btn btn-sm purple changeStatus"
-                                                        href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
-                                                        class="fa fa-check"></i>Complete</a>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                                    $slNo++;
-                                                ?>
-                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                <div class="scroller-footer">
-                    <div class="pull-right">
-                        <a href="{{ URL::to('chequeregister/index') }}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                    <div class="scroller-footer">
+                        <div class="pull-right">
+                            <a href="{{ URL::to('chequeregister/index') }}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="portlet box yellow tasks-widget">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-money"></i>Latest Transactions</div>
+                    <div class="tools">
 
-</div>
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <div class="portlet box yellow tasks-widget">
-            <div class="portlet-title">
-                <div class="caption"><i class="fa fa-money"></i>Latest Transactions</div>
-                <div class="tools">
+                        <a href="index.html" class="reload"></a>
+                    </div>
 
-                    <a href="index.html" class="reload"></a>
                 </div>
-
-            </div>
-            <div class="portlet-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                    <thead>
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Account Category</th>
-                        <th>Account Name</th>
-                        <th>Transaction Type</th>
-                        <th>Payment Method</th>
-                        <th>Cheque No</th>
-                        <th>Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @foreach($latestTransactions as $transaction )
-                        <tr class="odd gradeX">
-
-                            <td>{{$transaction->created_at}}</td>
-                            <td>{{$transaction->accountCategory->name}}</td>
-                            <td>{{$transaction->accountName->name}}</td>
-                            <td>{{$transaction->type}}</td>
-                            <td>{{$transaction->payment_method}}</td>
-                            <td>
-                                @if($transaction->cheque_no)
-                                    {{ $transaction->cheque_no }}
-                                @else
-                                    {{"Not Available"}}
-                                @endif
-                            </td>
-                            <td>{{$transaction->amount}}</td>
-
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-                </table>
-           {{--     <div class="task-footer">
-								<span class="pull-right">
-								<a href="index.html#">See All Tasks <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
-								</span>
-                </div>--}}
-            </div>
-                </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box purple">
-            <div class="portlet-title">
-                <div class="caption"><i class="fa fa-cogs"></i>Accounts</div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse"></a>
-                    <a href="javascript:;" class="reload"></a>
-                    <a href="javascript:;" class="remove"></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Branch Name</th>
+
+                            <th>Date</th>
+                            <th>Account Category</th>
                             <th>Account Name</th>
-                            <th>Balance</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                            $slNo = 1;
-                        ?>
-                            @foreach($accountsBalance as $account)
-                                <?php
-                                    $branch = \App\Branch::find($account->branch_id);
-                                ?>
-                                <tr>
-                                    <td>{{$slNo}}</td>
-                                    <td>{{$branch->name}}</td>
-                                    <td>{{$account->name}}</td>
-                                    <td>{{$account->opening_balance}}</td>
-                                </tr>
-                                <?php
-                                    $slNo++;
-                                ?>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- END SAMPLE TABLE PORTLET-->
-    </div>
-    <div class="col-md-6">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box blue">
-            <div class="portlet-title">
-                <div class="caption"><i class="fa fa-cogs"></i>Account Balance Transfer</div>
-                <div class="tools">
-                    <a href="javascript:;" class="collapse"></a>
-                    <a href="javascript:;" class="reload"></a>
-                    <a href="javascript:;" class="remove"></a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Lender Account</th>
-                            <th>Borrower Account</th>
+                            <th>Transaction Type</th>
+                            <th>Payment Method</th>
+                            <th>Cheque No</th>
                             <th>Amount</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            $slNo = 1;
-                        ?>
-                        <?php
-                            $values = array();
-                            $count=0;
-                            $count2=0;
-                        ?>
-                        @foreach($accountBalanceTransfers as $result )
+
+                        @foreach($latestTransactions as $transaction )
+                            <tr class="odd gradeX">
+
+                                <td>{{$transaction->created_at}}</td>
+                                <td>{{$transaction->accountCategory->name}}</td>
+                                <td>{{$transaction->accountName->name}}</td>
+                                <td>{{$transaction->type}}</td>
+                                <td>{{$transaction->payment_method}}</td>
+                                <td>
+                                    @if($transaction->cheque_no)
+                                        {{ $transaction->cheque_no }}
+                                    @else
+                                        {{"Not Available"}}
+                                    @endif
+                                </td>
+                                <td>{{$transaction->amount}}</td>
+
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+               {{--     <div class="task-footer">
+                                    <span class="pull-right">
+                                    <a href="index.html#">See All Tasks <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
+                                    </span>
+                    </div>--}}
+                </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+            <div class="portlet box purple">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-cogs"></i>Accounts</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                        <a href="javascript:;" class="reload"></a>
+                        <a href="javascript:;" class="remove"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Branch Name</th>
+                                <th>Account Name</th>
+                                <th>Balance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             <?php
-                            $reports = new \App\Report();
-                            $results2 = $reports->getBalanceTransferForFromAccount($result->fromAccount);
-                            $fromAccount = \App\NameOfAccount::find($result->fromAccount);
+                                $slNo = 1;
                             ?>
-
-                            @foreach($results2 as $result2 )
-                                <?php
-                                $reports = new \App\Report();
-                                $results3 = $reports->getBalanceTransferForToAccount($result->fromAccount, $result2->toAccount);
-                                $remainingAmount = $result2->fromAmount - $results3[0]->toAmount;
-                                $toAccount = \App\NameOfAccount::find($result2->toAccount);
-                                ?>
-                                @if($remainingAmount > 0)
+                                @foreach($accountsBalance as $account)
                                     <?php
-                                        for($i=0;$i<$count;$i++)
-                                        {
-
-                                            $from = $values[$i]["from"];
-                                            $to = $values[$i]["to"];
-                                            //var_dump($from." ".$to);
-                                            if($from==$fromAccount->name && $to==$toAccount->name)
-                                            {
-                                                $count2=1;
-                                            }
-                                        }
+                                        $branch = \App\Branch::find($account->branch_id);
                                     ?>
-                                    @if($count2==0)
                                     <tr>
                                         <td>{{$slNo}}</td>
-                                        <td>{{$fromAccount->name}}</td>
-                                        <td>{{$toAccount->name}}</td>
-                                        <td>{{$remainingAmount}}</td>
+                                        <td>{{$branch->name}}</td>
+                                        <td>{{$account->name}}</td>
+                                        <td>{{$account->opening_balance}}</td>
                                     </tr>
+                                    <?php
+                                        $slNo++;
+                                    ?>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END SAMPLE TABLE PORTLET-->
+        </div>
+        <div class="col-md-6">
+            <!-- BEGIN SAMPLE TABLE PORTLET-->
+            <div class="portlet box blue">
+                <div class="portlet-title">
+                    <div class="caption"><i class="fa fa-cogs"></i>Account Balance Transfer</div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"></a>
+                        <a href="javascript:;" class="reload"></a>
+                        <a href="javascript:;" class="remove"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Lender Account</th>
+                                <th>Borrower Account</th>
+                                <th>Amount</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $slNo = 1;
+                            ?>
+                            <?php
+                                $values = array();
+                                $count=0;
+                                $count2=0;
+                            ?>
+                            @foreach($accountBalanceTransfers as $result )
+                                <?php
+                                $reports = new \App\Report();
+                                $results2 = $reports->getBalanceTransferForFromAccount($result->fromAccount);
+                                $fromAccount = \App\NameOfAccount::find($result->fromAccount);
+                                ?>
+
+                                @foreach($results2 as $result2 )
+                                    <?php
+                                    $reports = new \App\Report();
+                                    $results3 = $reports->getBalanceTransferForToAccount($result->fromAccount, $result2->toAccount);
+                                    $remainingAmount = $result2->fromAmount - $results3[0]->toAmount;
+                                    $toAccount = \App\NameOfAccount::find($result2->toAccount);
+                                    ?>
+                                    @if($remainingAmount > 0)
+                                        <?php
+                                            for($i=0;$i<$count;$i++)
+                                            {
+
+                                                $from = $values[$i]["from"];
+                                                $to = $values[$i]["to"];
+                                                //var_dump($from." ".$to);
+                                                if($from==$fromAccount->name && $to==$toAccount->name)
+                                                {
+                                                    $count2=1;
+                                                }
+                                            }
+                                        ?>
+                                        @if($count2==0)
+                                        <tr>
+                                            <td>{{$slNo}}</td>
+                                            <td>{{$fromAccount->name}}</td>
+                                            <td>{{$toAccount->name}}</td>
+                                            <td>{{$remainingAmount}}</td>
+                                        </tr>
+                                            <?php
+                                                array_push($values, array("from" => $fromAccount->name, "to" => $toAccount->name));
+                                                $count++;
+                                                $slNo++;
+                                            ?>
+                                        @endif
+                                        <?php $count2=0; ?>
+                                    @elseif($remainingAmount < 0)
+                                        <?php
+                                            for($i=0;$i<$count;$i++)
+                                            {
+                                                $from = $values[$i]["to"];
+                                                $to = $values[$i]["from"];
+                                                //var_dump($from." ".$to);
+                                                if($from==$fromAccount->name && $to==$toAccount->name)
+                                                {
+                                                    $count2=1;
+                                                }
+                                            }
+                                        ?>
+                                        @if($count2==0)
+                                        <tr>
+                                            <td>{{$slNo}}</td>
+                                            <td>{{$toAccount->name}}</td>
+                                            <td>{{$fromAccount->name}}</td>
+                                            <td>{{-$remainingAmount}}</td>
+                                        </tr>
                                         <?php
                                             array_push($values, array("from" => $fromAccount->name, "to" => $toAccount->name));
                                             $count++;
@@ -337,46 +364,20 @@
                                         ?>
                                     @endif
                                     <?php $count2=0; ?>
-                                @elseif($remainingAmount < 0)
-                                    <?php
-                                        for($i=0;$i<$count;$i++)
-                                        {
-                                            $from = $values[$i]["to"];
-                                            $to = $values[$i]["from"];
-                                            //var_dump($from." ".$to);
-                                            if($from==$fromAccount->name && $to==$toAccount->name)
-                                            {
-                                                $count2=1;
-                                            }
-                                        }
-                                    ?>
-                                    @if($count2==0)
-                                    <tr>
-                                        <td>{{$slNo}}</td>
-                                        <td>{{$toAccount->name}}</td>
-                                        <td>{{$fromAccount->name}}</td>
-                                        <td>{{-$remainingAmount}}</td>
-                                    </tr>
-                                    <?php
-                                        array_push($values, array("from" => $fromAccount->name, "to" => $toAccount->name));
-                                        $count++;
-                                        $slNo++;
-                                    ?>
-                                @endif
-                                <?php $count2=0; ?>
-                                @endif
+                                    @endif
+                                @endforeach
+
                             @endforeach
 
-                        @endforeach
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <!-- END SAMPLE TABLE PORTLET-->
         </div>
-        <!-- END SAMPLE TABLE PORTLET-->
     </div>
-</div>
+    @endif
 <div class="row">
     <div class="col-md-6">
         <!-- BEGIN SAMPLE TABLE PORTLET-->

@@ -81,7 +81,15 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->username}}</td>
-                        <td>{{$user->role}}</td>
+                        <td>
+                            @if($user->role == 'admin')
+                                Admin
+                            @elseif($user->role == 'manager')
+                                Stock InCharge
+                            @else
+                                Office Manager
+                            @endif
+                        </td>
                         @if($user->sex == "m")
                         <td>Male</td>
                         @else

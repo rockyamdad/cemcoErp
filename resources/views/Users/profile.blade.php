@@ -35,7 +35,13 @@
     <b>UserName: </b>{{$profile->username}}<br><br>
     <b>Branch: </b>{{$branch->name}}<br><br>
     <b>Phone: </b>{{$profile->phone}}<br><br>
-    <b>Role: </b>{{$profile->role}}<br><br>
+    <b>Role: </b> @if($profile->role == 'admin')
+            Admin
+        @elseif($profile->role == 'manager')
+            Stock InCharge
+        @else
+            Office Manager
+        @endif  <br><br>
     <b>Address: </b>{{$profile->address}}
 
 

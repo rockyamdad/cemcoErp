@@ -136,7 +136,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     @if (Request::is('dashboard/'))<span class="selected"></span>@endif
                 </a>
             </li>
-
+            @if(Session::get('user_role') == 'admin')
             <li class=" @if (Request::is('add')||Request::is('list')) active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-group"></i>
@@ -157,6 +157,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
 
+
         <li class="@if (Request::is('branchAdd')||Request::is('branchList'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-puzzle-piece"></i>
@@ -165,17 +166,18 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <span class="arrow @if (Request::is('branches/*'))open @endif"></span>
             </a>
 
-            <ul class="sub-menu">
-                <li
-                @if (Request::is('branchAdd/'))class="active"@endif>
-                <a href="{{ URL::to('branchAdd') }}">Add Branch </a>
+                <ul class="sub-menu">
+                    <li
+                    @if (Request::is('branchAdd/'))class="active"@endif>
+                    <a href="{{ URL::to('branchAdd') }}">Add Branch </a>
+            </li>
+            <li
+            @if (Request::is('branchList/'))class="active"@endif>
+            <a href="{{ URL::to('branchList') }}">Branch List </a>
+            </li>
+            </ul>
         </li>
-        <li
-        @if (Request::is('branchList/'))class="active"@endif>
-        <a href="{{ URL::to('branchList') }}">Branch List </a>
-        </li>
-        </ul>
-        </li>
+            @endif
 
         <li class="@if (Request::is('productCategories/*')||Request::is('productsubcategories/*')||Request::is('products/*'))active @endif">
             <a href="javascript:;">
@@ -204,8 +206,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
+            @if(Session::get('user_role') == 'admin')
 
-        <li class="@if (Request::is('imports/*'))active @endif">
+                <li class="@if (Request::is('imports/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-plane"></i>
                 <span class="title">Import</span>
@@ -224,7 +227,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </li>
         </ul>
         </li>
-
+        @endif
         <li class="@if (Request::is('stocks/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-archive"></i>
@@ -245,6 +248,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
+            @if(Session::get('user_role') == 'admin')
             <li class="@if (Request::is('balancetransfers/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-random"></i>
@@ -265,7 +269,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
                 </ul>
             </li>
-
+            @endif
         <li class="@if (Request::is('requisitions/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-pencil-square-o"></i>
@@ -275,10 +279,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </a>
 
             <ul class="sub-menu">
+                @if(Session::get('user_role') != 'manager')
                 <li
                 @if (Request::is('requisitions/create'))class="active"@endif>
                 <a href="{{ URL::to('requisitions/create') }}">Create Order Requisition </a>
         </li>
+                @endif
         <li
         @if (Request::is('requisitions/index'))class="active"@endif>
         <a href="{{ URL::to('requisitions/index') }}">Order Requisition List </a>
@@ -286,6 +292,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
         </ul>
         </li>
+            @if(Session::get('user_role') != 'manager')
             <li class="@if (Request::is('accountcategory/*')||Request::is('accountnames/*')||Request::is('sales/*')||Request::is('salesreturn/*')||Request::is('purchases/*')||Request::is('expenses/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-bar-chart-o"></i>
@@ -325,8 +332,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                 </ul>
             </li>
-
-
+            @endif
+            @if(Session::get('user_role') == 'admin')
         <li class="@if (Request::is('parties/*')||Request::is('stockInfos/*'))active @endif">
             <a href="javascript:;">
                 <i class="fa fa-gears"></i>
@@ -347,7 +354,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </li>
         </ul>
         </li>
-            <li class="@if (Request::is('searches/*'))active @endif">
+            @endif
+          {{--  <li class="@if (Request::is('searches/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-search"></i>
                     <span class="title">Search</span>
@@ -370,7 +378,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
 
                  </ul>
-                </li>
+                </li>--}}
             <li class="@if (Request::is('reports/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-puzzle-piece"></i>
@@ -400,7 +408,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('searches/requisition/'))class="active"@endif>
                         <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>
                     </li>
-
+                    @if(Session::get('user_role') != 'manager')
                     <li style="background-color: #006666"
                             @if (Request::is('reports/salesreport'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesreport') }}">Periodic Sales Report</a>
@@ -445,6 +453,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/expensepayment'))class="active"@endif>
                         <a href="{{ URL::to('reports/expensepayment') }}">Expense Payment Report</a>
                     </li>
+                    @endif
+                    @if(Session::get('user_role') == 'admin')
                     <li style="background-color: #aa6b10"
                             @if (Request::is('reports/balancetransfer'))class="active"@endif>
                         <a href="{{ URL::to('reports/balancetransfer') }}">Account Balance Transfer </a>
@@ -457,6 +467,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/accountsreport'))class="active"@endif>
                         <a href="{{ URL::to('reports/accountsreport') }}">Accounts Report</a>
                     </li>
+                        @endif
 
                 </ul>
             </li>

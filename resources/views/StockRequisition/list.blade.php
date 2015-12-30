@@ -42,7 +42,7 @@
             </div>
 
             <div class="portlet-body">
-
+                @if(Session::get('user_role') != 'manager')
                 <div class="table-toolbar">
                     <div class="btn-group">
                         <a class="btn green" href="{{ URL::to('requisitions/create') }}">Make Order Requisition&nbsp;&nbsp;<i
@@ -51,6 +51,7 @@
                     </div>
 
                 </div>
+                @endif
                 <table class="table table-bordered table-striped table-condensed flip-content" id="Requisitiontable">
                     <thead class="flip-content">
                     <tr>
