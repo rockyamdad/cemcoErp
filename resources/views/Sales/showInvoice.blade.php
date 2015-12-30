@@ -4,58 +4,64 @@
 
 @stop
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-            <h3 class="page-title">
-                Sales  Invoice
-            </h3>
-            <ul class="page-breadcrumb breadcrumb">
-                <li>
-                    <i class="fa fa-home"></i>
-                    <a href="{{URL::to('dashboard')}}">Home</a>
-                    <i class="fa fa-angle-right"></i>
-                </li>
+        <div class="row">
 
-                <li><a href="#">Sales Invoice</a></li>
-                <a class="btn blue btn-sm" style="margin-left: 747px;" href="/sales/index">Back</a>
-
-            </ul>
-            <!-- END PAGE TITLE & BREADCRUMB-->
-        </div>
-
-    </div>
-    <div class="invoice">
-        <div class="row invoice-logo">
-            <div class="col-xs-6 invoice-logo-space"><img src="../../assets/img/logo.png" alt="" /> </div>
-            <div class="col-xs-6">
-               <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
+            <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
+                <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
             </div>
         </div>
-        <hr />
+    <div class="invoice">
+        <div class="row invoice-logo">
+            <div class="col-xs-12 invoice-logo-space"><img src="../../assets/img/SUNSHINE TRADING CORPORATION.jpg" height="80"  alt="" />
+           </div>
+            <div class="col-xs-12 invoice-logo-space">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Kamal Chamber (2nd Floor), 61 Jubilee Road, Chittagong<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel 031 2865220, 2853063, Email: cemcogroupbd@gmail.com<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Website: www.cemcogroupbd.com</b>
+            </div>
+            <hr />
+            {{--<div class="col-xs-6">
+               <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
+            </div>--}}
+        </div>
+
         <div class="row">
+
             <div class="col-xs-4">
-                <h4>Client:</h4>
+               {{-- <h4>Client:</h4>--}}
                 <?php
                     $party = \App\Party::find($sale->party_id);
                     ?>
-                <ul class="list-unstyled">
-                    <li>{{$party->name}}</li>
-                    <li>{{$party->contact_person_name}}</li>
-                    <li>{{$party->phone}}</li>
-                    <li>{{$party->email}}</li>
-                    <li>{{$party->address}}</li>
-                </ul>
+
+                <table>
+                <tr>
+                    <td><b>Customer</b></td>
+                    <td>: {{$party->name}}</td>
+                </tr>
+                <tr>
+                    <td><b>Address</b></td>
+                    <td>: {{$party->address}}</td>
+                </tr>
+                <tr>
+                    <td><b>Contact</b></td>
+                    <td>: {{$party->phone}}</td>
+                </tr>
+                </table>
             </div>
             <div class="col-xs-4">
 
             </div>
             <div class="col-xs-4 invoice-payment">
-                <h4>Payment Details:</h4>
-                <ul class="list-unstyled">
-                    <li><strong>Invoice #:</strong> {{$sale->invoice_id}}</li>
-                    <li><strong>Account Name:</strong> {{$party->name}}</li>
-                </ul>
+                <table>
+                <tr>
+                    <td><b>Invoice #</b></td>
+                    <td>: {{$sale->invoice_id}}</td>
+                </tr>
+                <tr>
+                    <td><b>Date</b></td>
+                    <td>: {{date("d-m-Y")}}</td>
+                </tr>
+                </table>
             </div>
         </div>
         <br>
@@ -68,9 +74,9 @@
                         <th>#</th>
                         <th>Product</th>
                         <th class="hidden-480">Description</th>
-                        <th class="hidden-480">Quantity</th>
-                        <th class="hidden-480">Unit Cost</th>
-                        <th>Total</th>
+                        <th style="text-align: right;" class="hidden-480">Quantity</th>
+                        <th style="text-align: right;" class="hidden-480">Unit Price</th>
+                        <th style="text-align: right;">Amount</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -86,47 +92,30 @@
                             <td>{{$i}}</td>
                             <td>{{$products->name}}</td>
                             <td>{{$saleDetail->remarks}}</td>
-                            <td>{{$saleDetail->quantity}}</td>
-                            <td>{{$saleDetail->price}}</td>
-                            <td>{{$saleDetail->price * $saleDetail->quantity}}</td>
+                            <td style="text-align: right;">{{$saleDetail->quantity}}</td>
+                            <td style="text-align: right;">{{$saleDetail->price}}</td>
+                            <td style="text-align: right;">{{$saleDetail->price * $saleDetail->quantity}}</td>
                         </tr>
                         <?php
                         $total = $total + ($saleDetail->price * $saleDetail->quantity);
                         $i++;
                         ?>
                     @endforeach
+                        <tr>
+                            <td>Grand Total:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align: right;">{{$total}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <br>
         <br>
-        <div class="row">
-{{--            <div class="col-xs-8">
-                <div class="well">
-                    <address>
-                        <strong>Loop, Inc.</strong><br />
-                        795 Park Ave, Suite 120<br />
-                        San Francisco, CA 94107<br />
-                        <abbr title="Phone">P:</abbr> (234) 145-1810
-                    </address>
-                    <address>
-                        <strong>Full Name</strong><br />
-                        <a href="mailto:#">first.last@email.com</a>
-                    </address>
-                </div>
-            </div>--}}
-            <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
-                <ul class="list-unstyled amounts">
-                   {{-- <li><strong>Sub - Total amount:</strong> $9265</li>
-                    <li><strong>Discount:</strong> 12.9%</li>
-                    <li><strong>VAT:</strong> -----</li>--}}
-                    <li><strong>Grand Total:</strong> ${{$total}}</li>
-                </ul>
-                <br />
-                <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
-            </div>
-        </div>
+
     </div>
 
 
