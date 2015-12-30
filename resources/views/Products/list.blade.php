@@ -88,7 +88,9 @@
 
                         <th>Price</th>
                         <th>Created By</th>
+                        @if(Session::get('user_role') == 'admin')
                         <th width="200px;">Action</th>
+                        @endif
                     </tr>
                     </thead>
 
@@ -114,6 +116,7 @@
 
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->user->username}}</td>
+                                @if(Session::get('user_role') == 'admin')
                                 <td>
                                     <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
                                                 class="fa fa-edit"></i>Edit </a>
@@ -121,6 +124,7 @@
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                 class="fa fa-trash-o"></i> Delete</a>
                                 </td>
+                                @endif
 
                             </tr>
                             <?php
@@ -147,6 +151,7 @@
 
                                 <td>{{$product->price}}</td>
                                 <td>{{$product->user->username}}</td>
+                                @if(Session::get('user_role') == 'admin')
                                 <td>
                                     <a class="btn blue btn-sm" href="{{ URL::to('products/edit/'. $product->id ) }}"><i
                                                 class="fa fa-edit"></i>Edit </a>
@@ -154,6 +159,7 @@
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                 class="fa fa-trash-o"></i> Delete</a>
                                 </td>
+                                @endif
 
                             </tr>
                             <?php

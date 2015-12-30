@@ -58,7 +58,9 @@
                         <th>Name</th>
                         <th>Branch</th>
                         <th>Created By</th>
-                        <th>Action</th>
+                        @if(Session::get('user_role') == 'admin')
+                         <th>Action</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -71,13 +73,16 @@
                         <td>{{$category->name}}</td>
                         <td>{{$category->branch->name}}</td>
                         <td>{{$category->user->username}}</td>
+                        @if(Session::get('user_role') == 'admin')
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productCategories/edit/'. $category->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Category</a>
                             <a class="btn red btn-sm" href="{{ URL::to('productCategories/delete/'.$category->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                    class="fa fa-trash-o"></i> Delete</a></td>
+                                    class="fa fa-trash-o"></i> Delete</a>
+                        </td>
+                        @endif
 
                     </tr>
                     <?php

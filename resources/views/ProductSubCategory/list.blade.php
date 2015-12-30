@@ -59,7 +59,9 @@
                         <th>Branch</th>
                         <th>Category</th>
                         <th>Created By</th>
+                        @if(Session::get('user_role') == 'admin')
                         <th>Action</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -73,6 +75,7 @@
                         <td>{{$subCategory->branch->name}}</td>
                         <td>{{$subCategory->category->name}}</td>
                         <td>{{$subCategory->user->username}}</td>
+                        @if(Session::get('user_role') == 'admin')
                         <td>
                             <a class="btn blue btn-sm"
                                href="{{ URL::to('productsubcategories/edit/'. $subCategory->id ) }}"><i
@@ -82,6 +85,8 @@
                                onclick="return confirm('Are You Sure Want To Delete This Sub Category?')"><i
                                     class="fa fa-trash-o"></i> Delete</a>
                         </td>
+                        @endif
+
 
                     </tr>
                     <?php
