@@ -167,6 +167,7 @@ class Report extends Eloquent
         return DB::table('sale_details')
             ->join('sales','sale_details.invoice_id','=','sales.invoice_id')
             ->where('sale_details.branch_id', '=', $branch_id)
+            ->where('sales.is_sale', '=',1)
             ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
             ->groupBy('sales.party_id')
             ->select('sale_details.created_at AS date',
