@@ -347,7 +347,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </li>
         </ul>
         </li>
-           {{-- <li class="@if (Request::is('searches/*'))active @endif">
+            <li class="@if (Request::is('searches/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-search"></i>
                     <span class="title">Search</span>
@@ -371,7 +371,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
                  </ul>
                 </li>
---}}
             <li class="@if (Request::is('reports/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-puzzle-piece"></i>
@@ -397,7 +396,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('searches/stock-products'))class="active"@endif>
                         <a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>
                     </li>
-                    <li style="background-color: #8f4fcc"
+                    <li style="background-color: #ad71cc"
                             @if (Request::is('searches/requisition/'))class="active"@endif>
                         <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>
                     </li>
