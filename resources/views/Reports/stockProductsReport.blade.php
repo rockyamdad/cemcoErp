@@ -14,8 +14,10 @@
                 $curent_url = $_SERVER['REQUEST_URI'];
 
                 if($curent_url == '/reports/stocksproductsresult')
-                { ?>
-                        <h3 class="page-title"> Stock Name Stock Report  </h3>
+                {
+            $stock = \App\StockInfo::find($stock_info_id);
+            ?>
+                        <h3 class="page-title"> {{$stock->name}} Stock Report  </h3>
             <?php }else{?>
                     <h3 class="page-title"> All Stock Report  </h3>
 

@@ -126,6 +126,9 @@ class ReportController extends Controller{
         $results = $report->getStockReportResult($stock_info_id,$product_type,$branch_id,$category_id);
 
         return view('Reports.stockProductsReportPrint')
+            ->with('branch_id',$branch_id)
+            ->with('stock_info_id',$stock_info_id)
+            ->with('category_id',$category_id)
             ->with('results',$results);
 
     }
