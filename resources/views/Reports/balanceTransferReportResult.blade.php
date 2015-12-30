@@ -20,9 +20,12 @@
 
         <div class="col-md-12">
             <div class="portlet box light-grey">
-
+<?php
+    $acc1=\App\NameOfAccount::find($account1);
+    $acc2=\App\NameOfAccount::find($account2);
+?>
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-reorder"></i>Account1 and Account2</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>{{$acc1->name}} and {{$acc2->name}}</div>
 
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>

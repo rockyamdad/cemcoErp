@@ -180,7 +180,9 @@ class ReportController extends Controller{
         $report = new Report();
         $results = $report->getSalesDetailsReport($date1,$date2,$branch_id);
         return view('Reports.salesDetailsReportResult',compact('results'))
-            ->with('branch_id',$branch_id);
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
     }
     public function getSalesdue()
     {
@@ -258,7 +260,9 @@ class ReportController extends Controller{
         $report = new Report();
         $results = $report->getPurchaseDetailsReport($date1,$date2,$branch_id);
         return view('Reports.purchaseDetailsReportResult',compact('results'))
-            ->with('branch_id',$branch_id);
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
     }
     public function getPurchasedue()
     {
@@ -357,7 +361,9 @@ class ReportController extends Controller{
         $results = $report->getBalanceTransferReport($account1,$account2);
         $results2 = $report->getBalanceTransferReport2($account1,$account2);
         return view('Reports.balanceTransferReportResult',compact('results'))
-            ->with('results2',$results2);
+            ->with('results2',$results2)
+            ->with('account1',$account1)
+            ->with('account2',$account2);
 
     }
     public function getAccountsreport()
@@ -387,7 +393,9 @@ class ReportController extends Controller{
             ->with('totalBalanceOut',$totalBalanceOut)
             ->with('balanceIn',$balanceIn)
             ->with('currentBalance',$currentBalance)
-            ->with('balanceOut',$balanceOut);
+            ->with('balanceOut',$balanceOut)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
 
     }
     public function getBalancetransferreport()
