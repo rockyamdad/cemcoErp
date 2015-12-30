@@ -466,6 +466,7 @@
                         <?php
                         $slNo = 1;
                         ?>
+
                         @foreach($stockRequisitions as $requisition)
                             <?php
                                 $branchName = \App\Branch::find($requisition->branch_id);
