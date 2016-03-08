@@ -117,17 +117,17 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
             </li>
             <li>
-                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-            {{--    <form class="sidebar-search" action="extra_search.html" method="POST">
-                    <div class="form-container">
-                        <div class="input-box">
-                            <a href="javascript:;" class="remove"></a>
-                            <input type="text" placeholder="Search..."/>
-                            <input type="button" class="submit" value=" "/>
-                        </div>
-                    </div>
-                </form>--}}
-                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                {{--<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->--}}
+            {{--    <form class="sidebar-search" action="extra_search.html" method="POST">--}}
+                    {{--<div class="form-container">--}}
+                        {{--<div class="input-box">--}}
+                            {{--<a href="javascript:;" class="remove"></a>--}}
+                            {{--<input type="text" placeholder="Search..."/>--}}
+                            {{--<input type="button" class="submit" value=" "/>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</form>--}}
+                {{--<!-- END RESPONSIVE QUICK SEARCH FORM -->--}}
             </li>
             <li class="start @if (Request::is('dashboard/'))active @endif">
                 <a href="{{ URL::to('dashboard/') }}">
@@ -238,8 +238,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 
             <ul class="sub-menu">
                 <li
-                @if (Request::is('stocks/create'))class="active"@endif>
-                <a href="{{ URL::to('stocks/create') }}">Stock Entry</a>
+                @if (Request::is('stocks/create2'))class="active"@endif>
+                <a href="{{ URL::to('stocks/create2') }}">Stock Entry</a>
                  </li>
                 <li
                 @if (Request::is('stocks/index'))class="active"@endif>
