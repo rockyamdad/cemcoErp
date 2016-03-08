@@ -106,6 +106,8 @@
                         <td>{{$stock->user->username}}</td>
                       <!--  <td>{{$stock->status}}</td>-->
                         <td>
+
+
                             <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
                                     class="fa fa-edit"></i>Edit Product</a>
                             <a class="btn red btn-sm" href="{{ URL::to('stocks/delete/'.$stock->id)}}"

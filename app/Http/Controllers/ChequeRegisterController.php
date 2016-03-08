@@ -32,6 +32,16 @@ class ChequeRegisterController extends Controller{
             ->paginate(15);
         return view('ChequeRegister.list',compact('register'));
     }
+
+    public function getPurchase()
+    {
+        $register = Transaction::where('payment_method','=','check')
+            ->where('type','=','Payment')
+            ->orderBy('id', 'desc')
+            ->paginate(15);
+        return view('ChequeRegister.purchaselist',compact('register'));
+    }
+
     public function getComplete($id)
     {
         $register2 = Transaction::find($id);
@@ -48,7 +58,31 @@ class ChequeRegisterController extends Controller{
     {
         $register2 = Transaction::find($id);
         $register2->cheque_status = 1;
+
+        if ($register2->payment_method == "Check") {
+            $accountPayment = NameOfAccount::find($register2->account_name_id);
+            $accountPayment->opening_balance = $accountPayment->opening_balance + $register2->amount;
+            $accountPayment->save();
+        }
+
         $register2->save();
+
+        return  Redirect::to('dashboard');
+    }
+
+    public function getComplete3($id)
+    {
+        $register2 = Transaction::find($id);
+        $register2->cheque_status = 1;
+
+        if ($register2->payment_method == "Check") {
+            $accountPayment = NameOfAccount::find($register2->account_name_id);
+            $accountPayment->opening_balance = $accountPayment->opening_balance - $register2->amount;
+            $accountPayment->save();
+        }
+
+        $register2->save();
+
         return  Redirect::to('dashboard');
     }
 

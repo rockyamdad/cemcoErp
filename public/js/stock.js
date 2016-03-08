@@ -274,6 +274,7 @@ jQuery(document).ready(function() {
         }
     });
 
+
     $('#to_stock_info_id').live("change", function () {
         var to_stock_info_id = $('#to_stock_info_id').val();
         var from_stock_info_id = $('#stock_info_id').val();

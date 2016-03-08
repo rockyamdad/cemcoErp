@@ -8,6 +8,7 @@
 
             <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
                 <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
+                <a class="btn btn-sm blue hidden-print" href="{{\Illuminate\Support\Facades\URL::to('sales/showinvoice2/'.$invoiceId)}}">Print Details <i class="fa fa-print"></i></a>
             </div>
         </div>
     <div class="invoice">
@@ -111,6 +112,45 @@
                         </tr>
                     </tbody>
                 </table>
+
+
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <b>Remarks:</b><br>
+                        <div id="remrks"></div>
+                        <div id="remrksForm">
+                            <textarea class="col-xs-6" id="remIn">1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
+2. NO REPLACEMENT WARANTY
+                        </textarea>
+                            <button class="btn btn-danger" id="confirmRemarks">Confirm</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <br><br>
+                <div class="row">
+
+                    <div style="text-decoration: underline" class="col-xs-4">
+                        <center>
+                            <b>Received By</b>
+                        </center>
+                    </div>
+                    <div class="col-xs-4">
+
+                    </div>
+                    <div style="text-decoration: underline" class="col-xs-4 invoice-payment">
+                        <center>
+                            <b>Delivered By</b>
+                        </center>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
         <br>

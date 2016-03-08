@@ -45,4 +45,6 @@ class PurchaseInvoice extends Eloquent
         return $array;
     }
 
+
+
 }

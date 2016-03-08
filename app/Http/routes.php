@@ -62,8 +62,13 @@ Route::get('products/{type}','StockController@getProducts');
 Route::get('imports/','StockController@getImports');
 Route::get('/stocks/infos','StockController@getStocks');
 Route::post('saveStocks','StockController@postSaveStock');
+Route::post('saveStock2','StockController@postSaveStock2');
 Route::post('updateStocks/{id}','StockController@postUpdateStock');
 Route::get('/quantity','StockController@getQuantity');
+Route::get('/create2','StockController@getCreate2');
+Route::get('details/{id}','StockController@getDetails');
+Route::get('delstock/{id}','StockController@delstock');
+Route::get('showinvoice/{id}','StockController@getShowinvoice');
 
 
 Route::get('stocks/add', [
@@ -168,3 +173,6 @@ Route::post('/saveTransfers','BalanceTransferController@postSaveTransfer');
 //SalesReturn Controller
 Route::controller('salesreturn','SalesReturnController');
 Route::post('saveSalesReturn','SalesReturnController@postSaveSalesReturn');
+Route::get('delsalesreturn/{id}','SalesReturnController@delsalesreturn');
+Route::get('salesreturn/showinvoice/{id}','SalesReturnController@getShowinvoice');
+Route::get('salesreturn/edit/{id}','SalesReturnController@getEdit');

@@ -52,7 +52,7 @@ class SaleController extends Controller{
         $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
         $invoiceid =$this->generateInvoiceId();
-        //var_dump($invoiceid);
+        var_dump($invoiceid);
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
@@ -81,7 +81,6 @@ class SaleController extends Controller{
         else{
             $list = $this->setSaleData();
             return new JsonResponse($list);
-
         }
     }
     public function getEdit($id)
@@ -189,7 +188,9 @@ class SaleController extends Controller{
         $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
         $saleTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
-        return view('Sales.details',compact('saleDetails'))
+        $s = new Sale();
+        $due = $s->getPartydue($invoiceId);
+        return view('Sales.details',compact('saleDetails', 'due'))
             ->with('saleTransactions',$saleTransactions)
             ->with('sale',$sale);
 
@@ -198,7 +199,16 @@ class SaleController extends Controller{
     {
         $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
-        return view('Sales.showInvoice',compact('saleDetails'))
+        return view('Sales.showInvoice',compact('saleDetails', 'invoiceId'))
+            ->with('sale',$sale);
+
+    }
+
+    public function getShowinvoice2($invoiceId)
+    {
+        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $sale = Sale::where('invoice_id','=',$invoiceId)->first();
+        return view('Sales.showInvoice2',compact('saleDetails'))
             ->with('sale',$sale);
 
     }
@@ -211,7 +221,9 @@ class SaleController extends Controller{
         $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
         $transactionsPaid = $transactions->getTotalPaid($invoice_id);
         $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
-        return view('Sales.paymentAdd',compact('accountCategoriesAll'))
+        $s = new Sale();
+        $due = $s->getPartydue($invoice_id);
+        return view('Sales.paymentAdd',compact('accountCategoriesAll','due'))
             ->with('saleDetailsAmount',$saleDetailsAmount)
             ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)
             ->with('invoice_id',$invoice_id)
@@ -498,15 +510,28 @@ class SaleController extends Controller{
             foreach ($partySales as $sale) {
 
                 $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
-                $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)->get();
+                $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('payment_method', '=', 'Check')
+                    ->where('type', '=', 'Receive')
+                    ->where('cheque_status', '=', 1)->get();
                 foreach($saleDetails as $saleDetail)
                 {
                     $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
                 }
+
                 foreach($transactions as $transaction)
                 {
                     $totalAmount =$totalAmount + ($transaction->amount);
                 }
+
+                $transactions2 = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('type', '=', 'Receive')
+                    ->where('payment_method', '!=', 'Check')->get();
+                foreach($transactions2 as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+
             }
             $due = $totalPrice - $totalAmount;
             echo "<p3 style='color: red;font-size: 114%; margin-left: 32px;'>Due is $due</p3>";
@@ -521,6 +546,7 @@ class SaleController extends Controller{
 
     public function postSaveReceiveAll()
     {
+
         $ruless = array(
             'party_id' => 'required',
             //'cus_ref_no' => 'required',
@@ -538,6 +564,7 @@ class SaleController extends Controller{
                 ->withErrors($validate);
         }
         else{
+
             //$this->setReceiveSalePaymentAll();
 
             //return Redirect::to('sales/index');
@@ -555,27 +582,39 @@ class SaleController extends Controller{
             $partyId=Input::get('party_id');
             if($remaining_amount>0)
             {
+
                 $invoiceId = Sale::where('party_id','=',$partyId)
                     ->where('is_sale','=',1)
                     ->get();
                 foreach($invoiceId as $invid)
                 {
-                    $price = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
-                    $detailsPrice=0;
-                    foreach($price as $prc)
+
+
+                    $detailsPrice = 0;
+                    $paid = 0;
+                    $saleDetails = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
+                    $transactions = Transaction::where('invoice_id','=',$invid->invoice_id)
+                        ->where('payment_method', '=', 'Check')
+                        ->where('type', '=', 'Receive')
+                        ->where('cheque_status', '=', 1)->get();
+                    foreach($saleDetails as $saleDetail)
                     {
-                        $detailsPrice=$detailsPrice+($prc->price*$prc->quantity);
+                        $detailsPrice = $detailsPrice + ($saleDetail->price * $saleDetail->quantity);
                     }
-                    //var_dump($detailsPrice);
-                    $amount=Transaction::where('invoice_id','=',$invid->invoice_id)
-                        ->where('type','=','Receive')
-                        ->get();
-                    $paid=0;
-                    foreach($amount as $amnt)
+                    foreach($transactions as $transaction)
                     {
-                        $paid=$paid+$amnt->amount;
+                        $paid =$paid + ($transaction->amount);
                     }
+                    $transactions2 = Transaction::where('invoice_id','=',$invid->invoice_id)
+                        ->where('type', '=', 'Receive')
+                        ->where('payment_method', '!=', 'Check')->get();
+                    foreach($transactions2 as $transaction)
+                    {
+                        $paid =$paid + ($transaction->amount);
+                    }
+
                     $difference=$detailsPrice-$paid;
+                    //echo $difference; die();
                     if($difference>0)
                     {
 
@@ -609,10 +648,11 @@ class SaleController extends Controller{
                                 $transaction->cheque_date = Input::get('cheque_date');
                                 $transaction->cheque_bank = Input::get('cheque_bank');
 
-                                $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
-                                $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
-
-                                $accountPayment->save();
+                                if ($transaction->payment_method != "Check") {
+                                    $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                    $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
+                                    $accountPayment->save();
+                                }
                                 $transaction->save();
                                 $remaining_amount = 0;
 
@@ -645,10 +685,11 @@ class SaleController extends Controller{
                                 $transaction->cheque_date = Input::get('cheque_date');
                                 $transaction->cheque_bank = Input::get('cheque_bank');
 
-                                $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
-                                $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
-
-                                $accountPayment->save();
+                                if ($transaction->payment_method != "Check") {
+                                    $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                    $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
+                                    $accountPayment->save();
+                                }
                                 $transaction->save();
                                 $remaining_amount = $toBePaid;
                             }

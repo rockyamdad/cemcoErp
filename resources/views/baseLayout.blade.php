@@ -355,30 +355,30 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         </li>
             @endif
-          {{--  <li class="@if (Request::is('searches/*'))active @endif">
-                <a href="javascript:;">
-                    <i class="fa fa-search"></i>
-                    <span class="title">Search</span>
-                    @if (Request::is('searches/*'))<span class="selected"></span>@endif
-                    <span class="arrow @if (Request::is('searches/*'))open @endif"></span>
-                </a>
+          {{--  <li class="@if (Request::is('searches/*'))active @endif">--}}
+                {{--<a href="javascript:;">--}}
+                    {{--<i class="fa fa-search"></i>--}}
+                    {{--<span class="title">Search</span>--}}
+                    {{--@if (Request::is('searches/*'))<span class="selected"></span>@endif--}}
+                    {{--<span class="arrow @if (Request::is('searches/*'))open @endif"></span>--}}
+                {{--</a>--}}
 
-                <ul class="sub-menu">
-                    <li
-                            @if (Request::is('searches/entry'))class="active"@endif>
-                        <a href="{{ URL::to('searches/entry') }}">Stock Entry </a>
-                    </li>
-                    <li
-                            @if (Request::is('searches/requisition/'))class="active"@endif>
-                        <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>
-                    </li>
-                    <li
-                            @if (Request::is('searches/stock-products'))class="active"@endif>
-                        <a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>
-                    </li>
+                {{--<ul class="sub-menu">--}}
+                    {{--<li--}}
+                            {{--@if (Request::is('searches/entry'))class="active"@endif>--}}
+                        {{--<a href="{{ URL::to('searches/entry') }}">Stock Entry </a>--}}
+                    {{--</li>--}}
+                    {{--<li--}}
+                            {{--@if (Request::is('searches/requisition/'))class="active"@endif>--}}
+                        {{--<a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>--}}
+                    {{--</li>--}}
+                    {{--<li--}}
+                            {{--@if (Request::is('searches/stock-products'))class="active"@endif>--}}
+                        {{--<a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>--}}
+                    {{--</li>--}}
 
-                 </ul>
-                </li>--}}
+                 {{--</ul>--}}
+                {{--</li>--}}
             <li class="@if (Request::is('reports/*'))active @endif">
                 <a href="javascript:;">
                     <i class="fa fa-puzzle-piece"></i>
@@ -482,7 +482,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         @yield('content')
     </div>
     <!-- END PAGE -->
-</div>
+
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 <div class="footer">

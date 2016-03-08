@@ -309,5 +309,13 @@ jQuery(document).ready(function() {
             }
         });
     });
+    $('#confirmRemarks').live("click", function () {
+        var remarks = $('#remIn').val();
+        remarks.replace(/\r\n?|\n/g, "<br />");
+        $('#remrks').html(remarks);
+        $('#remrksForm').hide();
+
+    });
+
 
 });

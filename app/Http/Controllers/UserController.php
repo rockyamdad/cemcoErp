@@ -29,8 +29,10 @@ class UserController extends Controller{
     }
     public function getDashboard()
     {
+
         $reports = new Report();
         $totalProducts = $reports->getTotalProducts();
+
         $totalImports = $reports->getTotalImports();
         $totalSales = $reports->getTotalSalesToday();
         $totalPurchase = $reports->getTotalPurchaseToday();
@@ -44,6 +46,12 @@ class UserController extends Controller{
             ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();
+        $purchaseregister = Transaction::where('payment_method','=','check')
+            ->where('type','=','Payment')
+            ->where('cheque_status','=',0)
+            ->orderBy('id', 'desc')
+            ->get();
+        //var_dump($stockRequisitions);
         return view('Users.dashboard')
             ->with('latestTransactions',$latestTransactions)
             ->with('totalProducts',$totalProducts)
@@ -54,7 +62,8 @@ class UserController extends Controller{
             ->with('accountBalanceTransfers',$accountBalanceTransfers)
             ->with('totalPurchase',$totalPurchase)
             ->with('totalImports',$totalImports)
-            ->with('register',$register);
+            ->with('register',$register)
+            ->with('purchaseregister',$purchaseregister);
     }
     public function getChangePassword()
     {

@@ -56,7 +56,8 @@
                         <div class="form-group">
                             {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
-                                {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
+                                <!--, 'Check' => 'On Check'-->
+                                {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash'),'null',
                                 array('class'=>'form-control' ,'id'=>'payment_method'))!!}
                             </div>
                         </div>

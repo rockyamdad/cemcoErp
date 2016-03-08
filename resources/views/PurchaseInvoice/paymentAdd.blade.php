@@ -12,7 +12,7 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Make Payment</h3>
-            <h5 style="color: red ;">You have {{$purchaseDetailsAmount[0]->total - $transactionsPaid[0]->totalPaid}} taka Due </h5>
+            <h5 style="color: red ;">You have {{$due}} taka Due </h5>
 
         </div>
         <div class="modal-body">
@@ -58,6 +58,31 @@
                             <div class="col-md-7 balance_show">
                             </div>
                         </div>
+
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_date','Cheque Date',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                <div class="input-append date input-icon" data-date="12-02-2012" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
+                                    <i class="fa fa-calendar"></i>
+                                    {!!Form::text('cheque_date',null,array('size'=>'16','class' =>
+                                    'form-control m-wrap m-ctrl-medium date-picker'))!!}
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden  cheque_no_section">
+                            {!!HTML::decode(Form::label('cheque_bank','Cheque Bank',array('class' =>
+                            'control-label col-md-4')))!!}
+                            <div class="col-md-7">
+                                {!!Form::text('cheque_bank',null,array('placeholder' => 'Cheque Bank', 'class' =>
+                                'form-control','id'=>'cheque_bank'))!!}
+                            </div>
+                        </div>
+
+
                         <input name="branch_id" type="hidden" id="branch" value="{{$purchaseDetailsBranch}}"/>
                         <div class="form-group hidden  cheque_no_section">
                             {!!HTML::decode(Form::label('cheque_no','Cheque No',array('class' =>

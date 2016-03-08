@@ -156,11 +156,8 @@ function closeModal() {
                 </tbody>
             </table>
             <?php $result = $total-$totalTransaction;?>
-            @if($total == $totalTransaction)
-                <h4 style="color: green;margin-left: 260px;">You don't have any due</h4>
-            @else
-                <h4 style="color: red ;margin-left: 260px;">You have {{$result}} taka Due </h4>
-            @endif
+            <div style="color: green;margin-left: 260px; overflow: hidden;">{{$due}}</div>
+
             <div class="modal-footer">
                 <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
             </div>

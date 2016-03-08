@@ -12,7 +12,7 @@ function closeModal() {
         <div class="modal-header">
             <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Receive Payment</h3>
-            <h5 style="color: red ;">You have {{$saleDetailsAmount[0]->total - $transactionsPaid[0]->totalPaid}} taka Due </h5>
+            <h5 style="color: red ;">{{$due}} </h5>
         </div>
         <div class="modal-body">
             {!!Form::open(array('url' => '/saveReceive', 'method' => 'post', 'class'=>'form-horizontal payment_form',

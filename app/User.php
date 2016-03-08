@@ -47,4 +47,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     {
         return $this->hasMany('App\PurchaseInvoice');
     }
+
+	// test
 }

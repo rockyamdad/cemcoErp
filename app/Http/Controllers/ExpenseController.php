@@ -276,9 +276,10 @@ class ExpenseController extends Controller{
                 $expense->status = "Partial";
             }
             $expense->save();
-
-            $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
-            $accountPayment->save();
+            if($expenseTransaction->payment_method != "Check"){
+                $accountPayment->opening_balance = $accountPayment->opening_balance - Input::get('amount');
+                $accountPayment->save();
+            }
             Session::flash('message', 'Expense has been Successfully Cleared.');
         }else{
             Session::flash('message', 'You dont have Enough Balance');
