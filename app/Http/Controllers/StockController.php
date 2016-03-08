@@ -393,11 +393,14 @@ class StockController extends Controller{
                             //$stock->save();
                             $stockCountTo[0]->save();
 
-                            $stockDetails = StockDetail::find($stockCountTo[0]->id);
+                            $stockDetails = StockDetail::find($stockDetails->id);
                             return $this->stockDetailConvertToArray($stockDetails);
                         }else{
-                            $stock_Count[0]->product_id = Input::get('product_id');
-                            $stock_Count[0]->save();
+                            $new_stockCount = new StockCount();
+                            $new_stockCount->product_id = Input::get('product_id');
+                            $new_stockCount->stock_info_id = Input::get('to_stock_info_id');
+                            $new_stockCount->product_quantity = Input::get('product_quantity');
+                            $new_stockCount->save();
                             //$stockCounts->stock_info_id = Input::get('to_stock_info_id');
                             $stockDetails->quantity = Input::get('product_quantity');
                             //$stock->save();
@@ -417,8 +420,10 @@ class StockController extends Controller{
 
             }
         else{
-                //$stock->save();
-                Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
+                $stockDetails->save();
+                $stockDetails = StockDetail::find($stockDetails->id);
+                return $this->stockDetailConvertToArray($stockDetails);
+                //Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
         }
 
     }

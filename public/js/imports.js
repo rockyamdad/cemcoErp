@@ -5,6 +5,7 @@ jQuery(document).ready(function() {
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
+
     form.validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block', // default input error message class

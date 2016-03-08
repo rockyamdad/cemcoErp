@@ -150,9 +150,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <input type="submit" name="submit">
-                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveStocks'))!!}
+                                    <td >
+                                        {{--<input type="submit" name="submit">--}}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveStocks', 'style' => 'margin-top: 10%;'))!!}
                                     </td>
                                 </tr>
                             </table>

@@ -10,8 +10,11 @@
                ></i></a>
 
     </div>
-
+    <div style="float: right"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Add to Stock
+        </button></div>
 </div>
+
 <div class="row">
 
         <div class="col-md-12">
@@ -207,7 +210,29 @@
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add to Stock</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-md-11 " style="width: 220px;">
+                        {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
+                        <br>
+                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue addtostocks'))!!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @stop
+
 
 
 

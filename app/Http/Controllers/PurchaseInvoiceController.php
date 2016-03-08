@@ -89,7 +89,7 @@ class PurchaseInvoiceController extends Controller{
         $invdesc = PurchaseInvoice::orderBy('id', 'DESC')->first();
         if ($invdesc != null) {
             $invDescId = $invdesc->invoice_id;
-            $invDescIdNo = substr($invDescId, 7);
+            $invDescIdNo = substr($invDescId, 8);
 
             $subinv1 = substr($invDescId, 6);
             $dd = substr($invDescId, 1, 2);
@@ -114,11 +114,11 @@ class PurchaseInvoiceController extends Controller{
 
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
-                $invoiceidd = "P".$dd2 . $mm2 . $yy2 . ($invDescIdNo + 1);
+                $invoiceidd = "P".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
                 //var_dump($invoiceidd);
                 return $invoiceidd;
             } else {
-                $invoiceidd = "P".$dd2 . $mm2 . $yy2 . "1";
+                $invoiceidd = "P".$dd2 . $mm2 . $yy2 . "-1";
                 return $invoiceidd;
             }
         } else {
@@ -135,7 +135,7 @@ class PurchaseInvoiceController extends Controller{
             $yy2 = substr($yy1, 2);
 
 
-            $invoiceidd = "P".$dd2 . $mm2 . $yy2 . "1";
+            $invoiceidd = "P".$dd2 . $mm2 . $yy2 . "-1";
             //var_dump($invoiceidd);
             return $invoiceidd;
         }

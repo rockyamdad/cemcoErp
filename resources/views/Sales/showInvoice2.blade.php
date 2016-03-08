@@ -89,7 +89,7 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$products->name}}</td>
-                            <td>{{$saleDetail->remarks}}</td>
+                            <td>{{$products->origin}}</td>
                             <td style="text-align: right;">{{$saleDetail->quantity}}</td>
                         </tr>
 

@@ -81,7 +81,8 @@
                             <td><?php echo $sl; ?></td>
                             <td>{{$row->invoice_id}}</td>
                             <td>{{$row->branch->name}}</td>
-                            <td>{{$row->party_id}}</td>
+                            <?php $party = \App\Party::find($row->party_id); ?>
+                            <td>{{$party->name}}</td>
                             <td>{{$row->ref_no}}</td>
                             <td>{{$row->product_status}}</td>
                             <td>{{$row->discount_percentage}}</td>

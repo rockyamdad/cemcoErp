@@ -400,7 +400,7 @@ class SaleController extends Controller{
         $invdesc = Sale::orderBy('id', 'DESC')->first();
         if ($invdesc != null) {
             $invDescId = $invdesc->invoice_id;
-            $invDescIdNo = substr($invDescId, 7);
+            $invDescIdNo = substr($invDescId, 8);
 
             $subinv1 = substr($invDescId, 6);
             $dd = substr($invDescId, 1, 2);
@@ -425,11 +425,11 @@ class SaleController extends Controller{
 
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
-                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . ($invDescIdNo + 1);
+                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
                 //var_dump($invoiceidd);
                 return $invoiceidd;
             } else {
-                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "1";
+                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "-1";
                 return $invoiceidd;
             }
         } else {
@@ -446,7 +446,7 @@ class SaleController extends Controller{
             $yy2 = substr($yy1, 2);
 
 
-            $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "1";
+            $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "-1";
             //var_dump($invoiceidd);
             return $invoiceidd;
         }
@@ -713,6 +713,22 @@ class SaleController extends Controller{
     public function getProductprice($id){
         $product = Product::find($id);
         return new JsonResponse($product->price);
+    }
+
+    public function getStocks($id){
+        $stocks = StockCount::where('product_id', '=', $id)->get();
+        $stockArray =array();
+        foreach($stocks as $row){
+            $stockInfo = StockInfo::find($row->stock_info_id);
+            echo "<option value='".$row->stock_info_id."'>".$stockInfo->name." (".$row->product_quantity.")</option>";
+            array_push($stockArray, $row->stock_info_id);
+        }
+
+        $stocks = StockInfo::whereNotIn('id', $stockArray)->get();
+
+        foreach($stocks as $row){
+            echo "<option value='".$row->id."'>".$row->name." (0)</option>";
+        }
     }
 
 

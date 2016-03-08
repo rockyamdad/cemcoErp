@@ -138,11 +138,10 @@ jQuery(document).ready(function() {
         if (product_type != '' && branch != '' && party_id != '' && product_status != '' && ref_no != '' && discount_percentage != '' && product_type != '' && product_id != '' && product_quantity != '' && unit_price != '') {
             $.ajax({
                 type: "POST",
-                data :  $('#stock_form').serialize(),
+                data :  $('#sales_return_form').serialize(),
                 url: "../saveSalesReturn",
                 dataType:'json',
                 success: function (stock) {
-                    alert(html);
                     $("#product_type").select2('val', '');
                     $("#product_id").select2('val', '');
                     $("#quantity").val('');

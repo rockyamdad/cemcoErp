@@ -59,9 +59,10 @@ jQuery(document).ready(function() {
                     $(".msg").hide();
 
                     var html = [];
-                    html.push('<td>' + sale.stock_info_id + '</td>');
-                    html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
+                    html.push('<td>' + sale.product_type + '</td>');
+                    html.push('<td>' + sale.stock_info_id + '</td>');
+
                     html.push('<td>' + sale.price + '</td>');
                     html.push('<td>' + sale.quantity + '</td>');
                     if( sale.remarks == ''){
@@ -254,14 +255,14 @@ jQuery(document).ready(function() {
 
     $('#product_id').live("change", function () {
         var product_id = $('#product_id').val();
-        var stock_info_id = $('#stock_info_id').val();
+        $('#stock_info_id').empty();
+        var newOption = $('<option value="">Select Stock</option>');
+        $('#stock_info_id').append(newOption);
         $.ajax({
             type: "get",
-            url: "productbalance/"+product_id,
-            data:{'data':stock_info_id},
+            url: "stocks/"+product_id,
             success: function (html) {
-                $('.balance_show').html(html);
-
+                $('#stock_info_id').append(html);
             }
         });
     });
@@ -287,17 +288,7 @@ jQuery(document).ready(function() {
         $('.date-picker').datepicker();
     });
 
-    $('#product_id').live("change", function () {
-        var product_id = $('#product_id').val();
-        $.ajax({
-            type: "get",
-            url: "productprice/"+product_id,
-            success: function (html) {
-                $('#price').val(html);
 
-            }
-        });
-    });
     $('#edit_product_id').live("change", function () {
         var product_id = $('#edit_product_id').val();
         $.ajax({
@@ -311,8 +302,7 @@ jQuery(document).ready(function() {
     });
     $('#confirmRemarks').live("click", function () {
         var remarks = $('#remIn').val();
-        remarks.replace(/\r\n?|\n/g, "<br />");
-        $('#remrks').html(remarks);
+        $('#remrks').html($('#remIn').val().replace(/\n/g, "<br>"));
         $('#remrksForm').hide();
 
     });

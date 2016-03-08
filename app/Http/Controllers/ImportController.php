@@ -8,8 +8,9 @@ use App\ImportDetail;
 use App\OtherCost;
 use App\Product;
 use App\ProformaInvoice;
+use App\StockInfo;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\App;use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -265,11 +266,15 @@ class ImportController extends Controller{
         $cnfCost  = CnfCost::where('import_id','=',$id)->get();
         $pi       =  ProformaInvoice::where('import_id','=',$id)->get();
         $otherCost     = OtherCost::where('import_id','=',$id)->get();
+        $stockInfos = new StockInfo();
+        $allStockInfos = $stockInfos->getStockInfoDropDown();
+
         return view('Imports.details',compact('imports'))
             ->with('bankCost',$bankCost)
             ->with('pi',$pi)
             ->with('otherCost',$otherCost)
-            ->with('cnfCost',$cnfCost);
+            ->with('cnfCost',$cnfCost)
+            ->with('allStockInfos',$allStockInfos);
     }
     public function getLandingcost($id)
     {
@@ -511,4 +516,9 @@ class ImportController extends Controller{
         return $import_num;
 
     }
+
+    public function getAddToStock(){
+
+    }
+
 }

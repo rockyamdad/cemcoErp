@@ -28,6 +28,28 @@
         <div class="row">
 
             <div class="col-xs-8">
+                <table>
+
+                        <?php foreach($stockDetails as $stockDetail ){ ?>
+                            <tr>
+                                <td><b>Entry Type</b></td>
+                                <td>: {{$stockDetail->entry_type}}</td>
+                            </tr>
+                            <?php if ($stockDetail->entry_type == 'Transfer') { $stockName = \App\StockInfo::find($stockDetail->to_stock_info_id); ?>
+                            <tr>
+                                <td><b>Transfer To</b></td>
+                                <td>: {{$stockName->name}}</td>
+                            </tr>
+                            <?php } ?>
+                            <?php break; ?>
+
+                        <?php } ?>
+
+                    <tr>
+                        <td><b>Date</b></td>
+                        <td>: {{date("d-m-Y")}}</td>
+                    </tr>
+                </table>
 
             </div>
             <div class="col-xs-4 invoice-payment">
@@ -82,6 +104,26 @@
                     </tr>
                     </tbody>
                 </table>
+
+
+                <br><br>
+                <div class="row">
+
+                    <div style="text-decoration: underline" class="col-xs-4">
+                        <center>
+                            <b>Received By</b>
+                        </center>
+                    </div>
+                    <div class="col-xs-4">
+
+                    </div>
+                    <div style="text-decoration: underline" class="col-xs-4 invoice-payment">
+                        <center>
+                            <b>Delivered By</b>
+                        </center>
+                    </div>
+
+                </div>
             </div>
         </div>
         <br>

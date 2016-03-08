@@ -120,16 +120,20 @@
                                     <?php
                                     $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)->first();
                                     $partyname = \App\Party::find($sale->party_id);
+                                    $time = strtotime($reg->cheque_date);
+                                    $newformat = date('d',$time);
+                                    $today = date('d', time());
+
                                     ?>
                                     <tr>
-                                        <td>{{$slNo}}</td>
-                                        <td>{{$partyname->name}}</td>
-                                        <td>{{$reg->cheque_bank}}</td>
-                                        <td>{{$reg->cheque_no}}</td>
-                                        <td>{{$reg->cheque_date}}</td>
-                                        <td>{{$reg->amount}}</td>
-                                        <td>{{$reg->user->username}}</td>
-                                        <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_date}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
+                                        <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
                                                href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
@@ -188,16 +192,21 @@
                                     <?php
                                     $sale = \App\PurchaseInvoice::where('invoice_id','=',$reg->invoice_id)->first();
                                     $partyname = \App\Party::find($sale->party_id);
+                                    $partyname = \App\Party::find($sale->party_id);
+                                    $time = strtotime($reg->cheque_date);
+                                    $newformat = date('d',$time);
+                                    $today = date('d', time());
+
                                     ?>
                                     <tr>
-                                        <td>{{$slNo}}</td>
-                                        <td>{{$partyname->name}}</td>
-                                        <td>{{$reg->cheque_bank}}</td>
-                                        <td>{{$reg->cheque_no}}</td>
-                                        <td>{{$reg->cheque_date}}</td>
-                                        <td>{{$reg->amount}}</td>
-                                        <td>{{$reg->user->username}}</td>
-                                        <td class="party-status"><span class="label label-sm label-danger">Pending</span></td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_date}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
+                                        <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
                                                href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}"><i
@@ -570,5 +579,23 @@
         <!-- END SAMPLE TABLE PORTLET-->
     </div>
 </div>
+
+    <style>
+        @-webkit-keyframes blink {
+            from {
+                opacity: 1.0;
+            }
+            to {
+                opacity: 0.0;
+            }
+        }
+        .blink {
+            -webkit-animation-name: blink;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: cubic-bezier(1.0, 0, 0, 1.0);
+            -webkit-animation-duration: 1s;
+            color: red;
+        }
+    </style>
 
 @stop
