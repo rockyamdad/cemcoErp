@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#product_quantity').val());
         //var price = $.trim($('#price').val());
-        alert(branch+"_"+stock+"_"+type+"_"+entry_type+"_"+product+"_"+quantity);
+        //alert(branch+"_"+stock+"_"+type+"_"+entry_type+"_"+product+"_"+quantity);
         if ((entry_type === '') || (product === '') || (quantity === '') || (branch==='') || (stock === '') || (type === '')) {
             return false;
         } else {
@@ -276,7 +276,7 @@ jQuery(document).ready(function() {
             url: "quantity/"+product_id,
             data:{'stock_info_id':stock_info_id, 'product_id': product_id},
             success: function (html) {
-                alert(html);
+                //alert(html);
                 $('.available').html(html);
 
             }
@@ -353,7 +353,7 @@ jQuery(document).ready(function() {
                 url: "delete/"+stockDetailId,
                 dateType: 'json',
                 success: function (data) {
-                    alert(data);
+                    //alert(data);
                     parent.remove();
                     if(data != '')
                         location.reload();
