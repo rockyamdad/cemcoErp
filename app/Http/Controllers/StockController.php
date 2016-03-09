@@ -313,7 +313,6 @@ class StockController extends Controller{
     private function setStockData($stockInvoces,$stockDetails)
     {
         $this->insertStockData($stockInvoces);
-
         $stock_invoices_check = StockInvoice::where('invoice_id','=',Input::get('invoice_id'))
             ->get();
         if(empty($stock_invoices_check[0]))
@@ -458,6 +457,7 @@ class StockController extends Controller{
     public function getDetails($invoice_id = null){
         if($invoice_id != null) {
             $stockDetails = StockDetail::where('invoice_id','=',$invoice_id)->get();
+
             //$saleTransactions = Transaction::where('invoice_id','=',$invoice_id)->get();
             $stock = StockInvoice::where('invoice_id','=',$invoice_id)->first();
             return view('Stocks.details',compact('stockDetails'))

@@ -15,7 +15,7 @@
             $branch = new \App\Branch();
             $branchName = \App\Branch::find($stock->branch_id);
             ?>
-            <h3>Sales Detail for {{$branchName->name}}</h3>
+            <h3>Stock Detail for {{$branchName->name}}</h3>
             <?php
             $stockdetails = \App\StockDetail::where('invoice_id','=',$stock->invoice_id)->first();
             $stockName = \App\StockInfo::find($stockdetails->stock_info_id);

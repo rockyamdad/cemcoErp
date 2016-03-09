@@ -55,6 +55,7 @@ Route::post('saveImportCnfCost','ImportController@postSaveCnfCost');
 Route::post('saveProformaInvoice','ImportController@postProformaInvoice');
 Route::post('saveOtherCost','ImportController@postOtherCost');
 Route::get('change-status/{status}/{id}','ImportController@getChangeStatus');
+Route::get('addtostock/{import_id}/{to_stock_id}','ImportController@getAddToStock');
 
 //Stock Controller
 Route::controller('stocks','StockController');

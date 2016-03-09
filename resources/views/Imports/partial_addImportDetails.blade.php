@@ -13,7 +13,7 @@
         <div class="form-group">
             {!!HTML::decode(Form::label('product_id','Choose Product <span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
             <div class="col-md-4">
-                {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control ','id'=>'product_id') )!!}
+                {!!Form::select('product_id',[null=>'Please Select Product'] +$productAll,'null', array('class'=>'form-control','id'=>'product_id') )!!}
             </div>
         </div>
         <div class="form-group">
@@ -45,3 +45,4 @@
         {!!Form::close()!!}
     </div>
 </div>
+{!! HTML::script('assets/plugins/select2/select2.min.js') !!}

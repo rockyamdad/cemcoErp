@@ -222,8 +222,9 @@
             <div class="modal-body">
                 <div class="form-group">
                     <div class="col-md-11 " style="width: 220px;">
-                        {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
+                        {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id', 'onchange'=> 'abc();') )!!}
                         <br>
+                        <a href="" id="addnow">Add</a>
                         {!!Form::button('Add',array('type' => 'button','class' => 'btn blue addtostocks'))!!}
                     </div>
                 </div>
@@ -231,7 +232,16 @@
         </div>
     </div>
 </div>
+<script>
+    function abc(){
+        var stock_info_id = $('#stock_info_id').val();
+        $('#addnow').attr('href', '{{URL::to('addtostock/'.$id.'/')}}/'+stock_info_id);
+    }
+
+</script>
 @stop
+
+
 
 
 
