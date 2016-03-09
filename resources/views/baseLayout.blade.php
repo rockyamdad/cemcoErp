@@ -89,7 +89,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </ul>
         <!-- END TOP NAVIGATION MENU -->
     </div>
-    <!-- END TOP NAVIGATION BAR -->
+
 </div>
 <!-- END HEADER -->
 <div class="clearfix"></div>
