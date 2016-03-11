@@ -428,5 +428,29 @@ class ReportController extends Controller{
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
+    public function getSalespartyledger()
+    {
+        $parties = new Party();
+        $partiesAll = $parties->getPartiesDropDown();
+        return view('Reports.salesPartyLedger')
+            ->with('partiesAll',$partiesAll);
+
+    }
+    public function postSalesPartyLedgerReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        $party_id = Input::get('party_id');
+        $report = new Report();
+        $results = $report->getSalesPartyLedgerReport($date1,$date2,$party_id);
+        $credit = $report->getCredit($date1,$date2,$party_id);
+        $debit = $report->getDebit($date1,$date2,$party_id);
+        return view('Reports.salesPartyLedgerReportResult',compact('results'))
+            ->with('party_id',$party_id)
+            ->with('date1',$date1)
+            ->with('credit',$credit)
+            ->with('debit',$debit)
+            ->with('date2',$date2);
+    }
 
 }

@@ -565,4 +565,60 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getSalesPartyLedgerReport($date1,$date2,$party_id)
+    {
+        return DB::table('sale_details')
+            ->join('sales', 'sale_details.invoice_id', '=', 'sales.invoice_id')
+            ->where('sales.is_sale', '=', 1)
+            ->where('sales.party_id', '=', $party_id)
+            ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->groupBy('sale_details.invoice_id')
+            ->select('sale_details.created_at AS date',
+                'sale_details.branch_id AS branch',
+                'sale_details.invoice_id AS invoice',
+                DB::raw('SUM(sale_details.price * sale_details.quantity) AS total')
+            )
+            ->get();
+    }
+    public function getPaymentForSalesPartyLedgerReport($date1,$date2,$invoice_id)
+    {
+        return DB::table('transactions')
+            ->where('transactions.invoice_id', '=', $invoice_id)
+            ->where('transactions.type', '=', 'Receive')
+            ->whereBetween('transactions.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select(
+                'transactions.created_at AS date',
+                'transactions.payment_method',
+                'transactions.cheque_no',
+                'transactions.amount AS total'
+                //DB::raw('SUM(transactions.amount) AS total')
+            )
+            ->get();
+    }
+    public function getCredit($date1,$date2,$party_id)
+    {
+        return DB::table('sale_details')
+            ->join('sales', 'sale_details.invoice_id', '=', 'sales.invoice_id')
+            ->where('sales.is_sale', '=', 1)
+            ->where('sales.party_id', '=', $party_id)
+            ->where('sale_details.created_at', '<',new \DateTime($date1))
+            ->select(
+                DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalCredit')
+
+            )
+            ->get();
+    }
+    public function getDebit($date1,$date2,$party_id)
+    {
+        return DB::table('transactions')
+            ->join('sales','transactions.invoice_id','=','sales.invoice_id')
+            ->where('sales.party_id', '=', $party_id)
+            ->where('transactions.type', '=', 'Receive')
+            ->where('transactions.created_at', '<',new \DateTime($date1))
+            ->select(
+                DB::raw('SUM(transactions.amount) as totalDebit')
+
+            )
+            ->get();
+    }
 }
