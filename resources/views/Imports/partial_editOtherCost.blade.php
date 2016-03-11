@@ -15,18 +15,37 @@
         {!! Form::hidden('import_id',$imports->id) !!}
 
         <div class="form-group">
-            {!! HTML::decode(Form::label('dollar_to_bd_rate','Dollar Rate',array('class' => 'control-label col-md-3')))
+            {!! HTML::decode(Form::label('dollar_to_bd_rate','Current Dollar Rate',array('class' => 'control-label col-md-3')))
             !!}
             <div class="col-md-4">
-                {!!Form::text('dollar_to_bd_rate',null,array('placeholder' => 'Present Dollar Rate', 'class' =>
+                {!!Form::text('dollar_to_bd_rate',null,array('placeholder' => 'Current Dollar Rate', 'class' =>
                 'form-control','id' => 'dollar_to_bd_rate'))!!}
             </div>
         </div>
+        <div id="tt">
+            @foreach($ttCharges as $row)
+            <div class="form-group">
+                {!! HTML::decode(Form::label('tt_charge','Tt Amount',array('class' => 'control-label col-md-3'))) !!}
+                <div class="col-md-4">
+                    <input placeholder="Tt Charge" class="form-control" id="tt_charge" name="tt_charge[]" type="text" value="{{$row->tt_amount}}">
+
+                </div>
+            </div>
+
+                <div class="form-group">
+                    {!! HTML::decode(Form::label('dollar_rate_per_tt','Dollar Rate',array('class' => 'control-label col-md-3'))) !!}
+                    <div class="col-md-4">
+                        <input placeholder="Dollar rate" class="form-control" id="dollar_rate_per_tt" name="dollar_rate_per_tt[]" type="text" value="{{$row->dollar_rate}}">
+                    </div>
+                </div>
+            @endforeach
+        </div>
         <div class="form-group">
-            {!! HTML::decode(Form::label('tt_charge','Tt Charge',array('class' => 'control-label col-md-3'))) !!}
-            <div class="col-md-4">
-                {!!Form::text('tt_charge',null,array('placeholder' => 'Tt Charge', 'class' => 'form-control','id' =>
-                'tt_charge'))!!}
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <a class="btn red" onclick="addNewTT();">+</a>
             </div>
         </div>
 
@@ -43,3 +62,11 @@
     </div>
     {!!Form::close()!!}
 </div>
+
+<script>
+    function addNewTT(){
+        var html = "<div class='form-group'><label class='control-label col-md-3'>Tt Amount</label><div class='col-md-4'><input placeholder=\"Tt Charge\" class=\"form-control\" id=\"tt_charge\" name=\"tt_charge[]\" type=\"text\" value=\"\"></div></div>";
+        html += "<div class='form-group'><label class='control-label col-md-3'>Dollar Rate</label><div class='col-md-4'><input placeholder=\"Dollar Rate\" class=\"form-control\" id=\"dollar_rate_per_tt\" name=\"dollar_rate_per_tt[]\" type=\"text\" value=\"\"></div></div>";
+        $('#tt').append(html);
+    }
+</script>

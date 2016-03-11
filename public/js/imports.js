@@ -332,6 +332,8 @@ jQuery(document).ready(function() {
          }*/
     });
 
+
+
     //stay selected tab
     $('#importAddTab a').click(function (e) {
         e.preventDefault();
@@ -351,3 +353,4 @@ jQuery(document).ready(function() {
     $('.date-picker').datepicker();
 
 });
+

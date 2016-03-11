@@ -731,6 +731,12 @@ class SaleController extends Controller{
         }
     }
 
+    public function getVoucher($transactionId){
+        $transaction = Transaction::find($transactionId);
+        return view('Sales.voucher',compact('transaction'));
+
+    }
+
 
 
 }

@@ -9,6 +9,10 @@ use App\OtherCost;
 use App\Product;
 use App\ProformaInvoice;
 use App\StockInfo;
+use App\StockInvoice;
+use App\StockDetail;
+use App\StockCount;
+use App\TTCharge;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -45,7 +49,7 @@ class ImportController extends Controller{
         $imports = Import::find($id);
         $products = new Product();
         $productAll = $products->getProductsDropDownForeign();
-        return view('Imports.addDetails',compact('productAll'))
+        return view('Imports.addDetails',compact('productAll', 'id'))
             ->with('imports',$imports);
     }
     public function postSaveImport()
@@ -221,6 +225,7 @@ class ImportController extends Controller{
     {
         $ruless = array(
             'tt_charge' => 'required',
+            'dollar_rate_per_tt' => 'required',
             'dollar_to_bd_rate' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -231,9 +236,32 @@ class ImportController extends Controller{
                 ->withErrors($validate);
         }
         else{
+            $counter = 0;
+            $tt_charges = TTCharge::where('import_id', '=', Input::get("import_id"))->get();
+            foreach($tt_charges as $row){
+                $row->delete();
+            }
+            $total = 0;
+            foreach(Input::get("tt_charge") as $tt){
+                $tt_charge = new TTCharge();
+                $tt_charge->tt_amount = $tt;
+                $tt_charge->dollar_rate = Input::get("dollar_rate_per_tt")[$counter++];
+                $total_tt = $tt_charge->tt_amount * $tt_charge->dollar_rate.'_';
+                $total_tt2 = $tt_charge->tt_amount * Input::get("dollar_to_bd_rate").'_';
+                $subTotal = $total_tt - $total_tt2;
+                $total += $subTotal;
+                $tt_charge->import_id = Input::get("import_id");
+                $tt_charge->save();
+
+            }
+
             $otherCost = new OtherCost();
-            $this->setOtherCostData($otherCost);
+            $otherCost->dollar_to_bd_rate = Input::get('dollar_to_bd_rate');
+            $otherCost->tt_charge = $total;
+            $otherCost->import_id = Input::get("import_id");
             $otherCost->save();
+
+
             Session::flash('message', 'Others Cost has been Successfully Created.');
             return Redirect::to('imports/index');
         }
@@ -242,6 +270,7 @@ class ImportController extends Controller{
     {
         $ruless = array(
             'tt_charge' => 'required',
+            'dollar_rate_per_tt' => 'required',
             'dollar_to_bd_rate' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -252,13 +281,35 @@ class ImportController extends Controller{
                 ->withErrors($validate);
         }
         else{
+            $counter = 0;
+            $tt_charges = TTCharge::where('import_id', '=', $id)->get();
+            foreach($tt_charges as $row){
+                $row->delete();
+            }
+            $total = 0;
+            foreach(Input::get("tt_charge") as $tt){
+                $tt_charge = new TTCharge();
+                $tt_charge->tt_amount = $tt;
+                $tt_charge->dollar_rate = Input::get("dollar_rate_per_tt")[$counter++];
+                echo $total_tt = $tt_charge->tt_amount * $tt_charge->dollar_rate.'_';
+                echo $total_tt2 = $tt_charge->tt_amount * Input::get("dollar_to_bd_rate").'_';
+                echo $subTotal = $total_tt - $total_tt2;
+                $total += $subTotal;
+                $tt_charge->import_id = $id;
+                $tt_charge->save();
+
+            }
+
             $otherCost = OtherCost::find($id);
-            $this->setOtherCostData($otherCost);
+            $otherCost->dollar_to_bd_rate = Input::get('dollar_to_bd_rate');
+            $otherCost->tt_charge = $total;
+            $otherCost->import_id = $id;
             $otherCost->save();
             Session::flash('message', 'Others Cost has been Successfully Updated.');
             return Redirect::to('imports/index');
         }
     }
+
     public function getDetails($id)
     {
         $imports  = ImportDetail::where('import_num','=',$id)->get();
@@ -269,7 +320,7 @@ class ImportController extends Controller{
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
 
-        return view('Imports.details',compact('imports'))
+        return view('Imports.details',compact('imports', 'id'))
             ->with('bankCost',$bankCost)
             ->with('pi',$pi)
             ->with('otherCost',$otherCost)
@@ -351,7 +402,8 @@ class ImportController extends Controller{
         $bankCost    = BankCost::where('import_id','=',$id)->get();
         $cnfCost     = CnfCost::where('import_id','=',$id)->get();
         $otherCost   = OtherCost::where('import_id','=',$id)->get();
-        return view('Imports.editCost',compact('imports'))
+        $ttCharges   = TTCharge::where('import_id','=',$id)->get();
+        return view('Imports.editCost',compact('imports', 'ttCharges'))
             ->with('importProformaInvoice',$proformaInvoice)
             ->with('importBankCost',$bankCost)
             ->with('importCnfCost',$cnfCost)
@@ -517,7 +569,144 @@ class ImportController extends Controller{
 
     }
 
-    public function getAddToStock(){
+    public function getAddToStock($import_id, $to_stock_id){
+        $stockInvoces = new StockInvoice();
+        $stockDetails = new StockDetail();
+
+        $invoiceId = $stockInvoces->invoice_id = $this->generateInvoiceId();
+
+        $import = Import::find($import_id);
+
+        $import_details = ImportDetail::where('import_num', '=', $import_id)->where('stock_in_status', '=','0')->get();
+        if(!empty($import_details[0])){
+            $this->insertStockData($stockInvoces, $import, $invoiceId);
+        }
+        foreach($import_details as $row) {
+
+            $this->setStockData($import, $row, $stockDetails, $invoiceId, $to_stock_id);
+        }
+
+        Session::flash('message', 'Product added to the stock successfully');
+        return Redirect::to('imports/details/'.$import->id);
+
+        //$list = $this->setStockData($import, $stockDetails);
+    }
+
+    private function generateInvoiceId()
+    {
+        //needs recheck
+        $invdesc = StockInvoice::orderBy('id', 'DESC')->first();
+        if ($invdesc != null) {
+            $invDescId = $invdesc->invoice_id;
+            $invDescIdNo = substr($invDescId, 7);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 1, 2);
+            $mm = substr($invDescId, 3,2);
+            $yy = substr($invDescId, 5, 2);
+            //var_dump($invDescId." ".$dd." ".$mm." ".$yy);
+            //echo "d1 ".$yy;
+
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+            //var_dump($dd2." ".$mm2." ".$yy2);
+
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = "C".$dd2 . $mm2 . $yy2 . ($invDescIdNo + 1);
+                //var_dump($invoiceidd);
+                return $invoiceidd;
+            } else {
+                $invoiceidd = "C".$dd2 . $mm2 . $yy2 . "1";
+                return $invoiceidd;
+            }
+        } else {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+
+            $invoiceidd = "C".$dd2 . $mm2 . $yy2 . "1";
+            //var_dump($invoiceidd);
+            return $invoiceidd;
+        }
+    }
+
+    private function insertStockData($stockInvoces, $import, $invoiceId)
+    {
+        $stockInvoces->branch_id = $import->branch_id;
+        $stockInvoces->status = 'Activate';
+        $stockInvoces->user_id = Session::get('user_id');
+
+
+        $stock_invoices_check = StockInvoice::where('invoice_id','=',$invoiceId)
+            ->get();
+        if(empty($stock_invoices_check[0]))
+            $stockInvoces->save();
+    }
+
+    private function setStockData($import, $import_details,$stockDetails, $invoiceId, $to_stock_id)
+    {
+        $stock_Count = StockCount::where('product_id','=',$import_details->product_id)
+            ->where('stock_info_id','=',$to_stock_id)
+            ->get();
+
+        $stockDetails->branch_id = $import->branch_id;
+        $stockDetails->product_id = $import_details->product_id;
+        $stockDetails->entry_type = "StockIn";
+
+        $product = Product::find($import_details->product_id);
+        $stockDetails->product_type = $product->product_type;
+        $stockDetails->stock_info_id = $to_stock_id;
+        $stockDetails->remarks = "";
+        $stockDetails->invoice_id = $invoiceId;
+        $stockDetails->quantity = $import_details->quantity;
+
+        $import_details->stock_in_status = 1;
+        $import_details->save();
+        if($stockDetails->entry_type == 'StockIn')
+        {
+
+            $stockDetails->consignment_name = $import->consignment_name;
+
+            if(empty($stock_Count[0]))
+            {
+
+                $stock_Count = new StockCount();
+                $stock_Count->product_id = $import_details->product_id;
+                $stock_Count->stock_info_id = $stockDetails->stock_info_id;
+                $stock_Count->product_quantity = $import_details->quantity;
+                $stock_Count->save();
+                $stockDetails->save();
+                //$stockCounts->save();
+            }else{
+
+                $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $import_details->quantity;
+                //$stock->save();
+                $stock_Count[0]->save();
+                $stockDetails->save();
+            }
+
+
+        }
 
     }
 
