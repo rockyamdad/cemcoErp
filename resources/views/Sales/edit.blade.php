@@ -74,9 +74,10 @@
                                 <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                     <thead>
                                     <tr>
-                                        <th width="">Stock Name</th>
+
                                         <th width="">Product Type</th>
                                         <th width="">Product Name</th>
+                                        <th width="">Stock Name</th>
                                         <th width="">Price</th>
                                         <th width="">Quantity</th>
                                         <th width="">Remarks</th>
@@ -95,9 +96,10 @@
                                         $branchName = \App\Branch::find($saleDetail->branch_id);
                                                 ?>
                                         <tr>
-                                            <td> {{ $stockName->name }}</td>
+
                                             <td> {{ $saleDetail->product_type }}</td>
                                             <td> {{ $saleDetail->product->name }}</td>
+                                            <td> {{ $stockName->name }}</td>
                                             <td> {{ $saleDetail->price }}</td>
                                             <td> {{ $saleDetail->quantity }}</td>
                                             <td>
@@ -117,13 +119,7 @@
 
                                     </tbody>
                                     <tr class="clone_">
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="col-md-11 " style="width: 220px;">
-                                                    {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
-                                                </div>
-                                            </div>
-                                        </td>
+
                                         <td>
                                             <div class="form-group">
                                                 <div class="col-md-11" style="width: 180px;">
@@ -136,6 +132,13 @@
                                             <div class="form-group">
                                                 <div class="col-md-11" style="width: 300px;">
                                                     {!!Form::select('product_id',[null=>'Please Select Product'] +$finishGoods,'null', array('class'=>'form-control ','id'=>'edit_product_id') )!!}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-md-11 " style="width: 220px;">
+                                                    {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
                                                 </div>
                                             </div>
                                         </td>

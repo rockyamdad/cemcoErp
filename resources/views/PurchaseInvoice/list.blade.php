@@ -54,6 +54,11 @@
 
                     </div>
 
+                    <div class="btn-group">
+                        <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('purchases/makeall/') }}" >
+                            <i class="fa fa-plus"></i>Make Payment</a>
+                    </div>
+
                 </div>
                 {!!Form::open(array('action'=>'PurchaseInvoiceController@getIndex','method' => 'get', 'class'=>'form-horizontal'
                 ))!!}

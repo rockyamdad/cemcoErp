@@ -144,8 +144,10 @@ jQuery(document).ready(function() {
                 success: function (stock) {
                     $("#product_type").select2('val', '');
                     $("#product_id").select2('val', '');
+                    $("#consignment_name").select2('val', '');
                     $("#quantity").val('');
                     $("#remarks").val('');
+                    $("#unit_price").val('');
                     $(".msg").hide();
                     $(".available").html('');
 

@@ -51,7 +51,7 @@
 
                     <div class="table-toolbar">
                         <div class="btn-group">
-                            <a class="btn green" href="{{ URL::to('stocks/create') }}">Make Stock &nbsp;&nbsp;<i
+                            <a class="btn green" href="{{ URL::to('stocks/create2') }}">Make Stock &nbsp;&nbsp;<i
                                         class="fa fa-plus"></i></a>
 
                         </div>

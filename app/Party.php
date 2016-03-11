@@ -17,7 +17,7 @@ class Party extends Eloquent
     public function getSuppliers()
     {
         $parties = DB::table('parties')->where('status','=', 'Activate')
-            ->where('type','=','Supplier')
+            ->where('type','=','supplier')
             ->get();
         return $parties;
     }
