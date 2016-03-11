@@ -449,6 +449,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/purchasecollection'))class="active"@endif>
                         <a href="{{ URL::to('reports/purchasecollection') }}">Purchase Payment Report</a>
                     </li>
+                        <li style="background-color: #134266"
+                            @if (Request::is('reports/purchasepartyledger'))class="active"@endif>
+                            <a href="{{ URL::to('reports/purchasepartyledger') }}">Purchase Party-Ledger Report</a>
+                        </li>
                     <li style="background-color: #2c91cc"
                             @if (Request::is('reports/expensereport'))class="active"@endif>
                         <a href="{{ URL::to('reports/expensereport') }}">Expense Report</a>

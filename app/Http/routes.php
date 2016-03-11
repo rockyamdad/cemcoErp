@@ -166,6 +166,7 @@ Route::post('/expense-payment-report','ReportController@postExpensePaymentReport
 Route::post('/balance-transfer-report','ReportController@postBalanceTransferReportResult');
 Route::post('/sales-return-report','ReportController@postSalesReturnReportResult');
 Route::post('/sales-party-ledger','ReportController@postSalesPartyLedgerReportResult');
+Route::post('/purchase-party-ledger','ReportController@postPurchasePartyLedgerReportResult');
 
 //Balance Controller
 Route::controller('balancetransfers','BalanceTransferController');
