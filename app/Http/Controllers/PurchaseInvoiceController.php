@@ -254,9 +254,11 @@ class PurchaseInvoiceController extends Controller{
         }
         else{
 
-            $this->setPurchasePayment();
-
-            return Redirect::to('purchases/index');
+            $transactionId = $this->setPurchasePayment();
+            if ($transactionId > 0)
+                return Redirect::to('purchases/voucher/'.$transactionId);
+            else
+                return Redirect::to('purchases/index');
 
         }
     }
@@ -310,8 +312,10 @@ class PurchaseInvoiceController extends Controller{
             $purchaseInvoice->save();
             $purchaseTransaction->save();
                 Session::flash('message', 'Payment has been Successfully Cleared.');
+            return $purchaseTransaction->id;
         }else{
             Session::flash('message', 'You dont have Enough Balance');
+            return 0;
         }
 
 
@@ -472,6 +476,7 @@ class PurchaseInvoiceController extends Controller{
 
     public function postSaveReceiveAll()
     {
+        $transactionId = 0;
 
         $ruless = array(
             'party_id' => 'required',
@@ -580,6 +585,7 @@ class PurchaseInvoiceController extends Controller{
                                     $accountPayment->save();
                                 }
                                 $transaction->save();
+                                $transactionId = $transaction->id;
                                 $remaining_amount = 0;
 
                             }
@@ -617,6 +623,7 @@ class PurchaseInvoiceController extends Controller{
                                     $accountPayment->save();
                                 }
                                 $transaction->save();
+                                $transactionId = $transaction->id;
                                 $remaining_amount = $toBePaid;
                             }
 
@@ -633,7 +640,7 @@ class PurchaseInvoiceController extends Controller{
             }*/
             //automatically reduce sales payment ends
 
-            return Redirect::to('purchases/index');
+            return Redirect::to('purchases/voucher/'.$transactionId);
         }
     }
 

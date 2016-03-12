@@ -264,7 +264,9 @@ jQuery(document).ready(function() {
             type: "get",
             url: "stocks/"+product_id,
             success: function (html) {
-                $('#stock_info_id').append(html);
+                var data = JSON.parse(html);
+                $('#stock_info_id').append(data.list);
+                $('#price').val(data.price);
             }
         });
     });
@@ -277,7 +279,9 @@ jQuery(document).ready(function() {
             type: "get",
             url: "../stocks/"+product_id,
             success: function (html) {
-                $('#stock_info_id').append(html);
+                var data = JSON.parse(html);
+                $('#stock_info_id').append(data.list);
+                $('#price').val(data.price);
             }
         });
         //var stock_info_id = $('#stock_info_id').val();

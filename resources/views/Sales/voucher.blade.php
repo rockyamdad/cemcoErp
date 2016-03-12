@@ -26,7 +26,7 @@
             </div>--}}
         </div>
 
-        <table class="col-md-12">
+        <table style="width: 100%;" class="col-md-12">
             <tr>
                 <td>
                     <table class="text-center">
@@ -59,8 +59,8 @@
         </table>
 
 
-        <table class="col-md-12">
-            <tr style="border:1px solid black; background-color: #E4F1F9;">
+        <table class="col-md-12"  style="width: 100%;" >
+            <tr style="border:1px solid black; background: url('../../assets/img/lightBlueBackground.jpg');">
                 <td colspan="2">Received from:
                     @if($transaction->type == "Receive")
                         <?php
@@ -93,7 +93,7 @@
             <tr>
                 <td>
                     <span class="col-md-3">Amount in words</span>
-                    <span class="col-md-8" style="border-bottom:1px dotted black; "><?php echo number_to_word($transaction->amount); ?></span>
+                    <span class="col-md-8" style="border-bottom:1px dotted black; "><?php echo number_to_word($transaction->amount); ?> Taka Only</span>
                 </td>
                 <td style="border:1px solid black; background-color: #E4F1F9;">Total</td>
                 <td style="border:1px solid black; background-color: #C0DDEF;"   class="text-center">{{$transaction->amount}}</td>
@@ -218,6 +218,11 @@ function str_replace_last( $search , $replace , $str ) {
     return $str;
 }
 ?>
+    <style>
+        body{
+            -webkit-print-color-adjust:exact;
+        }
+    </style>
 @stop
 @section('javascript')
     {!! HTML::script('js/sales.js') !!}

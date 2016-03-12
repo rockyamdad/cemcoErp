@@ -25,7 +25,7 @@
             </div>--}}
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: -10px;">
 
             <div class="col-xs-8">
                 <table>
@@ -65,8 +65,7 @@
                 </table>
             </div>
         </div>
-        <br>
-        <br>
+
         <div class="row">
             <div class="col-xs-12">
                 <table class="table table-striped table-hover">
@@ -104,9 +103,8 @@
                     </tr>
                     </tbody>
                 </table>
+                <br>
 
-
-                <br><br>
                 <div class="row">
 
                     <div style="text-decoration: underline" class="col-xs-4">
@@ -126,11 +124,13 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+
 
     </div>
-
+    <style>
+        table {font-size: 12px;}
+        table tr th {font-size: 12px;}
+    </style>
 
 @stop
 @section('javascript')
