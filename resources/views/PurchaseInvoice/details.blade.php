@@ -123,6 +123,7 @@
 
                         </td>
                         <td>
+                            <a class="btn green" href="{{URL::to('purchases/voucher/'.$purchaseInvoiceTransaction->id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
                                 <input type="button"  id="deletePurchaseTransaction" style="width:127px;" value="delete" data-ref="{{$purchaseInvoiceTransaction->account_name_id}}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deletePurchaseTransaction" rel={{$purchaseInvoiceTransaction->id}}  />
                             @endif
