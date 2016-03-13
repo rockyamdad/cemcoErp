@@ -39,7 +39,7 @@ class Report extends Eloquent
             ->where('stock_details.entry_type', '=', 'StockIn')
             ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(stock_details.product_quantity) as stockBf')
+                DB::raw('SUM(stock_details.quantity) as stockBf')
 
             )
             ->get();
@@ -53,7 +53,7 @@ class Report extends Eloquent
             ->where('stock_details.entry_type', '=', 'StockOut')
             ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(stock_details.product_quantity) as stockBfOut')
+                DB::raw('SUM(stock_details.quantity) as stockBfOut')
 
             )
             ->get();
@@ -67,7 +67,7 @@ class Report extends Eloquent
             ->where('stock_details.entry_type', '=', 'StockIn')
             ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(stock_details.product_quantity) as stockIn')
+                DB::raw('SUM(stock_details.quantity) as stockIn')
 
             )
             ->get();
@@ -81,7 +81,7 @@ class Report extends Eloquent
             ->where('stock_details.entry_type', '=', 'StockOut')
             ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(stock_details.product_quantity) as stockOut')
+                DB::raw('SUM(stock_details.quantity) as stockOut')
 
             )
             ->get();
@@ -95,7 +95,7 @@ class Report extends Eloquent
             ->where('stock_details.entry_type', '=', 'Wastage')
             ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(stock_details.product_quantity) as stockWastage')
+                DB::raw('SUM(stock_details.quantity) as stockWastage')
 
             )
             ->get();
@@ -105,7 +105,7 @@ class Report extends Eloquent
     public function getStockProductsReport()
     {
         return DB::table('stock_counts')
-            ->selectRaw('product_id,stock_info_id, sum(product_quantity) as product_quantity')
+            ->selectRaw('product_id,stock_info_id, sum(quantity) as product_quantity')
             ->groupBy('stock_counts.product_id')
             ->get();
     }

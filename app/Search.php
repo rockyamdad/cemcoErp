@@ -17,7 +17,7 @@ class Search extends Eloquent
                 ->select('products.name AS pName',
                     'products.category_id AS cid',
                     'products.sub_category_id AS sid',
-                    'stock_details.product_quantity',
+                    'stock_details.quantity',
                     'stock_details.entry_type',
                     'stock_invoices.branch_id',
                     'stock_details.consignment_name',
@@ -48,7 +48,7 @@ class Search extends Eloquent
                     'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName',
-                    DB::raw('SUM(stock_details.product_quantity) as product_quantity')
+                    DB::raw('SUM(stock_details.quantity) as product_quantity')
                 )
                 ->get();
         }
@@ -110,7 +110,7 @@ class Search extends Eloquent
                 ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stock_details.product_quantity',
+                    'stock_details.quantity',
                     'stock_details.entry_type',
                     'stock_details.consignment_name',
                     'stock_details.remarks',
@@ -133,7 +133,7 @@ class Search extends Eloquent
                 ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stock_details.product_quantity',
+                    'stock_details.quantity',
                     'stock_details.entry_type',
                     'stock_details.consignment_name',
                     'stock_details.remarks',
@@ -157,7 +157,7 @@ class Search extends Eloquent
                 ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stock_details.product_quantity',
+                    'stock_details.quantity',
                     'stock_details.entry_type',
                     'stock_details.consignment_name',
                     'stock_details.remarks',
@@ -181,7 +181,7 @@ class Search extends Eloquent
                 ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stock_details.product_quantity',
+                    'stock_details.quantity',
                     'stock_details.entry_type',
                     'stock_details.consignment_name',
                     'stock_details.remarks',
