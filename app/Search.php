@@ -7,46 +7,48 @@ class Search extends Eloquent
     public function getResultSearchType($type,$date1,$date2,$branch)
     {
         if(($type=='')) {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('stocks.branch_id', '=', $branch)
-                ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_invoices.branch_id', '=', $branch)
+                ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'products.category_id AS cid',
                     'products.sub_category_id AS sid',
-                    'stocks.product_quantity',
-                    'stocks.entry_type',
-                    'stocks.branch_id',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.product_quantity',
+                    'stock_details.entry_type',
+                    'stock_invoices.branch_id',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
 
                 )
                 ->get();
         }else{
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('entry_type', '=', $type)
-                ->where('stocks.branch_id', '=', $branch)
-                ->groupBy('stocks.product_id')
-                ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_details.entry_type', '=', $type)
+                ->where('stock_invoices.branch_id', '=', $branch)
+                ->groupBy('stock_details.product_id')
+                ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'products.category_id AS cid',
                     'products.sub_category_id AS sid',
-                    'stocks.entry_type',
-                    'stocks.branch_id',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.entry_type',
+                    'stock_invoices.branch_id',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName',
-                    DB::raw('SUM(stocks.product_quantity) as product_quantity')
+                    DB::raw('SUM(stock_details.product_quantity) as product_quantity')
                 )
                 ->get();
         }
@@ -97,43 +99,45 @@ class Search extends Eloquent
     {
         if(($category=='') && ($product==''))
         {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('stocks.branch_id','=',$branch)
-                ->where('stocks.stock_info_id','=',$stock)
-                ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_invoices.branch_id','=',$branch)
+                ->where('stock_details.stock_info_id','=',$stock)
+                ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stocks.product_quantity',
-                    'stocks.entry_type',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.product_quantity',
+                    'stock_details.entry_type',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
                 )
                 ->get();
         }elseif($category=='')
         {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('stocks.branch_id','=',$branch)
-                ->where('stocks.stock_info_id','=',$stock)
-                ->where('product_id','=',$product)
-                ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_invoices.branch_id','=',$branch)
+                ->where('stock_details.stock_info_id','=',$stock)
+                ->where('stock_details.product_id','=',$product)
+                ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stocks.product_quantity',
-                    'stocks.entry_type',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.product_quantity',
+                    'stock_details.entry_type',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
                 )
@@ -141,45 +145,47 @@ class Search extends Eloquent
         }
         elseif($product=='')
         {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('stocks.branch_id','=',$branch)
-                ->where('stocks.stock_info_id','=',$stock)
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_invoices.branch_id','=',$branch)
+                ->where('stock_details.stock_info_id','=',$stock)
                 ->where('products.category_id','=',$category)
-                ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
+                ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stocks.product_quantity',
-                    'stocks.entry_type',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.product_quantity',
+                    'stock_details.entry_type',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
                 )
                 ->get();
         }elseif(($category!='') && ($product!='') && ($date1 != '') && ($date2!= ''))
         {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_details.invoice_id', '=', 'stock_invoices.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->join('users', 'stocks.user_id', '=', 'users.id')
-                ->where('stocks.branch_id','=',$branch)
-                ->where('stocks.stock_info_id','=',$stock)
-                ->where('product_id','=',$product)
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->join('users', 'stock_invoices.user_id', '=', 'users.id')
+                ->where('stock_invoices.branch_id','=',$branch)
+                ->where('stock_details.stock_info_id','=',$stock)
+                ->where('stock_details.product_id','=',$product)
                 ->where('products.category_id','=',$category)
-                ->whereBetween('stocks.created_at',array(new \DateTime($date1),new \DateTime($date2)))
+                ->whereBetween('stock_invoices.created_at',array(new \DateTime($date1),new \DateTime($date2)))
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
-                    'stocks.product_quantity',
-                    'stocks.entry_type',
-                    'stocks.consignment_name',
-                    'stocks.remarks',
-                    'stocks.created_at',
+                    'stock_details.product_quantity',
+                    'stock_details.entry_type',
+                    'stock_details.consignment_name',
+                    'stock_details.remarks',
+                    'stock_invoices.created_at',
                     'users.name AS uName',
                     'stock_infos.name AS sName'
                 )
