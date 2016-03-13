@@ -7,21 +7,22 @@ class Report extends Eloquent
     //stock main Report
     public function getStockReport($product_type,$date1,$date2,$branch_id,$category_id)
     {
-            return DB::table('stocks')
-                ->join('products', 'stocks.product_id', '=', 'products.id')
+            return DB::table('stock_invoices')
+                ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+                ->join('products', 'stock_details.product_id', '=', 'products.id')
                 ->join('product_categories', 'products.category_id', '=', 'product_categories.id')
-                ->join('stock_infos', 'stocks.stock_info_id', '=', 'stock_infos.id')
-                ->where('stocks.branch_id', '=', $branch_id)
+                ->join('stock_infos', 'stock_details.stock_info_id', '=', 'stock_infos.id')
+                ->where('stock_invoices.branch_id', '=', $branch_id)
                 ->where('products.category_id', '=', $category_id)
-                ->where('stocks.product_type', '=', $product_type)
-                ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-                ->groupBy('stocks.product_id')
+                ->where('stock_details.product_type', '=', $product_type)
+                ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+                ->groupBy('stock_details.product_id')
                 ->select('products.name AS pName',
                     'product_categories.name AS category',
                     'products.sub_category_id AS subCategory',
-                    'stocks.created_at',
-                    'stocks.product_id',
-                    'stocks.product_type',
+                    'stock_invoices.created_at',
+                    'stock_details.product_id',
+                    'stock_details.product_type',
                     'stock_infos.name AS sName'
 
                 )
@@ -31,65 +32,70 @@ class Report extends Eloquent
 
     public function getStockBf($product_type,$date1,$product_id)
     {
-        return DB::table('stocks')
-            ->where('created_at', '<',new \DateTime($date1))
-            ->where('product_type', '=',$product_type)
-            ->where('entry_type', '=', 'StockIn')
-            ->where('product_id', '=',$product_id)
+        return DB::table('stock_invoices')
+            ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+            ->where('stock_invoices.created_at', '<',new \DateTime($date1))
+            ->where('stock_details.product_type', '=',$product_type)
+            ->where('stock_details.entry_type', '=', 'StockIn')
+            ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(product_quantity) as stockBf')
+                DB::raw('SUM(stock_details.product_quantity) as stockBf')
 
             )
             ->get();
     }
     public function getStockBfOut($product_type,$date1,$product_id)
     {
-        return DB::table('stocks')
-            ->where('created_at', '<',new \DateTime($date1))
-            ->where('product_type', '=',$product_type)
-            ->where('entry_type', '=', 'StockOut')
-            ->where('product_id', '=',$product_id)
+        return DB::table('stock_invoices')
+            ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+            ->where('stock_invoices.created_at', '<',new \DateTime($date1))
+            ->where('stock_details.product_type', '=',$product_type)
+            ->where('stock_details.entry_type', '=', 'StockOut')
+            ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(product_quantity) as stockBfOut')
+                DB::raw('SUM(stock_details.product_quantity) as stockBfOut')
 
             )
             ->get();
     }
     public function getStockIn($product_type,$date1,$date2,$product_id)
     {
-        return DB::table('stocks')
-            ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-            ->where('product_type', '=',$product_type)
-            ->where('entry_type', '=', 'StockIn')
-            ->where('product_id', '=',$product_id)
+        return DB::table('stock_invoices')
+            ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+            ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->where('stock_details.product_type', '=',$product_type)
+            ->where('stock_details.entry_type', '=', 'StockIn')
+            ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(product_quantity) as stockIn')
+                DB::raw('SUM(stock_details.product_quantity) as stockIn')
 
             )
             ->get();
     }
     public function getStockOut($product_type,$date1,$date2,$product_id)
     {
-        return DB::table('stocks')
-            ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-            ->where('product_type', '=',$product_type)
-            ->where('entry_type', '=', 'StockOut')
-            ->where('product_id', '=',$product_id)
+        return DB::table('stock_invoices')
+            ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+            ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->where('stock_details.product_type', '=',$product_type)
+            ->where('stock_details.entry_type', '=', 'StockOut')
+            ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(product_quantity) as stockOut')
+                DB::raw('SUM(stock_details.product_quantity) as stockOut')
 
             )
             ->get();
     }
     public function getStockWastage($product_type,$date1,$date2,$product_id)
     {
-        return DB::table('stocks')
-            ->whereBetween('stocks.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-            ->where('product_type', '=',$product_type)
-            ->where('entry_type', '=', 'Wastage')
-            ->where('product_id', '=',$product_id)
+        return DB::table('stock_invoices')
+            ->join('stock_details', 'stock_invoices.invoice_id', '=', 'stock_details.invoice_id')
+            ->whereBetween('stock_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->where('stock_details.product_type', '=',$product_type)
+            ->where('stock_details.entry_type', '=', 'Wastage')
+            ->where('stock_details.product_id', '=',$product_id)
             ->select(
-                DB::raw('SUM(product_quantity) as stockWastage')
+                DB::raw('SUM(stock_details.product_quantity) as stockWastage')
 
             )
             ->get();
