@@ -83,7 +83,7 @@
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->invoice}}</td>
+                                <td><a target="_blank" href="{{URL::to('sales?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a></td>
                                 <td style="text-align: right;">{{$result->totalSale}}</td>
                                 <td style="text-align: right;">
                                     @if($payment[0]->totalPayment)

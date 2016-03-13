@@ -26,7 +26,7 @@
             </div>--}}
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: -10px;">
 
             <div class="col-xs-4">
                {{-- <h4>Client:</h4>--}}
@@ -65,8 +65,6 @@
                 </table>
             </div>
         </div>
-        <br>
-        <br>
         <div class="row">
             <div class="col-xs-12">
                 <table class="table table-striped table-hover">
@@ -87,11 +85,15 @@
                     ?>
                     @foreach($saleDetails as $saleDetail )
                         <?php
+
+                        $categoryName = \App\Category::find($saleDetail->product->category_id);
+                        $subCategoryName = \App\SubCategory::find($saleDetail->product->sub_category_id);
+
                                 $products = \App\Product::find($saleDetail->product_id);
                                 ?>
                         <tr>
                             <td>{{$i}}</td>
-                            <td>{{$products->name}}</td>
+                            <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                             <td>{{$products->origin}}</td>
                             <td style="text-align: right;">{{$saleDetail->quantity}}</td>
                             <td style="text-align: right;">{{$saleDetail->price}}</td>
@@ -158,7 +160,10 @@
 
     </div>
 
-
+        <style>
+            table {font-size: 12px;}
+            table tr th {font-size: 12px;}
+        </style>
 @stop
 @section('javascript')
     {!! HTML::script('js/sales.js') !!}

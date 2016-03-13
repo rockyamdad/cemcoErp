@@ -255,14 +255,14 @@ class SaleController extends Controller{
 
         if($validate->fails())
         {
+
             return Redirect::to('sales/index/')
                 ->withErrors($validate);
         }
         else{
+            $id =$this->setReceiveSalePayment();
 
-            $this->setReceiveSalePayment();
-
-            return Redirect::to('sales/index');
+            return Redirect::to('sales/voucher/'.$id);
 
         }
     }
@@ -311,6 +311,7 @@ class SaleController extends Controller{
         $sale->save();
         $accountPayment->save();
         Session::flash('message', 'Sales Due  has been Successfully Received.');
+        return $saleTransaction->id;
     }
 
 
@@ -546,6 +547,7 @@ class SaleController extends Controller{
 
     public function postSaveReceiveAll()
     {
+        $transactionId = 0;
 
         $ruless = array(
             'party_id' => 'required',
@@ -654,6 +656,7 @@ class SaleController extends Controller{
                                     $accountPayment->save();
                                 }
                                 $transaction->save();
+                                $transactionId = $transaction->id;
                                 $remaining_amount = 0;
 
                             }
@@ -691,6 +694,7 @@ class SaleController extends Controller{
                                     $accountPayment->save();
                                 }
                                 $transaction->save();
+                                $transactionId = $transaction->id;
                                 $remaining_amount = $toBePaid;
                             }
 
@@ -707,7 +711,7 @@ class SaleController extends Controller{
             }*/
             //automatically reduce sales payment ends
 
-            return Redirect::to('sales/index');
+            return Redirect::to('sales/voucher/'.$transactionId);
         }
     }
     public function getProductprice($id){
@@ -718,17 +722,25 @@ class SaleController extends Controller{
     public function getStocks($id){
         $stocks = StockCount::where('product_id', '=', $id)->get();
         $stockArray =array();
+        $x = "";
         foreach($stocks as $row){
             $stockInfo = StockInfo::find($row->stock_info_id);
-            echo "<option value='".$row->stock_info_id."'>".$stockInfo->name." (".$row->product_quantity.")</option>";
+            $x .= "<option value='".$row->stock_info_id."'>".$stockInfo->name." (".$row->product_quantity.")</option>";
             array_push($stockArray, $row->stock_info_id);
         }
 
         $stocks = StockInfo::whereNotIn('id', $stockArray)->get();
 
         foreach($stocks as $row){
-            echo "<option value='".$row->id."'>".$row->name." (0)</option>";
+            $x .= "<option value='".$row->id."'>".$row->name." (0)</option>";
         }
+
+        $product = Product::find($id);
+        $data = array(
+            'list' => $x,
+            'price' => $product->price
+        );
+        return json_encode($data);
     }
 
     public function getVoucher($transactionId){

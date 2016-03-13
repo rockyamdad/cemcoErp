@@ -77,7 +77,7 @@
                             <tr class="odd gradeX">
                                 <td>{{$result->date}}</td>
                                 <td>{{$party->name}}</td>
-                                <td>{{$result->invoice}}</td>
+                                <td><a target="_blank" href="{{URL::to('purchases?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a></td>
                                 <td>{{$accounts->name }}{{' ( '.$accountCategory->name.' )'}}</td>
                                 <td>{{$result->payment_method}}
                                     @if($result->cheque_no)
@@ -114,7 +114,6 @@
             <!-- END EXAMPLE TABLE PORTLET-->
         </div>
     </div>
-
 @stop
 @section('javascript')
     {!! HTML::script('js/report.js') !!}

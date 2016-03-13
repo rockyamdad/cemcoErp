@@ -77,6 +77,9 @@
                 </tbody>
             </table>
 
+            <div class="modal-footer">
+                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
+            </div>
 
         </div>
     </div>

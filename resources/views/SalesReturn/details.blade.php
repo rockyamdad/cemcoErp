@@ -27,6 +27,7 @@
                 <tr>
                     <th>Product Type</th>
                     <th>Product Name</th>
+                    <th>Discount Percentage</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
                     <th>Consignment Name</th>
@@ -44,10 +45,12 @@
 
                 $categoryName = \App\Category::find($srDetail->product->category_id);
                 $subCategoryName = \App\SubCategory::find($srDetail->product->sub_category_id);
+                        $total += $srDetail->quantity * $srDetail->unit_price;
                 ?>
                 <tr class="odd gradeX">
                     <td>{{$srDetail->product_type}}</td>
                     <td>{{$srDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
+                    <td><?php echo $sr->discount_percentage; ?></td>
                     <td>{{$srDetail->quantity}}</td>
                     <td>{{$srDetail->unit_price}}</td>
                     <td>{{$srDetail->consignment_name}}</td>
@@ -76,6 +79,11 @@
                 </tbody>
             </table>
 
+            <p>Total Return Amount: {{$total - (($total*$sr->discount_percentage)/100)}}</p>
+
+            <div class="modal-footer">
+                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
+            </div>
 
         </div>
     </div>

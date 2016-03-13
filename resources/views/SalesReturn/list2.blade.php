@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-                Stock Section
+                Sales Return Section
             </h3>
             <ul class="page-breadcrumb breadcrumb">
                 <li>
@@ -25,7 +25,7 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
-                    <div class="caption"><i class="fa fa-globe"></i>Stock</div>
+                    <div class="caption"><i class="fa fa-globe"></i>Sales Return</div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"></a>
                         <a href="javascript:;" class="reload"></a>

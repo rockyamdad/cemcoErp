@@ -41,12 +41,15 @@
                     $branch = new \App\Branch();
                     $stockName = \App\StockInfo::find($purchaseInvoiceDetail->stock_info_id);
                     $branchName = \App\Branch::find($purchaseInvoiceDetail->branch_id);
+
+                    $categoryName = \App\Category::find($purchaseInvoiceDetail->product->category_id);
+                    $subCategoryName = \App\SubCategory::find($purchaseInvoiceDetail->product->sub_category_id);
                     ?>
                     <tr class="odd gradeX">
                         <td>{{$branchName->name}}</td>
                         <td>{{$stockName->name}}</td>
                         <td>{{$purchaseInvoiceDetail->product_type}}</td>
-                        <td>{{$purchaseInvoiceDetail->product->name}}</td>
+                        <td>{{$purchaseInvoiceDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$purchaseInvoiceDetail->price}}</td>
                         <td>{{$purchaseInvoiceDetail->quantity}}</td>
                         <td>{{$purchaseInvoiceDetail->quantity * $purchaseInvoiceDetail->price}}</td>
@@ -120,6 +123,7 @@
 
                         </td>
                         <td>
+                            <a class="btn green" href="{{URL::to('purchases/voucher/'.$purchaseInvoiceTransaction->id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
                                 <input type="button"  id="deletePurchaseTransaction" style="width:127px;" value="delete" data-ref="{{$purchaseInvoiceTransaction->account_name_id}}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deletePurchaseTransaction" rel={{$purchaseInvoiceTransaction->id}}  />
                             @endif
@@ -150,7 +154,6 @@
 
             <div class="modal-footer">
                 <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
-                <button type="button" class="btn blue">Save changes</button>
             </div>
 
         </div>

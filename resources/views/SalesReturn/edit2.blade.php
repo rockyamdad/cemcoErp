@@ -213,7 +213,6 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="submit" name="submit">
                                             {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveSalesReturn'))!!}
                                         </td>
                                     </tr>
