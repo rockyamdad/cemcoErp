@@ -557,17 +557,19 @@ class Report extends Eloquent
     }
     public function getSalesReturnReport($date1,$date2,$branch_id)
     {
-        return DB::table('sales_return')
-            ->where('sales_return.branch_id', '=', $branch_id)
-            ->whereBetween('sales_return.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-            ->select('sales_return.created_at AS date',
-                'sales_return.branch_id AS branch',
-                'sales_return.return_amount',
-                'sales_return.party_id',
-                'sales_return.product_id',
-                'sales_return.cus_ref_no',
-                'sales_return.consignment_name',
-                'sales_return.quantity'
+        return DB::table('sales_return_invoices')
+            ->join('sales_return_details', 'sales_return_details.invoice_id', '=', 'sales_return_invoices.invoice_id')
+            ->where('sales_return_invoices.branch_id', '=', $branch_id)
+            ->whereBetween('sales_return_invoices.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('sales_return_invoices.created_at AS date',
+                'sales_return_invoices.branch_id AS branch',
+                'sales_return_details.quantity',
+                'sales_return_details.unit_price',
+                'sales_return_invoices.party_id',
+                'sales_return_invoices.invoice_id',
+                'sales_return_invoices.product_status',
+                'sales_return_invoices.ref_no',
+                'sales_return_invoices.discount_percentage'
             )
             ->get();
     }

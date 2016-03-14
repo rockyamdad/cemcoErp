@@ -53,11 +53,11 @@
                         <tr>
 
                             <th>Date</th>
+                            <th>Invoice Id</th>
                             <th>Party Name</th>
-                            <th>Product Name</th>
+                            <th>Product Status</th>
                             <th>Customer Ref No</th>
-                            <th>Consignment Name</th>
-                            <th style="text-align: right;">Quantity</th>
+                            <th>Discount Percentage </th>
                             <th style="text-align: right;">Return Amount</th>
 
                         </tr>
@@ -69,29 +69,22 @@
 
                         @foreach($results as $result )
                             <?php
-                         $products = \App\Product::find($result->product_id);
-                         $party = \App\Party::find($result->party_id);
-                         $categories = \App\Category::find($products->category_id);
-                         $subCategories = \App\SubCategory::find($products->sub_category_id);
-                                    if($products->sub_category_id)
-                                    {
-                                        $subCategoryName = '('.$subCategories->name.')';
-                                    }else{
-                                        $subCategoryName = '';
-                                    }
+                            $party = \App\Party::find($result->party_id);
+
+                                    $return_amount = $result->quantity * $result->unit_price * $result->discount_percentage/100;
                                     ?>
 
                             <tr class="odd gradeX">
                                 <td>{{$result->date}}</td>
+                                <td>{{$result->invoice_id}}</td>
                                 <td>{{$party->name}}</td>
-                                <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
-                                <td>{{$result->cus_ref_no}}</td>
-                                <td>{{$result->consignment_name}}</td>
-                                <td style="text-align: right;">{{$result->quantity}}</td>
-                                <td style="text-align: right;">{{$result->return_amount}}</td>
+                                <td>{{$result->product_status}}</td>
+                                <td>{{$result->ref_no}}</td>
+                                <td>{{$result->discount_percentage}}</td>
+                                <td style="text-align: right;">{{$return_amount }}</td>
                             </tr>
                             <?php
-                            $total = $total + ($result->return_amount );
+                            $total = $total + ($return_amount );
                             ?>
                         @endforeach
                         <tr>
