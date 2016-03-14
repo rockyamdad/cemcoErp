@@ -573,6 +573,23 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getSalesReturnDetailsReport($date1,$date2,$branch_id)
+    {
+        return DB::table('sales_return_details')
+            ->join('sales_return_invoices', 'sales_return_invoices.invoice_id', '=', 'sales_return_details.invoice_id')
+            ->where('sales_return_invoices.branch_id', '=', $branch_id)
+            ->whereBetween('sales_return_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
+            ->select('sales_return_details.created_at AS date',
+                'sales_return_invoices.branch_id AS branch',
+                'sales_return_details.quantity',
+                'sales_return_details.unit_price',
+                'sales_return_details.invoice_id',
+                'sales_return_details.return_amount',
+                'sales_return_details.product_id',
+                'sales_return_invoices.discount_percentage'
+            )
+            ->get();
+    }
     public function getSalesPartyLedgerReport($date1,$date2,$party_id)
     {
         return DB::table('sale_details')

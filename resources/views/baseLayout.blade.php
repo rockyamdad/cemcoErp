@@ -430,6 +430,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <a href="{{ URL::to('reports/salesreturn') }}">Sales Return Report</a>
                     </li>
                         <li style="background-color: #134266"
+                            @if (Request::is('reports/salesreturndetails'))class="active"@endif>
+                            <a href="{{ URL::to('reports/salesreturndetails') }}">Sales Return Details Report</a>
+                        </li>
+                        <li style="background-color: #134266"
                             @if (Request::is('reports/salespartyledger'))class="active"@endif>
                             <a href="{{ URL::to('reports/salespartyledger') }}">Sales Party-Ledger Report</a>
                         </li>

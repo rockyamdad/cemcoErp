@@ -416,6 +416,26 @@ class ReportController extends Controller{
             ->with('branchAll',$branchAll);
 
     }
+    public function getSalesreturndetails()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Reports.salesReturnDetailsReport')
+            ->with('branchAll',$branchAll);
+
+    }
+    public function postSalesReturnDetailsReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        $branch_id = Input::get('branch_id');
+        $report = new Report();
+        $results = $report->getSalesReturnDetailsReport($date1,$date2,$branch_id);
+        return view('Reports.salesReturnDetailsReportResult',compact('results'))
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
     public function postSalesReturnReportResult()
     {
         $date1 = Input::get('from_date');
