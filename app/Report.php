@@ -105,7 +105,7 @@ class Report extends Eloquent
     public function getStockProductsReport()
     {
         return DB::table('stock_counts')
-            ->selectRaw('product_id,stock_info_id, sum(quantity) as product_quantity')
+            ->selectRaw('product_id,stock_info_id, sum(product_quantity) as product_quantity')
             ->groupBy('stock_counts.product_id')
             ->get();
     }
