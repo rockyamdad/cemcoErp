@@ -46,8 +46,12 @@
                         <?php } ?>
 
                     <tr>
-                        <td><b>Date</b></td>
-                        <td>: {{date("d-m-Y")}}</td>
+                        <td><b>User: </b></td>
+                        <?php
+                        $userid=Session::get('user_id');
+                        $uerInfo = App\User::find($userid);
+                        ?>
+                        <td>{{$uerInfo->name}}</td>
                     </tr>
                 </table>
 

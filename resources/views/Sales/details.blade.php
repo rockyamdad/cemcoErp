@@ -31,6 +31,7 @@ function closeModal() {
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Discount Percentage</th>
                     <th>Amount</th>
                     <th>Remarks</th>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
@@ -56,7 +57,9 @@ function closeModal() {
                         <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
-                        <td>{{$saleDetail->quantity * $saleDetail->price }}</td>
+                        <td>{{$sale->discount_percentage}}%</td>
+                        <?php $amount = $saleDetail->quantity * $saleDetail->price; $amount -= (($amount*$sale->discount_percentage)/100); ?>
+                        <td>{{$amount }}</td>
                         <td>
                             @if($saleDetail->remarks)
                                 {{ $saleDetail->remarks }}
@@ -75,7 +78,9 @@ function closeModal() {
 
                         </td>
                         @endif
-                    <?php $total = $total + ($saleDetail->price*$saleDetail->quantity); ?>
+                    <?php $total = $total + ($amount);
+
+                        ?>
 
                     </tr>
                 @endforeach
@@ -84,7 +89,8 @@ function closeModal() {
                    <td></td>
                    <td></td>
                    <td></td>
-                   <td></td>
+                    <td></td>
+                    <td></td>
                    <td>{{ $total }}</td>
                    <td></td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))

@@ -176,11 +176,11 @@
                                                 <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
                                                     <i class="fa fa-eye"></i> Detail</a>
 
-                                                <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/discount/'. $sale->id ) }}" >
-                                                    <i class="fa fa-eye"></i> Add Discount Percentage</a>
+
 
                                             @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                                <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice</a>
+                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice</a>
+                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">Chalan</a>
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                     <i class="fa fa-usd"></i> Payment</a>
                                                 <span class="label label-sm label-success">SoldOut</span>

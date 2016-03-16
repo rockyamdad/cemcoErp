@@ -36,7 +36,7 @@
 
                       <div class="modal-footer">
                           <button type="button" class="btn blue" onclick="addDiscountPercentage();">Save changes</button>
-                          <button type="button" data-dismiss="modal" class="btn">Close</button>
+                          <button type="button" data-dismiss="modal" class="btn" onclick="closeModal();">Close</button>
                        </div>
 
         </div>
@@ -45,7 +45,11 @@
 
 
 <script>
-
+    function closeModal(){
+        $('#modal').modal('toggle');
+        $("#sale").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $('.modal-backdrop').hide();
+    }
     function addDiscountPercentage(){
         var discount_percentage = $('#discount_percentage').val();
         $.ajax({
@@ -54,8 +58,11 @@
             data:{'data':discount_percentage},
             dateType: 'json',
             success: function (data) {
-                $('#modal').modal('toggle').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+                $('#modal').modal('toggle');
+                $("#sale").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
                 $('.modal-backdrop').hide();
+//                $('#modal').modal('toggle').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+//                $('.modal-backdrop').hide();
             }
         });
     }

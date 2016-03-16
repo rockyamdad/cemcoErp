@@ -64,6 +64,7 @@
                         <th>Product</th>
                         <th style="text-align: right;" class="hidden-480">Quantity</th>
                         <th style="text-align: right;" class="hidden-480">Unit Price</th>
+                        <th style="text-align: right;" class="hidden-480">Amount</th>
                         <th style="text-align: right;" class="hidden-480">Discount</th>
                         <th style="text-align: right;" class="hidden-480">Return Amount</th>
                     </tr>
@@ -87,6 +88,7 @@
                             {{--<td>{{$saleDetail->remarks}}</td>--}}
                             <td style="text-align: right;">{{$row->quantity}}</td>
                             <td style="text-align: right;">{{$row->unit_price}}</td>
+                            <td style="text-align: right;">{{$row->quantity*$row->unit_price}}</td>
                             <td style="text-align: right;">{{$srInvoice->discount_percentage}}%</td>
                             <td style="text-align: right;">{{$row->return_amount}}</td>
                         </tr>
@@ -97,6 +99,7 @@
                     @endforeach
                     <tr>
                         <td>Grand Total:</td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

@@ -50,7 +50,7 @@
                 <tr class="odd gradeX">
                     <td>{{$srDetail->product_type}}</td>
                     <td>{{$srDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
-                    <td><?php echo $sr->discount_percentage; ?></td>
+                    <td><?php echo $sr->discount_percentage; ?>%</td>
                     <td>{{$srDetail->quantity}}</td>
                     <td>{{$srDetail->unit_price}}</td>
                     <td>{{$srDetail->consignment_name}}</td>

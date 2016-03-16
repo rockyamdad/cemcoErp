@@ -61,20 +61,45 @@
                         <div class="form-body">
                             <div class="form-group">
                                 <div class="col-md-3">
+                                    Branch
+                                </div>
+                                <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,$stockInvoices->branch_id, array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
+                                </div>
+                                <div class="col-md-3">
+                                    Party
                                 </div>
                                 <div class="col-md-3">
                                     {!! Form::select('party_id',[null=>'Please Select Party'] + $partyAll, $stockInvoices->party_id, array('class'=>'form-control','id'=>'party_id'))!!}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    Product Status
+                                </div>
+
                                 <div class="col-md-3">
                                     {!! Form::select('product_status',[null=>'Please Select Product Status'] + array('Defective' => 'Defective', 'Intact' =>
                             'Intact'),$stockInvoices->product_status, array('class'=>'form-control','id'=>'product_status'))!!}
+                                </div>
+
+                                <div class="col-md-3">
+                                    Ref No.
                                 </div>
                                 <div class="col-md-3">
                                     {!!Form::text('ref_no',$stockInvoices->ref_no,array('placeholder' => 'Ref No.', 'id' => 'ref_no','class' =>
                                  'form-control'))!!}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-group">
 
+                                <div class="col-md-3">
+                                    Discount percentage
+                                </div>
                                 <div class="col-md-3">
                                     {!!Form::text('discount_percentage',$stockInvoices->discount_percentage,array('placeholder' => 'discount percentage', 'id' => 'discount_percentage','class' =>
                                  'form-control'))!!}
