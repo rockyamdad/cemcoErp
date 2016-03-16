@@ -77,7 +77,6 @@
                             <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                 <thead>
                                 <tr>
-
                                     <th width="">Product Type</th>
                                     <th width="">Product Name</th>
                                     <th width="">Stock Name</th>

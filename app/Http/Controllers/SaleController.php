@@ -287,8 +287,11 @@ class SaleController extends Controller{
         $totalPrice = 0;
         $saleDetails = SAleDetail::where('invoice_id','=',$saleTransaction->invoice_id)->get();
         $transactions = Transaction::where('invoice_id','=',$saleTransaction->invoice_id)->get();
+
         foreach($saleDetails as $saleDetail)
         {
+            $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
+            $salePriceCalculated -= $salePriceCalculated * $sales->discount_percentage/100;
             $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
         }
         foreach($transactions as $transaction)
@@ -599,9 +602,12 @@ class SaleController extends Controller{
                         ->where('payment_method', '=', 'Check')
                         ->where('type', '=', 'Receive')
                         ->where('cheque_status', '=', 1)->get();
+                    $salef = Sale::find( $invid->id);
                     foreach($saleDetails as $saleDetail)
                     {
-                        $detailsPrice = $detailsPrice + ($saleDetail->price * $saleDetail->quantity);
+                        $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
+                        $salePriceCalculated -= $salePriceCalculated * $salef->discount_percentage/100;
+                        $detailsPrice = $detailsPrice + $salePriceCalculated;
                     }
                     foreach($transactions as $transaction)
                     {
@@ -747,6 +753,19 @@ class SaleController extends Controller{
         $transaction = Transaction::find($transactionId);
         return view('Sales.voucher',compact('transaction'));
 
+    }
+
+    public function getDiscount($saleId){
+        $sales = Sale::find($saleId);
+        return view('Sales.discountPercentage',compact('sales'));
+    }
+
+    public function getSavediscount($salesId){
+        var_dump(Input::get('data'));
+        $sales = Sale::find($salesId);
+        $sales->discount_percentage = Input::get('data');
+        echo Input::get('data');
+        $sales->save();
     }
 
 

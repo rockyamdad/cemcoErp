@@ -46,7 +46,7 @@
                 <td class="pull-right">
                     <table>
                         <tr><td>Voucher no:
-                                @if($transaction->type == "Receive")
+                                @if($transaction->type != "Receive")
                                     DV-{{$transaction->id}}
                                 @else
                                     CV-{{$transaction->id}}
