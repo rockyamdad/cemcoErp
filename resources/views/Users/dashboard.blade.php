@@ -92,7 +92,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="portlet box blue">
                     <div class="portlet-title">
-                        <div class="caption"><i class="fa fa-bell-o"></i>Pending Cheque Register</div>
+                        <div class="caption"><i class="fa fa-bell-o"></i>Payee Cheque Register</div>
 
                     </div>
                     <div class="portlet-body">
@@ -130,7 +130,7 @@
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_date}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{\App\Transaction::convertDate($reg->cheque_date)}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
@@ -164,7 +164,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="portlet box blue">
                     <div class="portlet-title">
-                        <div class="caption"><i class="fa fa-bell-o"></i>Pending Purchase Cheque Register</div>
+                        <div class="caption"><i class="fa fa-bell-o"></i>Payer Cheque Register</div>
 
                     </div>
                     <div class="portlet-body">
@@ -196,14 +196,13 @@
                                     $time = strtotime($reg->cheque_date);
                                     $newformat = date('d',$time);
                                     $today = date('d', time());
-
                                     ?>
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_date}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{\App\Transaction::convertDate($reg->cheque_date)}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
@@ -265,7 +264,7 @@
                         @foreach($latestTransactions as $transaction )
                             <tr class="odd gradeX">
 
-                                <td>{{$transaction->created_at}}</td>
+                                <td>{{\App\Transaction::convertDate($transaction->created_at)}}</td>
                                 <td>{{$transaction->accountCategory->name}}</td>
                                 <td>{{$transaction->accountName->name}}</td>
                                 <td>{{$transaction->type}}</td>
@@ -595,6 +594,7 @@
             -webkit-animation-timing-function: cubic-bezier(1.0, 0, 0, 1.0);
             -webkit-animation-duration: 1s;
             color: red;
+            background-color: #FFB848;
         }
     </style>
 

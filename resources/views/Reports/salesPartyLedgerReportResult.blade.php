@@ -53,8 +53,8 @@
                         <tr>
                             <th>Date</th>
                             <th style="text-align: right;">PatiCulars</th>
-                            <th style="text-align: right;">Debit </th>
                             <th style="text-align: right;">Credit </th>
+                            <th style="text-align: right;">Debit </th>
                             <th style="text-align: right;">Balance</th>
                         </tr>
                         </thead>
@@ -75,64 +75,36 @@
 
                         </tr>
 
-                        @foreach($results as $result )
+                        @foreach($results2 as $result )
                             <?php
-                                $reports = new \App\Report();
-                                $payments = $reports->getPaymentForSalesPartyLedgerReport($date1,$date2,$result->invoice);
+                                //$reports = new \App\Report();
+                                //$payments = $reports->getPaymentForSalesPartyLedgerReport($date1,$date2,$result2->invoice);
                             ?>
                             <tr>
-                                <td>{{$result->date}}</td>
-                                <td style="background-color: #0077b3">Product Received({{$result->invoice}})</td>
-                                <td></td>
-                                <td>{{$result->total}}</td>
+                                <td>{{\App\Transaction::convertDate($result->created_at)}}</td>
+                                <td style="background-color: #0077b3">Product Received ({{$result->particular}})</td>
                                 <td>
-                                    @if($flag == '')
-                                        {{$openingBalance + $result->total}}
-                                    @else
-                                        {{$balance + $result->total}}
-                                    @endif
+                                    <?php
+                                        $particular = $result->particular;
+                                        if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
+                                            echo $result->amount;
+                                        }
+                                    ?>
+
                                 </td>
+                                <td>
+                                    <?php
+
+                                    if (strpos($particular, 'Cash') == false || (strpos($particular, 'Sales') == false) || strpos($particular, 'Check') == false) {
+                                        echo $result->amount;
+                                    }
+                                    ?>
+                                </td>
+                                <td></td>
+
 
                             </tr>
-                            <?php
-                            if($flag == ''){
-                                $balance  = $openingBalance + $result->total;
-                            }else{
-                                $balance  = $balance + $result->total;
-                            }
-                            ?>
-                            <?php $flag = 'value';?>
-                            @foreach($payments as $payment)
-                                <tr>
-                                    <td>{{$payment->date}}</td>
-                                    <td>
-                                        @if($payment->payment_method == 'Cash')
-                                           Cash
-                                        @else
-                                           Check ({{$payment->cheque_no}})
-                                        @endif
-                                    </td>
-                                    <td>{{$payment->total}}</td>
-                                    <td></td>
-                                    <td>
-                                        @if($flag == '')
-                                            {{$openingBalance - $payment->total}}
-                                        @else
-                                            {{$balance - $payment->total}}
-                                        @endif
-                                    </td>
-                                </tr>
 
-                                <?php
-                                    if($flag == ''){
-                                        $balance  = $openingBalance - $payment->total;
-                                    }else{
-                                        $balance  = $balance - $payment->total;
-                                    }
-                                $flag = 'value';
-                                ?>
-
-                            @endforeach
 
 
                         @endforeach

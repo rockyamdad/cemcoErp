@@ -81,7 +81,7 @@
                                 $payments = $reports->getPaymentForPurchasePartyLedgerReport($date1,$date2,$result->invoice);
                             ?>
                             <tr>
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td style="background-color: #0077b3">Product Received({{$result->invoice}})</td>
                                 <td></td>
                                 <td>{{$result->total}}</td>
@@ -104,7 +104,7 @@
                             <?php $flag = 'value';?>
                             @foreach($payments as $payment)
                                 <tr>
-                                    <td>{{$payment->date}}</td>
+                                    <td>{{\App\Transaction::convertDate($payment->date)}}</td>
                                     <td>
                                         @if($payment->payment_method == 'Cash')
                                            Cash

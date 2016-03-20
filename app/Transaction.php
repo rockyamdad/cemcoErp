@@ -41,4 +41,10 @@ class Transaction extends Eloquent
             ->where('type', '=', 'Payment')
             ->get();
     }
+
+    public static function convertDate($date){
+        $date = strtotime($date);
+        return date('d/m/Y', $date);
+        //return 'asd';
+    }
 }

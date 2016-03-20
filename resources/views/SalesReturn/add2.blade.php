@@ -94,7 +94,7 @@
                                         <th width="">Quantity</th>
                                         <th width="">Unit Price</th>
                                         <th width=""  class="consignment_name_section">Consignment Name</th>
-                                        <th width="">Remarks</th>
+
                                         <th width="">Action</th>
                                     </tr>
 
@@ -158,15 +158,6 @@
                                             </div>
                                         </td>
 
-
-                                        <td>
-                                            <div class="form-body">
-                                                <div class="form-group">
-                                                    {!!Form::text('remarks',null,array('placeholder' => 'Remarks', 'class' =>
-                                                    'form-control','id'=>'remarks'))!!}
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
                                             {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveSalesReturn'))!!}
                                         </td>

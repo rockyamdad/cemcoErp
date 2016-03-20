@@ -74,7 +74,7 @@
                             ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td>{{$result->invoice}}</td>
                                 <td>{{$result->category}}</td>
                                 <td>{{$result->purpose}}</td>

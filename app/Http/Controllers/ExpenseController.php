@@ -314,6 +314,13 @@ class ExpenseController extends Controller{
             echo "<option value = $categoryName->id > $categoryName->name</option> ";
         }
     }
+
+    public function getVoucher($transactionId){
+        $transaction = Transaction::find($transactionId);
+        return view('Sales.voucher',compact('transaction'));
+
+    }
+
     public function getAccountbalance($account_id)
     {
         $accountBalance = NameOfAccount::find($account_id);

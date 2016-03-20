@@ -46,13 +46,13 @@
                 <td class="pull-right">
                     <table>
                         <tr><td>Voucher no:
-                                @if($transaction->type != "Receive")
-                                    DV-{{$transaction->id}}
-                                @else
+                                @if($transaction->type == "Receive")
                                     CV-{{$transaction->id}}
+                                @else
+                                    DV-{{$transaction->id}}
                                 @endif
                             </td></tr>
-                        <tr><td>recieved by: {{$transaction->user->name}}</td></tr>
+                        <tr><td>Recieved by: {{$transaction->user->name}}</td></tr>
                     </table>
                 </td>
             </tr>
@@ -66,12 +66,12 @@
                         <?php
                         $sales = \App\Sale::where('invoice_id', '=' ,$transaction->invoice_id)->first();
                         ?>
-                        Party: {{$sales->party->name}}
+                        {{$sales->party->name}}
                     @elseif($transaction->type == "Payment")
                         <?php
                         $sales = \App\PurchaseInvoice::where('invoice_id', '=' ,$transaction->invoice_id)->first();
                         ?>
-                        Party: {{$sales->party->name}}
+                        {{$sales->party->name}}
                     @endif
                 </td>
                 <td style="border:1px solid black;" class="text-center">
@@ -80,12 +80,14 @@
             </tr>
             <tr style="border:1px solid black;">
                 <td colspan="2">
-                    {{$transaction->payment_method}}
+                    Being: <?php if($transaction->payment_method == 'Check') { echo 'Cheque'; } else { echo $transaction->payment_method; }?><?php if($transaction->payment_method == 'Sales Return') { echo ' for invoice - '.$transaction->remarks; } ?>
                     <br>
                     @if($transaction->payment_method == "Check")
                         Cheque no: {{$transaction->cheque_no}}
                         <br>
                         Bank: {{$transaction->cheque_bank}}
+                        <br>
+                        Cheque Date: {{$transaction->cheque_date}}
                     @endif
                 </td>
                 <td style="border:1px solid black;  background-color: #E4F1F9;"  class="text-center">{{$transaction->amount}}</td>

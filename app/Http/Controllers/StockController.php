@@ -444,7 +444,14 @@ class StockController extends Controller{
         $array['branch_id'] = $branchName->name;
         $array['stock_info_id'] = $stockName->name;
         $array['product_type'] = $stockDetails->product_type;
-        $array['product_id'] = $stockDetails->product->name;
+        $productsName = Product::find($stockDetails->product_id);
+        $category = $productsName->category->name;
+        $subCategoryName = '';
+        if($productsName->sub_category_id){
+            $subCategory = SubCategory::find($productsName->sub_category_id);
+            $subCategoryName = '('.$subCategory->name.')';
+        }
+        $array['product_id'] = $stockDetails->product->name.' ('.$category.') '.$subCategoryName;
         if($tostockName != null)
             $array['to_stock_info_id'] = $tostockName->name;
         $array['entry_type'] = $stockDetails->entry_type;

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller{
     public function __construct()
@@ -460,12 +461,32 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
+
+        $date3 = date('Y-m-d', strtotime($date1));
+        $date4 = date('Y-m-d', strtotime($date2));
+
         $party_id = Input::get('party_id');
         $report = new Report();
         $results = $report->getSalesPartyLedgerReport($date1,$date2,$party_id);
         $credit = $report->getCredit($date1,$date2,$party_id);
         $debit = $report->getDebit($date1,$date2,$party_id);
-        return view('Reports.salesPartyLedgerReportResult',compact('results'))
+
+        $sql = "SELECT * FROM (SELECT A.invoice_id particular, SUM(A.price * A.quantity)  amount, A.created_at FROM (
+SELECT sale_details.invoice_id, sale_details.price, sale_details.quantity, sales.created_at FROM `sales` sales  LEFT JOIN sale_details sale_details ON sales.invoice_id = sale_details.invoice_id WHERE sales.party_id = ".$party_id." AND sales.created_at BETWEEN '$date3' AND '$date4'
+    ) A GROUP BY A.invoice_id
+
+UNION
+
+SELECT IF(transactions.payment_method='Check', CONCAT(transactions.payment_method,' - ',transactions.cheque_no),  transactions.payment_method)  particular,transactions.amount,  transactions.created_at FROM `sales` sales
+
+JOIN transactions transactions ON sales.invoice_id = transactions.invoice_id
+
+WHERE sales.party_id = ".$party_id." AND sales.created_at BETWEEN '$date3' AND '$date4') allData
+ORDER BY allData.created_at";
+
+        $results2 = DB::select( DB::raw($sql) );
+
+        return view('Reports.salesPartyLedgerReportResult',compact('results','results2'))
             ->with('party_id',$party_id)
             ->with('date1',$date1)
             ->with('credit',$credit)

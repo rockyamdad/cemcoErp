@@ -88,7 +88,7 @@
                                     @if(in_array($result->invoice,$invoiceSave))
 
                                     @else
-                                        {{$result->invoice}}
+                                    <a target="_blank" href="{{URL::to('sales?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a>
                                     @endif
                                 </td>
                                 {{--<td>{{$result->date}}</td>--}}

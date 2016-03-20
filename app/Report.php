@@ -131,7 +131,8 @@ class Report extends Eloquent
             ->select('sale_details.created_at AS date',
                 'sale_details.branch_id AS branch',
                 'sale_details.invoice_id AS invoice',
-                DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale')
+                DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale'),
+                'sales.discount_percentage AS discount_amount'
             )
             ->get();
     }
@@ -180,6 +181,7 @@ class Report extends Eloquent
                 'sale_details.branch_id AS branch',
                 'sale_details.invoice_id AS invoice',
                 'sales.party_id AS party',
+                DB::raw('SUM(sales.discount_percentage) as discount_amount'),
                 DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale')
             )
             ->get();

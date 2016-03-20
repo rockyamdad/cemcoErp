@@ -21,6 +21,7 @@ function closeModal() {
                 $branchname= \App\Branch::find($saledetails->branch_id);
             ?>
             <h3>Branch Name : <?php echo $branchname->name; ?></h3>
+            <input type="text" id="discount_percentage" placeholder="discount percentage" class="form-control" onchange="calculate_amount();">
         </div>
         <div class="modal-body">
             <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">
@@ -31,7 +32,6 @@ function closeModal() {
                     <th>Product Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Discount Percentage</th>
                     <th>Amount</th>
                     <th>Remarks</th>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
@@ -57,8 +57,7 @@ function closeModal() {
                         <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
-                        <td>{{$sale->discount_percentage}}%</td>
-                        <?php $amount = $saleDetail->quantity * $saleDetail->price; $amount -= (($amount*$sale->discount_percentage)/100); ?>
+                        <?php $amount = $saleDetail->quantity * $saleDetail->price;  ?>
                         <td>{{$amount }}</td>
                         <td>
                             @if($saleDetail->remarks)
@@ -85,17 +84,44 @@ function closeModal() {
                     </tr>
                 @endforeach
                 <tr style="background-color:#b2b2b2;">
-                   <td>Total Amount</td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
+                    <td>Total Amount</td>
                     <td></td>
                     <td></td>
-                   <td>{{ $total }}</td>
-                   <td></td>
+                    <td></td>
+                    <td></td>
+                    <td >{{ $total }}</td>
+                    <td></td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
-                   <td></td>
-                        @endif
+                        <td></td>
+                    @endif
+
+                </tr>
+
+                <tr style="background-color:#b2b2b2;">
+                    <td>Discount Amount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td ><input type="text" id="discount_amount" value="{{$sale->discount_percentage}}" onchange="calculate_grand_amount()"></td>
+                    <td></td>
+                    @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
+                        <td></td>
+                    @endif
+
+                </tr>
+
+                <tr style="background-color:#b2b2b2;">
+                    <td>Grand Total Amount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td  id="amount">{{ $total - $sale->discount_percentage }}</td>
+                    <td><a href="#" onclick="save_da();" class="btn btn-danger">Save</a></td>
+                    @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
+                        <td></td>
+                    @endif
 
                 </tr>
 
@@ -172,3 +198,39 @@ function closeModal() {
         </div>
     </div>
 </div>
+<script>
+    function calculate_amount(){
+        var discount_percentage = $('#discount_percentage').val();
+        var amount = <?=$total?>;
+        var discount_amount = ((amount*discount_percentage)/100);
+        amount -= discount_amount;
+        $('#amount').html(amount);
+        $('#discount_amount').val(discount_amount);
+
+    }
+
+    function calculate_grand_amount(){
+        var discount_amount = $('#discount_amount').val();
+        var amount = <?=$total?>;
+        amount -= discount_amount;
+        $('#amount').html(amount);
+
+    }
+
+    function save_da(){
+        var discount_amount = $('#discount_amount').val();
+
+        $.ajax({
+            type: "get",
+            url: "savediscount/{{$sale->id}}",
+            data:{'data': discount_amount },
+            success: function (html) {
+                alert('saved');
+
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            }
+        });
+    }
+</script>

@@ -290,21 +290,24 @@ class SaleController extends Controller{
 
         foreach($saleDetails as $saleDetail)
         {
-            $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
-            $salePriceCalculated -= $salePriceCalculated * $sales->discount_percentage/100;
             $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
         }
         foreach($transactions as $transaction)
         {
             $totalAmount =$totalAmount + ($transaction->amount);
         }
+        $totalPrice -= $sales->discount_percentage;
         $sale = Sale::find( $sales->id);
-        if($totalAmount == $totalPrice)
+
+        $amountTobePaid = $totalAmount+Input::get('amount');
+
+        if(sprintf($amountTobePaid) == sprintf($totalPrice))
         {
             $sale->status = "Completed";
         }else{
             $sale->status = "Partial";
         }
+
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
 
         $accountPayment->opening_balance = $accountPayment->opening_balance + Input::get('amount');
@@ -606,9 +609,9 @@ class SaleController extends Controller{
                     foreach($saleDetails as $saleDetail)
                     {
                         $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
-                        $salePriceCalculated -= $salePriceCalculated * $salef->discount_percentage/100;
                         $detailsPrice = $detailsPrice + $salePriceCalculated;
                     }
+                    $detailsPrice -= $invid->discount_percentage;
                     foreach($transactions as $transaction)
                     {
                         $paid =$paid + ($transaction->amount);

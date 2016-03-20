@@ -75,7 +75,7 @@
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td>{{$party->name}}</td>
                                 <td><a target="_blank" href="{{URL::to('purchases?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a></td>
                                 <td>{{$accounts->name }}{{' ( '.$accountCategory->name.' )'}}</td>

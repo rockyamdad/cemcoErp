@@ -50,6 +50,7 @@
 
                         </td>
                         <td>
+                            <a class="btn green" href="{{URL::to('expenses/voucher/'.$expenseTransaction->id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
                                 <input type="button"  id="deleteExpenseTransaction" style="width:127px;" data-ref="{{$expenseTransaction->account_name_id}}" value="delete"   class="btn red deleteExpenseTransaction" rel={{$expenseTransaction->id}}  />
                             @endif

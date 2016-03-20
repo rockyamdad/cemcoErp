@@ -53,6 +53,7 @@
                         <tr>
                             <th>Party</th>
                             <th style="text-align: right;">Total Sale</th>
+                            <th style="text-align: right;">Total Discount</th>
                             <th style="text-align: right;">Total Payment </th>
                             <th style="text-align: right;">Due</th>
                         </tr>
@@ -61,6 +62,7 @@
                         <?php
                         $totalSale = 0;
                         $totalPayment = 0;
+                        $totalDiscount = 0;
                         $totalDue = 0;
                         ?>
 
@@ -74,6 +76,7 @@
                                 <tr class="odd gradeX">
                                     <td>{{$party->name}}</td>
                                     <td style="text-align: right;">{{$result->totalSale}}</td>
+                                    <td style="text-align: right;">{{$result->discount_amount}}</td>
                                     <td style="text-align: right;">
                                         @if($payment[0]->totalPayment)
                                             {{$payment[0]->totalPayment}}
@@ -81,18 +84,20 @@
                                              {{0}}
                                         @endif
                                     </td>
-                                    <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                    <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment - $result->discount_amount}}</td>
                                 </tr>
                                 <?php
                                 $totalSale = $totalSale + $result->totalSale;
                                 $totalPayment = $totalPayment + $payment[0]->totalPayment;
-                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
+                                $totalDiscount = $totalDiscount + $result->discount_amount;
+                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment - $result->discount_amount);
                                 ?>
                             @endif
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
                             <td style="text-align: right;">{{$totalSale}}</td>
+                            <td style="text-align: right;">{{$totalDiscount}}</td>
                             <td style="text-align: right;">{{$totalPayment}}</td>
                             <td style="text-align: right;">{{$totalDue}}</td>
 

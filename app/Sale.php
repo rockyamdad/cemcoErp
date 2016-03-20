@@ -45,6 +45,7 @@ class Sale extends Eloquent
     {
         $totalPrice = 0;
         $totalAmount = 0;
+        $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
         $transactions = Transaction::where('invoice_id','=',$invoiceId)
             ->where('payment_method', '=', 'Check')
@@ -54,7 +55,7 @@ class Sale extends Eloquent
         {
             $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
         }
-
+        $totalPrice -= $sale->discount_percentage;
         foreach($transactions as $transaction)
         {
             $totalAmount =$totalAmount + ($transaction->amount);
@@ -70,7 +71,10 @@ class Sale extends Eloquent
 
 
     $due = $totalPrice - $totalAmount;
-    return "Due is $due";
+        if($due > 0)
+            return "Due is $due";
+        else
+            return 'No due';
 
 
     }

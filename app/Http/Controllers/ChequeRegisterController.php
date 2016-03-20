@@ -30,7 +30,8 @@ class ChequeRegisterController extends Controller{
             ->where('type','=','Receive')
             ->orderBy('id', 'desc')
             ->paginate(15);
-        return view('ChequeRegister.list',compact('register'));
+        $type = 'Payee';
+        return view('ChequeRegister.list',compact('register', 'type'));
     }
 
     public function getPurchase()
@@ -39,7 +40,8 @@ class ChequeRegisterController extends Controller{
             ->where('type','=','Payment')
             ->orderBy('id', 'desc')
             ->paginate(15);
-        return view('ChequeRegister.purchaselist',compact('register'));
+        $type = 'Payer';
+        return view('ChequeRegister.purchaselist',compact('register', 'type'));
     }
 
     public function getComplete($id)

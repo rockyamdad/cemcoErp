@@ -120,7 +120,7 @@ class SalesReturnController extends Controller{
             $salesReturnDetails->unit_price = Input::get('unit_price');
             $salesReturnDetails->return_amount = ($salesReturnDetails->quantity*$salesReturnDetails->unit_price) - ($salesReturnDetails->quantity*$salesReturnDetails->unit_price)*((double)Input::get('discount_percentage')/100);
             $salesReturnDetails->consignment_name = Input::get('consignment_name');
-            $salesReturnDetails->remarks = Input::get('remarks');
+
             $salesReturnDetails->invoice_id = Input::get('invoice_id');
             $salesReturnDetails->save();
 
@@ -176,7 +176,7 @@ class SalesReturnController extends Controller{
                             $transaction->type = 'Receive';
                             $transaction->payment_method = 'Sales Return';
                             $transaction->account_category_id = 7;
-                            $transaction->remarks = 'Sales Return';
+                            $transaction->remarks = Input::get('invoice_id');
                             $transaction->account_name_id = 8;
                             $transaction->user_id = Session::get('user_id');
                             $transaction->cheque_no = '';
@@ -205,7 +205,7 @@ class SalesReturnController extends Controller{
                                 $transaction->type = 'Receive';
                                 $transaction->payment_method = 'Sales Return';
                                 $transaction->account_category_id = 7;
-                                $transaction->remarks = 'Sales Return';
+                                $transaction->remarks = Input::get('invoice_id');
                                 $transaction->account_name_id = 8;
                                 $transaction->user_id = Session::get('user_id');
                                 $transaction->cheque_no = '';

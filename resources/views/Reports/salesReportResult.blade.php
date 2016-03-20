@@ -84,7 +84,7 @@
 
                             <tr class="odd gradeX">
                                 <td><a target="_blank" href="{{URL::to('sales?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a></td>
-                                <td style="text-align: right;">{{$result->totalSale}}</td>
+                                <td style="text-align: right;">{{$result->totalSale-$result->discount_amount}}</td>
                                 <td style="text-align: right;">
                                     @if($payment[0]->totalPayment)
                                         {{$payment[0]->totalPayment}}
@@ -92,14 +92,14 @@
                                          {{0}}
                                     @endif
                                 </td>
-                                <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                <td style="text-align: right;"><?php $res = $result->totalSale - $payment[0]->totalPayment - $result->discount_amount; if ($res>0) echo $res; else echo 0 ?></td>
 
 
                             </tr>
                             <?php
-                                $totalSale = $totalSale + $result->totalSale;
+                                $totalSale = $totalSale + $result->totalSale - $result->discount_amount;
                                 $totalPayment = $totalPayment + $payment[0]->totalPayment;
-                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
+                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment - $result->discount_amount);
                             ?>
                         @endforeach
                         <tr>

@@ -82,11 +82,7 @@ jQuery(document).ready(function() {
                     html.push('<td>' + stock.quantity + '</td>');
                     html.push('<td>' + stock.unit_price + '</td>');
                     html.push('<td>' + stock.consignment_name + '</td>');
-                    if( stock.remarks == ''){
-                        html.push('<td>' + "Not Available" + '</td>');
-                    }else{
-                        html.push('<td>' + stock.remarks + '</td>');
-                    }
+
 
                     html.push('<td><input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel=' + stock.id + ' ></td>');
 

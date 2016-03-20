@@ -201,7 +201,7 @@
                                     @if( Session::get('user_role') == "admin")
                                         @if($transaction == NULL)
                                             <a class="btn blue btn-sm"  href="{{ URL::to('expenses/edit/'. $expense->id ) }}"><i
-                                                    class="fa fa-edit"></i>Edit</a>
+                                                    class="fa fa-edit"></i>&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;</a>
                                         @endif
                                         @if($transaction != NULL)
                                              <a class="btn dark btn-sm" rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#Expense" href="{{ URL::to('expenses/details/'. $expense->invoice_id ) }}" >

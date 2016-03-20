@@ -63,7 +63,7 @@
                             ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td>{{$fromBranch->name}}</td>
                                 <td>{{$fromAccount->name}}</td>
                                 <td>{{$toBranch->name}}</td>

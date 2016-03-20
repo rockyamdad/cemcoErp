@@ -328,7 +328,12 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li
                             @if (Request::is('chequeregister/index'))class="active"@endif>
-                        <a href="{{ URL::to('chequeregister/index') }}"> Cheque Register </a>
+                        <a href="{{ URL::to('chequeregister/index') }}">Payee Cheque Register </a>
+                    </li>
+
+                    <li
+                            @if (Request::is('chequeregister/purchase'))class="active"@endif>
+                        <a href="{{ URL::to('chequeregister/purchase') }}">Payer Cheque Register </a>
                     </li>
                 </ul>
             </li>

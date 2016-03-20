@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('chequeregister/index')}}">Cheque Register List</a></li>
+            <li><a href="{{URL::to('chequeregister/index')}}">{{$type}} Cheque Register List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>

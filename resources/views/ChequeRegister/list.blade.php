@@ -13,7 +13,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li><a href="{{URL::to('chequeregister/index')}}">Cheque Register List</a></li>
+            <li><a href="{{URL::to('chequeregister/index')}}">{{$type}} Cheque Register List</a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -52,6 +52,7 @@
                             <th>SL</th>
                             <th>Party Name</th>
                             <th>Bank Name</th>
+                            <th>Branch Name</th>
                             <th>Cheque No</th>
                             <th>Cheque Date</th>
                             <th>Amount</th>
@@ -69,12 +70,14 @@
                         $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)
                                     ->first();
                         $partyname = \App\Party::find($sale->party_id);
+                                $brnachName = \App\Branch::find($reg->branch_id);
 
                         ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$partyname->name}}</td>
                         <td>{{$reg->cheque_bank}}</td>
+                        <td>{{$brnachName->name}}</td>
                         <td>{{$reg->cheque_no}}</td>
                         <td>{{$reg->cheque_date}}</td>
                         <td>{{$reg->amount}}</td>

@@ -119,7 +119,6 @@
                                         <th width="">Quantity</th>
                                         <th width="">Unit Price</th>
                                         <th width="">Consignment Name</th>
-                                        <th width="">Remarks</th>
                                         <th width="">Action</th>
                                     </tr>
 
@@ -147,9 +146,6 @@
                                             <?php echo $stckDetail->consignment_name; ?>
                                         </td>
 
-                                        <td>
-                                            <?php echo $stckDetail->remarks ?>
-                                        </td>
                                         <td>
                                             <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel='{{$stockDetails->id}}' >
                                         </td>
@@ -229,14 +225,7 @@
                                         </td>
 
 
-                                        <td>
-                                            <div class="form-body">
-                                                <div class="form-group">
-                                                    {!!Form::text('remarks',null,array('placeholder' => 'Remarks', 'class' =>
-                                                    'form-control','id'=>'remarks'))!!}
-                                                </div>
-                                            </div>
-                                        </td>
+
                                         <td>
                                             {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveSalesReturn'))!!}
                                         </td>

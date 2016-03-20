@@ -169,7 +169,7 @@
                                         @if( Session::get('user_role') == "admin")
                                             @if($sale->is_sale != 1)
                                                 <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
-                                                            class="fa fa-edit"></i>Edit </a>
+                                                            class="fa fa-edit"></i>&nbsp;&nbsp; Edit &nbsp</a>
                                                 <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Are you sure you want to Sale this item?');">
                                                     Confirm</a>
                                             @endif
@@ -179,10 +179,10 @@
 
 
                                             @if($sale->status != 'Completed' && $sale->is_sale == 1)
-                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Show Invoice</a>
-                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">Chalan</a>
+                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Invoice&nbsp;</a>
+                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
-                                                    <i class="fa fa-usd"></i> Payment</a>
+                                                    <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                 <span class="label label-sm label-success">SoldOut</span>
                                             @endif
                                             @if($sale->is_sale != 1)

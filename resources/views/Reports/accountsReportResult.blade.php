@@ -80,7 +80,7 @@
                         @foreach($results as $result )
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td>
                                     @if($result->type != 'Receive')
                                         Withdrawal from account

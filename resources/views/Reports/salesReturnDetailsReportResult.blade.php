@@ -81,7 +81,7 @@
                                     ?>
 
                             <tr class="odd gradeX">
-                                <td>{{$result->date}}</td>
+                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
                                 <td>{{$result->invoice_id}}</td>
                                 <td>{{$products->name.'('.$categories->name.')'.$subCategoryName}}</td>
                                 <td>{{$result->unit_price}}</td>
