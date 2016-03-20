@@ -481,8 +481,10 @@ SELECT IF(transactions.payment_method='Check', CONCAT(transactions.payment_metho
 
 JOIN transactions transactions ON sales.invoice_id = transactions.invoice_id
 
-WHERE sales.party_id = ".$party_id." AND sales.created_at BETWEEN '$date3' AND '$date4') allData
+WHERE sales.party_id = ".$party_id." AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
 ORDER BY allData.created_at";
+
+
 
         $results2 = DB::select( DB::raw($sql) );
 
@@ -504,17 +506,42 @@ ORDER BY allData.created_at";
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
+
+        $date3 = date('Y-m-d', strtotime($date1));
+        $date4 = date('Y-m-d', strtotime($date2));
+
         $party_id = Input::get('party_id');
         $report = new Report();
         $results = $report->getSalesPartyLedgerReport($date1,$date2,$party_id);
-        $credit = $report->getCreditForPurchase($date1,$date2,$party_id);
-        $debit = $report->getDebitForPurchase($date1,$date2,$party_id);
-        return view('Reports.purchasePartyLedgerReportResult',compact('results'))
+        $credit = $report->getCredit($date1,$date2,$party_id);
+        $debit = $report->getDebit($date1,$date2,$party_id);
+
+        $sql = "SELECT * FROM (SELECT A.detail_invoice_id particular, SUM(A.price * A.quantity)  amount, A.created_at FROM (
+SELECT purchase_invoice_details.detail_invoice_id, purchase_invoice_details.price, purchase_invoice_details.quantity, purchase_invoices.created_at FROM `purchase_invoices` purchase_invoices  LEFT JOIN purchase_invoice_details purchase_invoice_details ON purchase_invoices.invoice_id = purchase_invoice_details.detail_invoice_id WHERE purchase_invoices.party_id = ".$party_id." AND purchase_invoices.created_at BETWEEN '$date3' AND '$date4')
+    A GROUP BY A.detail_invoice_id
+UNION
+
+SELECT IF(transactions.payment_method='Check', CONCAT(transactions.payment_method,' - ',transactions.cheque_no),  transactions.payment_method)  particular,transactions.amount,  transactions.created_at FROM `purchase_invoices` purchase_invoices
+
+JOIN transactions transactions ON purchase_invoices.invoice_id = transactions.invoice_id
+
+WHERE purchase_invoices.party_id = ".$party_id." AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
+ORDER BY allData.created_at";
+
+        $results2 = DB::select( DB::raw($sql) );
+
+        return view('Reports.purchasePartyLedgerReportResult',compact('results','results2'))
             ->with('party_id',$party_id)
             ->with('date1',$date1)
             ->with('credit',$credit)
             ->with('debit',$debit)
             ->with('date2',$date2);
+//        return view('Reports.purchasePartyLedgerReportResult',compact('results'))
+//            ->with('party_id',$party_id)
+//            ->with('date1',$date1)
+//            ->with('credit',$credit)
+//            ->with('debit',$debit)
+//            ->with('date2',$date2);
     }
 
 

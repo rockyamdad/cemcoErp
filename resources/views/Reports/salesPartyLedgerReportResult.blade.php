@@ -62,6 +62,7 @@
                         <?php
                         $flag = '';
                         $openingBalance = ($credit[0]->totalCredit - $debit[0]->totalDebit);
+                        $balance = 0;
                         ?>
                         <tr class="odd gradeX" >
                             <td>Opening Balance</td>
@@ -69,7 +70,7 @@
                             <td></td>
                             <td></td>
 
-                            <td >
+                            <td class="text-right" >
                                 {{$openingBalance}}
                             </td>
 
@@ -77,30 +78,40 @@
 
                         @foreach($results2 as $result )
                             <?php
+                            $particular = $result->particular;
+                                    $debitAmount = 0;
+                                    if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
+                                        $balance -= $result->amount;
+                                    } else {
+                                        $debitAmount = $result->amount;
+                                    }
+
                                 //$reports = new \App\Report();
                                 //$payments = $reports->getPaymentForSalesPartyLedgerReport($date1,$date2,$result2->invoice);
                             ?>
                             <tr>
                                 <td>{{\App\Transaction::convertDate($result->created_at)}}</td>
-                                <td style="background-color: #0077b3">Product Received ({{$result->particular}})</td>
-                                <td>
+                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'Product Received'; else echo 'Payment' ?> ({{$result->particular}})</td>
+                                <td class="text-right">
                                     <?php
-                                        $particular = $result->particular;
                                         if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
                                             echo $result->amount;
                                         }
                                     ?>
 
                                 </td>
-                                <td>
+                                <td  class="text-right">
                                     <?php
-
-                                    if (strpos($particular, 'Cash') == false || (strpos($particular, 'Sales') == false) || strpos($particular, 'Check') == false) {
-                                        echo $result->amount;
+                                    if ($debitAmount == 0)
+                                        $debitAmount = '';
+                                    else{
+                                        $balance += $result->amount;
+                                        echo $debitAmount;
                                     }
+
                                     ?>
                                 </td>
-                                <td></td>
+                                <td  class="text-right">{{$balance}}</td>
 
 
                             </tr>

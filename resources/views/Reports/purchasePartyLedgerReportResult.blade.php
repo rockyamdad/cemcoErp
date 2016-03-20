@@ -61,6 +61,7 @@
                         <tbody>
                         <?php
                         $flag = '';
+                        $balance = 0;
                         $openingBalance = ($credit[0]->totalCredit - $debit[0]->totalDebit);
                         ?>
                         <tr class="odd gradeX" >
@@ -75,64 +76,46 @@
 
                         </tr>
 
-                        @foreach($results as $result )
+                        @foreach($results2 as $result )
                             <?php
-                                $reports = new \App\Report();
-                                $payments = $reports->getPaymentForPurchasePartyLedgerReport($date1,$date2,$result->invoice);
+                            $particular = $result->particular;
+                            $debitAmount = 0;
+                            if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
+                                $balance -= $result->amount;
+                            } else {
+                                $debitAmount = $result->amount;
+                            }
+
+                            //$reports = new \App\Report();
+                            //$payments = $reports->getPaymentForSalesPartyLedgerReport($date1,$date2,$result2->invoice);
                             ?>
                             <tr>
-                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
-                                <td style="background-color: #0077b3">Product Received({{$result->invoice}})</td>
-                                <td></td>
-                                <td>{{$result->total}}</td>
-                                <td>
-                                    @if($flag == '')
-                                        {{$openingBalance + $result->total}}
-                                    @else
-                                        {{$balance + $result->total}}
-                                    @endif
+                                <td>{{\App\Transaction::convertDate($result->created_at)}}</td>
+                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'Product Received'; else echo 'Payment' ?> ({{$result->particular}})</td>
+                                <td class="text-right">
+                                    <?php
+                                    if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
+                                        echo $result->amount;
+                                    }
+                                    ?>
+
                                 </td>
+                                <td  class="text-right">
+                                    <?php
+                                    if ($debitAmount == 0)
+                                        $debitAmount = '';
+                                    else{
+                                        $balance += $result->amount;
+                                        echo $debitAmount;
+                                    }
+
+                                    ?>
+                                </td>
+                                <td  class="text-right">{{$balance}}</td>
+
 
                             </tr>
-                            <?php
-                            if($flag == ''){
-                                $balance  = $openingBalance + $result->total;
-                            }else{
-                                $balance  = $balance + $result->total;
-                            }
-                            ?>
-                            <?php $flag = 'value';?>
-                            @foreach($payments as $payment)
-                                <tr>
-                                    <td>{{\App\Transaction::convertDate($payment->date)}}</td>
-                                    <td>
-                                        @if($payment->payment_method == 'Cash')
-                                           Cash
-                                        @else
-                                           Check ({{$payment->cheque_no}})
-                                        @endif
-                                    </td>
-                                    <td>{{$payment->total}}</td>
-                                    <td></td>
-                                    <td>
-                                        @if($flag == '')
-                                            {{$openingBalance - $payment->total}}
-                                        @else
-                                            {{$balance - $payment->total}}
-                                        @endif
-                                    </td>
-                                </tr>
 
-                                <?php
-                                    if($flag == ''){
-                                        $balance  = $openingBalance - $payment->total;
-                                    }else{
-                                        $balance  = $balance - $payment->total;
-                                    }
-                                $flag = 'value';
-                                ?>
-
-                            @endforeach
 
 
                         @endforeach
