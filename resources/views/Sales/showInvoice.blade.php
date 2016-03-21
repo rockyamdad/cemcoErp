@@ -104,14 +104,33 @@
                         $i++;
                         ?>
                     @endforeach
-                        <tr>
-                            <td>Grand Total:</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="text-align: right;">{{$total}}</td>
-                        </tr>
+                    <tr>
+                        <td>Total:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: right;">{{$total}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Discount:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">{{round(($sale->discount_percentage*100)/$total)}}%</td>
+                        <td style="text-align: right;">{{$sale->discount_percentage}}</td>
+                    </tr>
+
+                    <tr style="font-weight: bold;">
+                        <td>Grand Total:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: right;">{{$total-$sale->discount_percentage}}</td>
+                    </tr>
+
                     </tbody>
                 </table>
 
