@@ -94,10 +94,18 @@
                                     <tbody>
 
                                     </tbody>
-                                    <?php foreach ($stockDetails2 as $stckDetail) { ?>
+                                    <?php foreach ($stockDetails2 as $stckDetail) {
+                                    $productsName2 = App\Product::find($stockDetails->product_id);
+                                    $category = $productsName2->category->name;
+                                    $subCategoryName = '';
+                                    if($productsName2->sub_category_id){
+                                        $subCategory = App\SubCategory::find($productsName2->sub_category_id);
+                                        $subCategoryName = '('.$subCategory->name.')';
+                                    }
+                                    ?>
                                     <tr class="clone_">
                                         <td>
-                                            <?php echo $stckDetail->product->name; ?>
+                                            <?php echo $stckDetail->product->name.' ('.$category.') '.$subCategoryName;; ?>
                                         </td>
                                         <td>
                                             <?php echo $stckDetail->quantity; ?>
