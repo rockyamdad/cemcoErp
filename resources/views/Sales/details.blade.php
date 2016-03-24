@@ -21,7 +21,7 @@ function closeModal() {
                 $branchname= \App\Branch::find($saledetails->branch_id);
             ?>
             <h3>Branch Name : <?php echo $branchname->name; ?></h3>
-            <input type="text" id="discount_percentage" placeholder="discount percentage" class="form-control" onchange="calculate_amount();">
+
         </div>
         <div class="modal-body">
             <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">
@@ -58,7 +58,7 @@ function closeModal() {
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
                         <?php $amount = $saleDetail->quantity * $saleDetail->price;  ?>
-                        <td>{{$amount }}</td>
+                        <td class="text-right">{{$amount }}</td>
                         <td>
                             @if($saleDetail->remarks)
                                 {{ $saleDetail->remarks }}
@@ -89,7 +89,21 @@ function closeModal() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td >{{ $total }}</td>
+                    <td class="text-right" >{{ $total }}</td>
+                    <td></td>
+                    @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
+                        <td></td>
+                    @endif
+
+                </tr>
+
+                <tr style="background-color:#b2b2b2;">
+                    <td>Discount Percentage</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td  class="text-right"><input type="text"  id="discount_percentage" class="form-control text-right" onchange="calculate_amount();" value="{{$sale->discount_percentage_per}}"></td>
                     <td></td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
@@ -103,7 +117,7 @@ function closeModal() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td ><input type="text" id="discount_amount" value="{{$sale->discount_percentage}}" onchange="calculate_grand_amount()"></td>
+                    <td  class="text-right"><input class="text-right" type="text" readonly id="discount_amount" value="{{$sale->discount_percentage - $sale->discount_special}}" onchange="calculate_grand_amount()"></td>
                     <td></td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
@@ -112,12 +126,28 @@ function closeModal() {
                 </tr>
 
                 <tr style="background-color:#b2b2b2;">
+                    <td>Special Discount</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td  class="text-right"><input type="text" id="discount_special" class="form-control text-right" onchange="calculate_amount2();"  value="{{$sale->discount_special}}"></td>
+                    <td></td>
+                    @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
+                        <td></td>
+                    @endif
+
+                </tr>
+
+
+
+                <tr style="background-color:#b2b2b2;">
                     <td>Grand Total Amount</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td  id="amount">{{ $total - $sale->discount_percentage }}</td>
+                    <td  id="amount" class="text-right">{{ $total - $sale->discount_percentage }}</td>
                     <td><a href="#" onclick="save_da();" class="btn btn-danger">Save</a></td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
@@ -201,13 +231,25 @@ function closeModal() {
 <script>
     function calculate_amount(){
         var discount_percentage = $('#discount_percentage').val();
+        var discount_special = $('#discount_special').val();
         var amount = <?=$total?>;
         var discount_amount = ((amount*discount_percentage)/100);
         amount -= discount_amount;
+        amount -= discount_special;
         $('#amount').html(amount);
         $('#discount_amount').val(discount_amount);
 
     }
+    function calculate_amount2(){
+            var discount_percentage = $('#discount_percentage').val();
+            var discount_special = $('#discount_special').val();
+            var amount = <?=$total?>;
+            var discount_amount = ((amount*discount_percentage)/100);
+            amount -= discount_amount;
+            amount -= discount_special;
+            $('#amount').html(amount);
+
+        }
 
     function calculate_grand_amount(){
         var discount_amount = $('#discount_amount').val();
@@ -219,11 +261,13 @@ function closeModal() {
 
     function save_da(){
         var discount_amount = $('#discount_amount').val();
+        var discount_special  = $('#discount_special').val();
+        var discount_percentage  = $('#discount_percentage').val();
 
         $.ajax({
             type: "get",
             url: "savediscount/{{$sale->id}}",
-            data:{'data': discount_amount },
+            data:{'data': discount_amount, 'discount_special': discount_special, 'discount_percentage': discount_percentage },
             success: function (html) {
                 alert('saved');
 

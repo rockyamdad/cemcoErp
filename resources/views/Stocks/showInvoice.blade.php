@@ -87,11 +87,13 @@
                     ?>
                     @foreach($stockDetails as $stockDetail )
                         <?php
+                        $categoryName = \App\Category::find($stockDetail->product->category_id);
+                        $subCategoryName = \App\SubCategory::find($stockDetail->product->sub_category_id);
                         $products = \App\Product::find($stockDetail->product_id);
                         ?>
                         <tr>
                             <td>{{$i}}</td>
-                            <td>{{$products->name}}</td>
+                            <td>{{$products->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                             {{--<td>{{$saleDetail->remarks}}</td>--}}
                             <td style="text-align: right;">{{$stockDetail->quantity}}</td>
                         </tr>

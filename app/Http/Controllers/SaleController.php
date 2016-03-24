@@ -333,6 +333,7 @@ class SaleController extends Controller{
     {
         $saleDetails = SAleDetail::where('invoice_id','=',$invoice_id)->get();
         $sale = Sale::where('invoice_id','=',$invoice_id)->get();
+        $temp = 0;
        foreach($saleDetails as $saleDetail)
        {
            $stock = new Stock();
@@ -350,21 +351,62 @@ class SaleController extends Controller{
                ->where('stock_info_id','=',$saleDetail->stock_info_id)
                ->get();
 
+
+
            if(!empty($stockCount[0])) {
+
                if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
-                   $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
-                   $stock->save();
-                   $stockCount[0]->save();
-                   $sale[0]->is_sale=1;
-                   $sale[0]->save();
+
+//                   $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
+//                   $stock->save();
+//                   $stockCount[0]->save();
+//                   $sale[0]->is_sale=1;
+//                   $sale[0]->save();
                    Session::flash('message', 'Stock  has been Successfully Balanced.');
                } else {
+                   $temp = 1;
                    Session::flash('message', 'You Dont have enough products in Stock');
                }
            }else{
+               $temp = 1;
                Session::flash('message', 'You Dont have This products in This Stock');
            }
        }
+        if($temp == 0) {
+            foreach($saleDetails as $saleDetail)
+            {
+                $stock = new Stock();
+                $stock->branch_id = $saleDetail->branch_id;
+                $stock->product_id = $saleDetail->product_id;
+                $stock->product_type = $saleDetail->product_type;
+                $stock->product_quantity = $saleDetail->quantity;
+                $stock->entry_type = "StockOut";
+                $stock->remarks = $saleDetail->remarks;
+                $stock->user_id = Session::get('user_id');
+                $stock->stock_info_id = $saleDetail->stock_info_id;
+                $stock->status = "Activate";
+
+                $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
+                    ->where('stock_info_id','=',$saleDetail->stock_info_id)
+                    ->get();
+
+
+
+                if(!empty($stockCount[0])) {
+
+                    if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
+
+                        $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
+                        $stock->save();
+                        $stockCount[0]->save();
+                        $sale[0]->is_sale=1;
+                        $sale[0]->save();
+                        //Session::flash('message', 'Stock  has been Successfully Balanced.');
+                    }
+                }
+            }
+
+        }
         return Redirect::to('sales/index');
 
     }
@@ -766,8 +808,10 @@ class SaleController extends Controller{
     public function getSavediscount($salesId){
         var_dump(Input::get('data'));
         $sales = Sale::find($salesId);
-        $sales->discount_percentage = Input::get('data');
-        echo Input::get('data');
+        $sales->discount_percentage = Input::get('data') +  Input::get('discount_special');
+        $sales->discount_special = Input::get('discount_special');
+        $sales->discount_percentage_per = Input::get('discount_percentage');
+        //echo Input::get('data');
         $sales->save();
     }
 

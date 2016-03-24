@@ -89,7 +89,7 @@
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
                         <tr>
-
+                            <th>SL</th>
                             <th>Product Name</th>
                             <th>Category Name</th>
                             <th>Sub-Category Name</th>
@@ -99,6 +99,7 @@
                         </thead>
                         <tbody>
                         <?php
+                        $i = 1;
                         $grandTotal = 0;
                         ?>
 
@@ -118,6 +119,7 @@
                                     ?>
 
                             <tr class="odd gradeX">
+                                <td>{{$i++}}</td>
                                 <td>{{$pName->name}}</td>
                                 <td>{{$categoryName->name}}</td>
                                 <td>{{$subCategoryName}}</td>
@@ -129,6 +131,7 @@
                         @endforeach
                         <tr>
                             <td><b>Total</b></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td>{{$grandTotal}}</td>

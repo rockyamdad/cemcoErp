@@ -47,6 +47,7 @@
                 </thead>
                 <tbody>
                 <?php
+                $i = 1;
                 $grandTotal = 0;
                 ?>
 
@@ -60,6 +61,7 @@
 
                     <tr class="odd gradeX">
                         <td>{{$pName->name}}</td>
+
                         <td>{{$categoryName->name}}</td>
                         <td>{{$subCategoryName->name}}</td>
                         <td style="text-align: right;">{{$result->product_quantity}}</td>

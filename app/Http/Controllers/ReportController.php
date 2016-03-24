@@ -471,8 +471,8 @@ class ReportController extends Controller{
         $credit = $report->getCredit($date1,$date2,$party_id);
         $debit = $report->getDebit($date1,$date2,$party_id);
 
-        $sql = "SELECT * FROM (SELECT A.invoice_id particular, SUM(A.price * A.quantity)  amount, A.created_at FROM (
-SELECT sale_details.invoice_id, sale_details.price, sale_details.quantity, sales.created_at FROM `sales` sales  LEFT JOIN sale_details sale_details ON sales.invoice_id = sale_details.invoice_id WHERE sales.party_id = ".$party_id." AND sales.created_at BETWEEN '$date3' AND '$date4'
+        $sql = "SELECT * FROM (SELECT A.invoice_id particular, (SUM(A.price * A.quantity) - SUM(discount) )  amount, A.created_at FROM (
+SELECT sale_details.invoice_id, sale_details.price, sale_details.quantity, sales.created_at, sales.discount_percentage discount FROM `sales` sales  LEFT JOIN sale_details sale_details ON sales.invoice_id = sale_details.invoice_id WHERE sales.party_id = ".$party_id." AND sales.is_sale = 1 AND sales.created_at BETWEEN '$date3' AND '$date4'
     ) A GROUP BY A.invoice_id
 
 UNION
@@ -483,7 +483,6 @@ JOIN transactions transactions ON sales.invoice_id = transactions.invoice_id
 
 WHERE sales.party_id = ".$party_id." AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
 ORDER BY allData.created_at";
-
 
 
         $results2 = DB::select( DB::raw($sql) );

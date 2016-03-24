@@ -30,6 +30,7 @@
                 <div class="caption"><i class="fa fa-reorder"></i>Make Stock</div>
                 <div class="actions">
                     <a class="btn dark" href="{{ URL::to('stocks/index') }}">Stock List</a>
+
                 </div>
             </div>
             <div class="portlet-body form">
@@ -156,6 +157,15 @@
                                     </td>
                                 </tr>
                             </table>
+
+                            <div class="form-group ">
+                                <label class="control-label col-md-8"></label>
+                                <div class="col-md-4 text-right">
+                                    <a class="btn btn-success" href="{{ URL::to('stocks/index') }}">Save & Continue</a>
+                                </div>
+
+                            </div>
+
                             <div class="form-group ">
                                 <label class="control-label col-md-4"></label>
                                 <div class="col-md-7 balance_show">
