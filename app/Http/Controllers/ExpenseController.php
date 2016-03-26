@@ -256,6 +256,10 @@ class ExpenseController extends Controller{
             $expenseTransaction->type = "Expense";
             $expenseTransaction->user_id = Session::get('user_id');
             $expenseTransaction->payment_method = Input::get('payment_method');
+            $expenseTransaction->cheque_no = Input::get('cheque_no');
+            $expenseTransaction->cheque_date=Input::get('cheque_date');
+            $expenseTransaction->cheque_bank=Input::get('cheque_bank');
+
             $expenseTransaction->invoice_id = Input::get('invoice_id');
             $expenseTransaction->cheque_no = Input::get('cheque_no');
             $expenseTransaction->save();

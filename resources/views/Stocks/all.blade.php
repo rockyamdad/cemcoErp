@@ -112,13 +112,17 @@
                                 <td>
                                     <a class="btn dark btn-sm" rel="{{ $stock->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('stocks/details/'. $stock->invoice_id ) }}" >
                                         <i class="fa fa-eye"></i> Detail</a>
-                                    <a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
-                                                class="fa fa-edit"></i>Edit Product</a>
+                                    @if($stock->confirmation == 0)<a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
+                                                class="fa fa-edit"></i>Edit Product</a>@endif
+                                    @if($stock->confirmation == 0)
+                                        <a class="btn btn-sm btn-success" href="{{ URL::to('stocks/confirm/'. $stock->invoice_id ) }}"><i
+                                                    class="fa fa-edit"></i>Confirm</a>
+                                    @endif
                                     <a class="btn blue btn-sm" href="{{ URL::to('stocks/showinvoice/'. $stock->invoice_id ) }}"><i
                                                 class="fa fa-edit"></i>Show Invoice</a>
-                                    <a class="btn red btn-sm" href="{{ URL::to('delstock/'.$stock->id)}}"
+                                    @if($stock->confirmation == 0)<a class="btn red btn-sm" href="{{ URL::to('delstock/'.$stock->id)}}"
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                                class="fa fa-trash-o"></i> Delete</a>
+                                                class="fa fa-trash-o"></i> Delete</a>@endif
                                 </td>
 
                             </tr>

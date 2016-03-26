@@ -38,6 +38,7 @@ class ChequeRegisterController extends Controller{
     {
         $register = Transaction::where('payment_method','=','check')
             ->where('type','=','Payment')
+            ->orwhere('type','=','Expense')
             ->orderBy('id', 'desc')
             ->paginate(15);
         $type = 'Payer';
@@ -62,6 +63,9 @@ class ChequeRegisterController extends Controller{
         $register2->cheque_status = 1;
 
         if ($register2->payment_method == "Check") {
+            if($register2->cheque_date == '') {
+                $register2->cheque_date = date("m/d/Y", time());
+            }
             $accountPayment = NameOfAccount::find($register2->account_name_id);
             $accountPayment->opening_balance = $accountPayment->opening_balance + $register2->amount;
             $accountPayment->save();
@@ -78,6 +82,9 @@ class ChequeRegisterController extends Controller{
         $register2->cheque_status = 1;
 
         if ($register2->payment_method == "Check") {
+            if($register2->cheque_date == '') {
+                $register2->cheque_date = date("m/d/Y", time());
+            }
             $accountPayment = NameOfAccount::find($register2->account_name_id);
             $accountPayment->opening_balance = $accountPayment->opening_balance - $register2->amount;
             $accountPayment->save();

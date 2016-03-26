@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
-                <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
+                <a class="btn btn-sm blue hidden-print" onclick="getConfirmation();">Print <i class="fa fa-print"></i></a>
                 <a class="btn btn-sm blue hidden-print" href="{{\Illuminate\Support\Facades\URL::to('sales/showinvoice2/'.$invoiceId)}}">Print Details <i class="fa fa-print"></i></a>
             </div>
         </div>
@@ -141,10 +141,14 @@
                         <b>Remarks:</b><br>
                         <div id="remrks"></div>
                         <div id="remrksForm">
-                            <textarea class="col-xs-6" id="remIn">1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
-2. NO REPLACEMENT WARANTY
+                            {!!Form::open(array('url' => 'http://cemcoerp.dev/sales/confirm/'.$sale->id, 'method' => 'post', 'class'=>'form-horizontal',
+                            'id'=>'confirm_form'))!!}
+
+                            <textarea class="col-xs-6" id="remIn" name="remIn">{{$sale->remarks}}
+
                         </textarea>
-                            <button class="btn btn-danger" id="confirmRemarks">Confirm</button>
+                            </form>
+                            <button class="btn btn-danger" onclick="conirm({{$sale->id}});">Confirm</button>
                         </div>
 
                     </div>
@@ -183,6 +187,42 @@
             table {font-size: 12px;}
             table tr th {font-size: 12px;}
         </style>
+
+
+        <script>
+            function getConfirmation(){
+                var retVal = $('#remrks').html();
+                //alert(retVal);
+                if( retVal != '' ){
+                    window.print();
+                    return true;
+                }
+                else{
+                    alert('Please confirm terms & conditions');
+                    //document.write ("User does not want to continue!");
+                    return false;
+                }
+            }
+
+            function conirm(product_id) {
+                var remarks = $('#remIn').val();
+                $('#remrks').html($('#remIn').val().replace(/\n/g, "<br>"));
+                $('#remrksForm').hide();
+                $.ajax({
+                    type: "post",
+                    url: "../confirm/"+product_id,
+                    data: $('#confirm_form').serialize(),
+                    dataType:'json',
+                    headers:
+                    {
+                        'X-CSRF-Token': $('input[name="_token"]').val()
+                    },
+                    success: function (html) {
+                        alert(html)
+                    }
+                });
+            }
+        </script>
 @stop
 @section('javascript')
     {!! HTML::script('js/sales.js') !!}

@@ -131,3 +131,6 @@ function closeModal() {
         </div>
     </div>
 </div>
+<script>
+    $('.date-picker').datepicker();
+</script>

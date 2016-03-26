@@ -634,6 +634,8 @@ class StockController extends Controller{
     {
         $stockInvoces->branch_id = Input::get('branch_id');
         $stockInvoces->status = 'Activate';
+        $stockInvoces->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
+2. NO REPLACEMENT WARANTY';
         $stockInvoces->user_id = Session::get('user_id');
         $stockInvoces->invoice_id = Input::get('invoice_id');
     }
@@ -646,5 +648,12 @@ class StockController extends Controller{
         return view('Stocks.showInvoice',compact('stockDetails'))
             ->with('stock',$stock);
 
+    }
+
+    public function getConfirm($invoiceId){
+        $stock = StockInvoice::where('invoice_id','=',$invoiceId)->first();
+        $stock->confirmation = 1;
+        $stock->save();
+        return Redirect::to('stocks/index');
     }
 }

@@ -49,6 +49,8 @@ class UserController extends Controller{
         $purchaseregister = Transaction::where('payment_method','=','check')
             ->where('type','=','Payment')
             ->where('cheque_status','=',0)
+            ->orwhere('type','=','Expense')
+            ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();
         //var_dump($stockRequisitions);

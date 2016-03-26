@@ -481,7 +481,7 @@ SELECT IF(transactions.payment_method='Check', CONCAT(transactions.payment_metho
 
 JOIN transactions transactions ON sales.invoice_id = transactions.invoice_id
 
-WHERE sales.party_id = ".$party_id." AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
+WHERE sales.party_id = ".$party_id." AND IF(transactions.payment_method='Check', transactions.cheque_status, 1 ) = 1  AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
 ORDER BY allData.created_at";
 
 
@@ -524,7 +524,7 @@ SELECT IF(transactions.payment_method='Check', CONCAT(transactions.payment_metho
 
 JOIN transactions transactions ON purchase_invoices.invoice_id = transactions.invoice_id
 
-WHERE purchase_invoices.party_id = ".$party_id." AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
+WHERE purchase_invoices.party_id = ".$party_id." AND IF(transactions.payment_method='Check', transactions.cheque_status, 1 ) = 1  AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
 ORDER BY allData.created_at";
 
         $results2 = DB::select( DB::raw($sql) );

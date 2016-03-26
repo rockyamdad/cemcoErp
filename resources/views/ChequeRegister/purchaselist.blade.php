@@ -66,14 +66,17 @@
                     ?>
                     @foreach($register as $reg )
                         <?php
-                        $sale = \App\PurchaseInvoice::where('invoice_id','=',$reg->invoice_id)
-                                    ->first();
-                        $partyname = \App\Party::find($sale->party_id);
+                        if($reg->type=='Payment'){
+                            $sale = \App\PurchaseInvoice::where('invoice_id','=',$reg->invoice_id)->first();
+                            $partyname = \App\Party::find($sale->party_id);
+                        } else {
+                            $sale = \App\Expense::where('invoice_id','=',$reg->invoice_id)->first();
+                        }
 
                         ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$partyname->name}}</td>
+                        <td><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
                         <td>{{$reg->cheque_bank}}</td>
                         <td>{{$reg->cheque_no}}</td>
                         <td>{{$reg->cheque_date}}</td>

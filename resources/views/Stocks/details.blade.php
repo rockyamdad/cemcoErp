@@ -62,7 +62,9 @@
                     </td>
                     @if( Session::get('user_role') == "admin")
                     <td>
+                        @if ($stock->confirmation == 0)
                         <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail" rel='{{$stockDetail->id}}' >
+                        @endif
                         {{--<a class="btn red btn-sm" href="{{ URL::to('/deleteDetail/'.$stockDetail->id)}}"--}}
                            {{--onclick="return confirm('Are you sure you want to delete this item?');"><i--}}
                                 {{--class="fa fa-trash-o"></i> Delete</a>--}}
@@ -84,3 +86,4 @@
         </div>
     </div>
 </div>
+

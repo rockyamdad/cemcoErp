@@ -80,7 +80,8 @@
             </tr>
             <tr style="border:1px solid black;">
                 <td colspan="2">
-                    Being: <?php if($transaction->payment_method == 'Check') { echo 'Cheque'; } else { echo $transaction->payment_method; }?><?php if($transaction->payment_method == 'Sales Return') { echo ' for invoice - '.$transaction->remarks; } ?>
+                    Being: {{$transaction->remarks}}<br>
+                    Payment Mode: <?php if($transaction->payment_method == 'Check') { echo 'Cheque'; } else { echo $transaction->payment_method; }?><?php if($transaction->payment_method == 'Sales Return') { echo ' for invoice - '.$transaction->remarks; } ?>
                     <br>
                     @if($transaction->payment_method == "Check")
                         Cheque no: {{$transaction->cheque_no}}
@@ -103,9 +104,9 @@
         </table>
         <br><br>
         <div class="row">
-            <div class="col-xs-7">
+            <div class="col-xs-8">
             </div>
-            <div style="border-top: 1px solid #000;" class="col-xs-4 invoice-payment">
+            <div style="border-top: 1px solid #000;" class="col-xs-4 invoice-payment text-right">
                 <center>
                     <b>Authorized By</b>
                 </center>

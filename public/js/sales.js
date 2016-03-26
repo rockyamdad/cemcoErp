@@ -316,12 +316,10 @@ jQuery(document).ready(function() {
             }
         });
     });
-    $('#confirmRemarks').live("click", function () {
-        var remarks = $('#remIn').val();
-        $('#remrks').html($('#remIn').val().replace(/\n/g, "<br>"));
-        $('#remrksForm').hide();
-
-    });
+    //$('#confirmRemarks').live("click", function () {
+    //
+    //
+    //});
 
 
 });

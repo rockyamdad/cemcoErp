@@ -151,6 +151,8 @@ class SaleController extends Controller{
             $sale->party_id = Input::get('party_id');
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
+            $sale->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
+2. NO REPLACEMENT WARANTY';
             $sale->user_id = Session::get('user_id');
             $sale->save();
         }
@@ -812,6 +814,12 @@ class SaleController extends Controller{
         $sales->discount_special = Input::get('discount_special');
         $sales->discount_percentage_per = Input::get('discount_percentage');
         //echo Input::get('data');
+        $sales->save();
+    }
+
+    public function postConfirm($saleId){
+        $sales = Sale::find($saleId);
+        echo $sales->remarks = Input::get('remIn');
         $sales->save();
     }
 

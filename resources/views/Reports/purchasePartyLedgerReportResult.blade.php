@@ -70,8 +70,8 @@
                             <td></td>
                             <td></td>
 
-                            <td >
-                                {{$openingBalance}}
+                            <td  class="text-right">
+                                {{number_format($openingBalance,2)}}
                             </td>
 
                         </tr>
@@ -91,11 +91,12 @@
                             ?>
                             <tr>
                                 <td>{{\App\Transaction::convertDate($result->created_at)}}</td>
-                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'Product Received'; else echo 'Payment' ?> ({{$result->particular}})</td>
+
+                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'Product Received'; else echo 'Payment' ?> <?php if($debitAmount != 0) { echo '<a target="_blank" style="color: white;" href="'.URL::to('purchases?invoice_id='.$result->particular).'">'; ?>({{$result->particular}})<?php echo '</a>'; } else { echo str_replace("Check","Cheque",$result->particular);  } ?></td>
                                 <td class="text-right">
                                     <?php
                                     if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {
-                                        echo $result->amount;
+                                        echo number_format($result->amount,2);
                                     }
                                     ?>
 
@@ -106,12 +107,12 @@
                                         $debitAmount = '';
                                     else{
                                         $balance += $result->amount;
-                                        echo $debitAmount;
+                                        echo number_format($debitAmount,2);
                                     }
 
                                     ?>
                                 </td>
-                                <td  class="text-right">{{$balance}}</td>
+                                <td  class="text-right">{{number_format($balance,2)}}</td>
 
 
                             </tr>

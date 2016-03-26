@@ -130,7 +130,7 @@
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{\App\Transaction::convertDate($reg->cheque_date)}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
@@ -190,19 +190,23 @@
                                 ?>
                                 @foreach($purchaseregister as $reg)
                                     <?php
+                                            if($reg->type=='Payment'){
                                     $sale = \App\PurchaseInvoice::where('invoice_id','=',$reg->invoice_id)->first();
-                                    $partyname = \App\Party::find($sale->party_id);
-                                    $partyname = \App\Party::find($sale->party_id);
+                                                $partyname = \App\Party::find($sale->party_id);
+                                            } else {
+                                                $sale = \App\Expense::where('invoice_id','=',$reg->invoice_id)->first();
+                                            }
+
                                     $time = strtotime($reg->cheque_date);
                                     $newformat = date('d',$time);
                                     $today = date('d', time());
                                     ?>
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{\App\Transaction::convertDate($reg->cheque_date)}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->amount}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->user->username}}</td>
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
