@@ -118,8 +118,17 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="text-right">{{round(($sale->discount_percentage*100)/$total)}}%</td>
-                        <td style="text-align: right;">{{$sale->discount_percentage}}</td>
+                        <td class="text-right">{{round(($sale->discount_percentage_per))}}%</td>
+                        <td style="text-align: right;">{{($sale->discount_percentage_per*$total)/100}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Special Discount:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: right;">{{$sale->discount_special}}</td>
                     </tr>
 
                     <tr style="font-weight: bold;">
