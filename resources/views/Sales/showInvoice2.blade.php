@@ -17,19 +17,19 @@
                     <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
                 @elseif($saleDetails[0]->branch_id == 2)
                     <img src="../../assets/img/pad/fst-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 3)
+                @elseif($saleDetails[0]->branch_id == 3)
                     <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 4)
+                @elseif($saleDetails[0]->branch_id == 4)
                     <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 5)
+                @elseif($saleDetails[0]->branch_id == 5)
                     <img src="../../assets/img/pad/sun-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 6)
+                @elseif($saleDetails[0]->branch_id == 6)
                     <img src="../../assets/img/pad/olympic-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 7)
+                @elseif($saleDetails[0]->branch_id == 7)
                     <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 8)
+                @elseif($saleDetails[0]->branch_id == 8)
                     <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails->branch_id == 9)
+                @elseif($saleDetails[0]->branch_id == 9)
                     <img src="../../assets/img/pad/me-challan.jpg" style="width: 100%;"  alt="" />
                 @endif
 
