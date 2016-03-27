@@ -13,13 +13,28 @@
         </div>
     <div class="invoice">
         <div class="row invoice-logo">
-            <div class="col-xs-12 invoice-logo-space"><img src="../../assets/img/SUNSHINE TRADING CORPORATION.jpg" height="80"  alt="" />
-           </div>
             <div class="col-xs-12 invoice-logo-space">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Kamal Chamber (2nd Floor), 61 Jubilee Road, Chittagong<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tel 031 2865220, 2853063, Email: cemcogroupbd@gmail.com<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Website: www.cemcogroupbd.com</b>
-            </div>
+                @if($saleDetails[0]->branch_id == 1)
+                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails[0]->branch_id == 2)
+                    <img src="../../assets/img/pad/fst-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 3)
+                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 4)
+                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 5)
+                    <img src="../../assets/img/pad/sun-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 6)
+                    <img src="../../assets/img/pad/olympic-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 7)
+                    <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 8)
+                <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                @elseif($saleDetails->branch_id == 9)
+                    <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
+                @endif
+
+           </div>
             <hr />
             {{--<div class="col-xs-6">
                <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
@@ -112,7 +127,6 @@
                         <td></td>
                         <td style="text-align: right;">{{$total}}</td>
                     </tr>
-
                     <tr>
                         <td>Discount:</td>
                         <td></td>

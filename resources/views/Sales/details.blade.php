@@ -266,7 +266,7 @@ function closeModal() {
 
         $.ajax({
             type: "get",
-            url: "savediscount/{{$sale->id}}",
+            url: "sales/savediscount/{{$sale->id}}",
             data:{'data': discount_amount, 'discount_special': discount_special, 'discount_percentage': discount_percentage },
             success: function (html) {
                 alert('saved');

@@ -808,7 +808,6 @@ class SaleController extends Controller{
     }
 
     public function getSavediscount($salesId){
-        var_dump(Input::get('data'));
         $sales = Sale::find($salesId);
         $sales->discount_percentage = Input::get('data') +  Input::get('discount_special');
         $sales->discount_special = Input::get('discount_special');
