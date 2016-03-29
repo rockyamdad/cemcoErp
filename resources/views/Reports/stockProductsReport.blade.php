@@ -91,8 +91,6 @@
                         <tr>
                             <th>SL</th>
                             <th>Product Name</th>
-                            <th>Category Name</th>
-                            <th>Sub-Category Name</th>
                             <th>Quantity On Hand</th>
 
                         </tr>
@@ -120,9 +118,7 @@
 
                             <tr class="odd gradeX">
                                 <td>{{$i++}}</td>
-                                <td>{{$pName->name}}</td>
-                                <td>{{$categoryName->name}}</td>
-                                <td>{{$subCategoryName}}</td>
+                                <td>{{$pName->name}} ({{$categoryName->name}}) ({{$subCategoryName}})</td>
                                 <td>{{$result->product_quantity}}</td>
 
 

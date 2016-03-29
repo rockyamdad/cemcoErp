@@ -90,6 +90,7 @@
             <table class="table table-striped table-bordered table-hover"  id="PurchaseTransactiontable">
                 <thead style="background-color:lightskyblue">
                 <tr>
+                    <th>Date</th>
                     <th>Account Category</th>
                     <th>Account Name</th>
                     <th>Payment Method</th>
@@ -103,6 +104,7 @@
                 <?php $totalTransaction = 0; ?>
                 @foreach($purchaseInvoiceTransactions as $purchaseInvoiceTransaction )
                     <tr class="odd gradeX">
+                        <td>{{\App\Transaction::convertDate($purchaseInvoiceTransaction->created_at)}}</td>
                         <td>{{$purchaseInvoiceTransaction->accountCategory->name}}</td>
                         <td>{{$purchaseInvoiceTransaction->accountName->name}}</td>
                         <td>{{$purchaseInvoiceTransaction->payment_method}}</td>
@@ -135,6 +137,7 @@
 
                 <tr style="background-color:#b2b2b2">
                     <td>Total Amount</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

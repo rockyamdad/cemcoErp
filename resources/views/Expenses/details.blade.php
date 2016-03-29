@@ -18,6 +18,7 @@
             <table class="table table-striped table-bordered table-hover"  id="expenseTransactiontable">
                 <thead style="background-color:dodgerblue">
                 <tr>
+                    <th>Date</th>
                     <th>Branch</th>
                     <th>Account Category</th>
                     <th>Account Name</th>
@@ -35,6 +36,7 @@
                     $branch = \App\Branch::find($expenseTransaction->branch_id);
                     ?>
                     <tr class="odd gradeX">
+                        <td>{{\App\Transaction::convertDate($expenseTransaction->created_at)}}</td>
                         <td>{{$branch->name}}</td>
                         <td>{{$expenseTransaction->accountCategory->name}}</td>
                         <td>{{$expenseTransaction->accountName->name}}</td>
@@ -61,6 +63,7 @@
                 @endforeach
                 <tr style="background-color:#b2b2b2">
                     <td>Total Amount</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

@@ -13,16 +13,16 @@
             if($curent_url == '/reports/printstocksproducts')
             {
             ?>
-            <h3 class="page-title"> All Stock Report  </h3>
+            <h3 class="page-title" style="text-align: center;"> All Stock Report  </h3>
             <?php }else{
             $stock = \App\StockInfo::find($stock_info_id);
             $cat = \App\Category::find($category_id);
             $branch = \App\Branch::find($branch_id);
             ?>
-            <center>
 
-                <h3>Stock In Hand Report</h3>
-                <b>For Category: {{$cat->name}} and Stock:{{$stock->name}} and Branch {{$branch->name}}<br>
+            <center>
+                <h3 style="text-align: center;">zxczxcStock In Hand Report</h3>
+                <b>For Category: {{$cat->name}} and Stock:{{$stock->name}} and Branch {{$branch->name}}</b><br>
                     <label>Printed by : {{$userName->name}}</label>
             </center>
 
@@ -34,13 +34,11 @@
         </div>
         <div class="modal-body">
         <center>
-            <table class="table table-striped table-bordered table-hover" border="1" id="stock_products_report_table">
+            <table class="table" style="border-collapse: collapse;" border="1" id="stock_products_report_table">
                 <thead style="background-color:cadetblue">
                 <tr>
 
                     <th>Product Name</th>
-                    <th>Category Name</th>
-                    <th>Sub-Category Name</th>
                     <th>Quantity On Hand</th>
 
                 </tr>
@@ -60,10 +58,7 @@
                     ?>
 
                     <tr class="odd gradeX">
-                        <td>{{$pName->name}}</td>
-
-                        <td>{{$categoryName->name}}</td>
-                        <td>{{$subCategoryName->name}}</td>
+                        <td>{{$pName->name}} ({{$categoryName->name}}) ({{$subCategoryName->name}})</td>
                         <td style="text-align: right;">{{$result->product_quantity}}</td>
 
 

@@ -165,6 +165,7 @@ function closeModal() {
                 <thead style="background-color:darkslateblue">
                 <tr>
 
+                    <th>Date</th>
                     <th>Account Category</th>
                     <th>Account Name</th>
                     <th>Payment Method</th>
@@ -179,6 +180,7 @@ function closeModal() {
                 @foreach($saleTransactions as $saleTransaction )
                     <tr class="odd gradeX">
 
+                        <td>{{\App\Transaction::convertDate($saleTransaction->created_at)}}</td>
                         <td>{{$saleTransaction->accountCategory->name}}</td>
                         <td>{{$saleTransaction->accountName->name}}</td>
                         <td>{{$saleTransaction->payment_method}}</td>
@@ -211,6 +213,7 @@ function closeModal() {
                 <tr style="background-color:#b2b2b2">
 
                     <td>Total Amount</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

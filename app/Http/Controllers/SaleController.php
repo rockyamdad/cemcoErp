@@ -13,11 +13,14 @@ use App\Sale;
 use App\SAleDetail;
 use App\Stock;
 use App\StockCount;
+use App\StockDetail;
 use App\StockInfo;
+use App\StockInvoice;
 use App\SubCategory;
 use App\Transaction;
 use Exception;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -336,81 +339,137 @@ class SaleController extends Controller{
         $saleDetails = SAleDetail::where('invoice_id','=',$invoice_id)->get();
         $sale = Sale::where('invoice_id','=',$invoice_id)->get();
         $temp = 0;
-       foreach($saleDetails as $saleDetail)
-       {
-           $stock = new Stock();
-           $stock->branch_id = $saleDetail->branch_id;
-           $stock->product_id = $saleDetail->product_id;
-           $stock->product_type = $saleDetail->product_type;
-           $stock->product_quantity = $saleDetail->quantity;
-           $stock->entry_type = "StockOut";
-           $stock->remarks = $saleDetail->remarks;
-           $stock->user_id = Session::get('user_id');
-           $stock->stock_info_id = $saleDetail->stock_info_id;
-           $stock->status = "Activate";
 
-           $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
-               ->where('stock_info_id','=',$saleDetail->stock_info_id)
-               ->get();
+        $stockInvoiceId= StockInvoice::generateInvoiceId();
 
 
+        foreach($saleDetails as $saleDetail)
+        {
 
-           if(!empty($stockCount[0])) {
+            //$stock->status = "Activate";
 
-               if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
+//           $stockDetails->branch_id = Input::get('branch_id');
+//           $stockDetails->product_id = Input::get('product_id');
+//           $stockDetails->entry_type = Input::get('entry_type');
+//           $stockDetails->product_type = Input::get('product_type');
+//           $stockDetails->stock_info_id = Input::get('stock_info_id');
+//           $stockDetails->remarks = Input::get('remarks');
+//           $stockDetails->invoice_id = Input::get('invoice_id');
+//           $stockDetails->quantity = Input::get('product_quantity');
 
-//                   $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
-//                   $stock->save();
-//                   $stockCount[0]->save();
-//                   $sale[0]->is_sale=1;
-//                   $sale[0]->save();
-                   Session::flash('message', 'Stock  has been Successfully Balanced.');
-               } else {
-                   $temp = 1;
-                   Session::flash('message', 'You Dont have enough products in Stock');
-               }
-           }else{
-               $temp = 1;
-               Session::flash('message', 'You Dont have This products in This Stock');
-           }
-       }
-        if($temp == 0) {
-            foreach($saleDetails as $saleDetail)
-            {
-                $stock = new Stock();
-                $stock->branch_id = $saleDetail->branch_id;
-                $stock->product_id = $saleDetail->product_id;
-                $stock->product_type = $saleDetail->product_type;
-                $stock->product_quantity = $saleDetail->quantity;
-                $stock->entry_type = "StockOut";
-                $stock->remarks = $saleDetail->remarks;
-                $stock->user_id = Session::get('user_id');
-                $stock->stock_info_id = $saleDetail->stock_info_id;
-                $stock->status = "Activate";
+            $stock_Count = StockCount::where('product_id','=',$saleDetail->product_id)
+                ->where('stock_info_id','=',$saleDetail->stock_info_id)
+                ->get();
 
-                $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
-                    ->where('stock_info_id','=',$saleDetail->stock_info_id)
-                    ->get();
-
-
-
-                if(!empty($stockCount[0])) {
-
-                    if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
-
-                        $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
-                        $stock->save();
-                        $stockCount[0]->save();
-                        $sale[0]->is_sale=1;
-                        $sale[0]->save();
-                        //Session::flash('message', 'Stock  has been Successfully Balanced.');
-                    }
+            if(!empty($stock_Count[0])) {
+                if ($stock_Count[0]->product_quantity >=$saleDetail->quantity) {
+                } else {
+                    $temp++;
+                    Session::flash('message', 'You Dont have enough products in Stock');
                 }
+            }else{
+                $temp++;
+                Session::flash('message', 'You Dont have This products in This Stock');
             }
 
         }
-        return Redirect::to('sales/index');
 
+        if ($temp == 0) {
+
+            foreach ($saleDetails as $saleDetail) {
+                $stockInvoces = new StockInvoice();
+
+                $stockInvoces->branch_id = $saleDetail->branch_id;
+                $stockInvoces->status = 'Activate';
+                $stockInvoces->remarks = '';
+                $stockInvoces->user_id = Session::get('user_id');
+                $stockInvoces->invoice_id = $stockInvoiceId;
+
+                $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
+                    ->get();
+                if (empty($stock_invoices_check[0]))
+                    $stockInvoces->save();
+
+
+                $stock = new StockDetail();
+                $stock->branch_id = $saleDetail->branch_id;
+                $stock->product_id = $saleDetail->product_id;
+                $stock->product_type = $saleDetail->product_type;
+                $stock->quantity = $saleDetail->quantity;
+                $stock->entry_type = "StockOut";
+                $stock->remarks = $saleDetail->remarks;
+                $stock->invoice_id = $stockInvoiceId;
+                $stock->stock_info_id = $saleDetail->stock_info_id;
+                //$stock->status = "Activate";
+
+//           $stockDetails->branch_id = Input::get('branch_id');
+//           $stockDetails->product_id = Input::get('product_id');
+//           $stockDetails->entry_type = Input::get('entry_type');
+//           $stockDetails->product_type = Input::get('product_type');
+//           $stockDetails->stock_info_id = Input::get('stock_info_id');
+//           $stockDetails->remarks = Input::get('remarks');
+//           $stockDetails->invoice_id = Input::get('invoice_id');
+//           $stockDetails->quantity = Input::get('product_quantity');
+
+                $stock_Count = StockCount::where('product_id', '=', $saleDetail->product_id)
+                    ->where('stock_info_id', '=', $saleDetail->stock_info_id)
+                    ->get();
+
+                if (!empty($stock_Count[0])) {
+                    if ($stock_Count[0]->product_quantity >= $stock->quantity) {
+                        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $stock->quantity;
+                        //$stock->save();
+                        $stock_Count[0]->save();
+                        $stock->save();
+
+                        $sale[0]->is_sale = 1;
+                        $sale[0]->save();
+                        //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
+                    } else {
+                        Session::flash('message', 'You Dont have enough products in Stock');
+                    }
+                } else {
+                    Session::flash('message', 'You Dont have This products in This Stock');
+                }
+
+            }
+        }
+//        if($temp == 0) {
+//            foreach($saleDetails as $saleDetail)
+//            {
+//                $stock = new Stock();
+//                $stock->branch_id = $saleDetail->branch_id;
+//                $stock->product_id = $saleDetail->product_id;
+//                $stock->product_type = $saleDetail->product_type;
+//                $stock->product_quantity = $saleDetail->quantity;
+//                $stock->entry_type = "StockOut";
+//                $stock->remarks = $saleDetail->remarks;
+//                $stock->user_id = Session::get('user_id');
+//                $stock->stock_info_id = $saleDetail->stock_info_id;
+//                $stock->status = "Activate";
+//
+//                $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
+//                    ->where('stock_info_id','=',$saleDetail->stock_info_id)
+//                    ->get();
+//
+//
+//
+//                if(!empty($stockCount[0])) {
+//
+//                    if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
+//
+//                        $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
+//                        $stock->save();
+//                        $stockCount[0]->save();
+//                        $sale[0]->is_sale=1;
+//                        $sale[0]->save();
+//                        //Session::flash('message', 'Stock  has been Successfully Balanced.');
+//                    }
+//                }
+//            }
+//
+//        }
+        return Redirect::to('sales/index');
     }
     public function getDeleteTransaction($id)
     {
