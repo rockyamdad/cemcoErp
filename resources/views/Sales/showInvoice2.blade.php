@@ -72,10 +72,14 @@
                     <td><b>Invoice #</b></td>
                     <td>: {{$sale->invoice_id}}</td>
                 </tr>
-                <tr>
-                    <td><b>Date</b></td>
-                    <td>: {{date("d-m-Y")}}</td>
-                </tr>
+                    <tr>
+                        <td><b>Date</b></td>
+                        <td>: {{\App\Transaction::convertDate($sale->created_at)}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Print Date</b></td>
+                        <td>: {{date("d/m/Y")}}</td>
+                    </tr>
                 </table>
             </div>
         </div>

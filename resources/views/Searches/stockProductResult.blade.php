@@ -51,11 +51,11 @@
                                     <td>{{$result->remarks}}</td>
                                     <td>{{$result->consignment_name}}</td>
                                     <td>{{$result->uName}}</td>
-                                    <td>{{$result->product_quantity}}</td>
+                                    <td>{{$result->quantity}}</td>
 
                                 </tr>
                                 <?php
-                                $total = $total + $result->product_quantity;
+                                $total = $total + $result->quantity;
                                 ?>
                             @endforeach
                             <tr class="odd gradeX">

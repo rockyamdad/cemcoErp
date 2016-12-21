@@ -119,7 +119,7 @@
                             <tr class="odd gradeX">
                                 <td>{{$i++}}</td>
                                 <td>{{$pName->name}} ({{$categoryName->name}}) ({{$subCategoryName}})</td>
-                                <td>{{$result->product_quantity}}</td>
+                                <td class="text-right">{{$result->product_quantity}}</td>
 
 
                             </tr>
@@ -128,9 +128,7 @@
                         <tr>
                             <td><b>Total</b></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>{{$grandTotal}}</td>
+                            <td class="text-right">{{$grandTotal}}</td>
                         </tr>
 
                         </tbody>

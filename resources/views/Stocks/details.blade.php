@@ -17,8 +17,9 @@
             ?>
             <h3>Stock Detail for {{$branchName->name}}</h3>
             <?php
-            $stockdetails = \App\StockDetail::where('invoice_id','=',$stock->invoice_id)->first();
-            $stockName = \App\StockInfo::find($stockdetails->stock_info_id);
+                $stockdetails = \App\StockDetail::where('invoice_id','=',$stock->invoice_id)->first();
+                //var_dump($stock->invoice_id); die();
+                $stockName = \App\StockInfo::find($stockdetails->stock_info_id);
             ?>
 
             <h4>Branch Name : <?php echo $branchName->name; ?></h4>
@@ -50,7 +51,7 @@
                 $subCategoryName = \App\SubCategory::find($stockDetail->product->sub_category_id);
                 ?>
                 <tr class="odd gradeX">
-                    <td>{{$stockDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
+                    <td>{{$stockDetail->product->name.'('.$categoryName->name.')'.'('.(($subCategoryName!=null)?$subCategoryName->name: '').')'}}</td>
                     <td>{{$stockDetail->quantity}}</td>
                     <td>
                         @if($stockDetail->remarks)

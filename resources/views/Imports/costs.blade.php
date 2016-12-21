@@ -91,8 +91,8 @@
 
 @stop
 @section('javascript')
-{!! HTML::script('js/imports.js') !!}
-{!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
-@stop
 
+{!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
+{!! HTML::script('js/imports.js') !!}
+@stop
 

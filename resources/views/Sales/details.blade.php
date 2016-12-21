@@ -150,7 +150,7 @@ function closeModal() {
                     <td></td>
                     <td></td>
                     <td  id="amount" class="text-right">{{ $total - $sale->discount_percentage }}</td>
-                    <td><a href="#" onclick="save_da();" class="btn btn-danger">Save</a></td>
+                    <td>@if($sale->is_sale != 1)<a href="#" onclick="save_da();" class="btn btn-danger">Save</a>@endif</td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
                     @endif
@@ -271,7 +271,7 @@ function closeModal() {
 
         $.ajax({
             type: "get",
-            url: "sales/savediscount/{{$sale->id}}",
+            url: "savediscount/{{$sale->id}}",
             data:{'data': discount_amount, 'discount_special': discount_special, 'discount_percentage': discount_percentage },
             success: function (html) {
                 alert('saved');

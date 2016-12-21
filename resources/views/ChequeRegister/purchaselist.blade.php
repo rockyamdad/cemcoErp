@@ -79,7 +79,7 @@
                         <td><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
                         <td>{{$reg->cheque_bank}}</td>
                         <td>{{$reg->cheque_no}}</td>
-                        <td>{{$reg->cheque_date}}</td>
+                        <td>@if($reg->cheque_date != ''){{$reg->cheque_date}}@else open cheque @endif</td>
                         <td>{{$reg->amount}}</td>
                         <td>{{$reg->user->username}}</td>
                         @if($reg->cheque_status == 1)

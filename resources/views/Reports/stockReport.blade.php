@@ -93,7 +93,7 @@
 
                             <tr class="odd gradeX">
 
-                                <td>{{$result->pName.'('.$result->category.')'.'('.$sub_categoryName->name.')'}}</td>
+                                <td>{{$result->pName.'('.$result->category.')'.'('.(($sub_categoryName!=null)?$sub_categoryName->name: '').')'}}</td>
                                 <td style="text-align: right;">@if($stockIn[0]->stockIn){{ $stockIn[0]->stockIn }}@else {{ 0 }}@endif</td>
                                 <td style="text-align: right;">@if($bf){{ $bf }}@else {{ 0 }}@endif</td>
                                 <td style="text-align: right;">{{ $totalIn }}</td>

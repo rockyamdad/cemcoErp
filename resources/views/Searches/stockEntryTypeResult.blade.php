@@ -50,7 +50,7 @@
                                 ?>
                                 <tr class="odd gradeX">
 
-                                    <td>{{$result->pName.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
+                                    <td>{{$result->pName.'('.$categoryName->name.')'.'('.(($subCategoryName!=null)?$subCategoryName->name: '').')'}}</td>
                                     <td>{{$result->sName}}</td>
                                     <td>{{$result->entry_type}}</td>
                                     <td style="text-align: right;">{{$result->product_quantity}}</td>

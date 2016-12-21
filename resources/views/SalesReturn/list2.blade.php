@@ -64,9 +64,6 @@
                             <th>Invoice Id</th>
                             <th>Branch</th>
                             <th>Party</th>
-                            <th>Ref no</th>
-                            <th>Product Status</th>
-                            <th>Discount Percentage</th>
                             <th>Created By</th>
                             <!-- <th>Status</th>-->
                             <th>Action</th>
@@ -83,29 +80,24 @@
                             <td>{{$row->branch->name}}</td>
                             <?php $party = \App\Party::find($row->party_id); ?>
                             <td>{{$party->name}}</td>
-                            <td>{{$row->ref_no}}</td>
-                            <td>{{$row->product_status}}</td>
-                            <td>{{$row->discount_percentage}}</td>
                             <td>{{$row->user->name}}</td>
 
                             <td>
                                 {{--<a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
                                         class="fa fa-edit"></i>Edit</a>--}}
-                                <table>
+                                <table border="0">
                                     <tr>
                                         <td><a class="btn dark btn-sm" rel="invoice_id" data-toggle="modal"  data-target="#sale" href="{{ URL::to('salesreturn/details/'.$row->invoice_id) }}" >
                                                 <i class="fa fa-eye"></i>&nbsp;&nbsp; Detail</a></td>
                                         <td><a class="btn blue btn-sm" href="{{ URL::to('salesreturn/edit/'.$row->id) }}"><i
                                                         class="fa fa-edit"></i>&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;</a></td>
-                                    </tr>
-
-                                    <tr>
                                         <td><a class="btn blue btn-sm" href="{{ URL::to('salesreturn/showinvoice/'.$row->invoice_id ) }}"><i
                                                         class="fa fa-edit"></i>Invoice</a></td>
                                         <td><a class="btn red btn-sm" href="{{ URL::to('delsalesreturn/'.$row->id)}}"
                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                         class="fa fa-trash-o"></i> Delete</a></td>
                                     </tr>
+
                                 </table>
 
 

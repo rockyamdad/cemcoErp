@@ -125,6 +125,7 @@
                                     $today = date('d', time());
 
                                     ?>
+                                    <?php if ($reg->cheque_date != "") { ?>
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
@@ -140,6 +141,23 @@
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>
+                                    <?php }else { ?>
+                                    <tr>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$partyname->name}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->amount}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->user->username}}</td>
+                                        <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><span class="label label-sm label-danger" >Pending</span></td>
+                                        <td>
+                                            <a data-id="" class="btn btn-sm purple changeStatus"
+                                               href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
+                                                        class="fa fa-check"></i>Complete</a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
                                     <?php
                                     $slNo++;
                                     ?>
@@ -201,6 +219,7 @@
                                     $newformat = date('d',$time);
                                     $today = date('d', time());
                                     ?>
+                                    <?php if ($reg->cheque_date != "") { ?>
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
@@ -216,6 +235,23 @@
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>
+                                    <?php }else { ?>
+                                    <tr>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->amount}}</td>
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->user->username}}</td>
+                                        <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><span class="label label-sm label-danger" >Pending</span></td>
+                                        <td>
+                                            <a data-id="" class="btn btn-sm purple changeStatus"
+                                               href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}"><i
+                                                        class="fa fa-check"></i>Complete</a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
                                     <?php
                                     $slNo++;
                                     ?>

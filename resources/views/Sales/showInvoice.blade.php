@@ -75,7 +75,11 @@
                 </tr>
                 <tr>
                     <td><b>Date</b></td>
-                    <td>: {{date("d-m-Y")}}</td>
+                    <td>: {{\App\Transaction::convertDate($sale->created_at)}}</td>
+                </tr>
+                <tr>
+                    <td><b>Print Date</b></td>
+                    <td>: {{date("d/m/Y")}}</td>
                 </tr>
                 </table>
             </div>
@@ -162,8 +166,13 @@
 
                     <div class="col-xs-12">
                         <b>Remarks:</b><br>
-                        <div id="remrks"></div>
+                        <div id="remrks">
+                            <?php if ($sale->is_sale == 1) { ?>
+                                <?php echo nl2br($sale->remarks); ?>
+                            <?php }?>
+                        </div>
                         <div id="remrksForm">
+                            <?php if ($sale->is_sale != 1) { ?>
                             {!!Form::open(array('url' => 'http://cemcoerp.dev/sales/confirm/'.$sale->id, 'method' => 'post', 'class'=>'form-horizontal',
                             'id'=>'confirm_form'))!!}
 
@@ -171,7 +180,8 @@
 
                         </textarea>
                             </form>
-                            <button class="btn btn-danger" onclick="conirm({{$sale->id}});">Confirm</button>
+                            <button class="btn btn-danger" id="click" onclick="conirm({{$sale->id}});">Confirm</button>
+                            <?php }?>
                         </div>
 
                     </div>
@@ -245,7 +255,9 @@
                     }
                 });
             }
+
         </script>
+
 @stop
 @section('javascript')
     {!! HTML::script('js/sales.js') !!}

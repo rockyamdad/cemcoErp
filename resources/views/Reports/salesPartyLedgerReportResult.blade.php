@@ -91,7 +91,7 @@
                             ?>
                             <tr>
                                 <td>{{\App\Transaction::convertDate($result->created_at)}}</td>
-                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'Product Received'; else echo 'Payment' ?> <?php if($debitAmount != 0) { echo '<a target="_blank" style="color: white;" href="'.URL::to('sales?invoice_id='.$result->particular).'">'; ?>({{$result->particular}})<?php echo '</a>'; } else { echo str_replace("Check","Cheque",$result->particular);  } ?></td>
+                                <td <?php if($debitAmount != 0) echo 'style="background-color: #0077b3; color: #ffffff;"'; ?> ><?php if($debitAmount != 0) echo 'product sold out through invoice #'; else echo 'Payment adjusted by returned goods' ?> <?php if($debitAmount != 0) { echo '<a target="_blank" style="color: white;" href="'.URL::to('sales?invoice_id='.$result->particular).'">'; ?>{{$result->particular}}<?php echo '</a>'; } else { if ($result->particular == "Sales Return"){}else echo str_replace("Check","Cheque",$result->particular);  } ?></td>
                                 <td class="text-right">
                                     <?php
                                         if (strpos($particular, 'Cash') !== false || (strpos($particular, 'Sales') !== false) || strpos($particular, 'Check') !== false) {

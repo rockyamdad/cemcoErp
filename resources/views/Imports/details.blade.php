@@ -41,17 +41,22 @@
                         ?>
                         @foreach($imports as $importt )
                             <?php
+
                             $categoryName = \App\Category::find($importt->product->category_id);
 
                             $products = \App\Product::find($importt->product_id);
 
                             if($products->sub_category_id){
                                 $subCategory = \App\SubCategory::find($products->sub_category_id);
-                                $subCategoryName = '('.$subCategory->name.')';
+                                if($subCategory != NULL)
+                                    $subCategoryName = '('.$subCategory->name.')';
+                                else
+                                    $subCategoryName = '(N/A)';
                             }
                             else{
-                                $subCategoryName = '';
+                                $subCategoryName = '(N/A)';
                             }
+
                             ?>
 
                         <tr class="odd gradeX">
@@ -224,8 +229,7 @@
                     <div class="col-md-11 " style="width: 220px;">
                         {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id', 'onchange'=> 'abc();') )!!}
                         <br>
-                        <a href="" id="addnow">Add</a>
-                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue addtostocks'))!!}
+                        <a href="" id="addnow" class="btn blue addtostocks">Add</a>
                     </div>
                 </div>
             </div>

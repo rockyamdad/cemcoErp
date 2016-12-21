@@ -111,7 +111,7 @@
                                 @if($product->sub_category_id == 0)
                                     <td>N/A</td>
                                 @else
-                                    <td>{{$subCategoryName->name}}</td>
+                                    <td>@if($subCategoryName!= null){{$subCategoryName->name}}@else N/A @endif</td>
                                 @endif
 
                                 <td>{{$product->price}}</td>
@@ -146,7 +146,7 @@
                                 @if($product->sub_category_id == 0)
                                     <td>N/A</td>
                                 @else
-                                    <td>{{$subCategoryName->name}}</td>
+                                    <td>@if($subCategoryName != null){{$subCategoryName->name}}@else N/A @endif</td>
                                 @endif
 
                                 <td>{{$product->price}}</td>

@@ -16,6 +16,10 @@
             <div class="col-xs-12 invoice-logo-space">
                 <?php
                     $sale22 = \App\SAleDetail::where('invoice_id', '=', $transaction->invoice_id)->first();
+                    if ($sale22 == null){
+                        $sale22 = \App\PurchaseInvoiceDetail::where('detail_invoice_id', '=', $transaction->invoice_id)->first();
+                    }
+                    if ($sale22 != null) {
                 ?>
                 @if($sale22->branch_id == 1)
                     <img src="../../assets/img/pad/cemon-vc.jpg" style="width: 100%;"  alt="" />
@@ -38,6 +42,7 @@
                 @endif
 
             </div>
+            <?php } ?>
             <hr />
             {{--<div class="col-xs-6">
                <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>

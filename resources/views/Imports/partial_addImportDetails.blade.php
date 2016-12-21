@@ -45,4 +45,3 @@
         {!!Form::close()!!}
     </div>
 </div>
-{!! HTML::script('assets/plugins/select2/select2.min.js') !!}
