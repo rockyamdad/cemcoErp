@@ -44,14 +44,18 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
-                    => 'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!!Form::select('branch_id',[null=>'Please Select Branch']
-                        +$branchAll,$subCategory->branch_id,array('class'=>'form-control ','id'=>'edit_branch_id') )!!}
+                @if(Session::get('user_role')=='admin')
+                    <div class="form-group">
+                        {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
+                        => 'control-label col-md-3')))!!}
+                        <div class="col-md-4">
+                            {!!Form::select('branch_id',[null=>'Please Select Branch']
+                            +$branchAll,$subCategory->branch_id,array('class'=>'form-control ','id'=>'edit_branch_id') )!!}
+                        </div>
                     </div>
-                </div>
+                @endif
+                <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
+                <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
                 <div class="form-group">
                     {!!HTML::decode(Form::label('category_id','Product Category<span class="required">*</span>',array('class'
                     => 'control-label col-md-3')))!!}

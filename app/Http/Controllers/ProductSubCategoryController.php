@@ -16,8 +16,12 @@ class ProductSubCategoryController extends Controller{
     }
     public function getIndex()
     {
-        $subCategories = SubCategory::orderBy('id','DESC')->paginate(15);
-        //var_dump($categories); die();
+        if(Session::get('user_role')=='admin'){
+            $subCategories = SubCategory::orderBy('id','DESC')->paginate(15);
+        }else{
+            $subCategories = SubCategory::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')->paginate(15);
+        }
         return view('ProductSubCategory.list', compact('subCategories'));
     }
     public function getCreate()
@@ -30,7 +34,6 @@ class ProductSubCategoryController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
             'category_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -94,7 +97,11 @@ class ProductSubCategoryController extends Controller{
     private function setSubCategoriesData($SubCategories)
     {
         $SubCategories->name = Input::get('name');
-        $SubCategories->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $SubCategories->branch_id = Input::get('branch_id');
+        }else{
+            $SubCategories->branch_id = Session::get('user_branch');
+        }
         $SubCategories->category_id = Input::get('category_id');
         $SubCategories->user_id = Session::get('user_id');
 
