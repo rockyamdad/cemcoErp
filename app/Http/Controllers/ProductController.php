@@ -41,7 +41,7 @@ class ProductController extends Controller{
         $productsName = Product::where('category_id','=',$category_id)
             ->where('id','=',$product_id)
             ->get();
-        return view('Products.list', compact('products'))
+        return view('Products.search', compact('products'))
             ->with('categoryAll',$categoryAll)
             ->with('productsName',$productsName);
     }
@@ -181,7 +181,11 @@ class ProductController extends Controller{
             $categoryName = $category->name;
             if($product->sub_category_id){
                 $subCategory = SubCategory::find($product->sub_category_id);
-                $subCategoryName = '('.$subCategory->name.')';
+                if ($subCategory != null) {
+                    $subCategoryName = '(' . $subCategory->name . ')';
+                }else {
+                    $subCategoryName = '';
+                }
             }else{
                 $subCategoryName = '';
             }

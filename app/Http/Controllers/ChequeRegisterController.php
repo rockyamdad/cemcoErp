@@ -39,6 +39,7 @@ class ChequeRegisterController extends Controller{
         $register = Transaction::where('payment_method','=','check')
             ->where('type','=','Payment')
             ->orwhere('type','=','Expense')
+            ->where('payment_method','=','check')
             ->orderBy('id', 'desc')
             ->paginate(15);
         $type = 'Payer';

@@ -50,6 +50,7 @@ class UserController extends Controller{
             ->where('type','=','Payment')
             ->where('cheque_status','=',0)
             ->orwhere('type','=','Expense')
+            ->where('payment_method','=','check')
             ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();

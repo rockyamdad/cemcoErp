@@ -368,10 +368,12 @@ class StockController extends Controller{
                     return $this->stockDetailConvertToArray($stockDetails);
                     //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
                 } else {
-                    Session::flash('message', 'You Dont have enough products in Stock');
+                    return '0';
+                    //Session::flash('message', 'You Dont have enough products in Stock');
                 }
             }else{
-                Session::flash('message', 'You Dont have This products in This Stock');
+                return '0';
+                //Session::flash('message', 'You Dont have This products in This Stock');
             }
 
 
