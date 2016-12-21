@@ -93,8 +93,7 @@ jQuery(document).ready(function() {
                 url: "/saveStock2",
                 data :  $('#stock_form').serialize(),
                 dataType:'json',
-                success:function(stock)
-                {
+                success:function(stock) {
 
                     $("#product_id").select2('val', '');
                     $("#to_stock_info_id").select2('val', '');
@@ -105,34 +104,34 @@ jQuery(document).ready(function() {
                     $(".available").html('');
 
                     var html = [];
-                    if(stock.entry_type == "StockIn") {
+                    if (stock.entry_type == "StockIn") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
                         html.push('<td>' + stock.consignment_name + '</td>');
-                        if( stock.remarks == ''){
+                        if (stock.remarks == '') {
                             html.push('<td>' + "Not Available" + '</td>');
-                        }else{
+                        } else {
                             html.push('<td>' + stock.remarks + '</td>');
                         }
-                    } else if (stock.entry_type == "StockOut"){
+                    } else if (stock.entry_type == "StockOut") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
                         html.push('<td>' + stock.remarks + '</td>');
-                    } else if (stock.entry_type == "StockOut" || stock.entry_type ==  "Wastage"){
+                    } else if (stock.entry_type == "StockOut" || stock.entry_type == "Wastage") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
-                        if( stock.remarks == ''){
+                        if (stock.remarks == '') {
                             html.push('<td>' + "Not Available" + '</td>');
-                        }else{
+                        } else {
                             html.push('<td>' + stock.remarks + '</td>');
                         }
                     } else {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
                         html.push('<td>' + stock.to_stock_info_id + '</td>');
-                        if( stock.remarks == ''){
+                        if (stock.remarks == '') {
                             html.push('<td>' + "Not Available" + '</td>');
-                        }else{
+                        } else {
                             html.push('<td>' + stock.remarks + '</td>');
                         }
                     }
@@ -141,7 +140,12 @@ jQuery(document).ready(function() {
                     html.push('<td><input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail" rel=' + stock.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
-                    $('#stockTable  > tbody:first').append(html);
+                   // alert(stock);
+                    if (stock == "0") {
+                        alert("You Dont have enough products in Stock");
+                    } else {
+                        $('#stockTable  > tbody:first').append(html);
+                    }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("Status: " + textStatus); alert("Error: " + errorThrown);
@@ -198,6 +202,11 @@ jQuery(document).ready(function() {
         {
             $('.to_stock_section').hide();
             $('.consignment_name_section').hide();
+        }
+
+        if(entry_type=='StockIn')
+        {
+            $('.to_stock_section').hide();
         }
 
 
