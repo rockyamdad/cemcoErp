@@ -53,14 +53,16 @@
                         'name'))!!}
                     </div>
                 </div>
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
-                    => 'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!!Form::select('branch_id',[null=>'Please Select Branch']
-                        +$branchAll,$category->branch_id, array('class'=>'form-control') )!!}
+                @if(Session::get('user_role') == 'admin')
+                    <div class="form-group">
+                        {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
+                        => 'control-label col-md-3')))!!}
+                        <div class="col-md-4">
+                            {!!Form::select('branch_id',[null=>'Please Select Branch']
+                            +$branchAll,$category->branch_id, array('class'=>'form-control') )!!}
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <div class="form-actions fluid">
                     <div class="col-md-offset-3 col-md-9">

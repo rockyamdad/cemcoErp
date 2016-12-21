@@ -45,6 +45,7 @@ class AuthController extends Controller{
                 Session::put('user_id',Auth::user()->id);
                 Session::put('user_name',Auth::user()->username);
                 Session::put('user_role',Auth::user()->role);
+                Session::put('user_branch',Auth::user()->branch_id);
                 Session::flash('message', 'User has been Successfully Login.');
                 $roles= Auth::user()->role;
 

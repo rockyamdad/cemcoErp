@@ -15,7 +15,13 @@ class ProductCategoryController extends Controller{
     }
     public function getIndex()
     {
-        $categories = Category::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $categories = Category::orderBy('id','DESC')->paginate(15);
+        }else{
+            $categories = Category::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','DESC')->paginate(15);
+        }
+
        //var_dump($categories); die();
         return view('ProductCategory.list', compact('categories'));
     }
@@ -28,8 +34,7 @@ class ProductCategoryController extends Controller{
     public function postSaveCategory()
     {
         $ruless = array(
-            'name' => 'required',
-            'branch_id' => 'required',
+            'name' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -64,7 +69,6 @@ class ProductCategoryController extends Controller{
 
         if($validate->fails())
         {
-            var_dump("ddd");exit;
             return Redirect::to('productCategories/edit/'.$id)
                 ->withErrors($validate);
         }
@@ -92,7 +96,12 @@ class ProductCategoryController extends Controller{
     private function setCategoriesData($categories)
     {
         $categories->name = Input::get('name');
-        $categories->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $categories->branch_id = Input::get('branch_id');
+        }else{
+            $categories->branch_id = Session::get('user_branch');
+        }
+
         $categories->user_id = Session::get('user_id');
 
     }
