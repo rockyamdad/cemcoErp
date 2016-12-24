@@ -34,7 +34,14 @@ class SaleController extends Controller{
     }
     public function getIndex()
     {
-        $sales = Sale::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $sales = Sale::orderBy('id','DESC')->paginate(15);
+        }else{
+            $sales = Sale::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')
+                ->paginate(15);
+        }
+
         $sale = new Sale();
         $allInvoices = $sale->getSalesInvoiceDropDown();
         $invoice = Input::get('invoice_id');
@@ -66,7 +73,6 @@ class SaleController extends Controller{
     public function postSaveSales()
     {
         $ruless = array(
-            'branch_id' => 'required',
             'stock_info_id' => 'required',
             'product_type' => 'required',
             'party_id' => 'required',
@@ -144,7 +150,13 @@ class SaleController extends Controller{
         $saleDetails->price = Input::get('price');
         $saleDetails->invoice_id = Input::get('invoice_id');
         $saleDetails->product_id = Input::get('product_id');
-        $saleDetails->branch_id = Input::get('branch_id');
+
+        if(Session::get('user_role') == 'admin'){
+            $saleDetails->branch_id = Input::get('branch_id');
+        }else{
+            $saleDetails->branch_id = Session::get('user_branch');
+        }
+
         $saleDetails->stock_info_id = Input::get('stock_info_id');
         $saleDetails->product_type = Input::get('product_type');
         $saleDetails->remarks = Input::get('remarks');
