@@ -17,8 +17,6 @@ class ProductController extends Controller{
     }
     public function getIndex()
     {
-        $products = Product::orderBy('id','DESC')
-        ->paginate(25);
         if(Session::get('user_role')=='admin'){
             $products = Product::orderBy('id','DESC')
                 ->paginate(25);

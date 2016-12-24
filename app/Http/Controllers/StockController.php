@@ -24,8 +24,15 @@ class StockController extends Controller{
     }
     public function getIndex()
     {
-        $stocks = StockInvoice::orderBy('id','DESC')
-            ->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $stocks = StockInvoice::orderBy('id','DESC')
+                ->paginate(15);
+        }else{
+            $stocks = StockInvoice::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')
+                ->paginate(25);
+        }
+
         return view('Stocks.all',compact('stocks'));
         //return view('Stocks.list',compact('stocks'));
     }
@@ -170,7 +177,6 @@ class StockController extends Controller{
         $ruless = array(
             'stock_info_id' => 'required',
             'product_type' => 'required',
-            'branch_id' => 'required',
             'product_id' => 'required',
             'product_quantity' => 'required',
         );
@@ -293,7 +299,6 @@ class StockController extends Controller{
     {
         $ruless = array(
             'product_id' => 'required',
-            'branch_id' => 'required',
             'product_quantity' => 'required',
             'entry_type' => 'required',
         );
@@ -324,7 +329,11 @@ class StockController extends Controller{
             ->where('stock_info_id','=',Input::get('stock_info_id'))
             ->get();
 
-        $stockDetails->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $stockDetails->branch_id = Input::get('branch_id');
+        }else{
+            $stockDetails->branch_id = Session::get('user_branch');
+        }
         $stockDetails->product_id = Input::get('product_id');
         $stockDetails->entry_type = Input::get('entry_type');
         $stockDetails->product_type = Input::get('product_type');
@@ -634,7 +643,11 @@ class StockController extends Controller{
      */
     private function insertStockData($stockInvoces)
     {
-        $stockInvoces->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $stockInvoces->branch_id = Input::get('branch_id');
+        }else{
+            $stockInvoces->branch_id = Session::get('user_branch');
+        }
         $stockInvoces->status = 'Activate';
         $stockInvoces->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
 2. NO REPLACEMENT WARANTY';
