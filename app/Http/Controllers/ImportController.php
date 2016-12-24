@@ -28,7 +28,13 @@ class ImportController extends Controller{
     }
     public function getIndex()
     {
-        $imports = Import::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $imports = Import::orderBy('id','DESC')->paginate(15);
+        }else{
+            $imports = Import::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','DESC')
+                ->paginate(15);
+        }
         return view('Imports.list',compact('imports'));
     }
     public function getCreate()
@@ -55,7 +61,6 @@ class ImportController extends Controller{
     public function postSaveImport()
     {
         $ruless = array(
-            'branch_id' => 'required',
             'consignment_name' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -412,7 +417,6 @@ class ImportController extends Controller{
     public function postUpdate($id)
     {
         $ruless = array(
-            'branch_id' => 'required',
             'consignment_name' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -468,7 +472,12 @@ class ImportController extends Controller{
     {
 
         $import->import_num = $import_num;
-        $import->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $import->branch_id = Input::get('branch_id');
+        }else{
+            $import->branch_id = Session::get('user_branch');
+        }
+
         $import->consignment_name = Input::get('consignment_name');
         $import->description = Input::get('description');
         $import->user_id = Session::get('user_id');
@@ -478,7 +487,11 @@ class ImportController extends Controller{
     {
 
         $import->import_num = Input::get('import_num');
-        $import->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $import->branch_id = Input::get('branch_id');
+        }else{
+            $import->branch_id = Session::get('user_branch');
+        }
         $import->consignment_name = Input::get('consignment_name');
         $import->description = Input::get('description');
         $import->user_id = Session::get('user_id');

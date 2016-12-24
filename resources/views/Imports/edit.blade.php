@@ -45,7 +45,7 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
-
+                @if(Session::get('user_role')=='admin')
                 <div class="form-group">
                     {!!HTML::decode(Form::label('branch_id',' Branch<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
@@ -54,6 +54,7 @@
                         Branch']+$branchAll,$import->branch_id,array('class'=>'form-control ','id'=>'branch_id') )!!}
                     </div>
                 </div>
+                @endif
                 {!! Form::hidden('import_num',$import->import_num) !!}
                 <div class="form-group">
                     {!! HTML::decode(Form::label('consignment_name','Consignment Name<span class="required">*</span>',array('class' => 'control-label
