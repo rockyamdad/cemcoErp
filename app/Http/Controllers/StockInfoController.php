@@ -16,7 +16,13 @@ class StockInfoController extends Controller{
     }
     public function getIndex()
     {
-        $stockInfos = StockInfo::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin') {
+            $stockInfos = StockInfo::orderBy('id','DESC')->paginate(15);
+        }else{
+            $stockInfos = StockInfo::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','DESC')->paginate(15);
+        }
+
         return view('StockInfos.list',compact('stockInfos'));
     }
     public function getCreate()
@@ -30,7 +36,6 @@ class StockInfoController extends Controller{
 
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -59,7 +64,6 @@ class StockInfoController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
 
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -92,11 +96,17 @@ class StockInfoController extends Controller{
     }
     private function setStockInfoData($party)
     {
+        if(Session::get('user_role') == 'admin'){
+            $party->branch_id = Input::get('branch_id');
+        }else{
+            $party->branch_id = Session::get('user_branch');
+        }
         $party->name = Input::get('name');
-        $party->branch_id = Input::get('branch_id');
+
         $party->location = Input::get('location');
         $party->user_id = Session::get('user_id');
         $party->status = "Activate";
+
     }
 
 }

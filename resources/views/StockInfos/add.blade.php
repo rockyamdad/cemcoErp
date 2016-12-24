@@ -50,6 +50,7 @@
                         {!!Form::text('name',null,array('placeholder' => 'Name', 'class' => 'form-control','id' => 'name'))!!}
                     </div>
                 </div>
+                @if(Session::get('user_role')=='admin')
                 <div class="form-group">
                     {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
@@ -57,6 +58,7 @@
                         {!! Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null', array('class'=>'form-control','id'=>'branch_id'))!!}
                     </div>
                 </div>
+                @endif
 
                 <div class="form-group">
                     {!!HTML::decode(Form::label('location','Location',array('class' => 'control-label col-md-3')))!!}

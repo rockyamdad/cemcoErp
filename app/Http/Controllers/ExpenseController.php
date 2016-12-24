@@ -26,7 +26,13 @@ class ExpenseController extends Controller{
     }
     public function getIndex()
     {
-        $expenseAll = Expense::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $expenseAll = Expense::orderBy('id','DESC')->paginate(15);
+        }else{
+            $expenseAll = Expense::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')
+                ->paginate(15);
+        }
         $expense = new Expense();
         $allInvoices = $expense->getExpenseInvoiceDropDown();
         $invoice = Input::get('invoice_id');
@@ -105,7 +111,6 @@ class ExpenseController extends Controller{
     public function postSaveExpense()
     {
         $ruless = array(
-            'branch_id' => 'required',
             'category' => 'required',
             'amount' => 'required',
         );
@@ -136,7 +141,6 @@ class ExpenseController extends Controller{
     public function postUpdateExpense($id)
     {
         $ruless = array(
-            'branch_id' => 'required',
             'category' => 'required',
             'amount' => 'required',
         );
@@ -158,7 +162,11 @@ class ExpenseController extends Controller{
     {
         $expense =Expense::find($id);
         $expense->invoice_id = Input::get('invoice_id');
-        $expense->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $expense->branch_id = Input::get('branch_id');
+        }else{
+            $expense->branch_id = Session::get('user_branch');
+        }
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -172,7 +180,11 @@ class ExpenseController extends Controller{
     {
         $expense = new Expense();
         $expense->invoice_id = Input::get('invoice_id');
-        $expense->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $expense->branch_id = Input::get('branch_id');
+        }else{
+            $expense->branch_id = Session::get('user_branch');
+        }
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -220,7 +232,6 @@ class ExpenseController extends Controller{
     public function postSaveMake()
     {
         $ruless = array(
-            'branch_id' => 'required',
             'account_category_id' => 'required',
             'account_name_id' => 'required',
             'amount' => 'required',

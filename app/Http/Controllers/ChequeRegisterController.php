@@ -26,22 +26,42 @@ class ChequeRegisterController extends Controller{
     }
     public function getIndex()
     {
-        $register = Transaction::where('payment_method','=','check')
-            ->where('type','=','Receive')
-            ->orderBy('id', 'desc')
-            ->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Receive')
+                ->orderBy('id', 'desc')
+                ->paginate(15);
+        }else{
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Receive')
+                ->where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id', 'desc')
+                ->paginate(15);
+        }
+
         $type = 'Payee';
         return view('ChequeRegister.list',compact('register', 'type'));
     }
 
     public function getPurchase()
     {
-        $register = Transaction::where('payment_method','=','check')
-            ->where('type','=','Payment')
-            ->orwhere('type','=','Expense')
-            ->where('payment_method','=','check')
-            ->orderBy('id', 'desc')
-            ->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Payment')
+                ->orwhere('type','=','Expense')
+                ->where('payment_method','=','check')
+                ->orderBy('id', 'desc')
+                ->paginate(15);
+        }else{
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Payment')
+                ->orwhere('type','=','Expense')
+                ->where('payment_method','=','check')
+                ->where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id', 'desc')
+                ->paginate(15);
+        }
+
         $type = 'Payer';
         return view('ChequeRegister.purchaselist',compact('register', 'type'));
     }
