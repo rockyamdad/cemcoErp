@@ -28,7 +28,12 @@ class PurchaseInvoiceController extends Controller{
     }
     public function getIndex()
     {
-       $purchases = PurchaseInvoice::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $purchases = PurchaseInvoice::orderBy('id','DESC')->paginate(15);
+        }else{
+            $purchases = PurchaseInvoice::orderBy('id','DESC')->paginate(15);
+        }
+
         $purchase = new PurchaseInvoice();
         $allInvoices = $purchase->getPurchaseInvoiceDropDown();
         $invoice = Input::get('invoice_id');
@@ -62,7 +67,6 @@ class PurchaseInvoiceController extends Controller{
     public function postSavePurchaseInvoice()
     {
         $ruless = array(
-            'branch_id' => 'required',
             'stock_info_id' => 'required',
             'product_type' => 'required',
             'party_id' => 'required',
@@ -145,7 +149,6 @@ class PurchaseInvoiceController extends Controller{
     {
 
         $ruless = array(
-            'branch_id' => 'required',
             'stock_info_id' => 'required',
             'product_type' => 'required',
             'party_id' => 'required',
@@ -174,7 +177,12 @@ class PurchaseInvoiceController extends Controller{
         $purchaseDetails->price = Input::get('price');
         $purchaseDetails->detail_invoice_id = Input::get('invoice_id');
         $purchaseDetails->product_id = Input::get('product_id');
-        $purchaseDetails->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $purchaseDetails->branch_id = Input::get('branch_id');
+        }else{
+            $purchaseDetails->branch_id = Session::get('user_branch');
+        }
+
         $purchaseDetails->stock_info_id = Input::get('stock_info_id');
         $purchaseDetails->product_type = Input::get('product_type');
         $purchaseDetails->remarks = Input::get('remarks');

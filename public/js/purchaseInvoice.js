@@ -80,8 +80,9 @@ jQuery(document).ready(function() {
         }
     });
     function saleFormValidationEdit() {
-
-        var branch = $.trim($('#edit_branch_id').val());
+        if($('#role_session').val() == 'admin') {
+            var branch = $.trim($('#edit_branch_id').val());
+        }
         var stock = $.trim($('#stock_info_id').val());
         var type = $.trim($('#edit_product_type').val());
         var party = $.trim($('#edit_party_id').val());
@@ -97,7 +98,9 @@ jQuery(document).ready(function() {
     }
     function saleFormValidation() {
 
-        var branch = $.trim($('#branch_id').val());
+        if($('#role_session').val() == 'admin') {
+            var branch = $.trim($('#branch_id').val());
+        }
         var stock = $.trim($('#stock_info_id').val());
         var type = $.trim($('#product_type').val());
         var party = $.trim($('#party_id').val());
@@ -171,7 +174,17 @@ jQuery(document).ready(function() {
             });
         }
     });
+    if($('#role_session').val() != 'admin'){
+        var branch_id = $('#branch_session').val();
+        $.ajax({
+            type: "get",
+            url: "products/"+branch_id,
+            success: function (html) {
+                $('#product_id').append(html);
 
+            }
+        });
+    }
 
     $('#branch_id').live("change", function () {
         var branch_id = $('#branch_id').val();
@@ -191,7 +204,11 @@ jQuery(document).ready(function() {
 
     $('#product_type').live("change", function () {
         var product_type = $('#product_type').val();
-        var branch = $('#branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch = $('#branch_session').val();
+        }else{
+            var branch = $('#branch_id').val();
+        }
         $('#product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
         $('#product_id').append(newOption);
@@ -253,7 +270,11 @@ jQuery(document).ready(function() {
 
     $('#edit_product_type').live("change", function () {
         var product_type = $('#edit_product_type').val();
-        var branch = $('#edit_branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch = $('#branch_session').val();
+        }else{
+            var branch = $('#edit_branch_id').val();
+        }
         $('#edit_product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
         $('#edit_product_id').append(newOption);

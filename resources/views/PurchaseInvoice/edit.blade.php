@@ -58,9 +58,13 @@
                                 <div class="col-md-5">
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $suppliersAll,$purchase[0]->party_id, array('class'=>'form-control ','id'=>'edit_party_id') )!!}
                                 </div>
+                                <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
+                                <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
+                                @if(Session::get('user_role')=='admin')
                                 <div class="col-md-5">
                                     {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,$purchaseDetails[0]->branch_id, array('class'=>'form-control branch_id_val','id'=>'edit_branch_id') )!!}
                                 </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5">

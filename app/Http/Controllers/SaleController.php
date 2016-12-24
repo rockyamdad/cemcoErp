@@ -121,7 +121,6 @@ class SaleController extends Controller{
     public function updateSaleData($id)
     {
         $ruless = array(
-            'branch_id' => 'required',
             'stock_info_id' => 'required',
             'product_type' => 'required',
             'party_id' => 'required',
