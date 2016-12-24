@@ -19,6 +19,14 @@ class ProductController extends Controller{
     {
         $products = Product::orderBy('id','DESC')
         ->paginate(25);
+        if(Session::get('user_role')=='admin'){
+            $products = Product::orderBy('id','DESC')
+                ->paginate(25);
+        }else{
+            $products = Product::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','DESC')
+                ->paginate(25);
+        }
         $categories = new Category();
         $categoryAll = $categories->getCategoriesDropDown();
         $category_id = Input::get('category_id');
@@ -55,7 +63,6 @@ class ProductController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
             'category_id' => 'required',
             'product_type' => 'required',
         );
@@ -130,7 +137,6 @@ class ProductController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
             'category_id' => 'required',
             'product_type' => 'required',
         );
@@ -153,7 +159,11 @@ class ProductController extends Controller{
     private function setProductsData($prodcuts)
     {
         $prodcuts->name = Input::get('name');
-        $prodcuts->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $prodcuts->branch_id = Input::get('branch_id');
+        }else{
+            $prodcuts->branch_id = Session::get('user_branch');
+        }
         $prodcuts->category_id = Input::get('category_id');
         $prodcuts->sub_category_id = Input::get('sub_category_id');
         $prodcuts->origin = Input::get('origin');

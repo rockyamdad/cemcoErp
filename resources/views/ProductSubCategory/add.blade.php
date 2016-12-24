@@ -45,6 +45,8 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
+                <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
+                <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
                 @if(Session::get('user_role')=='admin')
 
                 <div class="form-group">
@@ -57,8 +59,7 @@
                 </div>
                 @endif
 
-                <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
-                <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
+
                 <div class="form-group">
                     <label class="control-label col-md-3">Category<span class="required">*</span></label>
 

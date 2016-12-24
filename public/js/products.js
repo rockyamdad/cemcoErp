@@ -52,8 +52,24 @@ jQuery(document).ready(function() {
          }*/
     });
 
+    if($('#role_session').val() != 'admin'){
+        var branch_id = $('#branch_session').val();
+        $.ajax({
+            type: "get",
+            url: "category/"+branch_id,
+            success: function (html) {
+                $('#products_category_id').append(html);
+
+            }
+        });
+    }
     $('#products_branch_id').live("change", function () {
-        var branch_id = $('#products_branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch_id = $('#branch_session').val();
+        }else{
+            var branch_id = $('#products_branch_id').val();
+        }
+
         $('#products_category_id').empty();
         var newOption = $('<option value="">Choose Category</option>');
         $('#products_category_id').append(newOption);
@@ -70,7 +86,11 @@ jQuery(document).ready(function() {
     $('#products_category_id').live("change", function () {
 
         var category_id = $('#products_category_id').val();
-        var branch_id = $('#products_branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch_id = $('#branch_session').val();
+        }else{
+            var branch_id = $('#products_branch_id').val();
+        }
         $('#products_sub_category_id').empty();
         var newOption = $('<option value="">Choose Sub Category</option>');
         $('#products_sub_category_id').append(newOption);
@@ -103,7 +123,11 @@ jQuery(document).ready(function() {
     $('select').select2();
 
     $('#products_edit_branch_id').live("change", function () {
-        var branch_id = $('#products_edit_branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch_id = $('#branch_session').val();
+        }else{
+            var branch_id = $('#products_edit_branch_id').val();
+        }
         $.ajax({
             type: "get",
             url: "../category/"+branch_id,
@@ -115,7 +139,11 @@ jQuery(document).ready(function() {
     });
     $('#products_edit_category_id').live("change", function () {
         var category_id = $('#products_edit_category_id').val();
-        var branch_id = $('#products_edit_branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch_id = $('#branch_session').val();
+        }else{
+            var branch_id = $('#products_edit_branch_id').val();
+        }
         $('#products_edit_sub_category_id').empty();
         var newOption = $('<option value="">Select Sub Category</option>');
         $('#products_edit_sub_category_id').append(newOption);
@@ -130,7 +158,11 @@ jQuery(document).ready(function() {
         });
     });
 
-    var branch_id = $('#products_edit_branch_id').val();
+    if($('#role_session').val() != 'admin') {
+        var branch_id = $('#branch_session').val();
+    }else{
+        var branch_id = $('#products_edit_branch_id').val();
+    }
     var category_id = $('#products_edit_category_id').attr('rel');
     $.ajax({
         type: "get",
@@ -143,7 +175,11 @@ jQuery(document).ready(function() {
     });
 
 
-    var branch_id = $('#products_edit_branch_id').val();
+    if($('#role_session').val() != 'admin') {
+        var branch_id = $('#branch_session').val();
+    }else{
+        var branch_id = $('#products_edit_branch_id').val();
+    }
     var sub_category_id = $('#products_edit_sub_category_id').attr('rel');
     $.ajax({
         type: "get",
