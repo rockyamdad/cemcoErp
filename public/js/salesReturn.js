@@ -66,7 +66,11 @@ jQuery(document).ready(function() {
 
     $('#product_type').live("change", function () {
         var product_type = $('#product_type').val();
-        var branch = $('#branch_id').val();
+        if($('#role_session').val() != 'admin') {
+            var branch = $('#branch_session').val();
+        }else{
+            var branch = $('#branch_id').val();
+        }
         if (product_type != '' && branch != '') {
             $('#product_id').empty();
             var newOption = $('<option value="">Select Product</option>');
@@ -124,7 +128,9 @@ jQuery(document).ready(function() {
 
     $('.saveSalesReturn').live("click", function () {
         var product_type = $('#product_type').val();
-        var branch = $('#branch_id').val();
+        if($('#role_session').val() == 'admin') {
+            var branch = $.trim($('#branch_id').val());
+        }
         var party_id = $('#party_id').val();
         var product_status = $('#product_status').val();
         var ref_no = $('#ref_no').val();

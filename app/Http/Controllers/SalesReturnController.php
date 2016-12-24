@@ -35,7 +35,13 @@ class SalesReturnController extends Controller{
     }
     public function getIndex()
     {
-        $salesreturn = SalesReturnInvoice::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $salesreturn = SalesReturnInvoice::orderBy('id','DESC')->paginate(15);
+        }else{
+            $salesreturn = SalesReturnInvoice::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')
+                ->paginate(15);
+        }
 
         return view('SalesReturn.list2',compact('salesreturn'));
     }
@@ -244,7 +250,11 @@ class SalesReturnController extends Controller{
     }
     private function insertSalesReturnData($salesreturn)
     {
-        $salesreturn->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $salesreturn->branch_id = Input::get('branch_id');
+        }else{
+            $salesreturn->branch_id = Session::get('user_branch');
+        }
         $salesreturn->party_id = Input::get('party_id');
         $salesreturn->product_status = Input::get('product_status');
         $salesreturn->ref_no = Input::get('ref_no');
