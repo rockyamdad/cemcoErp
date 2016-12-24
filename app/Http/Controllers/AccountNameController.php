@@ -19,7 +19,14 @@ class AccountNameController extends Controller{
     }
     public function getIndex()
     {
-       $accountNames = NameOfAccount::orderBy('id','DESC')->paginate(15);
+        if(Session::get('user_role')=='admin'){
+            $accountNames = NameOfAccount::orderBy('id','DESC')->paginate(15);
+        }else{
+            $accountNames = NameOfAccount::where('branch_id','=',Session::get('user_branch'))
+                ->orderBy('id','DESC')
+                ->paginate(15);
+        }
+
 
         return view('AccountName.list',compact('accountNames'));
     }
@@ -37,7 +44,6 @@ class AccountNameController extends Controller{
         $ruless = array(
             'name' => 'required',
             'account_category_id' => 'required',
-            'branch_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -71,7 +77,6 @@ class AccountNameController extends Controller{
         $ruless = array(
             'name' => 'required',
             'account_category_id' => 'required',
-            'branch_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -92,7 +97,12 @@ class AccountNameController extends Controller{
     private function setAccountNameData($accountNames)
     {
         $accountNames->name = Input::get('name');
-        $accountNames->branch_id = Input::get('branch_id');
+        if(Session::get('branch_role' == 'admin')){
+            $accountNames->branch_id = Input::get('branch_id');
+        }else{
+            $accountNames->branch_id = Session::get('user_branch');
+        }
+
         $accountNames->account_category_id = Input::get('account_category_id');
         $accountNames->opening_balance = Input::get('opening_balance');
         $accountNames->user_id = Session::get('user_id');
