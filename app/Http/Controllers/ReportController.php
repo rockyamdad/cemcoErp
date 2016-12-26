@@ -42,7 +42,12 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
+
         $category_id = Input::get('category_id');
         $product_type = Input::get('product_type');
         $report = new Report();
@@ -94,7 +99,11 @@ class ReportController extends Controller{
         $catogories = new Category();
         $categoriesAll = $catogories->getCategoriesDropDown();
         $report = new Report();
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $stock_info_id = Input::get('stock_info_id');
         $category_id = Input::get('category_id');
         $product_type = Input::get('product_type');

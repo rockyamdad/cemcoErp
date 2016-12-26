@@ -30,7 +30,7 @@
                     <button data-close="alert" class="close"></button>
                     You have some form errors. Please check below.
                 </div>
-
+                @if(Session::get('user_role')=='admin')
                 <div class="form-group">
                     {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class'
                     => 'control-label col-md-3')))!!}
@@ -39,6 +39,7 @@
                         array('class'=>'form-control ','id'=>'products_branch_id') )!!}
                     </div>
                 </div>
+                @endif
                 <div class="form-group">
                     {!!HTML::decode(Form::label('entry_type','Entry Type<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}

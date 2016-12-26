@@ -14,6 +14,21 @@ jQuery(document).ready(function() {
 
         });
     });
+
+    if($('#role_session').val() != 'admin'){
+        var branch_id = $('#branch_session').val();
+        $('#category_id').empty();
+        var newOption = $('<option value="">Please Select Category</option>');
+        $('#category_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "category/"+branch_id,
+            success: function (html) {
+                $('#category_id').append(html);
+
+            }
+        });
+    }
     $('#branch_id').live("change", function () {
         var branch_id = $('#branch_id').val();
         $('#category_id').empty();

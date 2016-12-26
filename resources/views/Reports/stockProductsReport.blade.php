@@ -58,10 +58,14 @@
                     {!!Form::open(array('url' => 'reports/stocksproductsresult', 'method' => 'post', 'class'=>'form-horizontal',
                     'id'=>'stock_search_form'))!!}
                     <div class="form-group">
-                        <div class="col-md-3">
-                            {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
-                            array('class'=>'form-control ','id'=>'branch_id') )!!}
-                        </div>
+                        <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
+                        <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
+                        @if(Session::get('user_role')=='admin')
+                            <div class="col-md-3">
+                                {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null',
+                                array('class'=>'form-control ','id'=>'branch_id') )!!}
+                            </div>
+                        @endif
                         <div class="col-md-3">
                             {!! Form::select('stock_info_id',[null=>'Please Select Stocks'] +$allStockInfos,'null', array('class'=>'form-control','id'=>'stock_info_id'))!!}
                         </div>

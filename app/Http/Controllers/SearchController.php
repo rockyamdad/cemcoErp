@@ -35,7 +35,11 @@ class SearchController extends Controller{
     }
     public function postSearchResult()
     {
-            $branch= Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch = Input::get('branch_id');
+        }else{
+            $branch = Session::get('user_branch');
+        }
             $type= Input::get('entry_type');
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
@@ -86,7 +90,11 @@ class SearchController extends Controller{
     }
     public function postStockProductResult()
     {
-        $branch = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch = Input::get('branch_id');
+        }else{
+            $branch = Session::get('user_branch');
+        }
         $stock = Input::get('stock_info_id');
         $category = Input::get('category_id');
         $product = Input::get('product_id');
