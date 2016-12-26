@@ -61,7 +61,11 @@ class SearchController extends Controller{
     public function postRequisitionResult()
     {
             $party = Input::get('party_id');
-            $branch= Input::get('branch_id');
+            if(Session::get('user_role')=='admin'){
+                $branch = Input::get('branch_id');
+            }else{
+                $branch = Session::get('user_branch');
+            }
             $date1 = Input::get('from_date');
             $date2 = Input::get('to_date');
             $search = new Search();

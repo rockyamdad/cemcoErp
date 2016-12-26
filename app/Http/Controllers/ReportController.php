@@ -166,7 +166,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesReport($date1,$date2,$branch_id);
         return view('Reports.salesReportResult',compact('results'))
@@ -186,7 +190,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesDetailsReport($date1,$date2,$branch_id);
         return view('Reports.salesDetailsReportResult',compact('results'))
@@ -206,7 +214,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesDueReport($date1,$date2,$branch_id);
         return view('Reports.salesDueReportResult',compact('results'))
@@ -226,7 +238,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesCollectionReport($date1,$date2,$branch_id);
         return view('Reports.salesCollectionReportResult',compact('results'))
