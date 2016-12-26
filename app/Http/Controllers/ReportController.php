@@ -262,7 +262,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getPurchaseReport($date1,$date2,$branch_id);
         return view('Reports.purchaseReportResult',compact('results'))
@@ -282,7 +286,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getPurchaseDetailsReport($date1,$date2,$branch_id);
         return view('Reports.purchaseDetailsReportResult',compact('results'))
@@ -302,7 +310,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getPurchaseDueReport($date1,$date2,$branch_id);
         return view('Reports.purchaseDueReportResult',compact('results'))
@@ -322,7 +334,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getPurchaseCollectionReport($date1,$date2,$branch_id);
         return view('Reports.purchaseCollectionReportResult',compact('results'))
@@ -342,7 +358,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getExpenseReport($date1,$date2,$branch_id);
         return view('Reports.expenseReportResult',compact('results'))
@@ -362,7 +382,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getExpensePaymentReport($date1,$date2,$branch_id);
         return view('Reports.expensePaymentReportResult',compact('results'))
@@ -454,7 +478,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesReturnDetailsReport($date1,$date2,$branch_id);
         return view('Reports.salesReturnDetailsReportResult',compact('results'))
@@ -466,7 +494,11 @@ class ReportController extends Controller{
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
-        $branch_id = Input::get('branch_id');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
         $report = new Report();
         $results = $report->getSalesReturnReport($date1,$date2,$branch_id);
         return view('Reports.salesReturnReportResult',compact('results'))
