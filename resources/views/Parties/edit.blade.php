@@ -84,6 +84,12 @@
                         {!!Form::textarea('address',null,array('class' => 'form-control','id' => 'address', 'rows'=>'3'))!!}
                     </div>
                 </div>
+                <div class="form-group">
+                    {!! HTML::decode(Form::label('balance','Opening Balance',array('class' => 'control-label col-md-3'))) !!}
+                    <div class="col-md-4">
+                        {!!Form::text('balance',null,array('placeholder' => 'Opening Balance', 'class' => 'form-control','id' => 'balance'))!!}
+                    </div>
+                </div>
 
                 <div class="form-actions fluid">
                     <div class="col-md-offset-3 col-md-9">

@@ -59,6 +59,7 @@
                         <th >Contact Person</th>
                         <th >Email</th>
                         <th >phone</th>
+                        <th >Balance</th>
                         <th >Address</th>
                         <th >Created By</th>
                         <th >Status</th>
@@ -77,6 +78,7 @@
                         <td>{{$party->contact_person_name}}</td>
                         <td>{{$party->email}}</td>
                         <td>{{$party->phone}}</td>
+                        <td>{{$party->balance}}</td>
                         <td>{{$party->address}}</td>
                         <td>{{$party->user->username}}</td>
 

@@ -91,6 +91,7 @@ class PartyController extends Controller{
     {
         $party->name = Input::get('name');
         $party->type = Input::get('type');
+        $party->balance = Input::get('balance');
         $party->contact_person_name = Input::get('contact_person_name');
         $party->email = Input::get('email');
         $party->phone = Input::get('phone');
