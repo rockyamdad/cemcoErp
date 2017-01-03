@@ -625,6 +625,8 @@ class SaleController extends Controller{
             ->where('status','!=','Completed')
             ->where('is_sale','=',1)
             ->get();
+        $party = Party::find($party_id);
+
         if(count($partySales)>0){
             $totalAmount = 0;
             $totalPrice = 0;
@@ -646,7 +648,7 @@ class SaleController extends Controller{
                 }
 
                 $transactions2 = Transaction::where('invoice_id','=',$sale->invoice_id)
-                    ->where('type', '=', 'Receive')
+                    ->where('type', '=',     'Receive')
                     ->where('payment_method', '!=', 'Check')->get();
                 foreach($transactions2 as $transaction)
                 {
@@ -654,7 +656,7 @@ class SaleController extends Controller{
                 }
 
             }
-            $due = $totalPrice - $totalAmount;
+            $due = ($totalPrice + $party->balance) - $totalAmount;
             echo "<p3 style='color: red;font-size: 114%; margin-left: 32px;'>Due is $due</p3>";
 
         }else{
@@ -687,146 +689,168 @@ class SaleController extends Controller{
         }
         else{
 
-            //$this->setReceiveSalePaymentAll();
-
-            //return Redirect::to('sales/index');
-
-
-
-            //$salesreturn = new SalesReturn();
-
-            //$this->setSalesReturnData($salesreturn);
-
-            //automatically reduce sales payment starts
             $return_amount=Input::get('amount');
             $remaining_amount=$return_amount;
-            //var_dump($remaining_amount);
             $partyId=Input::get('party_id');
             if($remaining_amount>0)
             {
-
                 $invoiceId = Sale::where('party_id','=',$partyId)
                     ->where('is_sale','=',1)
                     ->get();
-                foreach($invoiceId as $invid)
-                {
-
-
-                    $detailsPrice = 0;
-                    $paid = 0;
-                    $saleDetails = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
-                    $transactions = Transaction::where('invoice_id','=',$invid->invoice_id)
-                        ->where('payment_method', '=', 'Check')
-                        ->where('type', '=', 'Receive')
-                        ->where('cheque_status', '=', 1)->get();
-                    $salef = Sale::find( $invid->id);
-                    foreach($saleDetails as $saleDetail)
+                if(count($invoiceId)>0){
+                    foreach($invoiceId as $invid)
                     {
-                        $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
-                        $detailsPrice = $detailsPrice + $salePriceCalculated;
-                    }
-                    $detailsPrice -= $invid->discount_percentage;
-                    foreach($transactions as $transaction)
-                    {
-                        $paid =$paid + ($transaction->amount);
-                    }
-                    $transactions2 = Transaction::where('invoice_id','=',$invid->invoice_id)
-                        ->where('type', '=', 'Receive')
-                        ->where('payment_method', '!=', 'Check')->get();
-                    foreach($transactions2 as $transaction)
-                    {
-                        $paid =$paid + ($transaction->amount);
-                    }
-
-                    $difference=$detailsPrice-$paid;
-                    //echo $difference; die();
-                    if($difference>0)
-                    {
-
-                        //echo 'greater than 0 difference';
-                        if($remaining_amount<=$difference)
+                        $detailsPrice = 0;
+                        $paid = 0;
+                        $saleDetails = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
+                        $transactions = Transaction::where('invoice_id','=',$invid->invoice_id)
+                            ->where('payment_method', '=', 'Check')
+                            ->where('type', '=', 'Receive')
+                            ->where('cheque_status', '=', 1)->get();
+                        $salef = Sale::find( $invid->id);
+                        foreach($saleDetails as $saleDetail)
                         {
-                            if($remaining_amount>0) {
-                                $sale = Sale::find( $invid->id);
-                                if($remaining_amount<$difference)
-                                {
-                                    $sale->status = "Partial";
+                            $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
+                            $detailsPrice = $detailsPrice + $salePriceCalculated;
+                        }
+                        $detailsPrice -= $invid->discount_percentage;
+                        foreach($transactions as $transaction)
+                        {
+                            $paid =$paid + ($transaction->amount);
+                        }
+                        $transactions2 = Transaction::where('invoice_id','=',$invid->invoice_id)
+                            ->where('type', '=', 'Receive')
+                            ->where('payment_method', '!=', 'Check')->get();
+                        foreach($transactions2 as $transaction)
+                        {
+                            $paid =$paid + ($transaction->amount);
+                        }
+
+                        $difference=$detailsPrice-$paid;
+                        //echo $difference; die();
+                        if($difference>0)
+                        {
+
+                            //echo 'greater than 0 difference';
+                            if($remaining_amount<=$difference)
+                            {
+                                if($remaining_amount>0) {
+                                    $sale = Sale::find( $invid->id);
+                                    if($remaining_amount<$difference)
+                                    {
+                                        $sale->status = "Partial";
+                                    }
+                                    elseif($remaining_amount==$difference)
+                                    {
+                                        $sale->status = "Completed";
+                                    }
+
+                                    $transaction = new Transaction();
+
+                                    $transaction->invoice_id = $invid->invoice_id;
+                                    $transaction->amount = $remaining_amount;
+                                    $transaction->type = 'Receive';
+                                    $transaction->payment_method = Input::get('payment_method');
+                                    $transaction->account_category_id = Input::get('account_category_id');
+                                    $transaction->remarks = Input::get('remarks');
+                                    $transaction->account_name_id = Input::get('account_name_id');
+                                    $transaction->user_id = Session::get('user_id');
+                                    $transaction->cheque_no = Input::get('cheque_no');
+                                    $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                    $transaction->branch_id = $branch->branch_id;
+                                    $transaction->cheque_date = Input::get('cheque_date');
+                                    $transaction->cheque_bank = Input::get('cheque_bank');
+
+                                    if ($transaction->payment_method != "Check") {
+                                        $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                        $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
+                                        $accountPayment->save();
+                                    }
+                                    $transaction->save();
+                                    $transactionId = $transaction->id;
+                                    $remaining_amount = 0;
+
                                 }
-                                elseif($remaining_amount==$difference)
-                                {
+
+                            }
+                            elseif($remaining_amount>$difference)
+                            {
+                                if($remaining_amount>0) {
+                                    $sale = Sale::find( $invid->id);
+
                                     $sale->status = "Completed";
+
+                                    $toBePaid=$remaining_amount-$difference;
+
+
+                                    $transaction = new Transaction();
+
+                                    $transaction->invoice_id = $invid->invoice_id;
+                                    $transaction->amount = $difference;
+                                    $transaction->type = 'Receive';
+                                    $transaction->payment_method = Input::get('payment_method');
+                                    $transaction->account_category_id = Input::get('account_category_id');
+                                    $transaction->remarks = Input::get('remarks');
+                                    $transaction->account_name_id = Input::get('account_name_id');
+                                    $transaction->user_id = Session::get('user_id');
+                                    $transaction->cheque_no = Input::get('cheque_no');
+                                    $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                    $transaction->branch_id = $branch->branch_id;
+                                    $transaction->cheque_date = Input::get('cheque_date');
+                                    $transaction->cheque_bank = Input::get('cheque_bank');
+
+                                    if ($transaction->payment_method != "Check") {
+                                        $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                                        $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
+                                        $accountPayment->save();
+                                    }
+                                    $transaction->save();
+                                    $transactionId = $transaction->id;
+                                    $remaining_amount = $toBePaid;
                                 }
 
-                                $transaction = new Transaction();
 
-                                $transaction->invoice_id = $invid->invoice_id;
-                                $transaction->amount = $remaining_amount;
-                                $transaction->type = 'Receive';
-                                $transaction->payment_method = Input::get('payment_method');
-                                $transaction->account_category_id = Input::get('account_category_id');
-                                $transaction->remarks = Input::get('remarks');
-                                $transaction->account_name_id = Input::get('account_name_id');
-                                $transaction->user_id = Session::get('user_id');
-                                $transaction->cheque_no = Input::get('cheque_no');
-                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
-                                $transaction->branch_id = $branch->branch_id;
-                                $transaction->cheque_date = Input::get('cheque_date');
-                                $transaction->cheque_bank = Input::get('cheque_bank');
-
-                                if ($transaction->payment_method != "Check") {
-                                    $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
-                                    $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
-                                    $accountPayment->save();
-                                }
-                                $transaction->save();
-                                $transactionId = $transaction->id;
-                                $remaining_amount = 0;
 
                             }
-
+                            $sale->save();
                         }
-                        elseif($remaining_amount>$difference)
-                        {
-                            if($remaining_amount>0) {
-                                $sale = Sale::find( $invid->id);
-
-                                $sale->status = "Completed";
-
-                                $toBePaid=$remaining_amount-$difference;
-
-
-                                $transaction = new Transaction();
-
-                                $transaction->invoice_id = $invid->invoice_id;
-                                $transaction->amount = $difference;
-                                $transaction->type = 'Receive';
-                                $transaction->payment_method = Input::get('payment_method');
-                                $transaction->account_category_id = Input::get('account_category_id');
-                                $transaction->remarks = Input::get('remarks');
-                                $transaction->account_name_id = Input::get('account_name_id');
-                                $transaction->user_id = Session::get('user_id');
-                                $transaction->cheque_no = Input::get('cheque_no');
-                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
-                                $transaction->branch_id = $branch->branch_id;
-                                $transaction->cheque_date = Input::get('cheque_date');
-                                $transaction->cheque_bank = Input::get('cheque_bank');
-
-                                if ($transaction->payment_method != "Check") {
-                                    $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
-                                    $accountPayment->opening_balance = $accountPayment->opening_balance + $difference;
-                                    $accountPayment->save();
-                                }
-                                $transaction->save();
-                                $transactionId = $transaction->id;
-                                $remaining_amount = $toBePaid;
-                            }
-
-
-
-                        }
-                        $sale->save();
                     }
+                }else{
+                    $party = Party::find($partyId);
+
+                    if($remaining_amount < $party->balance){
+                        $party->balance = $party->balance - $remaining_amount;
+                        $party->save();
+
+                        $transaction = new Transaction();
+
+                        $transaction->invoice_id = $this->generateInvoiceId();
+                        $transaction->amount = $remaining_amount;
+                        $transaction->type = 'Receive';
+                        $transaction->payment_method = Input::get('payment_method');
+                        $transaction->account_category_id = Input::get('account_category_id');
+                        $transaction->remarks = Input::get('remarks');
+                        $transaction->account_name_id = Input::get('account_name_id');
+                        $transaction->user_id = Session::get('user_id');
+                        $transaction->cheque_no = Input::get('cheque_no');
+                        $transaction->branch_id = Input::get('branch_id');
+                        $transaction->cheque_date = Input::get('cheque_date');
+                        $transaction->cheque_bank = Input::get('cheque_bank');
+
+                        if ($transaction->payment_method != "Check") {
+                            $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+                            $accountPayment->opening_balance = $accountPayment->opening_balance + $remaining_amount;
+                            $accountPayment->save();
+                        }
+                        $transaction->save();
+                        $transactionId = $transaction->id;
+                    }else{
+                        Session::flash('error', 'Sorry!! Your amount is bigger than your loan');
+                        return Redirect::to('sales/index');
+                    }
+
                 }
+
             }
             /*if($remaining_amount>0)
             {

@@ -61,7 +61,8 @@
                         <tbody>
                         <?php
                         $flag = '';
-                        $openingBalance = ($credit[0]->totalCredit - $debit[0]->totalDebit);
+
+                        $openingBalance = ($open_balance + $credit[0]->totalCredit - $debit[0]->totalDebit);
                         $balance = 0;
                         ?>
                         <tr class="odd gradeX" >
@@ -112,14 +113,8 @@
                                     ?>
                                 </td>
                                 <td  class="text-right">{{number_format($balance,2)}}</td>
-
-
                             </tr>
-
-
-
                         @endforeach
-
                         </tbody>
                     </table>
 

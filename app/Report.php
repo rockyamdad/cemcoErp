@@ -173,6 +173,7 @@ class Report extends Eloquent
     {
         return DB::table('sale_details')
             ->join('sales','sale_details.invoice_id','=','sales.invoice_id')
+            ->join('parties','sales.party_id','=','parties.id')
             ->where('sale_details.branch_id', '=', $branch_id)
             ->where('sales.is_sale', '=',1)
             ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
@@ -181,6 +182,7 @@ class Report extends Eloquent
                 'sale_details.branch_id AS branch',
                 'sale_details.invoice_id AS invoice',
                 'sales.party_id AS party',
+                'parties.balance AS partyBalance',
                 DB::raw('SUM(sales.discount_percentage) as discount_amount'),
                 DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale')
             )

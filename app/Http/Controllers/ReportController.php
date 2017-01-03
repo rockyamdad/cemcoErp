@@ -526,6 +526,7 @@ class ReportController extends Controller{
         $report = new Report();
         $results = $report->getSalesPartyLedgerReport($date1,$date2,$party_id);
         $credit = $report->getCredit($date1,$date2,$party_id);
+        $open_balance = Party::find($party_id);
         $debit = $report->getDebit($date1,$date2,$party_id);
 
         $sql = "SELECT * FROM (SELECT A.invoice_id particular, (SUM(A.price * A.quantity) - (discount) )  amount, A.created_at FROM (
@@ -548,6 +549,7 @@ ORDER BY allData.created_at";
             ->with('party_id',$party_id)
             ->with('date1',$date1)
             ->with('credit',$credit)
+            ->with('open_balance',$open_balance->balance)
             ->with('debit',$debit)
             ->with('date2',$date2);
     }
