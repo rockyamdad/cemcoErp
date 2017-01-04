@@ -626,10 +626,10 @@ class SaleController extends Controller{
             ->where('is_sale','=',1)
             ->get();
         $party = Party::find($party_id);
-
+        $totalAmount = 0;
+        $totalPrice = 0;
         if(count($partySales)>0){
-            $totalAmount = 0;
-            $totalPrice = 0;
+
             foreach ($partySales as $sale) {
 
                 $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
@@ -656,10 +656,12 @@ class SaleController extends Controller{
                 }
 
             }
-            $due = ($totalPrice + $party->balance) - $totalAmount;
+        }
+        $due = $totalPrice + $party->balance - $totalAmount;
+        if($due > 0) {
             echo "<p3 style='color: red;font-size: 114%; margin-left: 32px;'>Due is $due</p3>";
-
         }else{
+
             echo "<p3 style='color: blue;font-size: 114%; margin-left: 32px; '>No Due</p3>";
 
         }
@@ -845,7 +847,7 @@ class SaleController extends Controller{
                         $transaction->save();
                         $transactionId = $transaction->id;
                     }else{
-                        Session::flash('error', 'Sorry!! Your amount is bigger than your loan');
+                        Session::flash('error', 'Sorry!!  Amount is bigger than  loan');
                         return Redirect::to('sales/index');
                     }
 

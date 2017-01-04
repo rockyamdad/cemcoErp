@@ -270,7 +270,7 @@ class Report extends Eloquent
     {
         return DB::table('purchase_invoice_details')
             ->join('purchase_invoices','purchase_invoice_details.detail_invoice_id','=','purchase_invoices.invoice_id')
-            ->join('parties','sales.party_id','=','parties.id')
+            ->join('parties','purchase_invoices.party_id','=','parties.id')
             ->where('purchase_invoice_details.branch_id', '=', $branch_id)
             ->whereBetween('purchase_invoice_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
             ->groupBy('purchase_invoices.party_id')
