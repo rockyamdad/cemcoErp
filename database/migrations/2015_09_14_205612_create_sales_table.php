@@ -16,7 +16,7 @@ class CreateSalesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->bigInteger('invoice_id');
-			$table->unsignedInteger('party_id');
+			$table->unsignedInteger('party_id')->nullable();
 			$table->foreign('party_id')->references('id')->on('parties');
 			$table->string('status',255);
 			$table->unsignedInteger('user_id');

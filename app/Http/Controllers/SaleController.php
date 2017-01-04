@@ -75,7 +75,6 @@ class SaleController extends Controller{
         $ruless = array(
             'stock_info_id' => 'required',
             'product_type' => 'required',
-            'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
             'quantity' => 'required',
@@ -162,7 +161,12 @@ class SaleController extends Controller{
         $saleDetails->save();
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
         if(empty($hasSale[0])){
-            $sale->party_id = Input::get('party_id');
+            if(Input::get('party_id')){
+                $sale->party_id = Input::get('party_id');
+            }else{
+                $sale->cash_sale = Input::get('cash_sale');
+            }
+
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
             $sale->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH

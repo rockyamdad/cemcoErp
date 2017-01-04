@@ -60,12 +60,16 @@
                                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
                                 @if(Session::get('user_role')=='admin')
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,$saleDetails[0]->branch_id, array('class'=>'form-control branch_id_val','id'=>'edit_branch_id') )!!}
                                 </div>
                                 @endif
-                                <div class="col-md-5">
+                                <div class="col-md-3">
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
+                                </div>
+                                <div class="col-md-3">
+                                    {!!Form::text('cash_sale',null,array('placeholder' => 'Cash Sale', 'class' =>
+                                    'form-control','id'=>'edit_cash_sale'))!!}
                                 </div>
                             </div>
                             <div class="form-group">

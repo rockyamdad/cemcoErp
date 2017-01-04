@@ -106,11 +106,12 @@ jQuery(document).ready(function() {
         var stock = $.trim($('#stock_info_id').val());
         var type = $.trim($('#product_type').val());
         var party = $.trim($('#party_id').val());
+        var cash = $.trim($('#cash_sale').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
             return false;
         } else {
             return true;
@@ -151,10 +152,16 @@ jQuery(document).ready(function() {
     });
     $('#party_id').live("change", function () {
         $("#party_id").attr('readonly','readonly');
+        $("#cash_sale").attr('readonly','readonly');
+    });
+    $('#cash_sale').live("change", function () {
+        $("#party_id").attr('readonly','readonly');
+        $("#cash_sale").attr('readonly','readonly');
     });
 
 
     $("#edit_party_id").attr('readonly','readonly');
+    $("#edit_cash_sale").attr('readonly','readonly');
 
 
 

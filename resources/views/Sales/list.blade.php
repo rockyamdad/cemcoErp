@@ -89,6 +89,7 @@
                         <th>SL</th>
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
+                        <th>Cash Sale</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -108,7 +109,12 @@
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
-                                    <td>{{$sale->party->name}}</td>
+                                    <td>@if($sale->party)
+                                           {{$sale->party->name}}
+                                        @endif
+                                    </td>
+                                    <td>{{$sale->cash_sale}}
+                                    </td>
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
                                     @elseif($sale->status == 'Partial')
@@ -161,7 +167,10 @@
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
-                                    <td>{{$sale->party->name}}</td>
+                                    <td>@if($sale->party)
+                                            {{$sale->party->name}}
+                                        @endif</td>
+                                    <td>{{$sale->cash_sale}}</td>
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
                                     @elseif($sale->status == 'Partial')
