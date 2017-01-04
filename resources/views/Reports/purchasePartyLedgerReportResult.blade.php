@@ -62,7 +62,7 @@
                         <?php
                         $flag = '';
                         $balance = 0;
-                        $openingBalance = ($credit[0]->totalCredit - $debit[0]->totalDebit);
+                        $openingBalance = ($open_balance + $credit[0]->totalCredit - $debit[0]->totalDebit);
                         ?>
                         <tr class="odd gradeX" >
                             <td>Opening Balance</td>

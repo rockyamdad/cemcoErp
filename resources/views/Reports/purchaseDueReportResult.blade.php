@@ -73,7 +73,7 @@
                                     ?>
                             <tr class="odd gradeX">
                                 <td>{{$party->name}}</td>
-                                <td style="text-align: right;">{{$result->totalSale}}</td>
+                                <td style="text-align: right;">{{$result->totalSale + $result->partyBalance}}</td>
                                 <td style="text-align: right;">
                                     @if($payment[0]->totalPayment)
                                         {{$payment[0]->totalPayment}}
@@ -81,12 +81,12 @@
                                          {{0}}
                                     @endif
                                 </td>
-                                <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment}}</td>
+                                <td style="text-align: right;">{{$result->totalSale + $result->partyBalance - $payment[0]->totalPayment}}</td>
 
 
                             </tr>
                             <?php
-                            $totalSale = $totalSale + $result->totalSale;
+                            $totalSale = $totalSale + $result->totalSale + $result->partyBalance;
                             $totalPayment = $totalPayment + $payment[0]->totalPayment;
                             $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment);
                             ?>

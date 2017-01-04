@@ -87,7 +87,7 @@
                                     <td style="text-align: right;">{{$result->totalSale  + $result->partyBalance - $payment[0]->totalPayment - $result->discount_amount}}</td>
                                 </tr>
                                 <?php
-                                $totalSale = $totalSale + $result->totalSale;
+                                $totalSale = $totalSale + $result->totalSale + $result->partyBalance;
                                 $totalPayment = $totalPayment + $payment[0]->totalPayment;
                                 $totalDiscount = $totalDiscount + $result->discount_amount;
                                 $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment - $result->discount_amount);
