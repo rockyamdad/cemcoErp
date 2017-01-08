@@ -154,6 +154,8 @@ Route::post('/stock-product-search-result','SearchController@postStockProductRes
 //Report Controller
 Route::controller('reports','ReportController');
 Route::get('/stocks','ReportController@getStocks');
+Route::get('/cash-sale-report','ReportController@getCashSalesDue');
+Route::post('/cash-sale-result','ReportController@postCashSalesDueReportResult');
 Route::post('/stock-report','ReportController@postReportResult');
 Route::post('/salesreport','ReportController@postSalesereportresult');
 Route::post('/sales-details-report','ReportController@postSalesDetailsReportResult');

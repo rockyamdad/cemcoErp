@@ -596,12 +596,32 @@ ORDER BY allData.created_at";
             ->with('open_balance',$open_balance->balance)
             ->with('debit',$debit)
             ->with('date2',$date2);
-//        return view('Reports.purchasePartyLedgerReportResult',compact('results'))
-//            ->with('party_id',$party_id)
-//            ->with('date1',$date1)
-//            ->with('credit',$credit)
-//            ->with('debit',$debit)
-//            ->with('date2',$date2);
+
+    }
+
+    public function getCashSalesDue()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Reports.cashSalesDueReport')
+            ->with('branchAll',$branchAll);
+
+    }
+    public function postCashSalesDueReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
+        $report = new Report();
+        $results = $report->getCashSalesDueReport($date1,$date2,$branch_id);
+        return view('Reports.cashSalesDueReportResult',compact('results'))
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
     }
 
 
