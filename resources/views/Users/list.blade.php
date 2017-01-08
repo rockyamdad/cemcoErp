@@ -86,6 +86,8 @@
                                 Admin
                             @elseif($user->role == 'manager')
                                 Stock InCharge
+                            @elseif($user->role == 'sales_man')
+                                Sales Man
                             @else
                                 Office Manager
                             @endif

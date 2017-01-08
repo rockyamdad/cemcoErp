@@ -96,7 +96,7 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!! Form::select('role',[null=>'Please Select Role']+array('admin' => 'Admin', 'manager' =>
-                        'Stock InCharge','user'=>'Office Manager'),$userdata->role, array('class'=>'form-control'))!!}
+                        'Stock InCharge','user'=>'Office Manager','sales_man'=>'Sales Man'),$userdata->role, array('class'=>'form-control'))!!}
                     </div>
                 </div>
                 @endif

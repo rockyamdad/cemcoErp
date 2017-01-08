@@ -3,6 +3,7 @@
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
@@ -46,6 +47,25 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     public function purchaseinvoices()
     {
         return $this->hasMany('App\PurchaseInvoice');
+    }
+    public function getSalesMan()
+    {
+        $parties = DB::table('users')->where('status','=', 'Activate')
+            ->where('role','=','sales_man')
+            ->get();
+        return $parties;
+    }
+    public function getSalesManDropDown()
+    {
+        $salesMans = $this->getSalesMan();
+
+        $array = array();
+
+        foreach($salesMans as $salesMan){
+            $array[$salesMan->id] = $salesMan->name;
+        }
+
+        return $array;
     }
 
 	// test

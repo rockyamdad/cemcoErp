@@ -72,6 +72,9 @@
                                 {!!Form::text('cash_sale',null,array('placeholder' => 'Cash Sale', 'class' =>
                                 'form-control','id'=>'cash_sale'))!!}
                             </div>
+                            <div class="col-md-3">
+                                {!!Form::select('sales_man_id',[null=>'Select Sales Man'] +$salesMan,'null', array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
+                            </div>
 
                         </div>
 

@@ -71,6 +71,9 @@
                                     {!!Form::text('cash_sale',null,array('placeholder' => 'Cash Sale', 'class' =>
                                     'form-control','id'=>'edit_cash_sale'))!!}
                                 </div>
+                                <div class="col-md-3">
+                                    {!!Form::select('sales_man_id',[null=>'Select Sales Man'] +$salesMan,$sale[0]->sales_man_id, array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5">

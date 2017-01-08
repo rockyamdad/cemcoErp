@@ -18,6 +18,7 @@ use App\StockInfo;
 use App\StockInvoice;
 use App\SubCategory;
 use App\Transaction;
+use App\User;
 use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
@@ -54,6 +55,8 @@ class SaleController extends Controller{
     {
         $buyers = new Party();
         $buyersAll = $buyers->getBuyersDropDown();
+        $user = new User();
+        $salesMan = $user->getSalesManDropDown();
         $products = new Product();
         $finishGoods = $products->getFinishGoodsDropDown();
         $stockInfos = new StockInfo();
@@ -62,11 +65,11 @@ class SaleController extends Controller{
         $branchAll = $branches->getBranchesDropDown();
     // Invoice Id Generation Starts
         $invoiceid =$this->generateInvoiceId();
-        var_dump($invoiceid);
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
             ->with('branchAll',$branchAll)
+            ->with('salesMan',$salesMan)
             ->with('invoiceid',$invoiceid)
             ->with('allStockInfos',$allStockInfos);
     }
@@ -149,6 +152,7 @@ class SaleController extends Controller{
         $saleDetails->invoice_id = Input::get('invoice_id');
         $saleDetails->product_id = Input::get('product_id');
 
+
         if(Session::get('user_role') == 'admin'){
             $saleDetails->branch_id = Input::get('branch_id');
         }else{
@@ -166,7 +170,7 @@ class SaleController extends Controller{
             }else{
                 $sale->cash_sale = Input::get('cash_sale');
             }
-
+            $sale->sales_man_id = Input::get('sales_man_id');
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
             $sale->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
