@@ -54,7 +54,7 @@ class UserController extends Controller{
             ->where('cheque_status','=',0)
             ->orderBy('id', 'desc')
             ->get();
-        //var_dump($stockRequisitions);
+
         return view('Users.dashboard')
             ->with('latestTransactions',$latestTransactions)
             ->with('totalProducts',$totalProducts)

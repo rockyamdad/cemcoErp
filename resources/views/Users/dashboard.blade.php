@@ -54,7 +54,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+{{--        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat purple">
                 <div class="visual">
                     <i class="fa fa-level-down"></i>
@@ -83,7 +83,7 @@
                     View more <i class="m-icon-swapright m-icon-white"></i>
                 </a>
             </div>
-        </div>
+        </div>--}}
 
 
 </div>
@@ -612,6 +612,94 @@
                     <div class="pull-right">
                         <a href="{{URL::to('requisitions/')}}">See All Records <i class="m-icon-swapright m-icon-gray"></i></a> &nbsp;
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Today's Sales</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Branch Name</th>
+                            <th>Sales Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $slNo = 1;
+                        ?>
+                        @foreach($totalSales as $sale)
+                            <tr>
+                                <td>{{$slNo}}</td>
+                                <td>{{$sale->branch}}</td>
+                                <td>{{$sale->todaySale}}</td>
+                            </tr>
+                            <?php
+                            $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+    <div class="col-md-6">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Today's Purchase</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Branch Name</th>
+                            <th>Purchase Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $slNo = 1;
+                        ?>
+                        @foreach($totalPurchase as $purchase)
+                            <tr>
+                                <td>{{$slNo}}</td>
+                                <td>{{$purchase->branch}}</td>
+                                <td>{{$purchase->todayPurchase}}</td>
+                            </tr>
+                            <?php
+                            $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

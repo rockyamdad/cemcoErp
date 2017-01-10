@@ -96,8 +96,9 @@ class AccountNameController extends Controller{
 
     private function setAccountNameData($accountNames)
     {
+
         $accountNames->name = Input::get('name');
-        if(Session::get('branch_role' == 'admin')){
+        if(Session::get('user_role') == 'admin'){
             $accountNames->branch_id = Input::get('branch_id');
         }else{
             $accountNames->branch_id = Session::get('user_branch');

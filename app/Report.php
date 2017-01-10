@@ -504,9 +504,12 @@ class Report extends Eloquent
     public function getTotalSalesToday()
     {
         return DB::table('transactions')
+            ->join('branches', 'branches.id', '=', 'transactions.branch_id')
             ->where('transactions.type', '=', 'Receive')
             ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->groupBy('transactions.branch_id')
             ->select(
+                'branches.name AS branch',
                 DB::raw('SUM(transactions.amount) as todaySale')
             )
             ->get();
@@ -514,8 +517,10 @@ class Report extends Eloquent
     public function getTotalPurchaseToday()
     {
         return DB::table('transactions')
+            ->join('branches', 'branches.id', '=', 'transactions.branch_id')
             ->where('transactions.type', '=', 'Payment')
             ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->groupBy('transactions.branch_id')
             ->select(
                 DB::raw('SUM(transactions.amount) as todayPurchase')
             )
