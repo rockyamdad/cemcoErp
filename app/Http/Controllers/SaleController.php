@@ -101,6 +101,8 @@ class SaleController extends Controller{
         $products = new Product();
         $finishGoods = $products->getFinishGoodsDropDown();
         $stockInfos = new StockInfo();
+        $user = new User();
+        $salesMan = $user->getSalesManDropDown();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
@@ -116,6 +118,7 @@ class SaleController extends Controller{
             ->with('finishGoods',$finishGoods)
             ->with('saleDetails',$saleDetails)
             ->with('sale',$var)
+            ->with('salesMan',$salesMan)
             ->with('branchAll',$branchAll)
             ->with('allStockInfos',$allStockInfos);
 
@@ -165,10 +168,11 @@ class SaleController extends Controller{
         $saleDetails->save();
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
         if(empty($hasSale[0])){
+
             if(Input::get('party_id')){
                 $sale->party_id = Input::get('party_id');
             }else{
-                $sale->cash_sale = Input::get('cash_sale');
+                $sale->sales_man_id = Input::get('cash_sale');
             }
             $sale->sales_man_id = Input::get('sales_man_id');
             $sale->status = "Activate";

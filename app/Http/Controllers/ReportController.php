@@ -624,5 +624,31 @@ ORDER BY allData.created_at";
             ->with('date2',$date2);
     }
 
+    public function getSalesManSalesReport()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Reports.salesManSalesReport')
+            ->with('branchAll',$branchAll);
+
+    }
+    public function postSalesManSalesReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
+        $report = new Report();
+        $results = $report->getSalesManSalesReport($date1,$date2,$branch_id);
+
+        return view('Reports.salesManSalesReportResult',compact('results'))
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
+
 
 }

@@ -174,6 +174,8 @@ Route::post('/sales-return-report','ReportController@postSalesReturnReportResult
 Route::post('/sales-return-details-report','ReportController@postSalesReturnDetailsReportResult');
 Route::post('/sales-party-ledger','ReportController@postSalesPartyLedgerReportResult');
 Route::post('/purchase-party-ledger','ReportController@postPurchasePartyLedgerReportResult');
+Route::get('/reports/sales-man-sales-report','ReportController@getSalesManSalesReport');
+Route::post('/reports/sales-man-sales-report-result','ReportController@postSalesManSalesReportResult');
 
 //Balance Controller
 Route::controller('balancetransfers','BalanceTransferController');

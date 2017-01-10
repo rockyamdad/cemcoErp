@@ -418,6 +418,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('reports/salesreport'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesreport') }}">Periodic Sales Report</a>
                     </li>
+                        <li style="background-color: #006666"
+                            @if (Request::is('reports/sales-man-sales-report'))class="active"@endif>
+                            <a href="{{ URL::to('reports/sales-man-sales-report') }}">Sales Man Sales Report</a>
+                        </li>
                     <li style="background-color: #006666"
                             @if (Request::is('reports/salesdetails'))class="active"@endif>
                         <a href="{{ URL::to('reports/salesdetails') }}">Sales Details Report</a>

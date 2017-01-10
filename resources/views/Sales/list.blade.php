@@ -90,6 +90,7 @@
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
                         <th>Cash Sale</th>
+                        <th>Sales Man</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -104,6 +105,8 @@
                         @foreach($saleInvoice as $sale )
                             <?php
                             $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                            $saleMan = \App\User::find($sale->sales_man_id);
+
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
@@ -114,6 +117,10 @@
                                         @endif
                                     </td>
                                     <td>{{$sale->cash_sale}}
+                                    </td>
+                                    <td>@if($saleMan)
+                                            {{$saleMan->username}}
+                                        @endif
                                     </td>
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
@@ -162,6 +169,7 @@
                         @foreach($sales as $sale )
                             <?php
                             $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                            $saleMan = \App\User::find($sale->sales_man_id);
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
@@ -171,6 +179,10 @@
                                             {{$sale->party->name}}
                                         @endif</td>
                                     <td>{{$sale->cash_sale}}</td>
+                                    <td>@if($saleMan)
+                                            {{$saleMan->username}}
+                                        @endif
+                                    </td>
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
                                     @elseif($sale->status == 'Partial')
