@@ -103,6 +103,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!! HTML::decode(Form::label('min_level','Min Level',array('class' =>
+                    'control-label col-md-3'))) !!}
+                    <div class="col-md-4">
+                        {!!Form::text('min_level',null,array('placeholder' => 'Min Level', 'class' => 'form-control'))!!}
+                    </div>
+                </div>
+                <div class="form-group">
                     {!! HTML::decode(Form::label('hs_code','HS Code<span class="required">*</span>',array('class' =>
                     'control-label col-md-3'))) !!}
                     <div class="col-md-4">

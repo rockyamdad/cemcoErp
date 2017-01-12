@@ -87,6 +87,7 @@
                         <th>Sub Category</th>
 
                         <th>Price</th>
+                        <th>Min Level</th>
                         <th>Created By</th>
                         @if(Session::get('user_role') == 'admin')
                         <th width="200px;">Action</th>
@@ -115,6 +116,7 @@
                                 @endif
 
                                 <td>{{$product->price}}</td>
+                                <td>{{$product->min_level}}</td>
                                 <td>{{$product->user->username}}</td>
                                 @if(Session::get('user_role') == 'admin')
                                 <td>
@@ -150,6 +152,7 @@
                                 @endif
 
                                 <td>{{$product->price}}</td>
+                                <td>{{$product->min_level}}</td>
                                 <td>{{$product->user->username}}</td>
                                 @if(Session::get('user_role') == 'admin')
                                 <td>
