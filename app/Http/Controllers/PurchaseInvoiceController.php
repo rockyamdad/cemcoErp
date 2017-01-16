@@ -187,6 +187,23 @@ class PurchaseInvoiceController extends Controller{
         $purchaseDetails->product_type = Input::get('product_type');
         $purchaseDetails->remarks = Input::get('remarks');
         $purchaseDetails->save();
+
+        $stock_Count = StockCount::where('product_id','=', $purchaseDetails->product_id)
+            ->where('stock_info_id','=',$purchaseDetails->stock_info_id)
+            ->get();
+
+        if(empty($stock_Count[0]))
+        {
+            $stock_Count = new StockCount();
+            $stock_Count->product_id = Input::get('product_id');
+            $stock_Count->stock_info_id = Input::get('stock_info_id');
+            $stock_Count->product_quantity = Input::get('quantity');
+            $stock_Count->save();
+        }else{
+            $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + Input::get('quantity');
+            $stock_Count[0]->save();
+        }
+
         $hasInvoice = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->get();
         if(empty($hasInvoice[0])){
             $purchases->party_id = Input::get('party_id');

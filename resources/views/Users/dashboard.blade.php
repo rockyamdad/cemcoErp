@@ -706,6 +706,58 @@
         <!-- END SAMPLE TABLE PORTLET-->
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box yellow">
+            <div class="portlet-title">
+                <div class="caption"><i class="fa fa-cogs"></i>Minimum Product Quantity Branch Wise</div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"></a>
+                    <a href="javascript:;" class="reload"></a>
+                    <a href="javascript:;" class="remove"></a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Branch Name</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>MInimum Level</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $slNo = 1;
+                        ?>
+                        @foreach($results as $result)
+                            <?php
+                            $branch = \App\Branch::find($result->branch_id);
+                            ?>
+                            <tr>
+                                <td>{{$slNo}}</td>
+                                <td>{{$branch->name}}</td>
+                                <td>{{$result->name}}</td>
+                                <td>{{$result->quantity}}</td>
+                                <td>{{$result->min_level}}</td>
+                            </tr>
+                            <?php
+                            $slNo++;
+                            ?>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>
 
     <style>
         @-webkit-keyframes blink {

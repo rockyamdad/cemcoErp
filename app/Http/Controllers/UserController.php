@@ -39,6 +39,7 @@ class UserController extends Controller{
         $accountsBalance = $reports->getAccountBalances();
         $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
         $stocksBranch = $reports->getStocksBranch();
+        $results = $reports->getProductsCountReportBranchWise();
         $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();
         $latestTransactions = Transaction::orderBy('id','desc')->take(5)->get();;
         $register = Transaction::where('payment_method','=','check')
@@ -65,6 +66,7 @@ class UserController extends Controller{
             ->with('accountBalanceTransfers',$accountBalanceTransfers)
             ->with('totalPurchase',$totalPurchase)
             ->with('totalImports',$totalImports)
+            ->with('results',$results)
             ->with('register',$register)
             ->with('purchaseregister',$purchaseregister);
     }

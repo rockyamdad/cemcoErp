@@ -175,7 +175,9 @@ Route::post('/sales-return-details-report','ReportController@postSalesReturnDeta
 Route::post('/sales-party-ledger','ReportController@postSalesPartyLedgerReportResult');
 Route::post('/purchase-party-ledger','ReportController@postPurchasePartyLedgerReportResult');
 Route::get('/reports/sales-man-sales-report','ReportController@getSalesManSalesReport');
+Route::get('/product-count-report','ReportController@getBranchProductCountReport');
 Route::post('/reports/sales-man-sales-report-result','ReportController@postSalesManSalesReportResult');
+Route::post('/product-count-report-result','ReportController@postBranchProductCountReportResult');
 
 //Balance Controller
 Route::controller('balancetransfers','BalanceTransferController');

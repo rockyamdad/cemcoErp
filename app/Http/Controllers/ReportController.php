@@ -649,6 +649,33 @@ ORDER BY allData.created_at";
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
+    public function getBranchProductCountReport()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        return view('Reports.branchProductReport')
+            ->with('branchAll',$branchAll);
+
+    }
+    public function postBranchProductCountReportResult()
+    {
+        $date1 = Input::get('from_date');
+        $date2 = Input::get('to_date');
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
+        $date3 = date('Y-m-d', strtotime($date1));
+        $date4 = date('Y-m-d', strtotime($date2));
+        $report = new Report();
+        $results = $report->getProductsCountReport($date3,$date4,$branch_id);
+
+        return view('Reports.productCountReportResult',compact('results'))
+            ->with('branch_id',$branch_id)
+            ->with('date1',$date1)
+            ->with('date2',$date2);
+    }
 
 
 }
