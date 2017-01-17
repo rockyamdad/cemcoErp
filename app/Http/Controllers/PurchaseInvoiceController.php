@@ -10,7 +10,9 @@ use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\StockCount;
+use App\StockDetail;
 use App\StockInfo;
+use App\StockInvoice;
 use App\SubCategory;
 use App\Transaction;
 use Exception;
@@ -213,6 +215,31 @@ class PurchaseInvoiceController extends Controller{
             $purchases->save();
         }
 
+        $stockInvoces = new StockInvoice();
+        $stockInvoiceId= StockInvoice::generateInvoiceId();
+        $stockInvoces->branch_id = Input::get('branch_id');
+        $stockInvoces->status = 'Activate';
+        $stockInvoces->remarks = '';
+        $stockInvoces->user_id = Session::get('user_id');
+        $stockInvoces->invoice_id = $stockInvoiceId;
+
+        $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
+            ->get();
+        if (empty($stock_invoices_check[0]))
+            $stockInvoces->save();
+
+
+        $stock = new StockDetail();
+        $stock->branch_id = Input::get('branch_id');
+        $stock->product_id =Input::get('product_id');
+        $stock->product_type =  Input::get('product_type');
+        $stock->quantity = Input::get('quantity');
+        $stock->entry_type = "StockIn";
+        $stock->remarks = Input::get('remarks');
+        $stock->invoice_id = $stockInvoiceId;
+        $stock->stock_info_id = Input::get('stock_info_id');
+        $stock->save();
+
         $purchaseInvoiceDetails = PurchaseInvoiceDetail::find($purchaseDetails->id);
         $list = $this->purchaseInvoiceDetailConvertToArray($purchaseInvoiceDetails);
         return $list;
@@ -375,6 +402,13 @@ class PurchaseInvoiceController extends Controller{
         $purchase = PurchaseInvoiceDetail::find($id);
         $purchase->delete();
 
+        $stock_Count = StockCount::where('product_id','=', $purchase->product_id)
+            ->where('stock_info_id','=',$purchase->stock_info_id)
+            ->get();
+
+        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchase->quantity;
+        $stock_Count[0]->save();
+
         $message = array('Purchase Invoice  Successfully Deleted');
         return new JsonResponse($message);
     }
@@ -382,7 +416,15 @@ class PurchaseInvoiceController extends Controller{
     {
         $purchaseDetail = PurchaseInvoiceDetail::find($id);
         $purchaseDetail->delete();
-        Session::flash('message', 'Purchase Detail  Successfully Deleted');
+
+        $stock_Count = StockCount::where('product_id','=', $purchaseDetail->product_id)
+            ->where('stock_info_id','=',$purchaseDetail->stock_info_id)
+            ->get();
+
+        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchaseDetail->quantity;
+        $stock_Count[0]->save();
+
+        Session::flash('error', 'Purchase Detail  Successfully Deleted');
         return Redirect::to('purchases/index');
     }
     public function getDeleteTransaction($id)
@@ -398,10 +440,20 @@ class PurchaseInvoiceController extends Controller{
     }
     public function getDel($id)
     {
+        $purchases =  PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->get();
         PurchaseInvoice::where('invoice_id','=',$id)->delete();
         PurchaseInvoiceDetail::where('detail_invoice_id','=',$id)->delete();
 
-        Session::flash('message', 'Purchase Invoice has been Successfully Deleted.');
+        foreach($purchases as $purchase)
+        {
+            $stock_Count = StockCount::where('product_id','=', $purchase->product_id)
+                ->where('stock_info_id','=',$purchase->stock_info_id)
+                ->get();
+
+                $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchase->quantity;
+                $stock_Count[0]->save();
+        }
+        Session::flash('error', 'Purchase Invoice has been Successfully Deleted.');
 
         return Redirect::to('purchases/index');
     }
