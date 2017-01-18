@@ -116,6 +116,7 @@ jQuery(document).ready(function() {
                     if(stock.entry_type == "StockIn") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         html.push('<td>' + stock.consignment_name + '</td>');
                         if( stock.remarks == ''){
                             html.push('<td>' + "Not Available" + '</td>');
@@ -352,9 +353,9 @@ jQuery(document).ready(function() {
 
 
     $('.deleteStockDetail2').live("click", function() {
-
         var stockDetailId = $(this).attr('rel');
         var parent = $(this).closest('tr');
+
         var answer     = confirm("Are you sure you want to delete this Stock Detail?");
         if(answer) {
             $.ajax({
@@ -362,13 +363,16 @@ jQuery(document).ready(function() {
                 url: "../delete/"+stockDetailId,
                 dateType: 'json',
                 success: function (data) {
-                    //alert(data);
+                    console.log(data);
                     parent.remove();
-                    if(data != '')
+                    if(data == ''){
+                        window.history.back();
                         location.reload();
+                    }
                 }
             });
         }
     });
+
 
 });

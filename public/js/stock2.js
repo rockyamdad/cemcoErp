@@ -121,6 +121,7 @@ jQuery(document).ready(function() {
                     if (stock.entry_type == "StockIn") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         html.push('<td>' + stock.consignment_name + '</td>');
                         if (stock.remarks == '') {
                             html.push('<td>' + "Not Available" + '</td>');
@@ -130,10 +131,12 @@ jQuery(document).ready(function() {
                     } else if (stock.entry_type == "StockOut") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         html.push('<td>' + stock.remarks + '</td>');
                     } else if (stock.entry_type == "StockOut" || stock.entry_type == "Wastage") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         if (stock.remarks == '') {
                             html.push('<td>' + "Not Available" + '</td>');
                         } else {

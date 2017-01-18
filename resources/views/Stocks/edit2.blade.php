@@ -88,6 +88,7 @@
                                     <tr>
                                         <th width="">Product Name</th>
                                         <th width="">Quantity</th>
+                                        <th width="">Price</th>
                                         <th width=""  class="consignment_name_section" @if($stockDetails->entry_type != 'StockIn') style="display:none;" @endif >Consignment Name</th>
                                         <th width="" class="to_stock_section" @if($stockDetails->entry_type != 'Transfer') style="display:none;" @endif  >To Stock</th>
                                         <th width="">Remarks</th>
@@ -98,7 +99,9 @@
                                     <tbody>
 
                                     </tbody>
-                                    <?php foreach ($stockDetails2 as $stckDetail) {
+                                    <?php
+                                        if(!empty($stockDetails2)){
+                                    foreach ($stockDetails2 as $stckDetail) {
                                     $productsName2 = App\Product::find($stockDetails->product_id);
                                     $category = $productsName2->category->name;
                                     $subCategoryName = '';
@@ -114,6 +117,9 @@
                                         <td>
                                             <?php echo $stckDetail->quantity; ?>
                                         </td>
+                                        <td>
+                                            <?php echo $stckDetail->price; ?>
+                                        </td>
 
                                         <td  class="consignment_name_section"  @if($stockDetails->entry_type != 'StockIn') style="display:none;" @endif>
                                             <?php echo $stckDetail->consignment_name; ?>
@@ -127,10 +133,13 @@
                                             <?php echo $stckDetail->remarks ?>
                                         </td>
                                         <td>
-                                            <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel='{{$stockDetails->id}}' >
+                                            <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel='{{$stckDetail->id}}' >
                                         </td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
 
 
                                     <tr class="clone_">
@@ -163,6 +172,14 @@
                                                 <div class="form-group">
                                                     {!!Form::text('product_quantity',null,array('placeholder' => 'Product Quantity', 'id' => 'product_quantity','class' =>
                                  'form-control'))!!}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    {!!Form::text('price',null,array('placeholder' => 'Price', 'id' => 'price','class' =>
+                                                    'form-control'))!!}
                                                 </div>
                                             </div>
                                         </td>

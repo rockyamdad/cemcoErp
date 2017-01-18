@@ -205,9 +205,20 @@ class SaleController extends Controller{
     }
     public function getDelete($id)
     {
+        $sales =  SAleDetail::where('invoice_id','=',$id)->get();
         Sale::where('invoice_id','=',$id)->delete();
         SAleDetail::where('invoice_id','=',$id)->delete();
 
+        foreach($sales as $sale)
+        {
+            $stock_Count = StockCount::where('product_id','=', $sale->product_id)
+                ->where('stock_info_id','=',$sale->stock_info_id)
+                ->get();
+
+            $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $sale->quantity;
+            $stock_Count[0]->total_price = $stock_Count[0]->total_price + ($sale->quantity * $sale->price);
+            $stock_Count[0]->save();
+        }
         Session::flash('message', 'Sale has been Successfully Deleted.');
         return Redirect::to('sales/index');
     }
@@ -354,6 +365,14 @@ class SaleController extends Controller{
     {
         $saleDetail = SAleDetail::find($id);
         $saleDetail->delete();
+
+        $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
+            ->where('stock_info_id','=',$saleDetail->stock_info_id)
+            ->get();
+
+        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $saleDetail->quantity;
+        $stock_Count[0]->total_price = $stock_Count[0]->total_price + ($saleDetail->quantity*$saleDetail->price);
+        $stock_Count[0]->save();
         $message = array('Sale Detail   Successfully Deleted');
         return new JsonResponse($message);
     }
@@ -365,20 +384,8 @@ class SaleController extends Controller{
 
         $stockInvoiceId= StockInvoice::generateInvoiceId();
 
-
         foreach($saleDetails as $saleDetail)
         {
-
-            //$stock->status = "Activate";
-
-//           $stockDetails->branch_id = Input::get('branch_id');
-//           $stockDetails->product_id = Input::get('product_id');
-//           $stockDetails->entry_type = Input::get('entry_type');
-//           $stockDetails->product_type = Input::get('product_type');
-//           $stockDetails->stock_info_id = Input::get('stock_info_id');
-//           $stockDetails->remarks = Input::get('remarks');
-//           $stockDetails->invoice_id = Input::get('invoice_id');
-//           $stockDetails->quantity = Input::get('product_quantity');
 
             $stock_Count = StockCount::where('product_id','=',$saleDetail->product_id)
                 ->where('stock_info_id','=',$saleDetail->stock_info_id)
@@ -419,20 +426,11 @@ class SaleController extends Controller{
                 $stock->product_id = $saleDetail->product_id;
                 $stock->product_type = $saleDetail->product_type;
                 $stock->quantity = $saleDetail->quantity;
+                $stock->price = $saleDetail->price;
                 $stock->entry_type = "StockOut";
                 $stock->remarks = $saleDetail->remarks;
                 $stock->invoice_id = $stockInvoiceId;
                 $stock->stock_info_id = $saleDetail->stock_info_id;
-                //$stock->status = "Activate";
-
-//           $stockDetails->branch_id = Input::get('branch_id');
-//           $stockDetails->product_id = Input::get('product_id');
-//           $stockDetails->entry_type = Input::get('entry_type');
-//           $stockDetails->product_type = Input::get('product_type');
-//           $stockDetails->stock_info_id = Input::get('stock_info_id');
-//           $stockDetails->remarks = Input::get('remarks');
-//           $stockDetails->invoice_id = Input::get('invoice_id');
-//           $stockDetails->quantity = Input::get('product_quantity');
 
                 $stock_Count = StockCount::where('product_id', '=', $saleDetail->product_id)
                     ->where('stock_info_id', '=', $saleDetail->stock_info_id)
@@ -441,6 +439,7 @@ class SaleController extends Controller{
                 if (!empty($stock_Count[0])) {
                     if ($stock_Count[0]->product_quantity >= $stock->quantity) {
                         $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $stock->quantity;
+                        $stock_Count[0]->total_price = $stock_Count[0]->total_price - ($stock->price*$stock->quantity);
                         //$stock->save();
                         $stock_Count[0]->save();
                         $stock->save();

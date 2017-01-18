@@ -89,6 +89,7 @@
                                 <tr>
                                     <th width="">Product Name</th>
                                     <th width="">Quantity</th>
+                                    <th width="">Price</th>
                                     <th width=""  class="consignment_name_section">Consignment Name</th>
                                     <th width="" class="to_stock_section">To Stock</th>
                                     <th width="">Remarks</th>
@@ -115,6 +116,14 @@
                                             <div class="form-group">
                                                 {!!Form::text('product_quantity',null,array('placeholder' => 'Product Quantity', 'id' => 'product_quantity','class' =>
                              'form-control'))!!}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-body">
+                                            <div class="form-group">
+                                                {!!Form::text('price',null,array('placeholder' => 'Price', 'id' => 'price','class' =>
+                                                'form-control'))!!}
                                             </div>
                                         </div>
                                     </td>
