@@ -275,7 +275,10 @@ class StockController extends Controller{
         $productsName = Product::where('product_type','=',$stockDetails->product_type)
             ->where('branch_id','=',$stockDetails->branch_id)
             ->get();
-
+   /*     $stockDetailsCheck = StockDetail::where('invoice_id','=',$id)->get();
+        if(count($stockDetailsCheck) < 1){
+            return Redirect::to('stocks/index');
+        }*/
 
 
 

@@ -200,9 +200,11 @@ class PurchaseInvoiceController extends Controller{
             $stock_Count->product_id = Input::get('product_id');
             $stock_Count->stock_info_id = Input::get('stock_info_id');
             $stock_Count->product_quantity = Input::get('quantity');
+            $stock_Count->total_price = Input::get('quantity')*Input::get('price') ;
             $stock_Count->save();
         }else{
             $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + Input::get('quantity');
+            $stock_Count[0]->total_price = $stock_Count[0]->total_price + (Input::get('quantity')*Input::get('price'));
             $stock_Count[0]->save();
         }
 
@@ -234,6 +236,7 @@ class PurchaseInvoiceController extends Controller{
         $stock->product_id =Input::get('product_id');
         $stock->product_type =  Input::get('product_type');
         $stock->quantity = Input::get('quantity');
+        $stock->price = Input::get('price');
         $stock->entry_type = "StockIn";
         $stock->remarks = Input::get('remarks');
         $stock->invoice_id = $stockInvoiceId;
@@ -407,6 +410,7 @@ class PurchaseInvoiceController extends Controller{
             ->get();
 
         $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchase->quantity;
+        $stock_Count[0]->total_price = $stock_Count[0]->total_price - ($purchase->quantity*$purchase->price);
         $stock_Count[0]->save();
 
         $message = array('Purchase Invoice  Successfully Deleted');
@@ -422,6 +426,7 @@ class PurchaseInvoiceController extends Controller{
             ->get();
 
         $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchaseDetail->quantity;
+        $stock_Count[0]->total_price = $stock_Count[0]->total_price - ($purchaseDetail->quantity*$purchaseDetail->price);
         $stock_Count[0]->save();
 
         Session::flash('error', 'Purchase Detail  Successfully Deleted');
@@ -450,8 +455,9 @@ class PurchaseInvoiceController extends Controller{
                 ->where('stock_info_id','=',$purchase->stock_info_id)
                 ->get();
 
-                $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchase->quantity;
-                $stock_Count[0]->save();
+            $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $purchase->quantity;
+            $stock_Count[0]->total_price = $stock_Count[0]->total_price - ($purchase->quantity*$purchase->price);
+            $stock_Count[0]->save();
         }
         Session::flash('error', 'Purchase Invoice has been Successfully Deleted.');
 

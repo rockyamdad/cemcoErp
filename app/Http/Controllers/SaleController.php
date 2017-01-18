@@ -205,11 +205,11 @@ class SaleController extends Controller{
     }
     public function getDelete($id)
     {
-        $sales =  SAleDetail::where('invoice_id','=',$id)->get();
+       // $sales =  SAleDetail::where('invoice_id','=',$id)->get();
         Sale::where('invoice_id','=',$id)->delete();
         SAleDetail::where('invoice_id','=',$id)->delete();
 
-        foreach($sales as $sale)
+  /*      foreach($sales as $sale)
         {
             $stock_Count = StockCount::where('product_id','=', $sale->product_id)
                 ->where('stock_info_id','=',$sale->stock_info_id)
@@ -218,8 +218,8 @@ class SaleController extends Controller{
             $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $sale->quantity;
             $stock_Count[0]->total_price = $stock_Count[0]->total_price + ($sale->quantity * $sale->price);
             $stock_Count[0]->save();
-        }
-        Session::flash('message', 'Sale has been Successfully Deleted.');
+        }*/
+        Session::flash('error', 'Sale has been Successfully Deleted.');
         return Redirect::to('sales/index');
     }
     public function getDetails($invoiceId)
@@ -366,13 +366,13 @@ class SaleController extends Controller{
         $saleDetail = SAleDetail::find($id);
         $saleDetail->delete();
 
-        $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
+    /*    $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
             ->where('stock_info_id','=',$saleDetail->stock_info_id)
             ->get();
 
         $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $saleDetail->quantity;
         $stock_Count[0]->total_price = $stock_Count[0]->total_price + ($saleDetail->quantity*$saleDetail->price);
-        $stock_Count[0]->save();
+        $stock_Count[0]->save();*/
         $message = array('Sale Detail   Successfully Deleted');
         return new JsonResponse($message);
     }
