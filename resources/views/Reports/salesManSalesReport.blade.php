@@ -40,7 +40,14 @@
                         </div>
                     </div>
                     @endif
-
+                    <div class="form-group">
+                        {!!HTML::decode(Form::label('sales_man_id','Choose Sales Man<span class="required">*</span>',array('class'
+                        => 'control-label col-md-3')))!!}
+                        <div class="col-md-4">
+                            {!!Form::select('sales_man_id',[null=>'Please Select Sales Man'] +$salesMan,'null',
+                            array('class'=>'form-control ','id'=>'sales_man') )!!}
+                        </div>
+                    </div>
                     <div class="form-group">
 
                         {!!HTML::decode(Form::label('from_date','From:',array('class' =>

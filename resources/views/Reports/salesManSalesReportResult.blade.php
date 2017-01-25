@@ -63,9 +63,10 @@
                         <tr>
 
                             <th>Sales Man</th>
-                            <th style="text-align: right;">Total Sale</th>
-                            <th style="text-align: right;">Total Payment </th>
-                            <th style="text-align: right;">Due</th>
+                            <th>Invoice Id</th>
+                            <th style="text-align: right;">invoice Total </th>
+                            <th style="text-align: right;">invoice Payment </th>
+                            <th style="text-align: right;">invoice Due</th>
 
                         </tr>
                         </thead>
@@ -80,19 +81,18 @@
                             <?php
                                 $payment = 0;
                                 $salesMan = \App\User::find($result->salesMan);
-                                $sales = \App\Sale::where('is_sale','=',1)
+                             {{--   $sales = \App\Sale::where('is_sale','=',1)
                                         ->where('sales_man_id','=',$result->salesMan)
-                                        ->get();
-                                    foreach($sales as $sale){
-                                        $reports = new \App\Report();
-                                        $paymentSales = $reports->getPaymentForSalesReport($date1,$date2,$sale->invoice_id);
-                                       $payment = $payment + $paymentSales[0]->totalPayment;
-                                    }
+                                        ->get();--}}
+                            $reports = new \App\Report();
+                            $paymentSales = $reports->getPaymentForSalesReport($date1,$date2,$result->invoice);
+                            $payment = $payment + $paymentSales[0]->totalPayment;
 
                             ?>
 
                             <tr class="odd gradeX">
                                 <td>{{$salesMan->username}}</td>
+                                <td>{{$result->invoice}}</td>
                                 <td style="text-align: right;">{{$result->totalSale-$result->discount_amount}}</td>
                                 <td style="text-align: right;">
                                         {{$payment}}
@@ -109,6 +109,7 @@
                         @endforeach
                         <tr>
                             <td><b>Grand Total</b></td>
+                            <td><b></b></td>
                             <td style="text-align: right;">{{$totalSale}}</td>
                             <td style="text-align: right;">{{$totalPayment}}</td>
                             <td style="text-align: right;">{{$totalDue}}</td>

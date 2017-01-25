@@ -10,6 +10,7 @@ use App\Report;
 use App\Search;
 use App\Stock;
 use App\StockInfo;
+use App\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -629,7 +630,10 @@ ORDER BY allData.created_at";
     {
         $branches = new Branch();
         $branchAll = $branches->getBranchesDropDown();
+        $user = new User();
+        $salesMan = $user->getSalesManDropDown();
         return view('Reports.salesManSalesReport')
+            ->with('salesMan',$salesMan)
             ->with('branchAll',$branchAll);
 
     }
@@ -637,16 +641,18 @@ ORDER BY allData.created_at";
     {
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
+        $salesMan = Input::get('sales_man_id');
         if(Session::get('user_role')=='admin'){
             $branch_id = Input::get('branch_id');
         }else{
             $branch_id = Session::get('user_branch');
         }
         $report = new Report();
-        $results = $report->getSalesManSalesReport($date1,$date2,$branch_id);
+        $results = $report->getSalesManSalesReport($date1,$date2,$branch_id,$salesMan);
 
         return view('Reports.salesManSalesReportResult',compact('results'))
             ->with('branch_id',$branch_id)
+            ->with('salesMan',$salesMan)
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
