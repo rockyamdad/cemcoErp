@@ -466,6 +466,16 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getBalanceTransferFullReportByBranch($branch)
+    {
+        return DB::table('balance_transfers')
+            ->where('from_account_name_id', '=',$branch)
+            ->groupBy('balance_transfers.from_account_name_id')
+            ->select(
+                'balance_transfers.from_account_name_id AS fromAccount'
+            )
+            ->get();
+    }
     public function getBalanceTransferForFromAccount($account_id)
     {
         return DB::table('balance_transfers')
@@ -493,9 +503,25 @@ class Report extends Eloquent
         $totalQuantity = DB::table('products')->count();
         return $totalQuantity;
     }
+    public function getTotalProductsByBranch($branch)
+    {
+        $totalQuantity = DB::table('products')
+            ->where('branch_id', '=',$branch)
+            ->count();
+        return $totalQuantity;
+    }
     public function getTotalImports()
     {
         return DB::table('imports')
+            ->select(
+                DB::raw('COUNT(imports.import_num) as totalImport')
+            )
+            ->get();
+    }
+    public function getTotalImportsByBranch($branch)
+    {
+        return DB::table('imports')
+            ->where('branch_id', '=',$branch)
             ->select(
                 DB::raw('COUNT(imports.import_num) as totalImport')
             )
@@ -506,6 +532,20 @@ class Report extends Eloquent
         return DB::table('transactions')
             ->join('branches', 'branches.id', '=', 'transactions.branch_id')
             ->where('transactions.type', '=', 'Receive')
+            ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->groupBy('transactions.branch_id')
+            ->select(
+                'branches.name AS branch',
+                DB::raw('SUM(transactions.amount) as todaySale')
+            )
+            ->get();
+    }
+    public function getTotalSalesTodayByBranch($branch)
+    {
+        return DB::table('transactions')
+            ->join('branches', 'branches.id', '=', 'transactions.branch_id')
+            ->where('transactions.type', '=', 'Receive')
+            ->where('transactions.branch_id', '=', $branch)
             ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
             ->groupBy('transactions.branch_id')
             ->select(
@@ -526,9 +566,33 @@ class Report extends Eloquent
             )
             ->get();
     }
+    public function getTotalPurchaseTodayByBranch($branch)
+    {
+        return DB::table('transactions')
+            ->join('branches', 'branches.id', '=', 'transactions.branch_id')
+            ->where('transactions.type', '=', 'Payment')
+            ->where('transactions.branch_id', '=', $branch)
+            ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
+            ->groupBy('transactions.branch_id')
+            ->select(
+                DB::raw('SUM(transactions.amount) as todayPurchase')
+            )
+            ->get();
+    }
     public function getAccountBalances()
     {
         return DB::table('name_of_accounts')
+            ->select(
+                'name_of_accounts.branch_id',
+                'name_of_accounts.name',
+                'name_of_accounts.opening_balance'
+            )
+            ->get();
+    }
+    public function getAccountBalancesByBranch($branch)
+    {
+        return DB::table('name_of_accounts')
+            ->where('branch_id', '=',$branch)
             ->select(
                 'name_of_accounts.branch_id',
                 'name_of_accounts.name',
@@ -540,6 +604,15 @@ class Report extends Eloquent
     {
         return DB::table('stocks')
             ->groupBy('stocks.branch_id')
+            ->select(
+                'stocks.branch_id AS branch'
+            )
+            ->get();
+    }
+    public function getStocksBranchWise($branch)
+    {
+        return DB::table('stocks')
+            ->where('branch_id', '=',$branch)
             ->select(
                 'stocks.branch_id AS branch'
             )
@@ -774,6 +847,24 @@ JOIN products
 ON product_stock.product_id = products.id
 WHERE
   product_stock.quantity < products.min_level AND products.branch_id=".$branch_id." AND (products.created_at BETWEEN '$date1' AND '$date2') ";
+
+        $results = DB::select( DB::raw($sql) );
+        return $results;
+    }
+    public function getProductsCountReportByBranch($branch_id)
+    {
+        $sql = "SELECT products.name , products.min_level, quantity FROM
+  (
+    SELECT
+      SUM(product_quantity) quantity,
+      product_id
+    FROM stock_counts
+    GROUP BY product_id
+  )AS product_stock
+JOIN products
+ON product_stock.product_id = products.id
+WHERE
+  product_stock.quantity < products.min_level AND products.branch_id=".$branch_id."  ";
 
         $results = DB::select( DB::raw($sql) );
         return $results;

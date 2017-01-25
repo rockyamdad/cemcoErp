@@ -31,30 +31,62 @@ class UserController extends Controller{
     {
 
         $reports = new Report();
-        $totalProducts = $reports->getTotalProducts();
 
-        $totalImports = $reports->getTotalImports();
-        $totalSales = $reports->getTotalSalesToday();
-        $totalPurchase = $reports->getTotalPurchaseToday();
-        $accountsBalance = $reports->getAccountBalances();
-        $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
-        $stocksBranch = $reports->getStocksBranch();
-        $results = $reports->getProductsCountReportBranchWise();
-        $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();
-        $latestTransactions = Transaction::orderBy('id','desc')->take(5)->get();;
-        $register = Transaction::where('payment_method','=','check')
-            ->where('type','=','Receive')
-            ->where('cheque_status','=',0)
-            ->orderBy('id', 'desc')
-            ->get();
-        $purchaseregister = Transaction::where('payment_method','=','check')
-            ->where('type','=','Payment')
-            ->where('cheque_status','=',0)
-            ->orwhere('type','=','Expense')
-            ->where('payment_method','=','check')
-            ->where('cheque_status','=',0)
-            ->orderBy('id', 'desc')
-            ->get();
+        if(Session::get('user_role')=='admin'){
+            $totalProducts = $reports->getTotalProducts();
+            $totalImports = $reports->getTotalImports();
+            $latestTransactions = Transaction::orderBy('id','desc')->take(5)->get();;
+            $accountsBalance = $reports->getAccountBalances();
+            $accountBalanceTransfers = $reports->getBalanceTransferFullReport();
+            $stocksBranch = $reports->getStocksBranch();
+            $stockRequisitions = StockRequisition::orderBy('id','desc')->take(3)->get();
+            $totalSales = $reports->getTotalSalesToday();
+            $totalPurchase = $reports->getTotalPurchaseToday();
+            $results = $reports->getProductsCountReportBranchWise();
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Receive')
+                ->where('cheque_status','=',0)
+                ->orderBy('id', 'desc')
+                ->get();
+            $purchaseregister = Transaction::where('payment_method','=','check')
+                ->where('type','=','Payment')
+                ->where('cheque_status','=',0)
+                ->orwhere('type','=','Expense')
+                ->where('payment_method','=','check')
+                ->where('cheque_status','=',0)
+                ->orderBy('id', 'desc')
+                ->get();
+        }else{
+            $totalProducts = $reports->getTotalProductsByBranch(Session::get('user_branch'));
+            $totalImports = $reports->getTotalImportsByBranch(Session::get('user_branch'));
+            $latestTransactions = Transaction::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','desc')->take(5)->get();;
+            $accountsBalance = $reports->getAccountBalancesByBranch(Session::get('user_branch'));
+            $accountBalanceTransfers = $reports->getBalanceTransferFullReportByBranch(Session::get('user_branch'));
+            $stocksBranch = $reports->getStocksBranchWise(Session::get('user_branch'));
+            $stockRequisitions = StockRequisition::where('branch_id','=',Session::get('user_branch'))
+            ->orderBy('id','desc')->take(3)->get();
+            $totalSales = $reports->getTotalSalesTodayByBranch(Session::get('user_branch'));
+            $totalPurchase = $reports->getTotalPurchaseTodayByBranch(Session::get('user_branch'));
+            $results = $reports->getProductsCountReportByBranch(Session::get('user_branch'));
+            $register = Transaction::where('payment_method','=','check')
+                ->where('type','=','Receive')
+                ->where('branch_id','=',Session::get('user_branch'))
+                ->where('cheque_status','=',0)
+                ->orderBy('id', 'desc')
+                ->get();
+            $purchaseregister = Transaction::where('payment_method','=','check')
+                ->where('type','=','Payment')
+                ->where('branch_id','=',Session::get('user_branch'))
+                ->where('cheque_status','=',0)
+                ->orwhere('type','=','Expense')
+                ->where('payment_method','=','check')
+                ->where('cheque_status','=',0)
+                ->orderBy('id', 'desc')
+                ->get();
+        }
+
+
 
         return view('Users.dashboard')
             ->with('latestTransactions',$latestTransactions)
