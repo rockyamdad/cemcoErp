@@ -1,4 +1,5 @@
-<?php $account = \App\NameOfAccount::find($transaction->account_name_id); ?>
+<?php $account = \App\NameOfAccount::find($transaction->account_name_id);
+?>
 @extends('baseLayout')
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
@@ -70,12 +71,17 @@
                     <table>
                         <tr><td>Voucher no:
                                 @if($transaction->type == "Receive")
-                                    CV-{{$transaction->id}}
+                                    CV-{{$transaction->voucher}}
                                 @else
-                                    DV-{{$transaction->id}}
+                                    DV-{{$transaction->voucher}}
                                 @endif
                             </td></tr>
-                        <tr><td>Recieved by: {{$transaction->user->name}}</td></tr>
+                        <tr><td>Recieved by:
+                            <?php
+                                $user = \App\User::find($transaction->user_id);
+                                ?>
+                                {{$user->name}}
+                            </td></tr>
                     </table>
                 </td>
             </tr>
@@ -87,14 +93,14 @@
                 <td colspan="2">Received from:
                     @if($transaction->type == "Receive")
                         <?php
-                        $sales = \App\Sale::where('invoice_id', '=' ,$transaction->invoice_id)->first();
+                        $party = \App\Party::find($transaction->party);
                         ?>
-                        {{$sales->party->name}}
+                        {{$party->name}}
                     @elseif($transaction->type == "Payment")
                         <?php
-                        $sales = \App\PurchaseInvoice::where('invoice_id', '=' ,$transaction->invoice_id)->first();
+                        $party = \App\Party::find($transaction->party);
                         ?>
-                        {{$sales->party->name}}
+                            {{$party->name}}
                     @endif
                 </td>
                 <td style="border:1px solid black;" class="text-center">

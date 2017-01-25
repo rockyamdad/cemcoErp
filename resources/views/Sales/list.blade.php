@@ -64,6 +64,9 @@
                         <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('sales/makeall/') }}" >
                             <i class="fa fa-plus"></i>Make Payment</a>
                     </div>
+                    <div class="btn-group">
+                        <a class="btn blue" href="{{ URL::to('sales/voucherlist') }}">Voucher List&nbsp;&nbsp;</a>
+                    </div>
 
                 </div>
                 {!!Form::open(array('action'=>'SaleController@getIndex','method' => 'get', 'class'=>'form-horizontal'

@@ -583,6 +583,62 @@ class SaleController extends Controller{
             return $invoiceidd;
         }
     }
+    private function generateVoucherId()
+    {
+        $invdesc = Transaction::orderBy('id', 'DESC')->first();
+        if ($invdesc != null) {
+            $invDescId = $invdesc->voucher_id;
+            $invDescIdNo = substr($invDescId, 8);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 1, 2);
+            $mm = substr($invDescId, 3,2);
+            $yy = substr($invDescId, 5, 2);
+            //var_dump($invDescId." ".$dd." ".$mm." ".$yy);
+            //echo "d1 ".$yy;
+
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+            //var_dump($dd2." ".$mm2." ".$yy2);
+
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
+                //var_dump($invoiceidd);
+                return $invoiceidd;
+            } else {
+                $invoiceidd = "V".$dd2 . $mm2 . $yy2 . "-1";
+                return $invoiceidd;
+            }
+        } else {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+
+            $invoiceidd = "V".$dd2 . $mm2 . $yy2 . "-1";
+            //var_dump($invoiceidd);
+            return $invoiceidd;
+        }
+    }
     public function getProducts($branch_id)
     {
 
@@ -707,6 +763,8 @@ class SaleController extends Controller{
             $partyId=Input::get('party_id');
             if($remaining_amount>0)
             {
+                $voucherId = $this->generateVoucherId();
+
                 $invoiceId = Sale::where('party_id','=',$partyId)
                     ->where('is_sale','=',1)
                     ->get();
@@ -769,6 +827,7 @@ class SaleController extends Controller{
                                     $transaction->account_name_id = Input::get('account_name_id');
                                     $transaction->user_id = Session::get('user_id');
                                     $transaction->cheque_no = Input::get('cheque_no');
+                                    $transaction->voucher_id = $voucherId;
                                     $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
                                     $transaction->cheque_date = Input::get('cheque_date');
@@ -807,6 +866,7 @@ class SaleController extends Controller{
                                     $transaction->account_name_id = Input::get('account_name_id');
                                     $transaction->user_id = Session::get('user_id');
                                     $transaction->cheque_no = Input::get('cheque_no');
+                                    $transaction->voucher_id = $voucherId;
                                     $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
                                     $transaction->cheque_date = Input::get('cheque_date');
@@ -822,10 +882,9 @@ class SaleController extends Controller{
                                     $remaining_amount = $toBePaid;
                                 }
 
-
-
                             }
                             $sale->save();
+
                         }
                     }
                 }else{
@@ -846,6 +905,7 @@ class SaleController extends Controller{
                         $transaction->account_name_id = Input::get('account_name_id');
                         $transaction->user_id = Session::get('user_id');
                         $transaction->cheque_no = Input::get('cheque_no');
+                        $transaction->voucher_id = $voucherId;
                         $transaction->branch_id = Input::get('branch_id');
                         $transaction->cheque_date = Input::get('cheque_date');
                         $transaction->cheque_bank = Input::get('cheque_bank');
@@ -907,6 +967,36 @@ class SaleController extends Controller{
         $transaction = Transaction::find($transactionId);
         return view('Sales.voucher',compact('transaction'));
 
+    }
+    public function getVouchershow($voucherId){
+        $transaction = new Transaction();
+        $transaction = $transaction->getVoucher($voucherId);
+        return view('Sales.voucher')
+            ->with('transaction',$transaction[0]);
+
+    }
+    public function getVoucherlist(){
+        $buyers = new Party();
+        $buyersAll = $buyers->getBuyersDropDown();
+        $transaction = new Transaction();
+        $vouchers = $transaction->getVoucherList();
+        return view('Sales.vouchers',compact('vouchers'))
+            ->with('buyersAll',$buyersAll);
+
+    }
+    public function postVoucher(){
+        $date1 = Input::get('from_date');
+        $buyers = new Party();
+        $buyersAll = $buyers->getBuyersDropDown();
+        $date2 = Input::get('to_date');
+        $party_id = Input::get('party_id');
+        $transaction = new Transaction();
+        $vouchers = $transaction->getVoucherListByParty($date1,$date2,$party_id);
+        return view('Sales.vouchers',compact('vouchers'))
+            ->with('party_id',$party_id)
+            ->with('date1',$date1)
+            ->with('buyersAll',$buyersAll)
+            ->with('date2',$date2);
     }
 
     public function getDiscount($saleId){

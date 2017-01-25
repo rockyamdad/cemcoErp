@@ -201,7 +201,7 @@ function closeModal() {
 
                         </td>
                         <td>
-                            <a class="btn green" href="{{URL::to('sales/voucher/'.$saleTransaction->id)}}">Voucher</a>
+                            <a class="btn green" href="{{URL::to('sales/vouchershow/'.$saleTransaction->voucher_id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
                                 <input type="button"  id="deleteSaleTransaction" style="width:70px;" value="delete" data-ref="{{$saleTransaction->account_name_id}}"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
                             @endif
