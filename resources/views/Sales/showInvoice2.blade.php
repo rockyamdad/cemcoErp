@@ -49,18 +49,36 @@
                     ?>
 
                 <table>
-                <tr>
-                    <td><b>Customer</b></td>
-                    <td>: {{$party->name}}</td>
-                </tr>
-                <tr>
-                    <td><b>Address</b></td>
-                    <td>: {{$party->address}}</td>
-                </tr>
-                <tr>
-                    <td><b>Contact</b></td>
-                    <td>: {{$party->phone}}</td>
-                </tr>
+                    <tr>
+                        <td><b>Customer</b></td>
+
+                        <td>:
+                            @if($party)
+                                {{$party->name}}
+                            @else
+                                {{$sale->cash_sale}}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Address</b></td>
+                        <td>:  @if($party)
+                                {{$party->address}}
+                            @else
+
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Contact</b></td>
+                        <td>:
+                            @if($party)
+                                {{$party->phone}}
+                            @else
+
+                            @endif
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="col-xs-4">
