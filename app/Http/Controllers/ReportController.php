@@ -109,6 +109,7 @@ class ReportController extends Controller{
         $product_type = Input::get('product_type');
         $results = $report->getStockReportResult($stock_info_id,$product_type,$branch_id,$category_id);
 
+
         return view('Reports.stockProductsReport')
             ->with('stock_info_id',$stock_info_id)
             ->with('branch_id',$branch_id)

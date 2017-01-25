@@ -200,7 +200,7 @@
                                             @if($sale->is_sale != 1)
                                                 <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
                                                             class="fa fa-edit"></i>&nbsp;&nbsp; Edit &nbsp</a>
-                                                <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Please confirm terms & conditions & discount. By confirming this you will not be able to edit this invoice later.');">
+                                                <a class="btn green btn-sm sale" style="background-color:#009999" rel="{{ $sale->invoice_id }}"  href="{{ URL::to('sales/sale/'. $sale->invoice_id ) }}" onclick="return confirm('Please confirm discount. By confirming this you will not be able to edit this invoice later.');">
                                                     Confirm</a>
                                             @endif
                                                 <a class="btn dark btn-sm" rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('sales/details/'. $sale->invoice_id ) }}" >
@@ -252,7 +252,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-{!! $sales->render() !!}
+
 @stop
 @section('javascript')
 {!! HTML::script('js/sales.js') !!}

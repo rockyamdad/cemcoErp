@@ -105,7 +105,7 @@ class Report extends Eloquent
     public function getStockProductsReport()
     {
         return DB::table('stock_counts')
-            ->selectRaw('product_id,stock_info_id, sum(product_quantity) as product_quantity')
+            ->selectRaw('product_id,stock_info_id, sum(product_quantity) as product_quantity,sum(stock_counts.total_price) as total_price')
             ->groupBy('stock_counts.product_id')
             ->get();
     }
@@ -113,7 +113,7 @@ class Report extends Eloquent
     {
         return DB::table('stock_counts')
             ->join('products', 'stock_counts.product_id', '=', 'products.id')
-            ->selectRaw('stock_counts.product_quantity,stock_counts.product_id,stock_counts.stock_info_id,products.branch_id,products.product_type,products.category_id')
+            ->selectRaw('stock_counts.product_quantity,stock_counts.total_price,stock_counts.product_id,stock_counts.stock_info_id,products.branch_id,products.product_type,products.category_id')
             ->where('products.branch_id', '=', $branch_id)
             ->where('stock_counts.stock_info_id', '=', $stock)
             ->where('products.category_id', '=', $category_id)

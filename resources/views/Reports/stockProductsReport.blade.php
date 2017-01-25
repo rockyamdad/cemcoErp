@@ -96,6 +96,7 @@
                             <th>SL</th>
                             <th>Product Name</th>
                             <th>Quantity On Hand</th>
+                            <th>Price</th>
 
                         </tr>
                         </thead>
@@ -103,6 +104,7 @@
                         <?php
                         $i = 1;
                         $grandTotal = 0;
+                        $grandTotalPrice = 0;
                         ?>
 
                         @foreach($results as $result )
@@ -118,12 +120,14 @@
                                  }
 
                             $grandTotal = $grandTotal + $result->product_quantity;
+                            $grandTotalPrice = $grandTotalPrice + $result->total_price;
                                     ?>
 
                             <tr class="odd gradeX">
                                 <td>{{$i++}}</td>
                                 <td>{{$pName->name}} ({{$categoryName->name}}) ({{$subCategoryName}})</td>
                                 <td class="text-right">{{$result->product_quantity}}</td>
+                                <td class="text-right">{{$result->total_price}}</td>
 
 
                             </tr>
@@ -133,6 +137,7 @@
                             <td><b>Total</b></td>
                             <td></td>
                             <td class="text-right">{{$grandTotal}}</td>
+                            <td class="text-right">{{$grandTotalPrice}}</td>
                         </tr>
 
                         </tbody>

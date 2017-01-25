@@ -409,6 +409,10 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                             @if (Request::is('searches/stock-products'))class="active"@endif>
                         <a href="{{ URL::to('searches/stock-products') }}">Stock Entry By Product </a>
                     </li>
+                    <li style="background-color: #665062"
+                        @if (Request::is('/product-count-report'))class="active"@endif>
+                        <a href="{{ URL::to('/product-count-report') }}">Product Minimum Report </a>
+                    </li>
                     <li style="background-color: #ad71cc"
                             @if (Request::is('searches/requisition/'))class="active"@endif>
                         <a href="{{ URL::to('searches/requisition') }}">Order Requisition </a>

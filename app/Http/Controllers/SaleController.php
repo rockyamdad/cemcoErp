@@ -35,13 +35,14 @@ class SaleController extends Controller{
     }
     public function getIndex()
     {
+
         if(Session::get('user_role')=='admin'){
             $sales = Sale::orderBy('id','DESC')->paginate(15);
         }else{
-            $sales = Sale::where('branch_id','=',Session::get('user_branch'))
-                ->orderBy('id','DESC')
-                ->paginate(15);
+            $sale = new Sale();
+            $sales = $sale->getSalesList(Session::get('user_branch'));
         }
+
 
         $sale = new Sale();
         $allInvoices = $sale->getSalesInvoiceDropDown();

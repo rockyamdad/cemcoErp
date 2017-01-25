@@ -55,7 +55,6 @@
                             <th style="text-align: right;">Total Sale</th>
                             <th style="text-align: right;">Total Discount</th>
                             <th style="text-align: right;">Total Payment </th>
-                            <th style="text-align: right;">Due</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,13 +83,11 @@
                                              {{0}}
                                         @endif
                                     </td>
-                                    <td style="text-align: right;">{{$result->totalSale - $payment[0]->totalPayment - $result->discount_amount}}</td>
                                 </tr>
                                 <?php
                                 $totalSale = $totalSale + $result->totalSale ;
                                 $totalPayment = $totalPayment + $payment[0]->totalPayment;
                                 $totalDiscount = $totalDiscount + $result->discount_amount;
-                                $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment - $result->discount_amount);
                                 ?>
                             @endif
                         @endforeach
@@ -99,7 +96,6 @@
                             <td style="text-align: right;">{{$totalSale}}</td>
                             <td style="text-align: right;">{{$totalDiscount}}</td>
                             <td style="text-align: right;">{{$totalPayment}}</td>
-                            <td style="text-align: right;">{{$totalDue}}</td>
 
                         </tr>
 

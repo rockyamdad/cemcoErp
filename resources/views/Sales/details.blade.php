@@ -15,7 +15,11 @@ function closeModal() {
             $party = new \App\Party();
             $partyName = \App\Party::find($sale->party_id);
                     ?>
-            <h3>Sales Detail for {{$partyName->name}}</h3>
+            @if($partyName)
+                <h3>Sales Detail for {{$partyName->name}}</h3>
+            @else
+                <h3>Sales Detail for {{$sale->cash_sale}}</h3>
+            @endif
             <?php
                 $saledetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->first();
                 $branchname= \App\Branch::find($saledetails->branch_id);
@@ -201,7 +205,7 @@ function closeModal() {
 
                         </td>
                         <td>
-                            <a class="btn green" href="{{URL::to('sales/vouchershow/'.$saleTransaction->voucher_id)}}">Voucher</a>
+                            {{--<a class="btn green" href="{{URL::to('sales/vouchershow/'.$saleTransaction->voucher_id)}}">Voucher</a>--}}
                             @if( Session::get('user_role') == "admin")
                                 <input type="button"  id="deleteSaleTransaction" style="width:70px;" value="delete" data-ref="{{$saleTransaction->account_name_id}}"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
                             @endif

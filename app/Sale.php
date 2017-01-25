@@ -78,5 +78,13 @@ class Sale extends Eloquent
 
 
     }
+    public function getSalesList($branch_id)
+    {
+        return DB::table('sales')
+            ->join('sale_details', 'sales.invoice_id', '=', 'sale_details.invoice_id')
+            ->where('sale_details.branch_id', '=', $branch_id)
+            ->orderBy('sales.id','DESC')
+            ->get();
+    }
 
 }
