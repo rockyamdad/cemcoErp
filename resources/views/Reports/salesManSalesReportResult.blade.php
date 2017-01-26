@@ -35,7 +35,9 @@
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box light-grey">
                 <div class="portlet-title">
+                    @if($date1 and $date2)
                     <?php
+
                     $date01 = explode('/', $date1);
                     $month1  = $date01[0];
                     $day1 = $date01[1];
@@ -47,9 +49,10 @@
                     $day2 = $date02[1];
                     $year2   = $date02[2];
                     $date002=$day2.'/'.$month2.'/'.$year2;
+
                     ?>
                     <div class="caption"><i class="fa fa-reorder"></i>Date : {{$date001}} to {{$date002}}</div>
-
+                    @endif
                      <div class="actions">
                          <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
                        </div>
@@ -81,9 +84,7 @@
                             <?php
                                 $payment = 0;
                                 $salesMan = \App\User::find($result->salesMan);
-                             {{--   $sales = \App\Sale::where('is_sale','=',1)
-                                        ->where('sales_man_id','=',$result->salesMan)
-                                        ->get();--}}
+
                             $reports = new \App\Report();
                             $paymentSales = $reports->getPaymentForSalesReport($date1,$date2,$result->invoice);
                             $payment = $payment + $paymentSales[0]->totalPayment;

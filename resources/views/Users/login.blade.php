@@ -32,9 +32,7 @@
 </div>
 
 <div class="form-actions">
-    <label class="checkbox">
-        <input type="checkbox" name="remember" value="1"/> Remember me
-    </label>
+
     {!! Form::submit('Login',array('class'=>'btn green pull-right')) !!}
 </div>
 

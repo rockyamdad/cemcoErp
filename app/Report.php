@@ -815,24 +815,30 @@ class Report extends Eloquent
             ->get();
     }
 
-    public function getSalesManSalesReport($date1,$date2,$branch_id,$salesMan)
+    public function getSalesManSalesReport($date1=null,$date2=null,$branch_id,$salesMan=null)
     {
-        return DB::table('sale_details')
-            ->join('sales', 'sale_details.invoice_id', '=', 'sales.invoice_id')
+
+        $query = DB::table('sale_details');
+        $query->join('sales', 'sale_details.invoice_id', '=', 'sales.invoice_id')
             ->where('sales.is_sale', '=', 1)
             ->whereNotNull('sales.sales_man_id')
-            ->where('sale_details.branch_id', '=', $branch_id)
-            ->where('sales.sales_man_id', '=', $salesMan)
-            ->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)))
-            ->groupBy('sale_details.invoice_id')
+            ->where('sale_details.branch_id', '=', $branch_id);
+
+        if($salesMan !=null)
+            $query->where('sales.sales_man_id', '=', $salesMan) ;
+
+        if($date1 !=null and $date2 !=null)
+            $query->whereBetween('sale_details.created_at', array(new \DateTime($date1), new \DateTime($date2)));
+
+            $query->groupBy('sale_details.invoice_id')
             ->select('sale_details.created_at AS date',
                 'sale_details.branch_id AS branch',
                 'sales.invoice_id AS invoice',
                 'sales.sales_man_id AS salesMan',
                 DB::raw('SUM(sale_details.price * sale_details.quantity) AS totalSale'),
                 'sales.discount_percentage AS discount_amount'
-            )
-            ->get();
+            );
+        return $query->get();
     }
     public function getProductsCountReport($date1,$date2,$branch_id)
     {
