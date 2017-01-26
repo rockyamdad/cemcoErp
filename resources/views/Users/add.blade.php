@@ -29,7 +29,7 @@
         <div class="portlet-title">
             <div class="caption"><i class="fa fa-reorder"></i>Add User</div>
             <div class="actions">
-                <a class="btn green" href="{{ URL::to('list') }}">Users List</a>
+                <a class="btn default" href="{{ URL::to('list') }}">Users List</a>
             </div>
         </div>
         <div class="portlet-body form">

@@ -22,7 +22,7 @@
         @endif
     </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="dashboard-stat blue">
                 <div class="visual">
                     <i class="fa fa-barcode"></i>
@@ -40,7 +40,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="dashboard-stat green">
                 <div class="visual">
                     <i class="fa fa-plane"></i>
