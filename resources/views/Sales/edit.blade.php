@@ -26,7 +26,7 @@
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet box purple">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-reorder"></i>Edit Sales</div>
+                <div class="caption"><i class="fa fa-reorder"></i>Edit Sales(InvoiceId# {{$sale[0]->invoice_id}})</div>
                 <div class="actions">
                     <a class="btn dark" href="{{ URL::to('sales/index') }}">Sales List</a>
                 </div>
@@ -183,6 +183,13 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="form-group ">
+                                    <label class="control-label col-md-8"></label>
+                                    <div class="col-md-4 text-right">
+                                        <a class="btn btn-success" href="{{ URL::to('sales/index') }}">Save & Continue</a>
+                                    </div>
+
+                                </div>
                                 <div class="form-group ">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-7 balance_show">

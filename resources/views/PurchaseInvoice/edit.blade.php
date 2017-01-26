@@ -25,7 +25,7 @@
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet box purple">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-reorder"></i>Edit Purchase Invoice</div>
+                <div class="caption"><i class="fa fa-reorder"></i>Edit Purchase Invoice(InvoiceId# {{$purchase[0]->invoice_id}})</div>
                 <div class="actions">
                     <a class="btn dark" href="{{ URL::to('purchases/index') }}">Purchase Invoice List</a>
                 </div>
@@ -169,6 +169,13 @@
                                     </tr>
 
                                 </table>
+                                <div class="form-group ">
+                                    <label class="control-label col-md-8"></label>
+                                    <div class="col-md-4 text-right">
+                                        <a class="btn btn-success" href="{{ URL::to('purchases/index') }}">Save & Continue</a>
+                                    </div>
+
+                                </div>
                                 <div class="form-group ">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-7 balance_show">
