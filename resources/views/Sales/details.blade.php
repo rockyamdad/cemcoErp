@@ -164,7 +164,7 @@ function closeModal() {
                 </tbody>
             </table>
             <br>
-            <h3>Sales Transaction</h3>
+            <h3>Sales Transaction Details</h3>
             <table class="table table-striped table-bordered table-hover"  id="saleTransactiontable">
                 <thead style="background-color:darkslateblue">
                 <tr>

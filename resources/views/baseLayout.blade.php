@@ -104,7 +104,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <div id="Expense" class="modal fade" tabindex="-1" > </div>
     <div id="salePayment" class="modal fade" tabindex="-1" > </div>
     <div id="salePayment2" class="modal fade" tabindex="-1" > </div>
-    <div id="sale" class="modal fade" tabindex="-1" > </div>
     <div id="stockReport" class="modal fade" tabindex="-1" > </div>
 </div>
     <!-- BEGIN SIDEBAR -->

@@ -12,7 +12,6 @@ jQuery(document).ready(function() {
                 success:function(sale)
                 {
                     $("#stock_info_id").select2('val', '');
-                    $("#product_type").select2('val', '');
                     $("#product_id").select2('val', '');
                     $("#price").val('');
                     $("#quantity").val('');
@@ -21,7 +20,6 @@ jQuery(document).ready(function() {
 
                     var html = [];
 
-                    html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
                     html.push('<td>' + sale.stock_info_id + '</td>');
                     html.push('<td>' + sale.price + '</td>');
@@ -52,7 +50,6 @@ jQuery(document).ready(function() {
                 success:function(sale)
                 {
                     $("#stock_info_id").select2('val', '');
-                    $("#edit_product_type").select2('val', '');
                     $("#edit_product_id").select2('val', '');
                     $("#price").val('');
                     $("#quantity").val('');
@@ -61,7 +58,6 @@ jQuery(document).ready(function() {
 
                     var html = [];
 
-                    html.push('<td>' + sale.product_type + '</td>');
                     html.push('<td>' + sale.product_id + '</td>');
                     html.push('<td>' + sale.stock_info_id + '</td>');
 
@@ -86,13 +82,12 @@ jQuery(document).ready(function() {
 
         var branch = $.trim($('#edit_branch_id').val());
         var stock = $.trim($('#stock_info_id').val());
-        var type = $.trim($('#edit_product_type').val());
         var party = $.trim($('#edit_party_id').val());
         var product = $.trim($('#edit_product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '')) {
             return false;
         } else {
             return true;
@@ -104,14 +99,13 @@ jQuery(document).ready(function() {
             var branch = $.trim($('#branch_id').val());
         }
         var stock = $.trim($('#stock_info_id').val());
-        var type = $.trim($('#product_type').val());
         var party = $.trim($('#party_id').val());
         var cash = $.trim($('#cash_sale').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') ) {
             return false;
         } else {
             return true;
@@ -162,6 +156,7 @@ jQuery(document).ready(function() {
 
     $("#edit_party_id").attr('readonly','readonly');
     $("#edit_cash_sale").attr('readonly','readonly');
+    $("#sales_man_id_val_edit").attr('readonly','readonly');
 
 
 

@@ -92,8 +92,8 @@
                         <th>SL</th>
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
-                        <th>Cash Sale</th>
-                        <th>Sales Man</th>
+                        <th>Customer Name</th>
+                        <th>Sales Head</th>
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -119,7 +119,10 @@
                                            {{$sale->party->name}}
                                         @endif
                                     </td>
-                                    <td>{{$sale->cash_sale}}
+                                    <td>
+                                        @if($sale->cash_sale)
+                                            {{$sale->cash_sale}}
+                                        @endif
                                     </td>
                                     <td>@if($saleMan)
                                             {{$saleMan->username}}
@@ -252,7 +255,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+{!! $sales->render() !!}
 @stop
 @section('javascript')
 {!! HTML::script('js/sales.js') !!}

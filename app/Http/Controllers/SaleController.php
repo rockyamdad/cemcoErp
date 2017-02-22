@@ -37,7 +37,7 @@ class SaleController extends Controller{
     {
 
         if(Session::get('user_role')=='admin'){
-            $sales = Sale::orderBy('id','DESC')->paginate(15);
+            $sales = Sale::orderBy('id','DESC')->paginate(10);
         }else{
             $sale = new Sale();
             $sales = $sale->getSalesList(Session::get('user_branch'));
@@ -78,7 +78,6 @@ class SaleController extends Controller{
     {
         $ruless = array(
             'stock_info_id' => 'required',
-            'product_type' => 'required',
             'product_id' => 'required',
             'price' => 'required',
             'quantity' => 'required',
@@ -128,7 +127,6 @@ class SaleController extends Controller{
     {
         $ruless = array(
             'stock_info_id' => 'required',
-            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -162,9 +160,9 @@ class SaleController extends Controller{
         }else{
             $saleDetails->branch_id = Session::get('user_branch');
         }
-
+        $product = Product::find(Input::get('product_id'));
         $saleDetails->stock_info_id = Input::get('stock_info_id');
-        $saleDetails->product_type = Input::get('product_type');
+        $saleDetails->product_type = $product->product_type;
         $saleDetails->remarks = Input::get('remarks');
         $saleDetails->save();
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
@@ -173,9 +171,12 @@ class SaleController extends Controller{
             if(Input::get('party_id')){
                 $sale->party_id = Input::get('party_id');
             }else{
-                $sale->sales_man_id = Input::get('cash_sale');
+                $sale->cash_sale = Input::get('cash_sale');
             }
-            $sale->sales_man_id = Input::get('sales_man_id');
+            if(Input::get('sales_man_id')){
+                $sale->sales_man_id = Input::get('sales_man_id');
+            }
+
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
             $sale->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH

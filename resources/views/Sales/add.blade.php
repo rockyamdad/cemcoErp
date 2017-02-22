@@ -69,11 +69,11 @@
                                 {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,'null', array('class'=>'form-control party_id_val','id'=>'party_id') )!!}
                             </div>
                             <div class="col-md-3">
-                                {!!Form::text('cash_sale',null,array('placeholder' => 'Cash Sale', 'class' =>
+                                {!!Form::text('cash_sale',null,array('placeholder' => 'Customer Name', 'class' =>
                                 'form-control','id'=>'cash_sale'))!!}
                             </div>
                             <div class="col-md-3">
-                                {!!Form::select('sales_man_id',[null=>'Select Sales Man'] +$salesMan,'null', array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
+                                {!!Form::select('sales_man_id',[null=>'Select Sales Head'] +$salesMan,'null', array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
                             </div>
 
                         </div>
@@ -88,7 +88,6 @@
                             <table class="table table-striped table-bordered table-primary table-condensed" id="saleTable">
                                 <thead>
                                 <tr>
-                                    <th width="">Product Type</th>
                                     <th width="">Product Name</th>
                                     <th width="">Stock Name</th>
                                     <th width="">Price</th>
@@ -103,14 +102,14 @@
                                 </tbody>
                                 <tr class="clone_">
 
-                                    <td>
+                                   {{-- <td>
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 190px;">
                                                 {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
                                                 'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control type_val','id'=>'product_type'))!!}
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>--}}
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 300px;">

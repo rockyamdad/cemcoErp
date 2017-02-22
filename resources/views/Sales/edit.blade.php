@@ -68,11 +68,11 @@
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
                                 </div>
                                 <div class="col-md-3">
-                                    {!!Form::text('cash_sale',null,array('placeholder' => 'Cash Sale', 'class' =>
+                                    {!!Form::text('cash_sale',null,array('placeholder' => 'Customer Name', 'class' =>
                                     'form-control','id'=>'edit_cash_sale'))!!}
                                 </div>
                                 <div class="col-md-3">
-                                    {!!Form::select('sales_man_id',[null=>'Select Sales Man'] + $salesMan,$sale[0]->sales_man_id, array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
+                                    {!!Form::select('sales_man_id',[null=>'Select Sales Head'] + $salesMan,$sale[0]->sales_man_id, array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val_edit') )!!}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -86,7 +86,6 @@
                                     <thead>
                                     <tr>
 
-                                        <th width="">Product Type</th>
                                         <th width="">Product Name</th>
                                         <th width="">Stock Name</th>
                                         <th width="">Price</th>
@@ -108,7 +107,6 @@
                                                 ?>
                                         <tr>
 
-                                            <td> {{ $saleDetail->product_type }}</td>
                                             <td> {{ $saleDetail->product->name }}</td>
                                             <td> {{ $stockName->name }}</td>
                                             <td> {{ $saleDetail->price }}</td>
@@ -131,14 +129,6 @@
                                     </tbody>
                                     <tr class="clone_">
 
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="col-md-11" style="width: 180px;">
-                                                    {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
-                                                    'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control type_val','id'=>'edit_product_type'))!!}
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
                                             <div class="form-group">
                                                 <div class="col-md-11" style="width: 300px;">
@@ -173,8 +163,8 @@
                                         <td>
                                             <div class="form-group">
                                                 <div class="col-md-11" style="width: 130px;">
-                                                    {!!Form::text('remarks',null,array('placeholder' => 'Remarks', 'class' =>
-                                                    'form-control','id'=>'remarks'))!!}
+                                                    {!!Form::text('remarks','',array('placeholder' => 'Remarks', 'class' =>
+                                                    'form-control'))!!}
                                                 </div>
                                             </div>
                                         </td>
