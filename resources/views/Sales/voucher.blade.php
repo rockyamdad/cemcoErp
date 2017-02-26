@@ -1,4 +1,5 @@
-<?php $account = \App\NameOfAccount::find($transaction->account_name_id);
+<?php
+$account = \App\NameOfAccount::find($transaction->account_name_id);
 ?>
 @extends('baseLayout')
 @section('styles')
@@ -95,12 +96,26 @@
                         <?php
                         $party = \App\Party::find($transaction->party);
                         ?>
+                    @if($party)
                         {{$party->name}}
+                    @else
+                        <?php
+                                $sale = \App\Sale::where('invoice_id','=',$transaction->invoice_id)->get();
+                        ?>
+                        {{$sale[0]->cash_sale}}
+                    @endif
                     @elseif($transaction->type == "Payment")
                         <?php
                         $party = \App\Party::find($transaction->party);
                         ?>
-                            {{$party->name}}
+                            @if($party)
+                                {{$party->name}}
+                            @else
+                                <?php
+                                $sale = \App\Sale::where('invoice_id','=',$transaction->invoice_id)->get();
+                                ?>
+                                {{$sale[0]->cash_sale}}
+                            @endif
                     @endif
                 </td>
                 <td style="border:1px solid black;" class="text-center">

@@ -410,7 +410,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li style="background-color: #665062"
                         @if (Request::is('/product-count-report'))class="active"@endif>
-                        <a href="{{ URL::to('/product-count-report') }}">Product Minimum Report </a>
+                        <a href="{{ URL::to('/product-count-report') }}">Inventory Short List</a>
                     </li>
                     <li style="background-color: #ad71cc"
                             @if (Request::is('searches/requisition/'))class="active"@endif>

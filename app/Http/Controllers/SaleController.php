@@ -127,7 +127,6 @@ class SaleController extends Controller{
     {
         $ruless = array(
             'stock_info_id' => 'required',
-            'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
             'quantity' => 'required',
@@ -140,6 +139,13 @@ class SaleController extends Controller{
                 ->withErrors($validate);
         }
         else{
+            $saleFound = Sale::where('invoice_id','=',$id)->get();
+            if(!empty($saleFound[0])) {
+                $saleFound[0]->discount_percentage = 0.00;
+                $saleFound[0]->discount_percentage_per = 0.00;
+                $saleFound[0]->discount_special = 0.00;
+                $saleFound[0]->save();
+            }
             $list = $this->setSaleData();
             return new JsonResponse($list);
 
@@ -932,8 +938,7 @@ class SaleController extends Controller{
                 echo "How come its possible! Consult with DEVELOPERS!!!";
             }*/
             //automatically reduce sales payment ends
-
-            return Redirect::to('sales/voucher/'.$transactionId);
+            return Redirect::to('sales/voucher/'.$transaction->id);
         }
     }
     public function getProductprice($id){
@@ -973,6 +978,7 @@ class SaleController extends Controller{
     public function getVouchershow($voucherId){
         $transaction = new Transaction();
         $transaction = $transaction->getVoucher($voucherId);
+
         return view('Sales.voucher')
             ->with('transaction',$transaction[0]);
 

@@ -83,11 +83,12 @@ jQuery(document).ready(function() {
         var branch = $.trim($('#edit_branch_id').val());
         var stock = $.trim($('#stock_info_id').val());
         var party = $.trim($('#edit_party_id').val());
+        var cash = $.trim($('#edit_cash_sale').val());
         var product = $.trim($('#edit_product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '')) {
+        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '')) {
             return false;
         } else {
             return true;
@@ -155,7 +156,6 @@ jQuery(document).ready(function() {
 
 
     $("#edit_party_id").attr('readonly','readonly');
-    $("#edit_cash_sale").attr('readonly','readonly');
     $("#sales_man_id_val_edit").attr('readonly','readonly');
 
 

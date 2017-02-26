@@ -68,7 +68,7 @@
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
                                 </div>
                                 <div class="col-md-3">
-                                    {!!Form::text('cash_sale',null,array('placeholder' => 'Customer Name', 'class' =>
+                                    {!!Form::text('cash_sale',$sale[0]->cash_sale,array('placeholder' => 'Customer Name', 'class' =>
                                     'form-control','id'=>'edit_cash_sale'))!!}
                                 </div>
                                 <div class="col-md-3">

@@ -840,9 +840,9 @@ class Report extends Eloquent
             );
         return $query->get();
     }
-    public function getProductsCountReport($date1,$date2,$branch_id)
+    public function getProductsCountReport($branch_id)
     {
-        $sql = "SELECT products.name , products.min_level, quantity FROM
+        $sql = "SELECT products.name ,products.category_id,products.sub_category_id, products.min_level, quantity FROM
   (
     SELECT
       SUM(product_quantity) quantity,
@@ -853,7 +853,7 @@ class Report extends Eloquent
 JOIN products
 ON product_stock.product_id = products.id
 WHERE
-  product_stock.quantity < products.min_level AND products.branch_id=".$branch_id." AND (products.created_at BETWEEN '$date1' AND '$date2') ";
+  product_stock.quantity < products.min_level AND products.branch_id=".$branch_id." ";
 
         $results = DB::select( DB::raw($sql) );
         return $results;
