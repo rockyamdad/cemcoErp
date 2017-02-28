@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\AccountCategory;
 use App\Branch;
 use App\Category;
+use App\NameOfAccount;
 use App\Product;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
@@ -148,7 +150,7 @@ class ProductController extends Controller{
         else{
             $products = Product::find($id);
             $this->setProductsData($products);
-            $products->save();
+
             Session::flash('message', 'Product  has been Successfully Updated.');
             return Redirect::to('products/index');
         }
@@ -171,6 +173,21 @@ class ProductController extends Controller{
         $prodcuts->total_quantity = 0;
         $prodcuts->price = Input::get('price');
         $prodcuts->user_id = Session::get('user_id');
+
+        $category = Category::find(Input::get('category_id'));
+        $subCategory = SubCategory::find(Input::get('sub_category_id'));
+        $aCategory = new AccountCategory();
+        $aCategory->name = $category->name;
+        $aCategory->user_id = Session::get('user_id');
+        $aCategory->save();
+
+        $accountNames = new NameOfAccount();
+        $accountNames->name = $subCategory->name;
+        $accountNames->branch_id = Input::get('branch_id');
+        $accountNames->account_category_id = $aCategory->id;
+        $accountNames->opening_balance = 0.00;
+        $accountNames->user_id = Session::get('user_id');
+        $accountNames->save();
 
     }
     public function getDelete($id)

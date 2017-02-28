@@ -446,7 +446,6 @@ class SalesReturnController extends Controller{
         $productsName = Product::where('product_type','=',$stockDetails->product_type)
             ->get();
 
-
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
 

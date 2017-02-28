@@ -176,8 +176,8 @@
                                                         <?php
                                                         foreach ($productsName as $productName) {
                                                             $category = $productName->category->name;
-                                                            if($productName->sub_category_id){
-                                                                $subCategory = \App\SubCategory::find($productName->sub_category_id);
+                                                            if($productName->subCategory){
+                                                                $subCategory = \App\SubCategory::find($productName->subCategory->id);
                                                                 $subCategoryName = '('.$subCategory->name.')';
                                                             }else{
                                                                 $subCategoryName = '';
