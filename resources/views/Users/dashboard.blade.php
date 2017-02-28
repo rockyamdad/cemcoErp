@@ -103,6 +103,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Party Name</th>
+                                    @if(Session::get('user_role') == 'admin')
+                                        <th>Branch Name</th>
+                                    @endif
                                     <th>Bank Name</th>
                                     <th>Cheque No</th>
                                     <th>Cheque Date</th>
@@ -120,6 +123,7 @@
                                     <?php
                                     $sale = \App\Sale::where('invoice_id','=',$reg->invoice_id)->first();
                                     $partyname = \App\Party::find($sale->party_id);
+                                    $branch = \App\Branch::find($reg->branch_id);
                                     $time = strtotime($reg->cheque_date);
                                     $newformat = date('d',$time);
                                     $today = date('d', time());
@@ -129,6 +133,9 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
+                                        @if(Session::get('user_role') == 'admin')
+                                            <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$branch->name}}</td>
+                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
@@ -137,7 +144,7 @@
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
-                                               href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
+                                               href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"   onclick="return confirm('Are you sure want to complete?')"><i
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>
@@ -145,6 +152,9 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$partyname->name}}</td>
+                                        @if(Session::get('user_role') == 'admin')
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$branch->name}}</td>
+                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
@@ -153,7 +163,7 @@
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
-                                               href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"><i
+                                               href="{{ URL::to('chequeregister/complete2/'. $reg->id ) }}"  onclick="return confirm('Are you sure want to complete?')"><i
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>
@@ -193,6 +203,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Party Name</th>
+                                    @if(Session::get('user_role') == 'admin')
+                                        <th>Branch Name</th>
+                                    @endif
                                     <th>Bank Name</th>
                                     <th>Cheque No</th>
                                     <th>Cheque Date</th>
@@ -211,8 +224,10 @@
                                             if($reg->type=='Payment'){
                                     $sale = \App\PurchaseInvoice::where('invoice_id','=',$reg->invoice_id)->first();
                                                 $partyname = \App\Party::find($sale->party_id);
+                                                $branch = \App\Branch::find($reg->branch_id);
                                             } else {
                                                 $sale = \App\Expense::where('invoice_id','=',$reg->invoice_id)->first();
+                                                $branch = \App\Branch::find($reg->branch_id);
                                             }
 
                                     $time = strtotime($reg->cheque_date);
@@ -223,6 +238,9 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
+                                        @if(Session::get('user_role') == 'admin')
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$branch->name}}</td>
+                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
@@ -231,7 +249,7 @@
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
-                                               href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}"><i
+                                               href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}" onclick="return confirm('Are you sure want to complete?')"><i
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>
@@ -239,6 +257,9 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
+                                        @if(Session::get('user_role') == 'admin')
+                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$branch->name}}</td>
+                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
@@ -247,7 +268,7 @@
                                         <td class="party-status" <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><span class="label label-sm label-danger" >Pending</span></td>
                                         <td>
                                             <a data-id="" class="btn btn-sm purple changeStatus"
-                                               href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}"><i
+                                               href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}" onclick="return confirm('Are you sure want to complete?')"><i
                                                         class="fa fa-check"></i>Complete</a>
                                         </td>
                                     </tr>

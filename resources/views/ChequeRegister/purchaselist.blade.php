@@ -92,7 +92,7 @@
                         @else
                         <td>
                             <a data-id="" class="btn btn-sm purple changeStatus"
-                            href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}"><i
+                            href="{{ URL::to('chequeregister/complete3/'. $reg->id ) }}" onclick="return confirm('Are you sure want to complete?')"><i
                             class="fa fa-check"></i>Complete</a>
                         </td>
                         @endif

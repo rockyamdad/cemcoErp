@@ -860,7 +860,7 @@ WHERE
     }
     public function getProductsCountReportByBranch($branch_id)
     {
-        $sql = "SELECT products.name , products.min_level, quantity FROM
+        $sql = "SELECT products.name ,products.branch_id, products.min_level, quantity FROM
   (
     SELECT
       SUM(product_quantity) quantity,
