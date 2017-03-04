@@ -63,6 +63,7 @@ jQuery(document).ready(function() {
     //});
 
     $('select').select2();
+    $(".stock").hide();
 
     $('#product_type').live("change", function () {
         var product_type = $('#product_type').val();
@@ -92,6 +93,10 @@ jQuery(document).ready(function() {
 
     $('#product_status').live("change", function () {
         $("#product_status").attr('readonly','readonly');
+        var status = $('#product_status').val();
+        if(status=='Intact'){
+            $(".stock").show();
+        }
     });
 
     $('#ref_no').live("focusout", function () {
@@ -159,6 +164,9 @@ jQuery(document).ready(function() {
 
                     var html = [];
                     html.push('<td>' + stock.product_type + '</td>');
+                    if(stock.product_status == 'Intact'){
+                        html.push('<td>' + stock.stock_name + '</td>');
+                    }
                     html.push('<td>' + stock.product_id + '</td>');
                     html.push('<td>' + stock.quantity + '</td>');
                     html.push('<td>' + stock.unit_price + '</td>');

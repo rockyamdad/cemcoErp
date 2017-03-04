@@ -17,7 +17,9 @@ use App\SalesReturnInvoice;
 use App\SalesReturnDetail;
 use App\Stock;
 use App\StockCount;
+use App\StockDetail;
 use App\StockInfo;
+use App\StockInvoice;
 use App\SubCategory;
 use App\Transaction;
 use Exception;
@@ -91,9 +93,14 @@ class SalesReturnController extends Controller{
     private function saleReturnDetailConvertToArray($saleRetrnDetails)
     {
         $array = array();
+        if(Input::get('product_status') == 'Intact'){
+            $stock = StockInfo::find(Input::get('stock_info_id'));
+            $array['stock_name'] = $stock->name;
+        }
 
         $array['id'] = $saleRetrnDetails->id;
         $array['product_type'] = $saleRetrnDetails->product_type;
+        $array['product_status'] = Input::get('product_status');
         $array['product_id'] = $saleRetrnDetails->product->name;
         $array['quantity']   = $saleRetrnDetails->quantity;
         $array['unit_price']   = $saleRetrnDetails->unit_price;
@@ -121,6 +128,7 @@ class SalesReturnController extends Controller{
             $this->setSalesReturnData($salesreturn);
             $salesReturnDetails = new SalesReturnDetail();
             $salesReturnDetails->product_type = Input::get('product_type');
+            $salesReturnDetails->stock_info_id = Input::get('stock_info_id');
             $salesReturnDetails->product_id = Input::get('product_id');
             $salesReturnDetails->quantity = Input::get('quantity');
             $salesReturnDetails->unit_price = Input::get('unit_price');
@@ -226,6 +234,52 @@ class SalesReturnController extends Controller{
 
                         }
                         $sale->save();
+                        if(Input::get('product_status') == 'Intact'){
+                            $stock_Count = StockCount::where('product_id','=', Input::get('product_id'))
+                                ->where('stock_info_id','=',Input::get('stock_info_id'))
+                                ->get();
+
+                            if(empty($stock_Count[0]))
+                            {
+                                $stock_Count = new StockCount();
+                                $stock_Count->product_id = Input::get('product_id');
+                                $stock_Count->stock_info_id = Input::get('stock_info_id');
+                                $stock_Count->product_quantity = Input::get('quantity');
+                                $stock_Count->total_price = Input::get('quantity')*Input::get('unit_price') ;
+                                $stock_Count->save();
+                            }else{
+                                $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + Input::get('quantity');
+                                $stock_Count[0]->total_price = $stock_Count[0]->total_price + (Input::get('quantity')*Input::get('unit_price'));
+                                $stock_Count[0]->save();
+                            }
+
+                            $stockInvoces = new StockInvoice();
+                            $stockInvoiceId= StockInvoice::generateInvoiceId();
+                            $stockInvoces->branch_id = Input::get('branch_id');
+                            $stockInvoces->status = 'Activate';
+                            $stockInvoces->remarks = '';
+                            $stockInvoces->user_id = Session::get('user_id');
+                            $stockInvoces->invoice_id = $stockInvoiceId;
+
+                            $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
+                                ->get();
+                            if (empty($stock_invoices_check[0]))
+                                $stockInvoces->save();
+
+
+                            $stock = new StockDetail();
+                            $stock->branch_id = Input::get('branch_id');
+                            $stock->product_id =Input::get('product_id');
+                            $stock->product_type =  Input::get('product_type');
+                            $stock->quantity = Input::get('quantity');
+                            $stock->price = Input::get('unit_price');
+                            $stock->entry_type = "StockIn";
+                            $stock->remarks = Input::get('remarks');
+                            $stock->invoice_id = $stockInvoiceId;
+                            $stock->stock_info_id = Input::get('stock_info_id');
+                            $stock->save();
+                        }
+
                     }
                 }
             }

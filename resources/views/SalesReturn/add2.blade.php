@@ -94,6 +94,7 @@
                                     <thead>
                                     <tr>
                                         <th width="">Product Type</th>
+                                        <th width="" class="stock">Stock</th>
                                         <th width="">Product Name</th>
                                         <th width="">Quantity</th>
                                         <th width="">Unit Price</th>
@@ -114,6 +115,13 @@
                                                     {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
                          'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
 
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="stock">
+                                            <div class="form-body">
+                                                <div class="form-group" style="width: 220px;">
+                                                    {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
                                                 </div>
                                             </div>
                                         </td>

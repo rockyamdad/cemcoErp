@@ -119,6 +119,13 @@
                                     <thead>
                                     <tr>
                                         <th width="">Product Type</th>
+                                        <?php
+                                        if($stockInvoices->product_status == 'Intact'){
+                                        ?>
+                                        <th width="" class="stock">Stock</th>
+                                        <?php
+                                        }
+                                        ?>
                                         <th width="">Product Name</th>
                                         <th width="">Quantity</th>
                                         <th width="">Unit Price</th>
@@ -130,11 +137,22 @@
                                     <tbody>
 
                                     </tbody>
-                                    <?php foreach ($stockDetails2 as $stckDetail) { ?>
+                                    <?php foreach ($stockDetails2 as $stckDetail) {
+                                            $stock = \App\StockInfo::find( $stckDetail->stock_info_id);
+                                    ?>
                                     <tr class="clone_">
                                         <td>
                                             <?php echo $stckDetail->product_type; ?>
                                         </td>
+                                        <?php
+                                            if($stockInvoices->product_status == 'Intact'){
+                                            ?>
+                                        <td>
+                                            <?php echo $stock->name; ?>
+                                        </td>
+                                        <?php
+                                            }
+                                            ?>
                                         <td>
                                             <?php echo $stckDetail->product->name; ?>
                                         </td>
@@ -167,6 +185,17 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        <?php
+                                        if($stockInvoices->product_status == 'Intact'){
+                                        ?>
+                                        <td class="stock">
+                                            <div class="form-body">
+                                                <div class="form-group" style="width: 220px;">
+                                                    {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control ','id'=>'stock_info_id') )!!}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <?php } ?>
 
                                         <td>
                                             <div class="form-body">

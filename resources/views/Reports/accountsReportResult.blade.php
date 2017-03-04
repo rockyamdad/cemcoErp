@@ -47,12 +47,9 @@
                     <table class="table table-striped table-bordered table-hover" id="accounts_report_table" cellspacing="0">
                         <thead style="background-color:cadetblue">
                             <tr>
-                                <th>Txn Date</th>
-                                <th>Txn Type</th>
-                                <th>Cheque</th>
                                 <th>Description</th>
-                                <th style="text-align: right;">Withdrawal</th>
-                                <th style="text-align: right;">Deposit</th>
+                                <th style="text-align: right;">Debit</th>
+                                <th style="text-align: right;">Credit</th>
                                 <th style="text-align: right;">Balance</th>
                             </tr>
                         </thead>
@@ -63,13 +60,7 @@
                         ?>
                         <tr class="odd gradeX" >
                             <td>Opening Balance</td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
                             <td></td>
-                            <td>
-                            </td>
                             <td>
                             </td>
                             <td style="text-align: right;">
@@ -79,22 +70,33 @@
                         </tr>
                         @foreach($results as $result )
 
-                            <tr class="odd gradeX">
-                                <td>{{\App\Transaction::convertDate($result->date)}}</td>
-                                <td>
-                                    @if($result->type != 'Receive')
-                                        Withdrawal from account
-                                    @else
-                                        Deposit to account
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($result->cheque_no)
-                                        Yes-{{$result->cheque_no}}
-                                    @endif
-                                </td>
-                                <td>{{$result->remarks}}</td>
 
+                            <tr class="odd gradeX">
+                                <td>
+
+                                    @if($result->type != 'Receive')
+                                        <?php
+                                        $purchase = \App\PurchaseInvoice::where('invoice_id','=',$result->invoice_id)->first();
+                                        $party = \App\Party::find($purchase->party_id);
+                                        ?>
+                                            @if($result->cheque_no)
+                                                Cash Paid To {{$party->name}} {{ $result->remarks ? '('.$result->remarks.')'  : ''}}
+                                            @else
+                                                Paid by cheque no {{$result->cheque_no}} To {{$party->name}} {{ $result->remarks ? '('.$result->remarks.')'  : ''}}
+                                            @endif
+                                    @else
+                                        <?php
+                                        $sale = \App\Sale::where('invoice_id','=',$result->invoice_id)->first();
+                                        if($sale->party_id)
+                                        $party = \App\Party::find($sale->party_id);
+                                        ?>
+                                            @if($result->cheque_no)
+                                                Received by cheque no {{$result->cheque_no}} from {{$sale->party_id ? $party->name: $sale->cash_sale}} {{ $result->remarks ? '('.$result->remarks.')' : ''}}
+                                            @else
+                                                Cash received from {{$sale->party_id ? $party->name: $sale->cash_sale}} {{ $result->remarks ? '('.$result->remarks.')' : ''}}
+                                            @endif
+                                    @endif
+                                </td>
                                 <td style="text-align: right;">
                                     @if($result->type != 'Receive')
                                         {{$result->amount}}

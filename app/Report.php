@@ -405,6 +405,7 @@ class Report extends Eloquent
                 'transactions.type',
                 'transactions.amount',
                 'transactions.payment_method',
+                'transactions.invoice_id',
                 'transactions.account_name_id',
                 'transactions.cheque_no',
                 'transactions.remarks'
