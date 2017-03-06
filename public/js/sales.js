@@ -148,17 +148,24 @@ jQuery(document).ready(function() {
     $('#party_id').live("change", function () {
         $("#party_id").attr('readonly','readonly');
         $("#cash_sale").attr('readonly','readonly');
+        $("#address").attr('readonly','readonly');
+    });
+    $('#address').live("change", function () {
+        $("#party_id").attr('readonly','readonly');
+        $("#address").attr('readonly','readonly');
     });
     $('#cash_sale').live("change", function () {
         $("#party_id").attr('readonly','readonly');
         $("#cash_sale").attr('readonly','readonly');
     });
 
-
     $("#edit_party_id").attr('readonly','readonly');
     $("#sales_man_id_val_edit").attr('readonly','readonly');
 
-
+    if($('#edit_party_id').val()){
+        $("#edit_cash_sale").attr('readonly','readonly');
+        $("#address").attr('readonly','readonly');
+    }
 
     $('.deleteSaleTransaction').live("click", function() {
 

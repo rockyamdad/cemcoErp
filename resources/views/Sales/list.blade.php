@@ -93,6 +93,7 @@
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
                         <th>Customer Name</th>
+                        <th>Address</th>
                         <th>Sales Head</th>
                         <th>Status</th>
                         <th>Created By</th>
@@ -122,6 +123,11 @@
                                     <td>
                                         @if($sale->cash_sale)
                                             {{$sale->cash_sale}}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($sale->address)
+                                            {{$sale->address}}
                                         @endif
                                     </td>
                                     <td>@if($saleMan)
@@ -186,6 +192,11 @@
                                             {{$sale->party->name}}
                                         @endif</td>
                                     <td>{{$sale->cash_sale}}</td>
+                                    <td>
+                                        @if($sale->address)
+                                            {{$sale->address}}
+                                        @endif
+                                    </td>
                                     <td>@if($saleMan)
                                             {{$saleMan->username}}
                                         @endif

@@ -178,6 +178,7 @@ class SaleController extends Controller{
                 $sale->party_id = Input::get('party_id');
             }else{
                 $sale->cash_sale = Input::get('cash_sale');
+                $sale->address = Input::get('address');
             }
             if(Input::get('sales_man_id')){
                 $sale->sales_man_id = Input::get('sales_man_id');

@@ -67,11 +67,15 @@
                                 <div class="col-md-3">
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     {!!Form::text('cash_sale',$sale[0]->cash_sale,array('placeholder' => 'Customer Name', 'class' =>
                                     'form-control','id'=>'edit_cash_sale'))!!}
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
+                                    {!!Form::textArea('address',$sale[0]->address,array('placeholder' => 'Address', 'class' =>
+                                    'form-control','id'=>'address', 'rows'=>'3'))!!}
+                                </div>
+                                <div class="col-md-2">
                                     {!!Form::select('sales_man_id',[null=>'Select Sales Head'] + $salesMan,$sale[0]->sales_man_id, array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val_edit') )!!}
                                 </div>
                             </div>
