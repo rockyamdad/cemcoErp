@@ -51,7 +51,6 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
     public function getSalesMan()
     {
         $parties = DB::table('users')->where('status','=', 'Activate')
-            ->where('role','=','sales_man')
             ->get();
         return $parties;
     }

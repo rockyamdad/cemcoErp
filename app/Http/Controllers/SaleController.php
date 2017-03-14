@@ -651,12 +651,20 @@ class SaleController extends Controller{
     public function getProducts($branch_id)
     {
 
-        $poductsNames = Product::where('branch_id','=',$branch_id)
+        $productsName = Product::where('branch_id','=',$branch_id)
             ->get();
 
-        foreach ($poductsNames as $product) {
+        foreach ($productsName as $productName) {
 
-            echo "<option value = $product->id > $product->name</option> ";
+            $category = $productName->category->name;
+            if($productName->sub_category_id){
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = '('.$subCategory->name.')';
+            }else{
+                $subCategoryName = '';
+            }
+
+            echo "<option value = $productName->id > $productName->name ($category) $subCategoryName</option> ";
 
         }
     }
