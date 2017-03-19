@@ -725,7 +725,7 @@ class SaleController extends Controller{
                 {
                     $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
                 }
-
+                $totalPrice = $totalPrice - $sale->discount_percentage_per;
                 foreach($transactions as $transaction)
                 {
                     $totalAmount =$totalAmount + ($transaction->amount);
@@ -741,7 +741,7 @@ class SaleController extends Controller{
 
             }
         }
-        $due = $totalPrice + $party->balance - $totalAmount;
+        $due = $totalPrice  + $party->balance - $totalAmount;
         if($due > 0) {
             echo "<p3 style='color: red;font-size: 114%; margin-left: 32px;'>Due is $due</p3>";
         }else{
