@@ -23,7 +23,7 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                     }
                     if ($sale22 != null) {
                 ?>
-                @if($sale22->branch_id == 1)
+           {{--     @if($sale22->branch_id == 1)
                     <img src="../../assets/img/pad/cemon-vc.jpg" style="width: 100%;"  alt="" />
                 @elseif($sale22->branch_id == 2)
                     <img src="../../assets/img/pad/fst-vc.jpg" style="width: 100%;"  alt="" />
@@ -41,7 +41,12 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                     <img src="../../assets/img/pad/cemon-vc.jpg" style="width: 100%;"  alt="" />
                 @elseif($sale22->branch_id == 9)
                     <img src="../../assets/img/pad/me-vc.jpg" style="width: 100%;"  alt="" />
-                @endif
+                @endif--}}
+                    <?php
+                    $branch = \App\Branch::find($sale22->branch_id);
+                    ?>
+
+                    <h1>{{$branch->name}}</h1>
 
             </div>
             <?php } ?>

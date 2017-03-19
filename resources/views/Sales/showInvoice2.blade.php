@@ -13,25 +13,29 @@
     <div class="invoice">
         <div class="row invoice-logo">
             <div class="col-xs-12 invoice-logo-space">
-                @if($saleDetails[0]->branch_id == 1)
-                    <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 2)
-                    <img src="../../assets/img/pad/fst-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 3)
-                    <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 4)
-                    <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 5)
-                    <img src="../../assets/img/pad/sun-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 6)
-                    <img src="../../assets/img/pad/olympic-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 7)
-                    <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 8)
-                    <img src="../../assets/img/pad/cemon-challan.jpg" style="width: 100%;"  alt="" />
-                @elseif($saleDetails[0]->branch_id == 9)
-                    <img src="../../assets/img/pad/me-challan.jpg" style="width: 100%;"  alt="" />
-                @endif
+                <?php
+                $branch = \App\Branch::find($saleDetails[0]->branch_id);
+                ?>
+                {{--  @if($saleDetails[0]->branch_id == 1)
+                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 2)
+                      <img src="../../assets/img/pad/fst-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 3)
+                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 4)
+                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 5)
+                      <img src="../../assets/img/pad/sun-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 6)
+                      <img src="../../assets/img/pad/olympic-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 7)
+                      <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 8)
+                  <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
+                  @elseif($saleDetails[0]->branch_id == 9)
+                      <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
+                  @endif--}}
+                <h1>{{$branch->name}}</h1>
 
             </div>
             <hr />

@@ -14,7 +14,10 @@
     <div class="invoice">
         <div class="row invoice-logo">
             <div class="col-xs-12 invoice-logo-space">
-                @if($saleDetails[0]->branch_id == 1)
+                <?php
+                    $branch = \App\Branch::find($saleDetails[0]->branch_id);
+                ?>
+              {{--  @if($saleDetails[0]->branch_id == 1)
                     <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
                 @elseif($saleDetails[0]->branch_id == 2)
                     <img src="../../assets/img/pad/fst-invoice.jpg" style="width: 100%;"  alt="" />
@@ -32,7 +35,8 @@
                 <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
                 @elseif($saleDetails[0]->branch_id == 9)
                     <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
-                @endif
+                @endif--}}
+                <h1>{{$branch->name}}</h1>
 
            </div>
             <hr />
