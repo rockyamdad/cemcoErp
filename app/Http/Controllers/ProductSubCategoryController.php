@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\AccountCategory;
 use App\Branch;
 use App\Category;
+use App\NameOfAccount;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -104,6 +106,27 @@ class ProductSubCategoryController extends Controller{
         }
         $SubCategories->category_id = Input::get('category_id');
         $SubCategories->user_id = Session::get('user_id');
+
+        $category = Category::find(Input::get('category_id'));
+        $accountCat = AccountCategory::where('name','=',$category->name)->get();
+
+        $accountNames = new NameOfAccount();
+        $accountNames->name = Input::get('name');
+        $accountNames->branch_id = Input::get('branch_id');
+        if(count($accountCat)>0){
+            $accountNames->account_category_id = $accountCat[0]->id;
+        }else{
+            $category = Category::find(Input::get('category_id'));
+            $aCategory = new AccountCategory();
+            $aCategory->name = $category->name;
+            $aCategory->user_id = Session::get('user_id');
+            $aCategory->save();
+            $accountNames->account_category_id = $aCategory->id;
+        }
+
+        $accountNames->opening_balance = 0.00;
+        $accountNames->user_id = Session::get('user_id');
+        $accountNames->save();
 
     }
     public function getDelete($id)

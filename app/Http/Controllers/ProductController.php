@@ -174,20 +174,8 @@ class ProductController extends Controller{
         $prodcuts->price = Input::get('price');
         $prodcuts->user_id = Session::get('user_id');
 
-        $category = Category::find(Input::get('category_id'));
-        $subCategory = SubCategory::find(Input::get('sub_category_id'));
-        $aCategory = new AccountCategory();
-        $aCategory->name = $category->name;
-        $aCategory->user_id = Session::get('user_id');
-        $aCategory->save();
 
-        $accountNames = new NameOfAccount();
-        $accountNames->name = $subCategory->name;
-        $accountNames->branch_id = Input::get('branch_id');
-        $accountNames->account_category_id = $aCategory->id;
-        $accountNames->opening_balance = 0.00;
-        $accountNames->user_id = Session::get('user_id');
-        $accountNames->save();
+
 
     }
     public function getDelete($id)

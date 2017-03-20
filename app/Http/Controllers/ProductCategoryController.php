@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\AccountCategory;
 use App\Branch;
 use App\Category;
+use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -103,6 +105,12 @@ class ProductCategoryController extends Controller{
         }
 
         $categories->user_id = Session::get('user_id');
+
+        $aCategory = new AccountCategory();
+        $aCategory->name = Input::get('name');
+        $aCategory->user_id = Session::get('user_id');
+        $aCategory->save();
+
 
     }
 }
