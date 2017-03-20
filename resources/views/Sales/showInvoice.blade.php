@@ -37,6 +37,7 @@
                     <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
                 @endif--}}
                 <h1>{{$branch->name}}</h1>
+                    <p1>{{$branch->location}}</p1>
 
            </div>
             <hr />

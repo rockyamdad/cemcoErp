@@ -35,9 +35,14 @@
                   @elseif($saleDetails[0]->branch_id == 9)
                       <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
                   @endif--}}
-                <h1>{{$branch->name}}</h1>
+
+                    <div>
+                        <h2>{{$branch->name}}</h2>
+                    </div>
+                <p1>{{$branch->location}}</p1>
 
             </div>
+
             <hr />
             {{--<div class="col-xs-6">
                <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>

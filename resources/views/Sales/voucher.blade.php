@@ -47,6 +47,7 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                     ?>
 
                     <h1>{{$branch->name}}</h1>
+                    <p1>{{$branch->location}}</p1>
 
             </div>
             <?php } ?>
