@@ -15,7 +15,7 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
     </div>
     <div class="invoice">
         <div class="row invoice-logo">
-            <div class="col-xs-12 invoice-logo-space">
+            <div class="col-md-12 invoice-logo-space">
                 <?php
                     $sale22 = \App\SAleDetail::where('invoice_id', '=', $transaction->invoice_id)->first();
                     if ($sale22 == null){
@@ -46,8 +46,13 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                     $branch = \App\Branch::find($sale22->branch_id);
                     ?>
 
-                    <h1>{{$branch->name}}</h1>
-                    <p1>{{$branch->location}}</p1>
+                    <div class="col-md-8">
+                        <h2>{{$branch->name}}</h2>
+                        <p1>{{$branch->location}}</p1>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="../../assets/img/cemco.jpg" alt="" />
+                    </div>
 
             </div>
             <?php } ?>

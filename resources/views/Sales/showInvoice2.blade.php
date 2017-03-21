@@ -12,7 +12,7 @@
         </div>
     <div class="invoice">
         <div class="row invoice-logo">
-            <div class="col-xs-12 invoice-logo-space">
+            <div class="col-md-12 invoice-logo-space">
                 <?php
                 $branch = \App\Branch::find($saleDetails[0]->branch_id);
                 ?>
@@ -36,10 +36,14 @@
                       <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
                   @endif--}}
 
-                    <div>
+                    <div class="col-md-8">
                         <h2>{{$branch->name}}</h2>
+                        <p1>{{$branch->location}}</p1>
                     </div>
-                <p1>{{$branch->location}}</p1>
+                    <div class="col-md-4">
+                        <img src="../../assets/img/cemco.jpg" alt="" />
+                    </div>
+
 
             </div>
 
@@ -49,7 +53,7 @@
             </div>--}}
         </div>
 
-        <div class="row" style="margin-top: -10px;">
+        <div class="row" style="margin-top: 50px;">
 
             <div class="col-xs-4">
                {{-- <h4>Client:</h4>--}}
