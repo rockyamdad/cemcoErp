@@ -74,6 +74,45 @@ class ReportController extends Controller{
             ->with('date1',$startDate)
             ->with('date2',$endDate);
     }
+    public function getStockscategories()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $catogories = new Category();
+        $categoriesAll = $catogories->getCategoriesDropDown();
+
+        $report = new Report();
+        $results = $report->getStockCategoriesReport();
+
+        return view('Reports.stockCategoriesReport')
+            ->with('results',$results)
+            ->with('branchAll',$branchAll)
+            ->with('categoriesAll',$categoriesAll);
+    }
+    public function postStockscategoriesresult()
+    {
+        $branches = new Branch();
+        $branchAll = $branches->getBranchesDropDown();
+        $catogories = new Category();
+        $categoriesAll = $catogories->getCategoriesDropDown();
+        $report = new Report();
+        if(Session::get('user_role')=='admin'){
+            $branch_id = Input::get('branch_id');
+        }else{
+            $branch_id = Session::get('user_branch');
+        }
+
+        $category_id = Input::get('category_id');
+        $results = $report->getStockCategoriesReportResult($branch_id,$category_id);
+
+
+        return view('Reports.stockCategoriesReport')
+            ->with('branch_id',$branch_id)
+            ->with('category_id',$category_id)
+            ->with('results',$results)
+            ->with('branchAll',$branchAll)
+            ->with('categoriesAll',$categoriesAll);
+    }
     public function getStocksproducts()
     {
         $branches = new Branch();
