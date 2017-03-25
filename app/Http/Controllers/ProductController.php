@@ -150,7 +150,7 @@ class ProductController extends Controller{
         else{
             $products = Product::find($id);
             $this->setProductsData($products);
-
+            $products->save();
             Session::flash('message', 'Product  has been Successfully Updated.');
             return Redirect::to('products/index');
         }
@@ -173,9 +173,6 @@ class ProductController extends Controller{
         $prodcuts->total_quantity = 0;
         $prodcuts->price = Input::get('price');
         $prodcuts->user_id = Session::get('user_id');
-
-
-
 
     }
     public function getDelete($id)

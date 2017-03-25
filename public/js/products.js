@@ -163,7 +163,7 @@ jQuery(document).ready(function() {
     }else{
         var branch_id = $('#products_edit_branch_id').val();
     }
-    var category_id = $('#products_edit_category_id').attr('rel');
+    var category_id = $('#products_edit_category_id').val();
     $.ajax({
         type: "get",
         url: "../category/"+branch_id,
@@ -180,7 +180,7 @@ jQuery(document).ready(function() {
     }else{
         var branch_id = $('#products_edit_branch_id').val();
     }
-    var sub_category_id = $('#products_edit_sub_category_id').attr('rel');
+    var sub_category_id = $('#products_edit_sub_category_id').val();
     $.ajax({
         type: "get",
         url: "../sub/"+category_id,
