@@ -32,6 +32,7 @@
                 <tr>
                     <th>Product Name</th>
                     <th>Quantity</th>
+                    <th>Price</th>
                     <th>Remarks</th>
                     @if( Session::get('user_role') == "admin")
                     <th>Action</th>
@@ -53,6 +54,7 @@
                 <tr class="odd gradeX">
                     <td>{{$stockDetail->product->name.'('.$categoryName->name.')'.'('.(($subCategoryName!=null)?$subCategoryName->name: '').')'}}</td>
                     <td>{{$stockDetail->quantity}}</td>
+                    <td>{{$stockDetail->price}}</td>
                     <td>
                         @if($stockDetail->remarks)
                         {{ $stockDetail->remarks }}
