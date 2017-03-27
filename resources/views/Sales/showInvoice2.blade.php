@@ -16,33 +16,14 @@
                 <?php
                 $branch = \App\Branch::find($saleDetails[0]->branch_id);
                 ?>
-                {{--  @if($saleDetails[0]->branch_id == 1)
-                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 2)
-                      <img src="../../assets/img/pad/fst-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 3)
-                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 4)
-                      <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 5)
-                      <img src="../../assets/img/pad/sun-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 6)
-                      <img src="../../assets/img/pad/olympic-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 7)
-                      <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 8)
-                  <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                  @elseif($saleDetails[0]->branch_id == 9)
-                      <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
-                  @endif--}}
 
-                    <div class="col-md-8">
-                        <h2>{{$branch->name}}</h2>
-                        <p1>{{$branch->location}}</p1>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="../../assets/img/cemco.jpg" alt="" />
-                    </div>
+                <div class="col-md-8">
+                    <h1>{{$branch->name}}</h1>
+                    <p1>{{$branch->location}}</p1>
+                </div>
+                <div class="col-md-4">
+                    <img src="../../assets/img/cemco.jpg"  style="float: right;width: 150px;margin-right: 200px; " alt="" />
+                </div>
 
 
             </div>

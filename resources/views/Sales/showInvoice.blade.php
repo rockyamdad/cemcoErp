@@ -41,17 +41,15 @@
                         <p1>{{$branch->location}}</p1>
                     </div>
                     <div class="col-md-4">
-                        <img src="../../assets/img/cemco.jpg" alt="" />
+                        <img src="../../assets/img/cemco.jpg"  style="float: right;width: 150px;margin-right: 200px;margin-top: 12px;" alt="" />
                     </div>
 
            </div>
-            <hr />
-            {{--<div class="col-xs-6">
-               <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
-            </div>--}}
-        </div>
 
-        <div class="row" style="margin-top: -10px;">
+        </div>
+<br>
+<br>
+        <div class="row" >
 
             <div class="col-xs-4">
                {{-- <h4>Client:</h4>--}}
