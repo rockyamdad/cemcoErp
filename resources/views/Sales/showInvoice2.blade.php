@@ -1,7 +1,22 @@
 @extends('baseLayout')
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
+    <style tyle="text/css">
+        <!--
+        @media print
+        {
+            .companyLogo{
+                width: 40%;
+                float: right;
+            }
+            .branchInfo{
+                width: 60%;
+                float: left;
+            }
+        }
 
+        -->
+    </style>
 @stop
 @section('content')
         <div class="row">
@@ -17,13 +32,13 @@
                 $branch = \App\Branch::find($saleDetails[0]->branch_id);
                 ?>
 
-                <div class="col-md-8">
-                    <h1>{{$branch->name}}</h1>
-                    <p1>{{$branch->location}}</p1>
-                </div>
-                <div class="col-md-4">
-                    <img src="../../assets/img/cemco.jpg"  style="float: right;width: 150px;margin-right: 200px; " alt="" />
-                </div>
+                    <div class="col-md-8 branchInfo" >
+                        <h2>{{$branch->name}}</h2>
+                        <p1>{{$branch->location}}</p1>
+                    </div>
+                    <div  class="col-md-4 companyLogo">
+                        <img width="150px" src="../../assets/img/cemco.jpg"  alt="" />
+                    </div>
 
 
             </div>
