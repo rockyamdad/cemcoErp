@@ -85,4 +85,16 @@ jQuery(document).ready(function() {
     });
 
     $('select').select2();
+    var branch_id = $('#edit_branch_id').val();
+    if(branch_id){
+        $.ajax({
+            type: "get",
+            url: "../categorybybranch/"+branch_id,
+            success: function (html) {
+                $('#edit_category_id').html(html);
+
+            }
+        });
+    }
+
 });

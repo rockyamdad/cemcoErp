@@ -16,7 +16,7 @@
                 <i class="fa fa-angle-right"></i>
             </li>
 
-            <li>Edit Product Category</li>
+            <li>Edit Product Sub-Category</li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
@@ -26,9 +26,9 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>Edit Product Category</div>
+            <div class="caption"><i class="fa fa-reorder"></i>Edit Product Sub-Category</div>
             <div class="actions">
-                <a class="btn dark" href="{{ URL::to('productsubcategories/index') }}">Product Category List</a>
+                <a class="btn dark" href="{{ URL::to('productsubcategories/index') }}">Product Sub-Category List</a>
             </div>
         </div>
         <div class="portlet-body form">

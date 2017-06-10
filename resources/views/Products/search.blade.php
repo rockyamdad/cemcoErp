@@ -146,7 +146,7 @@
                                     @if($product->sub_category_id == 0)
                                         <td>N/A</td>
                                     @else
-                                        <td>{{$subCategoryName->name}}</td>
+                                        <td>{{$subCategoryName?$subCategoryName->name:''}}</td>
                                     @endif
 
                                     <td>{{$product->price}}</td>

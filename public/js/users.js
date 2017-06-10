@@ -98,16 +98,6 @@ jQuery(document).ready(function() {
         });
     });
 
-    /*     jQuery.validator.addMethod(
-     "textonly",
-     function(value, element)
-     {
-     valid = false;
-     check = /[^-\.a-zA-Z\s\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02AE]/.test(value);
-     if(check==false)
-     valid = true;
-     return this.optional(element) || valid;
-     },
-     jQuery.format("Please only enter letters.")
-     )*/
-})
+    $("#edit_username").attr('readonly','readonly');
+
+});

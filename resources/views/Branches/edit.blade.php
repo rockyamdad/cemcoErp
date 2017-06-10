@@ -45,7 +45,7 @@
                     Your form validation is successful!
                 </div>
                 <div class="form-group">
-                    {!! HTML::decode(Form::label('name','Name',array('class' => 'control-label col-md-3'))) !!}
+                    {!! HTML::decode(Form::label('name','Name<span class="required">*</span>',array('class' => 'control-label col-md-3'))) !!}
                     <div class="col-md-4">
                         {!!Form::text('name',null,array('placeholder' => 'Name', 'class' => 'form-control','id' => 'name'))!!}
                     </div>
@@ -53,7 +53,7 @@
 
 
                 <div class="form-group">
-                    {!!HTML::decode(Form::label('location','Location',array('class' => 'control-label col-md-3')))!!}
+                    {!!HTML::decode(Form::label('location','Location<span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!!Form::textarea('location',null,array('class' => 'form-control','id' => 'location', 'rows'=>'3'))!!}
                     </div>

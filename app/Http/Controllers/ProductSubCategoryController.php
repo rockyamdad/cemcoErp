@@ -4,6 +4,7 @@ use App\AccountCategory;
 use App\Branch;
 use App\Category;
 use App\NameOfAccount;
+use App\Product;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -132,11 +133,13 @@ class ProductSubCategoryController extends Controller{
     public function getDelete($id)
     {
         $del = SubCategory::find($id);
-        try {
+        $data = Product::where('sub_category_id','=',$del->id)->first();
+
+        if($data){
+            Session::flash('error', 'This Sub Category can\'t delete because it  is used to file');
+        }else {
             $del->delete();
             Session::flash('message', 'Sub Category has been Successfully Deleted.');
-        } catch (Exception $e) {
-            Session::flash('message', 'This Sub Category can\'t delete because it  is used to file');
         }
 
         return Redirect::to('productsubcategories/index');

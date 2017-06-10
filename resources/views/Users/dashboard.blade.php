@@ -611,11 +611,11 @@
                             <?php
                                 $branchName = \App\Branch::find($requisition->branch_id);
                                 $subCategory = \App\SubCategory::find($requisition->product->sub_category_id);
-                                $subCategoryName =  '('.$subCategory->name.')';
+                                //$subCategoryName =  '('.$subCategory->name.')';
                             ?>
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$requisition->product->name."(".$requisition->product->category->name.")".$subCategoryName}}</td>
+                                <td>{{$requisition->product->name."(".$requisition->product->category->name.")"}}</td>
                                 <td>{{$requisition->party->name}}</td>
                                 <td>{{$requisition->requisition_quantity}}</td>
                                 <td>{{$requisition->issued_quantity}}</td>

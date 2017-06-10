@@ -63,7 +63,7 @@
                     'control-label col-md-3')))!!}
                     <div class="col-md-4">
                             {!!Form::text('username',null,array('placeholder' => 'Username', 'class' =>
-                            'form-control','id' => 'username'))!!}
+                            'form-control','id' => 'edit_username'))!!}
                     </div>
                 </div>
                 <div class="form-group">

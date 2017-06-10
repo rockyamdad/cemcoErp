@@ -158,37 +158,45 @@ jQuery(document).ready(function() {
         });
     });
 
+
+    var category_id = $('#products_edit_category_id').val();
+
+
     if($('#role_session').val() != 'admin') {
         var branch_id = $('#branch_session').val();
     }else{
         var branch_id = $('#products_edit_branch_id').val();
     }
-    var category_id = $('#products_edit_category_id').val();
-    $.ajax({
-        type: "get",
-        url: "../category/"+branch_id,
-        data:{'data':category_id},
-        success: function (html) {
-            $('#products_edit_category_id').append(html);
+    if(branch_id) {
+        $.ajax({
+            type: "get",
+            url: "../category/" + branch_id,
+            success: function (html) {
+                $('#products_edit_category_id').html(html);
 
-        }
-    });
+            }
+        });
+    }
 
 
-    if($('#role_session').val() != 'admin') {
+
+if(category_id) {
+
+    if ($('#role_session').val() != 'admin') {
         var branch_id = $('#branch_session').val();
-    }else{
+    } else {
         var branch_id = $('#products_edit_branch_id').val();
     }
     var sub_category_id = $('#products_edit_sub_category_id').val();
     $.ajax({
         type: "get",
-        url: "../sub/"+category_id,
-        data: {'branch_id':branch_id,'data':sub_category_id},
+        url: "../sub/" + category_id,
+        data: {'branch_id': branch_id, 'data': sub_category_id},
         success: function (html) {
-            $('#products_edit_sub_category_id').append(html);
+            $('#products_edit_sub_category_id').html(html);
 
         }
     });
+}
 
 });

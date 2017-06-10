@@ -17,6 +17,10 @@ class Category extends Eloquent
     {
         return $this->hasOne('App\SubCategory');
     }
+    public function subcategories()
+    {
+        return $this->hasMany('App\SubCategory');
+    }
     public function products()
     {
         return $this->hasMany('App\Product');

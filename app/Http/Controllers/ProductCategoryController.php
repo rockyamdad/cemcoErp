@@ -85,11 +85,13 @@ class ProductCategoryController extends Controller{
     public function getDelete($id)
     {
         $del = Category::find($id);
-        try {
+        $data = SubCategory::where('category_id','=',$del->id)->first();
+        if($data){
+            Session::flash('error', 'This  Category can\'t delete because it  is used to file');
+
+        }else{
             $del->delete();
             Session::flash('message', ' Category has been Successfully Deleted.');
-        } catch (Exception $e) {
-            Session::flash('message', 'This  Category can\'t delete because it  is used to file');
         }
 
         return Redirect::to('productCategories/index');

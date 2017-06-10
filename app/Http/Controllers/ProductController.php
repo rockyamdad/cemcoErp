@@ -46,9 +46,15 @@ class ProductController extends Controller{
         $categoryAll = $categories->getCategoriesDropDown();
         $category_id = Input::get('category_id');
         $product_id = Input::get('product_id');
-        $productsName = Product::where('category_id','=',$category_id)
-            ->where('id','=',$product_id)
-            ->get();
+        if($category_id && $product_id){
+            $productsName = Product::where('category_id','=',$category_id)
+                ->where('id','=',$product_id)
+                ->get();
+        }else{
+            $productsName = Product::where('category_id','=',$category_id)
+                ->get();
+        }
+
         return view('Products.search', compact('products'))
             ->with('categoryAll',$categoryAll)
             ->with('productsName',$productsName);
@@ -179,7 +185,7 @@ class ProductController extends Controller{
     {
         $product = Product::find($id);
         $product->delete();
-        Session::flash('message', 'Product  has been Successfully Deleted.');
+        Session::flash('error', 'Product  has been Successfully Deleted.');
         return Redirect::to('products/index');
     }
     public function getProducts($category_id)

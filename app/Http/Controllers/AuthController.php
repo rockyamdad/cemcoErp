@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Branch;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -38,26 +39,30 @@ class AuthController extends Controller{
 
             if(Auth::attempt(array('email'=>Input::get('email'),'password'=>Input::get('password'),'status'=>'Activate')))
             {
-                /*$user = User::where('email','=',$email)->get();
-                Session::put('user_type',$user[0]->role);
-                $id = $user[0]->id;
-                Session::put('created_by',$id);*/
-                Session::put('user_id',Auth::user()->id);
-                Session::put('user_name',Auth::user()->username);
-                Session::put('user_role',Auth::user()->role);
-                Session::put('user_branch',Auth::user()->branch_id);
-                Session::flash('message', 'User has been Successfully Login.');
-                $roles= Auth::user()->role;
+                $checkBranch = Branch::where('user_id','=',Auth::user()->id)->first();
 
-                if($roles = 'admin' || 'manager')
-                {
-                    return  Redirect::to('dashboard')
-                        ->with('flash_notice', 'You are successfully logged in.');;
-                }elseif($roles = 'user')
-                {
-                    return  Redirect::to('profile')
-                        ->with('flash_notice', 'You are successfully logged in.');;
+                if($checkBranch['status'] == 'Activate'){
+                    Session::put('user_id',Auth::user()->id);
+                    Session::put('user_name',Auth::user()->username);
+                    Session::put('user_role',Auth::user()->role);
+                    Session::put('user_branch',Auth::user()->branch_id);
+                    Session::flash('message', 'User has been Successfully Login.');
+                    $roles= Auth::user()->role;
+
+                    if($roles = 'admin' || 'manager')
+                    {
+                        return  Redirect::to('dashboard')
+                            ->with('flash_notice', 'You are successfully logged in.');;
+                    }elseif($roles = 'user')
+                    {
+                        return  Redirect::to('profile')
+                            ->with('flash_notice', 'You are successfully logged in.');;
+                    }
+                }else{
+                    return   Redirect::to('/')
+                        ->with('flash_error', 'Your Branch is not Active');
                 }
+
             }
             else
             {
