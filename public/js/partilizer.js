@@ -13,6 +13,12 @@ jQuery(document).ready(function() {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
+                branch_id: {
+                    required: true
+                },
+                party_id: {
+                    required: true
+                },
                 amount: {
                     required: true
                 },
@@ -91,6 +97,30 @@ jQuery(document).ready(function() {
 
             }
         });
+    });
+    $('#amount').live("blur", function () {
+        var party_id = $('#p_party_id').val();
+        var amount = $(this).val();
+        $("#savePayment").hide();
+
+        if(party_id){
+            $.ajax({
+                type: "get",
+                url: "due/"+party_id,
+                success: function (due) {
+                   if(amount > due){
+                       $("#savePayment").hide();
+                       var html =[];
+                       html.push('Amount must be smaller or equal than due');
+                       $('.amount_msg').html(html);
+                       $('#amount').val('');
+                   }else{
+                       $("#savePayment").show();
+                   }
+                }
+            });
+        }
+
     });
     $('#p_account_category_id').live("change", function () {
         var account_category = $('#p_account_category_id').val();

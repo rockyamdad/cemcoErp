@@ -1,5 +1,5 @@
 <?php
-$account = \App\NameOfAccount::find($transaction->account_name_id);
+$account = \App\NameOfAccount::find($transactions[0]->account_name_id);
 ?>
 @extends('baseLayout')
 @section('styles')
@@ -17,9 +17,9 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
         <div class="row invoice-logo">
             <div class="col-md-12 invoice-logo-space">
                 <?php
-                    $sale22 = \App\SAleDetail::where('invoice_id', '=', $transaction->invoice_id)->first();
+                    $sale22 = \App\SAleDetail::where('invoice_id', '=', $transactions[0]->invoice_id)->first();
                     if ($sale22 == null){
-                        $sale22 = \App\PurchaseInvoiceDetail::where('detail_invoice_id', '=', $transaction->invoice_id)->first();
+                        $sale22 = \App\PurchaseInvoiceDetail::where('detail_invoice_id', '=', $transactions[0]->invoice_id)->first();
                     }
                     if ($sale22 != null) {
                 ?>
@@ -67,9 +67,9 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                 <td>
                     <table class="text-center">
                         <tr>
-                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("d", strtotime($transaction->created_at)); ?></td>
-                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("m", strtotime($transaction->created_at)); ?></td>
-                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("y", strtotime($transaction->created_at)); ?></td>
+                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("d", strtotime($transactions[0]->created_at)); ?></td>
+                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("m", strtotime($transactions[0]->created_at)); ?></td>
+                            <td style="background-color: #C0DDEF; border: 1px solid #000;"><?php echo date("y", strtotime($transactions[0]->created_at)); ?></td>
                         </tr>
                         <tr>
                             <td style="padding: 5px;">Day</td>
@@ -82,15 +82,15 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
                 <td class="pull-right">
                     <table>
                         <tr><td>Voucher no:
-                                @if($transaction->type == "Receive")
-                                    CV-{{$transaction->voucher}}
+                                @if($transactions[0]->type == "Receive")
+                                    {{$transactions[0]->voucher_id}}
                                 @else
-                                    DV-{{$transaction->voucher}}
+                                    {{$transactions[0]->voucher_id}}
                                 @endif
                             </td></tr>
                         <tr><td>Recieved by:
                             <?php
-                                $user = \App\User::find($transaction->user_id);
+                                $user = \App\User::find($transactions[0]->user_id);
                                 ?>
                                 {{$user->name}}
                             </td></tr>
@@ -101,29 +101,30 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
 
 
         <table class="col-md-12"  style="width: 100%;" >
+
             <tr style="border:1px solid black; background: url('../../assets/img/lightBlueBackground.jpg');">
                 <td colspan="2">Received from:
-                    @if($transaction->type == "Receive")
+                    @if($transactions[0]->type == "Receive")
                         <?php
-                        $party = \App\Party::find($transaction->party);
+                        $party = \App\Party::find($transactions[0]->party);
                         ?>
                     @if($party)
                         {{$party->name}}
                     @else
                         <?php
-                                $sale = \App\Sale::where('invoice_id','=',$transaction->invoice_id)->get();
+                                $sale = \App\Sale::where('invoice_id','=',$transactions[0]->invoice_id)->get();
                         ?>
                         {{$sale[0]->cash_sale}}
                     @endif
-                    @elseif($transaction->type == "Payment")
+                    @elseif($transactions[0]->type == "Payment")
                         <?php
-                        $party = \App\Party::find($transaction->party);
+                        $party = \App\Party::find($transactions[0]->party);
                         ?>
                             @if($party)
                                 {{$party->name}}
                             @else
                                 <?php
-                                $sale = \App\Sale::where('invoice_id','=',$transaction->invoice_id)->get();
+                                $sale = \App\Sale::where('invoice_id','=',$transactions[0]->invoice_id)->get();
                                 ?>
                                 {{$sale[0]->cash_sale}}
                             @endif
@@ -135,26 +136,31 @@ $account = \App\NameOfAccount::find($transaction->account_name_id);
             </tr>
             <tr style="border:1px solid black;">
                 <td colspan="2">
-                    Being: {{$transaction->remarks}}<br>
-                    Payment Mode: <?php if($transaction->payment_method == 'Check') { echo 'Cheque'; } else { echo $transaction->payment_method; }?><?php if($transaction->payment_method == 'Sales Return') { echo ' for invoice - '.$transaction->remarks; } ?>
+                    Being: {{$transactions[0]->remarks}}<br>
+                    Payment Mode: <?php if($transactions[0]->payment_method == 'Check') { echo 'Cheque'; } else { echo $transactions[0]->payment_method; }?><?php if($transactions[0]->payment_method == 'Sales Return') { echo ' for invoice - '.$transactions[0]->remarks; } ?>
                     <br>
-                    @if($transaction->payment_method == "Check")
-                        Cheque no: {{$transaction->cheque_no}}
+                    @if($transactions[0]->payment_method == "Check")
+                        Cheque no: {{$transactions[0]->cheque_no}}
                         <br>
-                        Bank: {{$transaction->cheque_bank}}
+                        Bank: {{$transactions[0]->cheque_bank}}
                         <br>
-                        Cheque Date: {{$transaction->cheque_date}}
+                        Cheque Date: {{$transactions[0]->cheque_date}}
                     @endif
                 </td>
-                <td style="border:1px solid black;  background-color: #E4F1F9;"  class="text-center">{{$transaction->amount}}</td>
+                <?php $total = 0; ?>
+
+                @foreach($transactions as  $transaction)
+                    <?php $total = $total + $transaction->amount; ?>
+                 @endforeach
+                <td style="border:1px solid black;  background-color: #E4F1F9;"  class="text-center">{{$total}}</td>
             </tr>
             <tr>
                 <td>
                     <span class="col-md-3">Amount in words</span>
-                    <span class="col-md-8" style="border-bottom:1px dotted black; "><?php echo number_to_word($transaction->amount); ?> Taka Only</span>
+                    <span class="col-md-8" style="border-bottom:1px dotted black; "><?php echo number_to_word($total); ?> Taka Only</span>
                 </td>
                 <td style="border:1px solid black; background-color: #E4F1F9;">Total</td>
-                <td style="border:1px solid black; background-color: #C0DDEF;"   class="text-center">{{$transaction->amount}}</td>
+                <td style="border:1px solid black; background-color: #C0DDEF;"   class="text-center">{{$total}}</td>
             </tr>
         </table>
         <br><br>

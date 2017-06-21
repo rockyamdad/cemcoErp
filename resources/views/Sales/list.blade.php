@@ -272,6 +272,7 @@
 </div>
 {!! $sales->render() !!}
 @stop
+
 @section('javascript')
 {!! HTML::script('js/sales.js') !!}
 {!! HTML::script('js/partilizer.js') !!}

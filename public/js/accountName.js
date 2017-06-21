@@ -17,6 +17,9 @@ jQuery(document).ready(function() {
             name: {
                 required: true
             },
+            branch_id: {
+                required: true
+            },
             account_category_id: {
                 required: true
             }

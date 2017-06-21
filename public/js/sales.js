@@ -133,7 +133,7 @@ jQuery(document).ready(function() {
 
         var saleDetailId = $(this).attr('rel');
         var parent = $(this).closest('tr');
-        var answer     = confirm("Are you sure you want to delete this Sales Detail?");
+        var answer     = confirm("Are you sure you want to delete this Sales Detail Product?");
         if(answer) {
             $.ajax({
                 type: "Get",
@@ -341,6 +341,7 @@ jQuery(document).ready(function() {
     //
     //
     //});
+
 
 
 });

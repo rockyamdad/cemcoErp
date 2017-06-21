@@ -43,7 +43,6 @@ class SaleController extends Controller{
             $sales = $sale->getSalesList(Session::get('user_branch'));
         }
 
-
         $sale = new Sale();
         $allInvoices = $sale->getSalesInvoiceDropDown();
         $invoice = Input::get('invoice_id');
@@ -622,11 +621,11 @@ class SaleController extends Controller{
 
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
-                $invoiceidd = "S".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
                 //var_dump($invoiceidd);
                 return $invoiceidd;
             } else {
-                $invoiceidd = "V".$dd2 . $mm2 . $yy2 . "-1";
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
                 return $invoiceidd;
             }
         } else {
@@ -643,7 +642,7 @@ class SaleController extends Controller{
             $yy2 = substr($yy1, 2);
 
 
-            $invoiceidd = "V".$dd2 . $mm2 . $yy2 . "-1";
+            $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
             //var_dump($invoiceidd);
             return $invoiceidd;
         }
@@ -664,7 +663,7 @@ class SaleController extends Controller{
                 $subCategoryName = '';
             }
 
-            echo "<option value = $productName->id > $productName->name ($category) $subCategoryName</option> ";
+            echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName) </option> ";
 
         }
     }
@@ -709,6 +708,7 @@ class SaleController extends Controller{
             ->where('status','!=','Completed')
             ->where('is_sale','=',1)
             ->get();
+
         $party = Party::find($party_id);
         $totalAmount = 0;
         $totalPrice = 0;
@@ -728,7 +728,7 @@ class SaleController extends Controller{
                 $totalPrice = $totalPrice - $sale->discount_percentage_per;
                 foreach($transactions as $transaction)
                 {
-                    $totalAmount =$totalAmount + ($transaction->amount);
+                    $totalAmount = $totalAmount + ($transaction->amount);
                 }
 
                 $transactions2 = Transaction::where('invoice_id','=',$sale->invoice_id)
@@ -750,6 +750,49 @@ class SaleController extends Controller{
 
         }
 
+    }
+    public function getDue($party_id)
+    {
+        $partySales = Sale::where('party_id','=',$party_id)
+            ->where('status','!=','Completed')
+            ->where('is_sale','=',1)
+            ->get();
+
+        $party = Party::find($party_id);
+        $totalAmount = 0;
+        $totalPrice = 0;
+        if(count($partySales)>0){
+
+            foreach ($partySales as $sale) {
+
+                $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('payment_method', '=', 'Check')
+                    ->where('type', '=', 'Receive')
+                    ->where('cheque_status', '=', 1)->get();
+                foreach($saleDetails as $saleDetail)
+                {
+                    $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
+                }
+                $totalPrice = $totalPrice - $sale->discount_percentage_per;
+                foreach($transactions as $transaction)
+                {
+                    $totalAmount = $totalAmount + ($transaction->amount);
+                }
+
+                $transactions2 = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('type', '=',     'Receive')
+                    ->where('payment_method', '!=', 'Check')->get();
+                foreach($transactions2 as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+
+            }
+        }
+        $due = $totalPrice  + $party->balance - $totalAmount;
+
+        return new JsonResponse($due);
     }
 
 
@@ -947,7 +990,7 @@ class SaleController extends Controller{
                 echo "How come its possible! Consult with DEVELOPERS!!!";
             }*/
             //automatically reduce sales payment ends
-            return Redirect::to('sales/voucher/'.$transaction->id);
+            return Redirect::to('sales/voucher/'.$voucherId);
         }
     }
     public function getProductprice($id){
@@ -979,9 +1022,9 @@ class SaleController extends Controller{
         return json_encode($data);
     }
 
-    public function getVoucher($transactionId){
-        $transaction = Transaction::find($transactionId);
-        return view('Sales.voucher',compact('transaction'));
+    public function getVoucher($voucherId){
+        $transactions = Transaction::where('voucher_id','=',$voucherId)->get();
+        return view('Sales.voucher',compact('transactions'));
 
     }
     public function getVouchershow($voucherId){

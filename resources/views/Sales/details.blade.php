@@ -60,7 +60,7 @@ function closeModal() {
                     <tr class="odd gradeX">
                         <td>{{$stockName->name}}</td>
                         <td>{{$saleDetail->product_type}}</td>
-                        <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
+                        <td>{{$saleDetail->product->name.'('.$categoryName->name.')'}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
                         <?php $amount = $saleDetail->quantity * $saleDetail->price;  ?>
@@ -76,7 +76,7 @@ function closeModal() {
                         @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td>
 
-                                <a class="btn red btn-sm" href="{{ URL::to('/deleteDetail/'.$saleDetail->id)}}"
+                                <a class="btn red btn-sm deleteSaleDetail" rel="{{$saleDetail->id}}"
                                    onclick="return confirm('Are you sure you want to delete this item?');"><i
                                             class="fa fa-trash-o"></i> Delete</a>
 
@@ -154,7 +154,7 @@ function closeModal() {
                     <td></td>
                     <td></td>
                     <td  id="amount" class="text-right">{{ $total - $sale->discount_percentage }}</td>
-                    <td>@if($sale->is_sale != 1)<a href="#" onclick="save_da();" class="btn btn-danger">Save</a>@endif</td>
+                    <td>@if(Session::get('user_role') == "admin" || $sale->is_sale != 1)<a href="#" onclick="save_da();" class="btn btn-danger">Save</a>@endif</td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
                     @endif
