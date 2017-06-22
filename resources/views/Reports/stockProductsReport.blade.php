@@ -111,11 +111,16 @@
                             <?php
                             $pName = \App\Product::find($result->product_id);
                             $categoryName = \App\Category::find($pName->category_id);
+
                                if($pName->sub_category_id){
                                    $subCategory = \App\SubCategory::find($pName->sub_category_id);
-                                   $subCategoryName = $subCategory->name;
+                                   if($subCategory){
+                                       $subCategoryName = $subCategory->name;
+                                   }else{
+                                       $subCategoryName = '';
+                                   }
                                }
-                                 else{
+                               else{
                                      $subCategoryName = '';
                                  }
 

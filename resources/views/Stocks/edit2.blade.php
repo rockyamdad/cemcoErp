@@ -231,6 +231,13 @@
                                     </tr>
                                 </table>
                                 <div class="form-group ">
+                                    <label class="control-label col-md-8"></label>
+                                    <div class="col-md-4 text-right">
+                                        <a class="btn btn-success" href="{{ URL::to('stocks/index') }}">Save & Continue</a>
+                                    </div>
+
+                                </div>
+                                <div class="form-group ">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-7 balance_show">
                                     </div>

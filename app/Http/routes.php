@@ -127,6 +127,7 @@ Route::get('/details/{id}','SaleController@getDetails');
 Route::get('/delete/{id}','SaleController@getDelete');
 Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
 Route::get('/due','SaleController@getDue');
+Route::get('/confirm','SaleController@getConfirm');
 Route::get('/make/{id}','SaleController@getMake');
 Route::post('/saveReceive','SaleController@postSaveReceive');
 Route::post('/savereceiveall','SaleController@postSaveReceiveAll');

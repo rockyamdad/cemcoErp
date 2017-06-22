@@ -163,6 +163,20 @@ function closeModal() {
 
                 </tbody>
             </table>
+            @if($sale->is_sale != 1)
+            <div class="col-xs-16 remarks-section">
+                <b>Remarks:</b><br>
+                <div id="remrks"></div>
+                <div id="remrksForm">
+                            <textarea class="col-xs-16" rows="5"  id="remIn">1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
+                            2. NO REPLACEMENT WARANTY
+                        </textarea>
+                    <button class="btn btn-danger" value="{{$sale->id}}" id="confirmRemarks">Confirm</button>
+                </div>
+
+            </div>
+            @endif
+            <p class="remarks-msg" style="color:green"></p>
             <br>
             <h3>Sales Transaction Details</h3>
             <table class="table table-striped table-bordered table-hover"  id="saleTransactiontable">
@@ -286,4 +300,23 @@ function closeModal() {
             }
         });
     }
+
+    $('#confirmRemarks').live("click", function () {
+       var salesId = $(this).val();
+       var remarks = $('#remIn').val();
+        alert(salesId);
+
+        $.ajax({
+            type: "get",
+            url: "confirm/"+salesId,
+            data:{'data':remarks},
+            success: function (html) {
+                var html =[];
+                html.push('Remarks updated');
+                $('.remarks-msg').html(html);
+                $('.remarks-section').hide();
+
+            }
+        });
+    });
 </script>

@@ -337,10 +337,7 @@ jQuery(document).ready(function() {
             }
         });
     });
-    //$('#confirmRemarks').live("click", function () {
-    //
-    //
-    //});
+
 
 
 

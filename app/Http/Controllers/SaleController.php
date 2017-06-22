@@ -1073,12 +1073,11 @@ class SaleController extends Controller{
         $sales->save();
     }
 
-    public function postConfirm($saleId){
+    public function getConfirm($saleId){
         $sales = Sale::find($saleId);
-        echo $sales->remarks = Input::get('remIn');
+        $sales->remarks = Input::get('data');
         $sales->save();
     }
-
 
 
 }

@@ -365,7 +365,7 @@ class StockController extends Controller{
                 return $this->stockDetailConvertToArray($stockDetails);
             }
             //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
-        }elseif(Input::get('entry_type') == 'StockOut'){
+        }elseif(Input::get('entry_type') == 'StockOut' || Input::get('entry_type') == 'Wastage'){
             if(!empty($stock_Count[0])) {
                 if ($stock_Count[0]->product_quantity >= Input::get('product_quantity')) {
                     $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - Input::get('product_quantity');

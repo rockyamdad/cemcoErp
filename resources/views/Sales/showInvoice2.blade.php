@@ -148,12 +148,22 @@
 
                     <div class="col-xs-12">
                         <b>Remarks:</b><br>
-                        <div id="remrks"></div>
+                        <div id="remrks">
+                            <?php if ($sale->is_sale == 1) { ?>
+                            <?php echo nl2br($sale->remarks); ?>
+                            <?php }?>
+                        </div>
                         <div id="remrksForm">
-                            <textarea class="col-xs-6" id="remIn">1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
-2. NO REPLACEMENT WARANTY
+                            <?php if ($sale->is_sale != 1) { ?>
+                            {!!Form::open(array('url' => 'http://cemcoerp.dev/sales/confirm/'.$sale->id, 'method' => 'post', 'class'=>'form-horizontal',
+                            'id'=>'confirm_form'))!!}
+
+                            <textarea class="col-xs-6" id="remIn" name="remIn">{{$sale->remarks}}
+
                         </textarea>
-                            <button class="btn btn-danger" id="confirmRemarks">Confirm</button>
+                            </form>
+                            <button class="btn btn-danger" id="click" onclick="conirm({{$sale->id}});">Confirm</button>
+                            <?php }?>
                         </div>
 
                     </div>

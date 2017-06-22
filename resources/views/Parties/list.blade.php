@@ -88,7 +88,7 @@
                         <td class="party-status"><span class="label label-sm label-danger">Deactivate</span></td>
                         @endif
                         <td>
-                            <a class="btn blue btn-sm" href="{{ URL::to('parties/edit/'. $party->id ) }}"><i class="fa fa-edit"></i>Edit Party</a>
+                            <a class="btn blue btn-sm" href="{{ URL::to('parties/edit/'. $party->id ) }}"><i class="fa fa-edit"></i>Edit</a>
                             <a data-id="{{$party->id}}" class="btn btn-sm purple changeStatus" href="{{ URL::to('changeStatusParty/'.$party->status.'/'. $party->id ) }}"><i class="fa fa-link"></i>Change Status</a>
 
                         </td>
