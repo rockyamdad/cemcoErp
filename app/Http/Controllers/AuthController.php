@@ -41,7 +41,7 @@ class AuthController extends Controller{
             {
                 $checkBranch = Branch::where('user_id','=',Auth::user()->id)->first();
 
-                if($checkBranch['status'] == 'Activate'){
+                if($checkBranch['status'] = 'Activate'){
                     Session::put('user_id',Auth::user()->id);
                     Session::put('user_name',Auth::user()->username);
                     Session::put('user_role',Auth::user()->role);
