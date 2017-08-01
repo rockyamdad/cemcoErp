@@ -309,20 +309,20 @@ class PurchaseInvoiceController extends Controller{
         }
         else{
 
-            $transactionId = $this->setPurchasePayment();
-            if ($transactionId > 0)
-                return Redirect::to('purchases/voucher/'.$transactionId);
-            else
+            $voucherId = $this->setPurchasePayment();
+            if ($voucherId) {
+                return Redirect::to('purchases/voucher/'.$voucherId);
+            } else {
                 return Redirect::to('purchases/index');
-
+            }
         }
     }
     private function setPurchasePayment()
     {
         $accountPayment = NameOfAccount::find(Input::get('account_name_id'));
+        $voucherId = '';
         if($accountPayment->opening_balance >= Input::get('amount')){
-
-
+            $voucherId = $this->generateVoucherId();
             $purchases = PurchaseInvoice::where('invoice_id','=',Input::get('invoice_id'))->first();
             $purchaseTransaction = new Transaction();
             $purchaseTransaction->account_category_id = Input::get('account_category_id');
@@ -331,6 +331,7 @@ class PurchaseInvoiceController extends Controller{
             $purchaseTransaction->remarks = Input::get('remarks');
             $purchaseTransaction->user_id = Session::get('user_id');
             $purchaseTransaction->type = "Payment";
+            $purchaseTransaction->voucher_id = $voucherId;
             $purchaseTransaction->payment_method = Input::get('payment_method');
             $purchaseTransaction->invoice_id = Input::get('invoice_id');
             $purchaseTransaction->cheque_no = Input::get('cheque_no');
@@ -366,13 +367,12 @@ class PurchaseInvoiceController extends Controller{
 
             $purchaseInvoice->save();
             $purchaseTransaction->save();
-                Session::flash('message', 'Payment has been Successfully Cleared.');
-            return $purchaseTransaction->id;
+            Session::flash('message', 'Payment has been Successfully Cleared.');
+
         }else{
             Session::flash('message', 'You dont have Enough Balance');
-            return 0;
         }
-
+        return $voucherId;
 
     }
 
@@ -578,6 +578,7 @@ class PurchaseInvoiceController extends Controller{
             $partyId=Input::get('party_id');
             if($remaining_amount>0)
             {
+                $voucherId = $this->generateVoucherId();
                 $invoiceId = PurchaseInvoice::where('party_id','=',$partyId)
                     ->get();
                 if(count($invoiceId)>0) {
@@ -605,12 +606,12 @@ class PurchaseInvoiceController extends Controller{
                         }
 
                         $difference = $detailsPrice - $paid;
-                        //echo $difference; die();
                         if ($difference > 0) {
 
                             //echo 'greater than 0 difference';
                             if ($remaining_amount <= $difference) {
                                 if ($remaining_amount > 0) {
+
                                     $sale = PurchaseInvoice::find($invid->id);
                                     if ($remaining_amount < $difference) {
                                         $sale->status = "Partial";
@@ -629,6 +630,7 @@ class PurchaseInvoiceController extends Controller{
                                     $transaction->account_name_id = Input::get('account_name_id');
                                     $transaction->user_id = Session::get('user_id');
                                     $transaction->cheque_no = Input::get('cheque_no');
+                                    $transaction->voucher_id = $voucherId;
                                     $branch = PurchaseInvoiceDetail::where('detail_invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
                                     $transaction->cheque_date = Input::get('cheque_date');
@@ -647,6 +649,7 @@ class PurchaseInvoiceController extends Controller{
 
                             } elseif ($remaining_amount > $difference) {
                                 if ($remaining_amount > 0) {
+
                                     $sale = PurchaseInvoice::find($invid->id);
 
                                     $sale->status = "Completed";
@@ -667,6 +670,7 @@ class PurchaseInvoiceController extends Controller{
                                     $transaction->cheque_no = Input::get('cheque_no');
                                     $branch = PurchaseInvoiceDetail::where('detail_invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
+                                    $transaction->voucher_id = $voucherId;
                                     $transaction->cheque_date = Input::get('cheque_date');
                                     $transaction->cheque_bank = Input::get('cheque_bank');
 
@@ -704,6 +708,7 @@ class PurchaseInvoiceController extends Controller{
                         $transaction->user_id = Session::get('user_id');
                         $transaction->cheque_no = Input::get('cheque_no');
                         $transaction->branch_id = Input::get('branch_id');
+                        $transaction->voucher_id = $voucherId;
                         $transaction->cheque_date = Input::get('cheque_date');
                         $transaction->cheque_bank = Input::get('cheque_bank');
 
@@ -720,7 +725,7 @@ class PurchaseInvoiceController extends Controller{
                     }
                 }
             }
-            return Redirect::to('purchases/voucher/'.$transactionId);
+            return Redirect::to('purchases/voucher/'.$voucherId);
         }
     }
 
@@ -774,9 +779,108 @@ class PurchaseInvoiceController extends Controller{
 
     }
 
-    public function getVoucher($transactionId){
-        $transaction = Transaction::find($transactionId);
-        return view('Sales.voucher',compact('transaction'));
+    private function generateVoucherId()
+    {
+        $invdesc = Transaction::orderBy('id', 'DESC')->first();
+        if ($invdesc != null) {
+            $invDescId = $invdesc->voucher_id;
+            $invDescIdNo = substr($invDescId, 8);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 1, 2);
+            $mm = substr($invDescId, 3,2);
+            $yy = substr($invDescId, 5, 2);
+            //var_dump($invDescId." ".$dd." ".$mm." ".$yy);
+            //echo "d1 ".$yy;
+
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+            //var_dump($dd2." ".$mm2." ".$yy2);
+
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
+                //var_dump($invoiceidd);
+                return $invoiceidd;
+            } else {
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+                return $invoiceidd;
+            }
+        } else {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+
+            $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+            //var_dump($invoiceidd);
+            return $invoiceidd;
+        }
+    }
+    public function getDue($party_id)
+    {
+        $partySales = PurchaseInvoice::where('party_id','=',$party_id)
+            ->where('status','!=','Completed')
+            ->get();
+        $party = Party::find($party_id);
+
+        $totalAmount = 0;
+        $totalPrice = 0;
+
+        if(count($partySales)>0){
+            foreach ($partySales as $sale) {
+
+                $saleDetails = PurchaseInvoiceDetail::where('detail_invoice_id','=',$sale->invoice_id)->get();
+                $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('payment_method', '=', 'Check')
+                    ->where('type', '=', 'Payment')
+                    ->where('cheque_status', '=', 1)->get();
+                foreach($saleDetails as $saleDetail)
+                {
+                    $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
+                }
+
+                foreach($transactions as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+
+                $transactions2 = Transaction::where('invoice_id','=',$sale->invoice_id)
+                    ->where('type', '=', 'Payment')
+                    ->where('payment_method', '!=', 'Check')->get();
+                foreach($transactions2 as $transaction)
+                {
+                    $totalAmount =$totalAmount + ($transaction->amount);
+                }
+
+            }
+        }
+        $due = $totalPrice + $party->balance - $totalAmount;
+        return new JsonResponse($due);
+
+    }
+
+    public function getVoucher($voucherId){
+        $transactions = Transaction::where('voucher_id','=',$voucherId)->get();
+        return view('Sales.voucher',compact('transactions'));
 
     }
 

@@ -108,14 +108,14 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
                         <?php
                         $party = \App\Party::find($transactions[0]->party);
                         ?>
-                    @if($party)
-                        {{$party->name}}
-                    @else
-                        <?php
-                                $sale = \App\Sale::where('invoice_id','=',$transactions[0]->invoice_id)->get();
-                        ?>
-                        {{$sale[0]->cash_sale}}
-                    @endif
+                        @if($party)
+                            {{$party->name}}
+                        @else
+                            <?php
+                                    $sale = \App\Sale::where('invoice_id','=',$transactions[0]->invoice_id)->get();
+                            ?>
+                            {{$sale[0]->cash_sale}}
+                        @endif
                     @elseif($transactions[0]->type == "Payment")
                         <?php
                         $party = \App\Party::find($transactions[0]->party);
@@ -124,7 +124,7 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
                                 {{$party->name}}
                             @else
                                 <?php
-                                $sale = \App\Sale::where('invoice_id','=',$transactions[0]->invoice_id)->get();
+                                $sale = \App\PurchaseInvoice::where('invoice_id','=',$transactions[0]->invoice_id)->get();
                                 ?>
                                 {{$sale[0]->cash_sale}}
                             @endif

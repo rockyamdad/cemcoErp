@@ -29,6 +29,13 @@
                 <div class="portlet-body form" id="testt">
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 ">
+                                <h4 class="amount_msg" style="color:red"></h4>
+                            </div>
+                        </div>
+                        <input type="hidden" name="due" id="due" class="due" value="{{$due}}">
                         <div class="form-group">
                             {!!HTML::decode(Form::label('account_category_id','Account Category<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
@@ -47,7 +54,7 @@
                         </div>
 
                         <div class="form-group">
-                            {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
+                            {!!HTML::decode(Form::label('payment_method','Payment Method<span class="required">*</span>',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
                                 array('class'=>'form-control' ,'id'=>'payment_method'))!!}
@@ -97,7 +104,7 @@
                                            'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::text('amount',null,array('placeholder' => 'Amount', 'class' =>
-                                               'form-control','id'=>'amount'))!!}
+                                               'form-control','id'=>'amount_payment'))!!}
                             </div>
                         </div>
                         <div class="form-group">

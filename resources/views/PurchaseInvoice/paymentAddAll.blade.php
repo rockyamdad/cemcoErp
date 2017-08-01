@@ -29,6 +29,12 @@ function closeModal() {
 
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 ">
+                                <h4 class="amount_msg" style="color:red"></h4>
+                            </div>
+                        </div>
                         <div class="form-group">
                             {!!HTML::decode(Form::label('party_id','Choose Party<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
@@ -73,7 +79,7 @@ function closeModal() {
                         </div>
                       {{--  <input name="branch_id" type="hidden" id="branch" value="{{$saleDetailsBranch}}"/>--}}
                         <div class="form-group">
-                            {!!HTML::decode(Form::label('payment_method','Payment Method',array('class' => 'control-label col-md-4')))!!}
+                            {!!HTML::decode(Form::label('payment_method','Payment Method<span class="required">*</span>',array('class' => 'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!! Form::select('payment_method',[null=>'Please Select Payment Method'] + array('Cash' => 'On Cash', 'Check' => 'On Check'),'null',
                                 array('class'=>'form-control','id'=>'payment_method'))!!}

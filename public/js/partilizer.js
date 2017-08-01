@@ -122,6 +122,23 @@ jQuery(document).ready(function() {
         }
 
     });
+    $('#amount_payment').live("blur", function () {
+        var due = $('.due').val();
+        var amount = $(this).val();
+        $("#savePayment").hide();
+
+        if(due < amount) {
+            console.log('sss');
+            $("#savePayment").hide();
+            var html =[];
+            html.push('Amount must be smaller or equal than due');
+            $('.amount_msg').html(html);
+            $('#amount_payment').val('');
+        }else{
+            $("#savePayment").show();
+        }
+    });
+
     $('#p_account_category_id').live("change", function () {
         var account_category = $('#p_account_category_id').val();
         var branch = $('#p_branch_id').val();
