@@ -72,7 +72,6 @@ jQuery(document).ready(function() {
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#requisition_quantity').val());
-        alert(branch);
 
         if (party === '' || (product === '') || (quantity === '') || (branch ==='')) {
             return false;

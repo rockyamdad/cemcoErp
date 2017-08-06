@@ -164,7 +164,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue editPurchaseInvoice' ,'rel'=>$purchase[0]->invoice_id))!!}
+                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save editPurchaseInvoice' ,'rel'=>$purchase[0]->invoice_id))!!}
                                         </td>
                                     </tr>
 

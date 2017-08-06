@@ -269,7 +269,7 @@ class SaleController extends Controller{
         $transactionsPaid = $transactions->getTotalPaid($invoice_id);
         $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
         $s = new Sale();
-        $due = $s->getPartydue($invoice_id);
+        $due = $s->getsalesdue($invoice_id);
         return view('Sales.paymentAdd',compact('accountCategoriesAll','due'))
             ->with('saleDetailsAmount',$saleDetailsAmount)
             ->with('saleDetailsBranch',$saleDetailsBranch->branch_id)

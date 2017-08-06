@@ -140,7 +140,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue savePurchaseInvoice'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save savePurchaseInvoice'))!!}
                                     </td>
                                 </tr>
                             </table>

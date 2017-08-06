@@ -102,6 +102,8 @@ jQuery(document).ready(function() {
     $(".saveStocks").live("click", function () {
 
         if(stockFormValidation()){
+            $(".save" ).removeClass("saveStocks");
+            $(".save" ).text("Loading..");
             $.ajax({
                 type: "POST",
                 url: "/saveStock2",
@@ -163,6 +165,8 @@ jQuery(document).ready(function() {
                     } else {
                         $('#stockTable  > tbody:first').append(html);
                     }
+                    $(".save" ).addClass("saveStocks");
+                    $(".save" ).text("Add");
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("Status: " + textStatus); alert("Error: " + errorThrown);

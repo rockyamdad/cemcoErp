@@ -4,6 +4,8 @@ jQuery(document).ready(function() {
     });*/
     $(".saveSales").live("click", function () {
         if(saleFormValidation()){
+            $(".save" ).removeClass("saveSales");
+            $(".save" ).text("Loading..");
             $.ajax({
                 type: "POST",
                 url: "/saveSale",
@@ -33,6 +35,8 @@ jQuery(document).ready(function() {
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#saleTable  > tbody:first').append(html);
+                    $(".save" ).addClass("saveSales");
+                    $(".save" ).text("Add");
                 }
             });
         } else {
@@ -42,6 +46,8 @@ jQuery(document).ready(function() {
     $(".editSale").live("click", function () {
         if(saleFormValidationEdit()){
             var saleId = $(this).attr('rel');
+            $(".save" ).removeClass("editSale");
+            $(".save" ).text("Loading..");
             $.ajax({
                 type: "POST",
                 url: "/updatePurchases/"+saleId,
@@ -72,6 +78,8 @@ jQuery(document).ready(function() {
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#saleTable  > tbody:first').append(html);
+                    $(".save" ).addClass("editSale");
+                    $(".save" ).text("Add");
                 }
             });
         } else {

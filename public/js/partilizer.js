@@ -122,11 +122,10 @@ jQuery(document).ready(function() {
         }
 
     });
-    $('#amount_payment').live("blur", function () {
+    $('.amount_payment').live("blur", function () {
         var due = $('.due').val();
         var amount = $(this).val();
         $("#savePayment").hide();
-
         if(due < amount) {
             console.log('sss');
             $("#savePayment").hide();

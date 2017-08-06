@@ -4,6 +4,8 @@ jQuery(document).ready(function() {
     });
     $(".savePurchaseInvoice").live("click", function () {
         if(saleFormValidation()){
+            $(".save" ).removeClass("savePurchaseInvoice");
+            $(".save" ).text("Loading..");
             $.ajax({
                 type: "POST",
                 url: "/savePurchases",
@@ -34,6 +36,8 @@ jQuery(document).ready(function() {
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#purchaseTable  > tbody:first').append(html);
+                    $(".save" ).addClass("savePurchaseInvoice");
+                    $(".save" ).text("Add");
                 }
             });
         } else {
@@ -43,6 +47,8 @@ jQuery(document).ready(function() {
     $(".editPurchaseInvoice").live("click", function () {
         if(saleFormValidationEdit()){
             var purchaseId = $(this).attr('rel');
+            $(".save" ).removeClass("editPurchaseInvoice");
+            $(".save" ).text("Loading..");
             $.ajax({
                 type: "POST",
                 url: "../update/"+purchaseId,
@@ -73,6 +79,8 @@ jQuery(document).ready(function() {
 
                     html = '<tr>' + html.join('') + '<tr>';
                     $('#purchaseTable  > tbody:first').append(html);
+                    $(".save" ).addClass("editPurchaseInvoice");
+                    $(".save" ).text("Add");
                 }
             });
         } else {

@@ -304,8 +304,6 @@ function closeModal() {
     $('#confirmRemarks').live("click", function () {
        var salesId = $(this).val();
        var remarks = $('#remIn').val();
-        alert(salesId);
-
         $.ajax({
             type: "get",
             url: "confirm/"+salesId,

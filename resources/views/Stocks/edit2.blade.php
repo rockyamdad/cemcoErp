@@ -226,7 +226,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue saveStocks'))!!}
+                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save saveStocks'))!!}
                                         </td>
                                     </tr>
                                 </table>

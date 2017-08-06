@@ -116,10 +116,10 @@
                                                 class="fa fa-edit"></i>Edit Product</a>@endif
                                     @if($stock->confirmation == 0)
                                         <a class="btn btn-sm btn-success" href="{{ URL::to('stocks/confirm/'. $stock->invoice_id ) }}"><i
-                                                    class="fa fa-edit"></i>Confirm</a>
+                                                    class="fa fa-check"></i>Confirm</a>
                                     @endif
                                     <a class="btn blue btn-sm" href="{{ URL::to('stocks/showinvoice/'. $stock->invoice_id ) }}"><i
-                                                class="fa fa-edit"></i>Show Invoice</a>
+                                                class="fa fa-tasks"></i>Show Invoice</a>
                                     @if($stock->confirmation == 0)<a class="btn red btn-sm" href="{{ URL::to('delstock/'.$stock->id)}}"
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                 class="fa fa-trash-o"></i> Delete</a>@endif

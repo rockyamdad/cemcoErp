@@ -12,7 +12,7 @@ function closeModal() {
         <div class="modal-header">
             <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h3>Receive Payment</h3>
-            <h5 style="color: red ;">{{$due}} </h5>
+            <h5 style="color: red ;">You have {{$due}} taka Due </h5>
         </div>
         <div class="modal-body">
             {!!Form::open(array('url' => '/saveReceive', 'method' => 'post', 'class'=>'form-horizontal payment_form',
@@ -29,6 +29,13 @@ function closeModal() {
 
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 ">
+                                <h4 class="amount_msg" style="color:red"></h4>
+                            </div>
+                        </div>
+                        <input type="hidden" name="due"  class="due" value="{{$due}}">
                         <div class="form-group">
                             {!!HTML::decode(Form::label('account_category_id','Account Category<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
@@ -95,7 +102,7 @@ function closeModal() {
                                            'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::text('amount',null,array('placeholder' => 'Amount', 'class' =>
-                                               'form-control','id'=>'amount'))!!}
+                                               'form-control amount_payment'))!!}
                             </div>
                         </div>
                         <div class="form-group">

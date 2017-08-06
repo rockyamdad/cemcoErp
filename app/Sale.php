@@ -40,6 +40,41 @@ class Sale extends Eloquent
 
         return $array;
     }
+    public function getTotalAmount($invoice_id)
+    {
+        return DB::table('sale_details')
+            ->selectRaw('sum(quantity*price) as total')
+            ->where('invoice_id', '=', $invoice_id)
+            ->get();
+    }
+    public function getsalesdue($invoiceId)
+    {
+        $totalPrice = $this->getTotalAmount($invoiceId);
+        $totalAmount = 0;
+
+        $transactions = Transaction::where('invoice_id','=',$invoiceId)
+            ->where('payment_method', '=', 'Check')
+            ->where('type', '=', 'Payment')
+            ->where('cheque_status', '=', 1)->get();
+
+
+        foreach($transactions as $transaction)
+        {
+            $totalAmount =$totalAmount + ($transaction->amount);
+        }
+
+        $transactions2 = Transaction::where('invoice_id','=',$invoiceId)
+            ->where('type', '=', 'Payment')
+            ->where('payment_method', '!=', 'Check')->get();
+        foreach($transactions2 as $transaction)
+        {
+            $totalAmount =$totalAmount + ($transaction->amount);
+        }
+
+        $due = $totalPrice[0]->total - $totalAmount;
+        return $due;
+
+    }
 
     public function getPartydue($invoiceId)
     {

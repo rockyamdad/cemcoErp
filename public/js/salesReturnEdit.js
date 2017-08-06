@@ -165,8 +165,6 @@ jQuery(document).ready(function() {
                 url: "../delete/"+stockDetailId,
                 dateType: 'json',
                 success: function (data) {
-
-                    alert(data);
                     parent.remove();
                     if(data != '') {
                         window.location = "/salesreturn/index";

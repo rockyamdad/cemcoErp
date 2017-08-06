@@ -35,7 +35,7 @@
                                 <h4 class="amount_msg" style="color:red"></h4>
                             </div>
                         </div>
-                        <input type="hidden" name="due" id="due" class="due" value="{{$due}}">
+                        <input type="hidden" name="due"  class="due" value="{{$due}}">
                         <div class="form-group">
                             {!!HTML::decode(Form::label('account_category_id','Account Category<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
@@ -104,7 +104,7 @@
                                            'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::text('amount',null,array('placeholder' => 'Amount', 'class' =>
-                                               'form-control','id'=>'amount_payment'))!!}
+                                               'form-control amount_payment'))!!}
                             </div>
                         </div>
                         <div class="form-group">
