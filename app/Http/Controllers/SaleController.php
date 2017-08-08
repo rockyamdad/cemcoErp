@@ -316,12 +316,14 @@ class SaleController extends Controller{
     private function setReceiveSalePayment()
     {
         $sales = Sale::where('invoice_id','=',Input::get('invoice_id'))->first();
+        $voucherId = $this->generateVoucherId();
         $saleTransaction = new Transaction();
         $saleTransaction->account_category_id = Input::get('account_category_id');
         $saleTransaction->account_name_id = Input::get('account_name_id');
         $saleTransaction->amount = Input::get('amount');
         $saleTransaction->remarks = Input::get('remarks');
         $saleTransaction->type = "Receive";
+        $saleTransaction->voucher_id = $voucherId;
         $saleTransaction->user_id = Session::get('user_id');
         $saleTransaction->payment_method = Input::get('payment_method');
         $saleTransaction->cheque_no = Input::get('cheque_no');
@@ -364,7 +366,7 @@ class SaleController extends Controller{
         $sale->save();
         $accountPayment->save();
         Session::flash('message', 'Sales Due  has been Successfully Received.');
-        return $saleTransaction->id;
+        return $voucherId;
     }
 
 

@@ -123,11 +123,10 @@ jQuery(document).ready(function() {
 
     });
     $('.amount_payment').live("blur", function () {
-        var due = $('.due').val();
-        var amount = $(this).val();
+        var due = parseInt($('.due').val());
+        var amount = parseInt($(this).val());
         $("#savePayment").hide();
         if(due < amount) {
-            console.log('sss');
             $("#savePayment").hide();
             var html =[];
             html.push('Amount must be smaller or equal than due');
