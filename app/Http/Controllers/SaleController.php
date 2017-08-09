@@ -315,6 +315,7 @@ class SaleController extends Controller{
     }
     private function setReceiveSalePayment()
     {
+        $voucherId = '';
         $sales = Sale::where('invoice_id','=',Input::get('invoice_id'))->first();
         $voucherId = $this->generateVoucherId();
         $saleTransaction = new Transaction();
@@ -601,12 +602,9 @@ class SaleController extends Controller{
             $invDescIdNo = substr($invDescId, 8);
 
             $subinv1 = substr($invDescId, 6);
-            $dd = substr($invDescId, 1, 2);
-            $mm = substr($invDescId, 3,2);
-            $yy = substr($invDescId, 5, 2);
-            //var_dump($invDescId." ".$dd." ".$mm." ".$yy);
-            //echo "d1 ".$yy;
-
+            $dd = substr($invDescId, 2, 2);
+            $mm = substr($invDescId, 4,2);
+            $yy = substr($invDescId, 6, 2);
 
             $tz = 'Asia/Dhaka';
             $timestamp = time();
@@ -619,15 +617,13 @@ class SaleController extends Controller{
             $mm2 = $explodToday[1];
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
-            //var_dump($dd2." ".$mm2." ".$yy2);
-
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
                 $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
-                //var_dump($invoiceidd);
                 return $invoiceidd;
             } else {
                 $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+
                 return $invoiceidd;
             }
         } else {
@@ -643,9 +639,8 @@ class SaleController extends Controller{
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
 
-
             $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
-            //var_dump($invoiceidd);
+
             return $invoiceidd;
         }
     }
@@ -823,6 +818,7 @@ class SaleController extends Controller{
             $return_amount=Input::get('amount');
             $remaining_amount=$return_amount;
             $partyId=Input::get('party_id');
+            $voucherId = '';
             if($remaining_amount>0)
             {
                 $voucherId = $this->generateVoucherId();

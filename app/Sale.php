@@ -54,9 +54,9 @@ class Sale extends Eloquent
 
         $transactions = Transaction::where('invoice_id','=',$invoiceId)
             ->where('payment_method', '=', 'Check')
-            ->where('type', '=', 'Payment')
-            ->where('cheque_status', '=', 1)->get();
-
+            ->where('type', '=', 'Receive')
+            ->where('cheque_status', '=', 1)
+            ->get();
 
         foreach($transactions as $transaction)
         {
@@ -64,8 +64,9 @@ class Sale extends Eloquent
         }
 
         $transactions2 = Transaction::where('invoice_id','=',$invoiceId)
-            ->where('type', '=', 'Payment')
+            ->where('type', '=', 'Receive')
             ->where('payment_method', '!=', 'Check')->get();
+
         foreach($transactions2 as $transaction)
         {
             $totalAmount =$totalAmount + ($transaction->amount);

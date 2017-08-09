@@ -787,12 +787,9 @@ class PurchaseInvoiceController extends Controller{
             $invDescIdNo = substr($invDescId, 8);
 
             $subinv1 = substr($invDescId, 6);
-            $dd = substr($invDescId, 1, 2);
-            $mm = substr($invDescId, 3,2);
-            $yy = substr($invDescId, 5, 2);
-            //var_dump($invDescId." ".$dd." ".$mm." ".$yy);
-            //echo "d1 ".$yy;
-
+            $dd = substr($invDescId, 2, 2);
+            $mm = substr($invDescId, 4,2);
+            $yy = substr($invDescId, 6, 2);
 
             $tz = 'Asia/Dhaka';
             $timestamp = time();
@@ -805,15 +802,13 @@ class PurchaseInvoiceController extends Controller{
             $mm2 = $explodToday[1];
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
-            //var_dump($dd2." ".$mm2." ".$yy2);
-
 
             if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
                 $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
-                //var_dump($invoiceidd);
                 return $invoiceidd;
             } else {
                 $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+
                 return $invoiceidd;
             }
         } else {
@@ -829,9 +824,8 @@ class PurchaseInvoiceController extends Controller{
             $yy1 = $explodToday[2];
             $yy2 = substr($yy1, 2);
 
-
             $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
-            //var_dump($invoiceidd);
+
             return $invoiceidd;
         }
     }
