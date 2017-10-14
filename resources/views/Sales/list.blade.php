@@ -54,7 +54,7 @@
             </div>
 
             <div class="portlet-body">
-
+                <center>
                 <div class="table-toolbar">
                     <div class="btn-group">
                         <a class="btn green" href="{{ URL::to('sales/create') }}">Create Sales Invoice&nbsp;&nbsp;<i
@@ -69,9 +69,12 @@
                     </div>
 
                 </div>
+                </center>
+                <center>
                 {!!Form::open(array('action'=>'SaleController@getIndex','method' => 'get', 'class'=>'form-horizontal'
                 ))!!}
-                <div class="form-group">
+
+                <div class="form-group" style="align-content: center">
 
                     <div class="col-md-4">
                         {!!Form::select('invoice_id',[null=>'Please Select Invoice'] +$allInvoices,'null', array('class'=>'form-control ','id'=>'invoice_id') )!!}
@@ -85,6 +88,7 @@
                 </div>
 
                 {!!Form::close()!!}
+                </center>
 
                 <table class="table table-striped table-bordered table-hover" id="salestable">
                     <thead  style="background-color: #557386">
@@ -93,7 +97,6 @@
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
                         <th>Customer Name</th>
-                        <th>Address</th>
                         <th>Sales Head</th>
                         <th>Status</th>
                         <th>Created By</th>
@@ -116,8 +119,8 @@
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
-                                    <td>@if($sale->party)
-                                           {{$sale->party->name}}
+                                    <td>@if(isset($sale->party))
+                                            {{$sale->party->name}}
                                         @endif
                                     </td>
                                     <td>
@@ -125,13 +128,8 @@
                                             {{$sale->cash_sale}}
                                         @endif
                                     </td>
-                                    <td>
-                                        @if($sale->address)
-                                            {{$sale->address}}
-                                        @endif
-                                    </td>
-                                    <td>@if($saleMan)
-                                            {{$saleMan->username}}
+                                    <td> @if(isset($sale->user))
+                                            {{$sale->user->username}}
                                         @endif
                                     </td>
                                     @if($sale->status == 'Activate')
@@ -141,7 +139,11 @@
                                     @elseif($sale->status == 'Completed')
                                         <td><span class="label label-sm label-success">Completed</span></td>
                                     @endif
-                                    <td>{{$sale->user->username}}</td>
+                                    <td>
+                                        @if(isset($sale->user))
+                                            {{$sale->user->username}}
+                                        @endif
+                                    </td>
 
                                     <td>
                                         @if( Session::get('user_role') == "admin")
@@ -190,15 +192,13 @@
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
-                                    <td>@if($sale->party)
-                                            {{$sale->party->name}}
-                                        @endif</td>
-                                    <td>{{$sale->cash_sale}}</td>
                                     <td>
-                                        @if($sale->address)
-                                            {{$sale->address}}
+                                        @if(isset($sale->party))
+                                            {{$sale->party->name}}
                                         @endif
                                     </td>
+                                    <td>{{$sale->cash_sale}}</td>
+
                                     <td>@if($saleMan)
                                             {{$saleMan->username}}
                                         @endif
@@ -210,7 +210,11 @@
                                     @elseif($sale->status == 'Completed')
                                         <td><span class="label label-sm label-success">Completed</span></td>
                                     @endif
-                                    <td>{{$sale->user->username}}</td>
+                                    <td>
+                                        @if(isset($sale->user))
+                                            {{$sale->user->username}}
+                                        @endif
+                                    </td>
 
                                     <td>
                                         @if( Session::get('user_role') == "admin")
@@ -271,7 +275,9 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-{!! $sales->render() !!}
+@if( Session::get('user_role') == "admin")
+    {!! $sales->render() !!}
+@endif
 @stop
 
 @section('javascript')

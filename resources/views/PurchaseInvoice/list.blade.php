@@ -52,20 +52,21 @@
             </div>
 
             <div class="portlet-body">
+                <center>
+                    <div class="table-toolbar" style="align-content: center">
+                        <div class="btn-group">
+                            <a class="btn green" href="{{ URL::to('purchases/create') }}">Make  Purchase Invoice&nbsp;&nbsp;<i
+                                    class="fa fa-plus"></i></a>
 
-                <div class="table-toolbar">
-                    <div class="btn-group">
-                        <a class="btn green" href="{{ URL::to('purchases/create') }}">Make  Purchase Invoice&nbsp;&nbsp;<i
-                                class="fa fa-plus"></i></a>
+                        </div>
+
+                        <div class="btn-group">
+                            <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('purchases/makeall/') }}" >
+                                <i class="fa fa-plus"></i>Make Payment</a>
+                        </div>
 
                     </div>
-
-                    <div class="btn-group">
-                        <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('purchases/makeall/') }}" >
-                            <i class="fa fa-plus"></i>Make Payment</a>
-                    </div>
-
-                </div>
+                </center>
                 {!!Form::open(array('action'=>'PurchaseInvoiceController@getIndex','method' => 'get', 'class'=>'form-horizontal'
                 ))!!}
                 <div class="form-group">

@@ -78,11 +78,18 @@ class Product extends Eloquent
     public function getFinishGoodsDropDown()
     {
         $finishGoods = Product::where('product_type','Finish Goods')->get();
-
         $array = array();
 
-        foreach($finishGoods as $finishGood){
-            $array[$finishGood->id] = $finishGood->name;
+        foreach ($finishGoods as $productName) {
+
+            $category = $productName->category->name;
+            if ($productName->sub_category_id) {
+                $subCategory = SubCategory::find($productName->sub_category_id);
+                $subCategoryName = '(' . $subCategory->name . ')';
+            } else {
+                $subCategoryName = '';
+            }
+            $array[$productName->id] = $productName->name.'('.$category.')'.$subCategoryName;
         }
 
         return $array;

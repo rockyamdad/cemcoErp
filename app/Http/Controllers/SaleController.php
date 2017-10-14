@@ -646,7 +646,6 @@ class SaleController extends Controller{
     }
     public function getProducts($branch_id)
     {
-
         $productsName = Product::where('branch_id','=',$branch_id)
             ->get();
 

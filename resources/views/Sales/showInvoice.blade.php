@@ -6,11 +6,12 @@
         @media print
         {
            .companyLogo{
-               width: 40%;
+               width: 30%;
                float: right;
+
            }
             .branchInfo{
-                width: 60%;
+                width: 40%;
                 float: left;
             }
         }
@@ -51,12 +52,12 @@
                 @elseif($saleDetails[0]->branch_id == 9)
                     <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
                 @endif--}}
-                    <div class="col-md-8 branchInfo" >
-                        <h2>{{$branch->name}}</h2>
-                        <p1>{{$branch->location}}</p1>
+                    <div class="col-md-8 " >
+                        <h3>{{$branch->name}}</h3>
+                        <span style="width: 20px;">{{$branch->location}}</span>
                     </div>
                     <div  class="col-md-4 companyLogo">
-                        <img width="150px" src="../../assets/img/cemco.jpg"  alt="" />
+                        <img style="margin-left: -250px;width: 120px" src="../../assets/img/cemco.jpg"  alt="" />
                     </div>
 
            </div>
@@ -72,11 +73,11 @@
                     $party = \App\Party::find($sale->party_id);
                     ?>
 
-                <table>
+                <table style="width: 500px;">
                 <tr>
-                    <td><b>Customer</b></td>
+                    <td><b>Customer</b>
 
-                    <td>:
+                    :
                         @if($party)
                             {{$party->name}}
                         @else
@@ -85,8 +86,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><b>Address</b></td>
-                    <td>:  @if($party)
+                    <td><b>Address</b>
+                    :  @if($party)
                             {{$party->address}}
                         @else
 
@@ -94,8 +95,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><b>Contact</b></td>
-                    <td>:
+                    <td><b>Contact</b>
+                    :
                         @if($party)
                             {{$party->phone}}
                         @else
@@ -105,34 +106,31 @@
                 </tr>
                 </table>
             </div>
-            <div class="col-xs-4">
 
-            </div>
             <div class="col-xs-4 invoice-payment">
                 <table>
                 <tr>
-                    <td><b>Invoice #</b></td>
-                    <td>: {{$sale->invoice_id}}</td>
+                    <td><b>Invoice #</b>
+                    : {{$sale->invoice_id}}</td>
                 </tr>
                 <tr>
-                    <td><b>Date</b></td>
-                    <td>: {{\App\Transaction::convertDate($sale->created_at)}}</td>
+                    <td><b>Date</b>: {{\App\Transaction::convertDate($sale->created_at)}}</td>
                 </tr>
                 <tr>
-                    <td><b>Print Date</b></td>
-                    <td>: {{date("d/m/Y")}}</td>
+                    <td><b>Print Date</b>: {{date("d/m/Y")}}</td>
                 </tr>
                 </table>
             </div>
         </div>
+        <br>
+        <br>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" style="width:780px;">
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Product</th>
-                        <th class="hidden-480">Description</th>
                         <th style="text-align: right;" class="hidden-480">Quantity</th>
                         <th style="text-align: right;" class="hidden-480">Unit Price</th>
                         <th style="text-align: right;">Amount</th>
@@ -154,7 +152,6 @@
                         <tr>
                             <td>{{$i}}</td>
                             <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
-                            <td>{{$products->origin}}</td>
                             <td style="text-align: right;">{{$saleDetail->quantity}}</td>
                             <td style="text-align: right;">{{$saleDetail->price}}</td>
                             <td style="text-align: right;">{{$saleDetail->price * $saleDetail->quantity}}</td>
@@ -169,12 +166,10 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td style="text-align: right;">{{$total}}</td>
                     </tr>
                     <tr>
                         <td>Discount:</td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td class="text-right">{{round(($sale->discount_percentage_per))}}%</td>
@@ -186,13 +181,11 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td style="text-align: right;">{{$sale->discount_special}}</td>
                     </tr>
 
                     <tr style="font-weight: bold;">
                         <td>Grand Total:</td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

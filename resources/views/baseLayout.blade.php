@@ -402,7 +402,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     </li>
                     <li style="background-color: #665062"
                         @if (Request::is('reports/stockscategories'))class="active"@endif>
-                        <a href="{{ URL::to('reports/stockscategories') }}">Stock Category Value </a>
+                        <a href="{{ URL::to('reports/stockscategories') }}">Stock Value </a>
                     </li>
                     <li style="background-color: #665062"
                             @if (Request::is('searches/entry'))class="active"@endif>

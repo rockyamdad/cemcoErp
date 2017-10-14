@@ -168,9 +168,15 @@ function closeModal() {
                 <b>Remarks:</b><br>
                 <div id="remrks"></div>
                 <div id="remrksForm">
-                            <textarea class="col-xs-16" rows="5"  id="remIn">1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
+                    <textarea class="col-xs-16" rows="5" cols="80" id="remIn">
+                        @if($sale->remarks)
+                           {{ $sale->remarks }}
+                         @else
+                            1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
                             2. NO REPLACEMENT WARANTY
-                        </textarea>
+                         @endif
+
+                    </textarea>
                     <button class="btn btn-danger" value="{{$sale->id}}" id="confirmRemarks">Confirm</button>
                 </div>
 

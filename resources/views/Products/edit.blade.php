@@ -109,19 +109,6 @@
                         {!!Form::text('min_level',null,array('placeholder' => 'Min Level', 'class' => 'form-control'))!!}
                     </div>
                 </div>
-                <div class="form-group">
-                    {!! HTML::decode(Form::label('hs_code','HS Code',array('class' =>
-                    'control-label col-md-3'))) !!}
-                    <div class="col-md-4">
-                        {!!Form::text('hs_code',null,array('placeholder' => 'HS Code', 'class' => 'form-control'))!!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! HTML::decode(Form::label('origin','Origin Name',array('class' => 'control-label col-md-3'))) !!}
-                    <div class="col-md-4">
-                        {!!Form::text('origin',null,array('placeholder' => 'Origin Name', 'class' => 'form-control'))!!}
-                    </div>
-                </div>
                <!-- <div class="form-group">
                     {!! HTML::decode(Form::label('total_quantity','Total Quantity<span class="required">*</span>',array('class'
                     => 'control-label col-md-3'))) !!}
