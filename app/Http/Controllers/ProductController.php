@@ -172,8 +172,8 @@ class ProductController extends Controller{
         }
         $prodcuts->category_id = Input::get('category_id');
         $prodcuts->sub_category_id = Input::get('sub_category_id');
-        $prodcuts->origin = Input::get('origin');
-        $prodcuts->hs_code = Input::get('hs_code');
+        $prodcuts->origin = '';
+        $prodcuts->hs_code = '';
         $prodcuts->min_level = Input::get('min_level');
         $prodcuts->product_type = Input::get('product_type');
         $prodcuts->total_quantity = 0;
