@@ -721,7 +721,7 @@ class SaleController extends Controller{
                 {
                     $totalPrice = $totalPrice + ($saleDetail->price * $saleDetail->quantity);
                 }
-                $totalPrice = $totalPrice - $sale->discount_percentage_per;
+                $totalPrice = $totalPrice - $sale->discount_percentage;
                 foreach($transactions as $transaction)
                 {
                     $totalAmount = $totalAmount + ($transaction->amount);
