@@ -113,13 +113,12 @@
                             <?php
                             $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             $saleMan = \App\User::find($sale->sales_man_id);
-
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
-                                    <td>@if(isset($sale->party))
+                                    <td>@if($sale->party)
                                             {{$sale->party->name}}
                                         @endif
                                     </td>
@@ -159,7 +158,7 @@
                                                 @if( $sale->is_sale == 1)
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Invoice&nbsp;</a>
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
-                                                    @if($sale->status != 'Completed')
+                                                    @if(!$sale->party && $sale->status != 'Completed')
                                                         <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                             <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                     @endif
@@ -187,13 +186,14 @@
                             <?php
                             $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             $saleMan = \App\User::find($sale->sales_man_id);
+
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
                                     <td>
-                                        @if(isset($sale->party))
+                                        @if($sale->party)
                                             {{$sale->party->name}}
                                         @endif
                                     </td>
@@ -232,7 +232,7 @@
                                                                 class="fa fa-tasks"></i>Invoice&nbsp;</a>
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
 
-                                                    @if($sale->status != 'Completed')
+                                                    @if(!$sale->party && $sale->status != 'Completed')
                                                         <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                        <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                     @endif

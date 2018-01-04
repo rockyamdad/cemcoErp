@@ -12,33 +12,27 @@
     </div>
     <div class="invoice">
         <div class="row invoice-logo">
-            <div class="col-xs-12 invoice-logo-space">
-                @if($stockDetails[0]->branch_id == 1)
-                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 2)
-                    <img src="../../assets/img/pad/fst-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 3)
-                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 4)
-                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 5)
-                    <img src="../../assets/img/pad/sun-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 6)
-                    <img src="../../assets/img/pad/olympic-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 7)
-                    <img src="../../assets/img/pad/keyon1.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 8)
-                    <img src="../../assets/img/pad/cemon-invoice.jpg" style="width: 100%;"  alt="" />
-                @elseif($stockDetails[0]->branch_id == 9)
-                    <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
-                @endif
+            <div class="col-md-12 invoice-logo-space">
+                <?php
+                $branch = \App\Branch::find($stockDetails[0]->branch_id);
+                ?>
+
+                <div class="col-md-8 branchInfo" >
+                    <h2>{{$branch->name}}</h2>
+                    <p1>{{$branch->location}}</p1>
+                </div>
+                <div  class="col-md-4 companyLogo">
+                    <img width="150px" src="../../assets/img/cemco.jpg"  alt="" />
+                </div>
+
 
             </div>
-            <hr />
+
+            <hr> <br>
             {{--<div class="col-xs-6">
                <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
             </div>--}}
-        </div>
+        </div> <br><br>
 
         <div class="row" style="margin-top: -10px;">
 

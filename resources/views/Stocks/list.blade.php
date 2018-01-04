@@ -39,10 +39,10 @@
                     {{ Session::get('message') }}
                 </div>
                 @endif
-                    @if (Session::has('wrong'))
+                    @if (Session::has('error'))
                         <div class="alert alert-danger">
                             <button data-close="alert" class="close"></button>
-                            {{ Session::get('wrong') }}
+                            {{ Session::get('error') }}
                         </div>
                     @endif
             </div>

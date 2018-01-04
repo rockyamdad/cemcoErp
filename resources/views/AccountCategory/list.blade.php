@@ -34,10 +34,16 @@
             </div>
             <div style="float: left;width: 80%; margin-left: 20px">
                 @if (Session::has('message'))
-                <div class="alert alert-success">
-                    <button data-close="alert" class="close"></button>
-                    {{ Session::get('message') }}
-                </div>
+                    <div class="alert alert-success">
+                        <button data-close="alert" class="close"></button>
+                        {{ Session::get('message') }}
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="alert alert-danger">
+                        <button data-close="alert" class="close"></button>
+                        {{ Session::get('error') }}
+                    </div>
                 @endif
             </div>
 

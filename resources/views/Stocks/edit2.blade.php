@@ -130,7 +130,7 @@
                                         </td>
 
                                         <td>
-                                            <?php echo $stckDetail->remarks ?>
+                                            <?php echo $stckDetail->remarks ? $stckDetail->remarks : 'Not Available' ?>
                                         </td>
                                         <td>
                                             <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel='{{$stckDetail->id}}' >

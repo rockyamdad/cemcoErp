@@ -525,7 +525,7 @@ class StockController extends Controller{
             }
             $message = '';
         }else{
-            $message = array('Sale Detail   Successfully Deleted');
+            $message = array('Sale Detail Successfully Deleted');
         }
 
         return new JsonResponse($message);
@@ -540,7 +540,7 @@ class StockController extends Controller{
             foreach($stockDetails  as $row) {
 
                 $this->getDelete($row->id);
-
+                Session::flash('message', 'Stock  has been Successfully Deleted.');
             }
             return Redirect::to('stocks/index');
         }
@@ -558,7 +558,7 @@ class StockController extends Controller{
         }
         $stockInvoces->status = 'Activate';
         $stockInvoces->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
-2. NO REPLACEMENT WARANTY';
+                                  2. NO REPLACEMENT WARANTY';
         $stockInvoces->user_id = Session::get('user_id');
         $stockInvoces->invoice_id = Input::get('invoice_id');
     }

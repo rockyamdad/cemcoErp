@@ -2,6 +2,7 @@
 
 use App\AccountCategory;
 
+use App\NameOfAccount;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -70,9 +71,15 @@ class AccountCategoryController extends Controller{
     }
     public function getDelete($id)
     {
-        $product = AccountCategory::find($id);
-        $product->delete();
-        Session::flash('message', 'Account Category  has been Successfully Deleted.');
+        $accountCategory = AccountCategory::find($id);
+        $nameOfAccount = NameOfAccount::where('account_category_id', '=', $accountCategory->id)->first();
+        if (!$nameOfAccount) {
+            $accountCategory->delete();
+            Session::flash('message', 'Account Category  has been Successfully Deleted.');
+        } else {
+            Session::flash('error', 'This Account  Category can\'t delete because it  is used in account name section');
+        }
+
         return Redirect::to('accountcategory/index');
     }
 

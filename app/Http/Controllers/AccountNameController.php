@@ -4,6 +4,7 @@ use App\AccountCategory;
 
 use App\Branch;
 use App\NameOfAccount;
+use App\Transaction;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -111,8 +112,14 @@ class AccountNameController extends Controller{
     public function getDelete($id)
     {
         $accountNames = NameOfAccount::find($id);
-        $accountNames->delete();
-        Session::flash('message', 'Account Name  has been Successfully Deleted.');
+        $transaction = Transaction::where('account_name_id', '=', $accountNames->id)->first();
+        if (!$transaction) {
+            $accountNames->delete();
+            Session::flash('message', 'Account Name  has been Successfully Deleted.');
+        } else {
+            Session::flash('error', 'This Account name can\'t delete because it is used in payment section');
+        }
+
         return Redirect::to('accountnames/index');
     }
 
