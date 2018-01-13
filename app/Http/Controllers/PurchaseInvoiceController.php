@@ -784,7 +784,7 @@ class PurchaseInvoiceController extends Controller{
         $invdesc = Transaction::orderBy('id', 'DESC')->first();
         if ($invdesc != null) {
             $invDescId = $invdesc->voucher_id;
-            $invDescIdNo = substr($invDescId, 8);
+            $invDescIdNo = substr($invDescId, 9);
 
             $subinv1 = substr($invDescId, 6);
             $dd = substr($invDescId, 2, 2);

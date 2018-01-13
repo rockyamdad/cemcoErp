@@ -99,6 +99,7 @@ jQuery(document).ready(function() {
         });
     });
     $('#amount').live("blur", function () {
+        $('.amount_msg').text('');
         var party_id = $('#p_party_id').val();
         var amount = $(this).val();
         $("#savePayment").hide();
@@ -124,6 +125,7 @@ jQuery(document).ready(function() {
     });
     $('.amount_payment').live("blur", function () {
         var due = parseInt($('.due').val());
+        $('.amount_msg').text('');
         var amount = parseInt($(this).val());
         $("#savePayment").hide();
         if(due < amount) {

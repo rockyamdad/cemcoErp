@@ -126,6 +126,7 @@ Route::post('updatePurchases/{id}','SaleController@updateSaleData');
 Route::get('/details/{id}','SaleController@getDetails');
 Route::get('/delete/{id}','SaleController@getDelete');
 Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
+Route::get('/deleteSaleDetail/{id}','SaleController@getDeleteSaleDetail');
 Route::get('/due','SaleController@getDue');
 Route::get('/confirm','SaleController@getConfirm');
 Route::get('/make/{id}','SaleController@getMake');

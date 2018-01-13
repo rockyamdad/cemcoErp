@@ -387,6 +387,28 @@ class SaleController extends Controller{
         $message = array('Sale Detail   Successfully Deleted');
         return new JsonResponse($message);
     }
+    public function getDeleteSaleDetail($id)
+    {
+        $saleDetail = SAleDetail::find($id);
+        $saleFound = Sale::where('invoice_id', '=', $saleDetail->invoice_id)->get();
+        if(!empty($saleFound[0])) {
+            $saleFound[0]->discount_percentage = 0.00;
+            $saleFound[0]->discount_percentage_per = 0.00;
+            $saleFound[0]->discount_special = 0.00;
+            $saleFound[0]->save();
+        }
+        $saleDetail->delete();
+
+        /*    $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
+                ->where('stock_info_id','=',$saleDetail->stock_info_id)
+                ->get();
+
+            $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + $saleDetail->quantity;
+            $stock_Count[0]->total_price = $stock_Count[0]->total_price + ($saleDetail->quantity*$saleDetail->price);
+            $stock_Count[0]->save();*/
+        Session::flash('error', 'Sale Detail has been Successfully Deleted.');
+        return Redirect::to('sales/index');
+    }
     public function getSale($invoice_id)
     {
         $saleDetails = SAleDetail::where('invoice_id','=',$invoice_id)->get();
@@ -599,7 +621,7 @@ class SaleController extends Controller{
         $invdesc = Transaction::orderBy('id', 'DESC')->first();
         if ($invdesc != null) {
             $invDescId = $invdesc->voucher_id;
-            $invDescIdNo = substr($invDescId, 8);
+            $invDescIdNo = substr($invDescId, 9);
 
             $subinv1 = substr($invDescId, 6);
             $dd = substr($invDescId, 2, 2);
@@ -623,7 +645,6 @@ class SaleController extends Controller{
                 return $invoiceidd;
             } else {
                 $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
-
                 return $invoiceidd;
             }
         } else {
@@ -1022,14 +1043,13 @@ class SaleController extends Controller{
     public function getVoucher($voucherId){
         $transactions = Transaction::where('voucher_id','=',$voucherId)->get();
         return view('Sales.voucher',compact('transactions'));
-
     }
     public function getVouchershow($voucherId){
         $transaction = new Transaction();
-        $transaction = $transaction->getVoucher($voucherId);
+        $transactions = $transaction->getVoucher($voucherId);
 
         return view('Sales.voucher')
-            ->with('transaction',$transaction[0]);
+            ->with('transactions',$transactions);
 
     }
     public function getVoucherlist(){

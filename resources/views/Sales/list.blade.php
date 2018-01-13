@@ -139,7 +139,7 @@
                                         <td><span class="label label-sm label-success">Completed</span></td>
                                     @endif
                                     <td>
-                                        @if(isset($sale->user))
+                                        @if($sale->user)
                                             {{$sale->user->username}}
                                         @endif
                                     </td>
@@ -211,7 +211,7 @@
                                         <td><span class="label label-sm label-success">Completed</span></td>
                                     @endif
                                     <td>
-                                        @if(isset($sale->user))
+                                        @if(($sale->user))
                                             {{$sale->user->username}}
                                         @endif
                                     </td>

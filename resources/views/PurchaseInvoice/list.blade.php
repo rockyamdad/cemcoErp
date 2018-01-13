@@ -102,6 +102,7 @@
                         @foreach($purchaseInvoice as $purchase )
                             <?php
                             $hasDetails = \App\PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchase->invoice_id)->get();
+                            $hasPayment = \App\Transaction::where('invoice_id','=',$purchase->invoice_id)->first();
                             ?>
                             @if(count($hasDetails) > 0)
                         <tr class="odd gradeX">
@@ -118,20 +119,20 @@
                             <td>{{$purchase->user->username}}</td>
 
                            <td>
-                                @if( Session::get('user_role') == "admin")
-                                <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->invoice_id ) }}"><i
-                                        class="fa fa-edit"></i>Edit Product</a>
-                                <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
-                                    <i class="fa fa-eye"></i> Detail</a>
-                                   @if($purchase->status != 'Completed')
-                                       <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
-                                           <i class="fa fa-usd"></i> Payment</a>
-                                   @endif
+                               <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                                   <i class="fa fa-eye"></i> Detail</a>
+                                @if(!$hasPayment)
+                                    <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->invoice_id ) }}"><i
+                                            class="fa fa-edit"></i>Edit Product</a>
 
-                                <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
-                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                        class="fa fa-trash-o"></i> Delete</a>
+                                      {{-- @if($purchase->status != 'Completed')
+                                           <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
+                                               <i class="fa fa-usd"></i> Payment</a>
+                                       @endif--}}
 
+                                    <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
+                                       onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                            class="fa fa-trash-o"></i> Delete</a>
                                 @endif
 
 
@@ -147,6 +148,7 @@
                         @foreach($purchases as $purchase )
                             <?php
                             $hasDetails = \App\PurchaseInvoiceDetail::where('detail_invoice_id','=',$purchase->invoice_id)->get();
+                            $hasPayment = \App\Transaction::where('invoice_id','=',$purchase->invoice_id)->first();
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
@@ -163,15 +165,17 @@
                                     <td>{{$purchase->user->username}}</td>
 
                                     <td>
-                                        @if( Session::get('user_role') == "admin")
+                                        <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                                            <i class="fa fa-eye"></i> Detail</a>
+
+                                        @if(!$hasPayment)
                                             <a class="btn blue btn-sm"  href="{{ URL::to('purchases/edit/'. $purchase->invoice_id ) }}"><i
                                                         class="fa fa-edit"></i>Edit Product</a>
-                                            <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
-                                                <i class="fa fa-eye"></i> Detail</a>
-                                            @if($purchase->status != 'Completed')
+
+                                       {{--     @if($purchase->status != 'Completed')
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
                                                     <i class="fa fa-usd"></i> Payment</a>
-                                            @endif
+                                            @endif--}}
 
                                             <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
@@ -215,5 +219,6 @@
 {!! HTML::script('js/purchaseInvoice.js') !!}
 {!! HTML::script('js/partilizer.js') !!}
 {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
+{!! HTML::script('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') !!}
 
 @stop

@@ -153,6 +153,23 @@ jQuery(document).ready(function() {
             });
         }
     });
+    $('.deleteDetail').live("click", function() {
+        var saleDetailId = $(this).attr('rel');
+        var parent = $(this).closest('tr');
+        var answer     = confirm("Are you sure you want to delete this Sales Detail Product?");
+        if(answer) {
+            $.ajax({
+                type: "Get",
+                url: "/deleteSaleDetail/"+saleDetailId,
+                dateType: 'json',
+                success: function (data) {
+                    parent.remove();
+                    if(data != '')
+                        location.reload();
+                }
+            });
+        }
+    });
     $('#party_id').live("change", function () {
         $("#party_id").attr('readonly','readonly');
         $("#cash_sale").attr('readonly','readonly');
@@ -346,7 +363,22 @@ jQuery(document).ready(function() {
         });
     });
 
+    var string = window.location.pathname,
+        substring = "edit";
 
+    if(string.indexOf(substring) !== -1){
+        var branch_id = $('#edit_branch_id').val();
+        $('#edit_product_id').empty();
+        var newOption = $('<option value="">Select Product</option>');
+        $('#edit_product_id').append(newOption);
+        $.ajax({
+            type: "get",
+            url: "../products/"+branch_id,
+            success: function (html) {
+                $('#edit_product_id').append(html);
 
+            }
+        });
+    }
 
 });

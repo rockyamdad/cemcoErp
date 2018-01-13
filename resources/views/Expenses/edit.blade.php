@@ -34,7 +34,7 @@
         </div>
         <div class="portlet-body form">
             {!!Form::model($expense,array('action' => array('ExpenseController@postUpdateExpense',
-           $expense->id), 'method' => 'POST', 'class'=>'form-horizontal expense_form'))!!}
+           $expense->id), 'method' => 'POST', 'class'=>'form-horizontal expense_form', 'id'=>'expense_form'))!!}
 
             <div class="form-body">
                 <div style="float: left;width: 80%; margin-left: 20px">

@@ -86,7 +86,7 @@ function closeModal() {
 
                                         </div>
                                     </div>
-                                    </div>
+                        </div>
 
                         <div class="form-group hidden  cheque_no_section">
                             {!!HTML::decode(Form::label('cheque_bank','Cheque Bank',array('class' =>

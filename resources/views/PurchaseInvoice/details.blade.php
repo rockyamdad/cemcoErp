@@ -1,17 +1,15 @@
 <script>
-    function closeModal() {
-        /*$('#sale').modal('hide');
-         $('body').removeClass('modal-open');
-         $('.modal-backdrop').hide();*/
-        $("#purchaseInvoice").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    function closingM() {
+        $("#purchaseInvoice").modal('hide').on('hidden.bs.modal');
         $('.modal-backdrop').hide();
+        $('.modal-scrollable').hide();
     }
 </script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
 
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" onclick="closingM()" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <?php
             $party = new \App\Party();
             $partyName = \App\Party::find($purchase->party_id);
@@ -97,7 +95,7 @@
                     <th>Cheque No</th>
                     <th>Amount</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+                    <th style="width: 160px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -125,9 +123,9 @@
 
                         </td>
                         <td>
-                            <a class="btn green" href="{{URL::to('purchases/voucher/'.$purchaseInvoiceTransaction->id)}}">Voucher</a>
+                            <a class="btn green btn-sm"  href="{{URL::to('purchases/voucher/'.$purchaseInvoiceTransaction->voucher_id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deletePurchaseTransaction" style="width:127px;" value="delete" data-ref="{{$purchaseInvoiceTransaction->account_name_id}}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red deletePurchaseTransaction" rel={{$purchaseInvoiceTransaction->id}}  />
+                                <input type="button"  id="deletePurchaseTransaction" style="width:70px;" value="delete" data-ref="{{$purchaseInvoiceTransaction->account_name_id}}"  onclick="return confirm('Are you sure you want to delete this item?');" class="btn red btn-sm deletePurchaseTransaction" rel={{$purchaseInvoiceTransaction->id}}  />
                             @endif
 
                         </td>
@@ -156,7 +154,7 @@
             @endif
 
             <div class="modal-footer">
-                <button type="button" onclick="closeModal()" data-dismiss="modal" class="btn">Close</button>
+                <button type="button" onclick="closingM()" data-dismiss="modal" class="btn">Close</button>
             </div>
 
         </div>

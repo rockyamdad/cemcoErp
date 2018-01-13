@@ -3,7 +3,7 @@ function closeModal() {
     /*$('#sale').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').hide();*/
-    $("#sale").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    $("#sale").modal('hide').on('hidden.bs.modal');
     $('.modal-backdrop').hide();
 }
 </script>
@@ -55,12 +55,17 @@ function closeModal() {
                     $branchName = \App\Branch::find($saleDetail->branch_id);
 
                     $categoryName = \App\Category::find($saleDetail->product->category_id);
-                    $subCategoryName = \App\SubCategory::find($saleDetail->product->sub_category_id);
+                    $subCategory = \App\SubCategory::find($saleDetail->product->sub_category_id);
+                            if ($subCategory) {
+                                $name = '('.$subCategory->name.')';
+                            } else {
+                                $name = '';
+                            }
                     ?>
                     <tr class="odd gradeX">
                         <td>{{$stockName->name}}</td>
                         <td>{{$saleDetail->product_type}}</td>
-                        <td>{{$saleDetail->product->name.'('.$categoryName->name.')'}}</td>
+                        <td>{{$saleDetail->product->name.'('.$categoryName->name.')'.$name}}</td>
                         <td>{{$saleDetail->price}}</td>
                         <td>{{$saleDetail->quantity}}</td>
                         <?php $amount = $saleDetail->quantity * $saleDetail->price;  ?>
@@ -76,10 +81,9 @@ function closeModal() {
                         @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td>
 
-                                <a class="btn red btn-sm deleteSaleDetail" rel="{{$saleDetail->id}}"
-                                   onclick="return confirm('Are you sure you want to delete this item?');"><i
+                                <a class="btn red btn-sm deleteDetail" rel="{{$saleDetail->id}}"
+                                  ><i
                                             class="fa fa-trash-o"></i> Delete</a>
-
 
                         </td>
                         @endif
@@ -154,7 +158,7 @@ function closeModal() {
                     <td></td>
                     <td></td>
                     <td  id="amount" class="text-right">{{ $total - $sale->discount_percentage }}</td>
-                    <td>@if(Session::get('user_role') == "admin" || $sale->is_sale != 1)<a href="#" onclick="save_da();" class="btn btn-danger">Save</a>@endif</td>
+                    <td>@if(Session::get('user_role') == "admin" || $sale->is_sale != 1)<a href="#" onclick="save_da();" class="btn btn-success">Save</a>@endif</td>
                     @if( Session::get('user_role') == "admin" && ($sale->is_sale !=1))
                         <td></td>
                     @endif
@@ -177,7 +181,7 @@ function closeModal() {
                          @endif
 
                     </textarea>
-                    <button class="btn btn-danger" value="{{$sale->id}}" id="confirmRemarks">Confirm</button>
+                    <button class="btn btn-success" value="{{$sale->id}}" id="confirmRemarks">Confirm</button>
                 </div>
 
             </div>
@@ -196,7 +200,7 @@ function closeModal() {
                     <th>Cheque No</th>
                     <th>Amount</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+                    <th style="width: 160px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -226,8 +230,9 @@ function closeModal() {
                         </td>
                         <td>
                             {{--<a class="btn green" href="{{URL::to('sales/vouchershow/'.$saleTransaction->voucher_id)}}">Voucher</a>--}}
+                            <a class="btn green btn-sm"  href="{{URL::to('sales/voucher/'.$saleTransaction->voucher_id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteSaleTransaction" style="width:70px;" value="delete" data-ref="{{$saleTransaction->account_name_id}}"   class="btn red deleteSaleTransaction" rel={{$saleTransaction->id}}  />
+                                <input type="button"  id="deleteSaleTransaction" style="width:70px;" value="delete" data-ref="{{$saleTransaction->account_name_id}}"   class="btn red btn-sm deleteSaleTransaction" rel={{$saleTransaction->id}}  />
                             @endif
 
                         </td>

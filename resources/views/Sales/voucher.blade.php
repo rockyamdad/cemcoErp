@@ -61,7 +61,8 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
                <p># {{$sale->invoice_id}} <span class="muted">--{{$sale->created_at}}</span></p>
             </div>--}}
         </div>
-
+        <br>
+        <br>
         <table style="width: 100%;" class="col-md-12">
             <tr>
                 <td>
@@ -81,19 +82,23 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
                 <td>Head of A/C: {{$account->name}}</td>
                 <td class="pull-right">
                     <table>
-                        <tr><td>Voucher no:
+                        <tr>
+                            <td>Voucher no:
                                 @if($transactions[0]->type == "Receive")
                                     {{$transactions[0]->voucher_id}}
                                 @else
                                     {{$transactions[0]->voucher_id}}
                                 @endif
-                            </td></tr>
-                        <tr><td>Recieved by:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Recieved by:
                             <?php
                                 $user = \App\User::find($transactions[0]->user_id);
                                 ?>
                                 {{$user->name}}
-                            </td></tr>
+                            </td>
+                        </tr>
                     </table>
                 </td>
             </tr>

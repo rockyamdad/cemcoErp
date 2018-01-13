@@ -134,7 +134,7 @@
                                     <td>{{$voucher->date}}
                                     </td>
                                     <td>{{$voucher->total}}</td>
-                                    <td> <a class="btn green" href="{{URL::to('sales/vouchershow/'.$voucher->voucher)}}">Voucher</a></td>
+                                    <td> <a class="btn green" href="{{URL::to('sales/voucher/'.$voucher->voucher)}}">Voucher</a></td>
 
                                 </tr>
                                 <?php
