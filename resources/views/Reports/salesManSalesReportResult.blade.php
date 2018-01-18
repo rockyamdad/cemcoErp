@@ -12,7 +12,11 @@
                 $branches = \App\Branch::find($branch_id);
                 ?>
            <center> <h3 class="page-title">
-                Sales Man Sales Report For {{$branches->name}}
+                   @if ($branches)
+                        Sales Man Sales Report For {{$branches->name}}
+                   @else
+                       Sales Man Sales Report
+                   @endif
             </h3>
            </center>
          </div>
@@ -60,7 +64,7 @@
                 </div>
 
                 <div class="portlet-body">
-
+                    @if($results)
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
                         <tr>
@@ -119,7 +123,9 @@
 
                         </tbody>
                     </table>
-
+                @else
+                        <h4  style="color:red">No Search Result</h4>
+                @endif
                 </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->

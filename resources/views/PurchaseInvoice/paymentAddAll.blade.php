@@ -1,9 +1,6 @@
 <script>
 function closeModal() {
-    /*$('#sale').modal('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').hide();*/
-    $("#salePayment2").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+    $("#salePayment2").modal('hide').on('hidden.bs.modal');
     $('.modal-backdrop').hide();
 }
 </script>

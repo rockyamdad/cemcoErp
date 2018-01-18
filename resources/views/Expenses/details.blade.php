@@ -26,7 +26,7 @@
                     <th>Cheque No</th>
                     <th>Amount</th>
                     <th>Remarks</th>
-                    <th>Action</th>
+                    <th style="width: 160px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,9 +52,9 @@
 
                         </td>
                         <td>
-                            <a class="btn green" href="{{URL::to('expenses/voucher/'.$expenseTransaction->id)}}">Voucher</a>
+                            <a class="btn green btn-sm" href="{{URL::to('expenses/voucher/'.$expenseTransaction->voucher_id)}}">Voucher</a>
                             @if( Session::get('user_role') == "admin")
-                                <input type="button"  id="deleteExpenseTransaction" style="width:127px;" data-ref="{{$expenseTransaction->account_name_id}}" value="delete"   class="btn red deleteExpenseTransaction" rel={{$expenseTransaction->id}}  />
+                                <input type="button" id="deleteExpenseTransaction"  data-ref="{{$expenseTransaction->account_name_id}}" value="delete"   class="btn red btn-sm deleteExpenseTransaction" rel={{$expenseTransaction->id}}  />
                             @endif
 
                         </td>

@@ -8,7 +8,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Branch Section
+            Party Section
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>

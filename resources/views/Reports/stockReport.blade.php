@@ -25,20 +25,35 @@
             <div class="portlet box light-grey">
                 <div class="portlet-title">
                     <?php
-                        $date01 = explode('/', $date1);
-                        $month1  = $date01[0];
-                        $day1 = $date01[1];
-                        $year1   = $date01[2];
-                        $date001=$day1.'/'.$month1.'/'.$year1;
+                        if ($date1 && $date2) {
+                            $date01 = explode('/', $date1);
+                            $month1  = $date01[0];
+                            $day1 = $date01[1];
+                            $year1   = $date01[2];
+                            $date1 =$day1.'/'.$month1.'/'.$year1;
 
-                        $date02 = explode('/', $date2);
-                        $month2  = $date02[0];
-                        $day2 = $date02[1];
-                        $year2   = $date02[2];
-                        $date002=$day2.'/'.$month2.'/'.$year2;
+                            $date02 = explode('/', $date2);
+                            $month2  = $date02[0];
+                            $day2 = $date02[1];
+                            $year2   = $date02[2];
+                            $date2 =$day2.'/'.$month2.'/'.$year2;
+                        }
                     ?>
 
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report of {{$date001}} to {{$date002}} for {{$product_type}} Products</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>
+                        <?php
+                            if ($date1 && $date2) {
+                        ?>
+
+                            Stock Report of {{$date1}} to {{$date2}} for {{$product_type}} Products
+                        <?php
+                        } else {
+                        ?>
+                        Stock Report of Products
+                        <?php
+                        }
+                        ?>
+                    </div>
                     <div class="actions">
                         <a class="btn blue" href="reports/stocks">Back</a>
 
@@ -111,7 +126,7 @@
                                 $grandTotalBalance    = $grandTotalBalance + $balance;
                             ?>
                         @endforeach
-                        <tr style="background-color:#b4cef8;">
+            {{--            <tr style="background-color:#b4cef8;">
 
                             <td><b>Grand Total</b></td>
                             <td style="text-align: right;">{{$grandTotalStockIn}}</td>
@@ -121,7 +136,7 @@
                             <td style="text-align: right;">{{$grandTotalStockWastage}}</td>
                             <td style="text-align: right;">{{ $grandTotalBalance }}</td>
 
-                        </tr>
+                        </tr>--}}
                         </tbody>
                     </table>
 

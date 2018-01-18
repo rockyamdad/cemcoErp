@@ -105,8 +105,8 @@ class SearchController extends Controller{
         $date1 = Input::get('from_date');
         $date2 = Input::get('to_date');
         $search = new Search();
-        $results = $search->getResultStockProducts($category,$product,$date1,$date2,$branch,$stock);
 
+        $results = $search->getResultStockProducts($category,$product,$date1,$date2,$branch,$stock);
         return view('Searches.stockProductResult',compact('results'));
 
     }

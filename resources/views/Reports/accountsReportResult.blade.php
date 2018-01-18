@@ -7,12 +7,17 @@
     <div class="row">
         <div class="col-md-12">
          <?php
-                        $account = \App\NameOfAccount::find($account_id);
-                        $accountCat = \App\AccountCategory::find($account->account_category_id);
-                        ?>
+            $account = \App\NameOfAccount::find($account_id);
+            if($account)
+            $accountCat = \App\AccountCategory::find($account->account_category_id);
+          ?>
         <center>
             <h3 class="page-title">
-             Accounts Report  for <span style="color: black"> {{$account->name}} ({{$accountCat->name}})</span>
+                @if($account and $accountCat)
+                    Accounts Report  for <span style="color: black"> {{$account->name}} ({{$accountCat->name}})</span>
+                @else
+                    Accounts Report
+                @endif
             </h3>
             </center>
          </div>
@@ -24,19 +29,35 @@
 
                 <div class="portlet-title">
                     <?php
-                    $date01 = explode('/', $date1);
-                    $month1  = $date01[0];
-                    $day1 = $date01[1];
-                    $year1   = $date01[2];
-                    $date001=$day1.'/'.$month1.'/'.$year1;
+                    if ($date1 && $date2) {
+                        $date01 = explode('/', $date1);
+                        $month1  = $date01[0];
+                        $day1 = $date01[1];
+                        $year1   = $date01[2];
+                        $date1 =$day1.'/'.$month1.'/'.$year1;
 
-                    $date02 = explode('/', $date2);
-                    $month2  = $date02[0];
-                    $day2 = $date02[1];
-                    $year2   = $date02[2];
-                    $date002=$day2.'/'.$month2.'/'.$year2;
+                        $date02 = explode('/', $date2);
+                        $month2  = $date02[0];
+                        $day2 = $date02[1];
+                        $year2   = $date02[2];
+                        $date2 =$day2.'/'.$month2.'/'.$year2;
+                    }
                     ?>
-                    <div class="caption"><i class="fa fa-reorder"></i>Date : {{$date001}} to {{$date002}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>
+                        <?php
+                        if ($date1 && $date2) {
+                        ?>
+
+                        Date : {{$date1}} to {{$date2}}
+                        <?php
+                        } else {
+                        ?>
+                        No date selected
+                        <?php
+                        }
+                        ?>
+
+                    </div>
 
 
                      <div class="actions">
@@ -44,6 +65,7 @@
                        </div>
                 </div>
                 <div class="portlet-body">
+                    @if($results)
                     <table class="table table-striped table-bordered table-hover" id="accounts_report_table" cellspacing="0">
                         <thead style="background-color:cadetblue">
                             <tr>
@@ -157,6 +179,9 @@
 
                         </tbody>
                     </table>
+                    @else
+                        <h4  style="color:red">No Search Result</h4>
+                    @endif
 
                 </div>
             </div>

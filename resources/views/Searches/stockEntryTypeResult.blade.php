@@ -18,8 +18,16 @@
                 <div class="portlet-title">
                     <?php
                     $branch = \App\Branch::find($branch);
+                        if ($branch) {
                     ?>
                     <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result for {{$branch->name}}</div>
+                        <?php
+                            } else {
+                        ?>
+                        <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result </div>
+                        <?php
+                        }
+                        ?>
                     <div class="actions">
                         <a class="btn blue" href="/entry">Back</a>
 

@@ -17,7 +17,7 @@
                 {
             $stock = \App\StockInfo::find($stock_info_id);
             ?>
-                        <h3 class="page-title"> {{$stock->name}} Stock Report  </h3>
+                        <h3 class="page-title"> {{$stock ? $stock->name : ''}} Stock Report  </h3>
             <?php }else{?>
                     <h3 class="page-title"> All Stock Report  </h3>
 
@@ -89,6 +89,7 @@
 
                     {!!Form::close()!!}
 
+                @if ($results)
 
                     <table class="table table-striped table-bordered table-hover" id="stock_products_report_table">
                         <thead style="background-color:cadetblue">
@@ -96,7 +97,6 @@
                             <th>SL</th>
                             <th>Product Name</th>
                             <th>Quantity On Hand</th>
-                            <th>Price</th>
 
                         </tr>
                         </thead>
@@ -132,7 +132,6 @@
                                 <td>{{$i++}}</td>
                                 <td>{{$pName->name}} ({{$categoryName->name}}) ({{$subCategoryName}})</td>
                                 <td class="text-right">{{$result->product_quantity}}</td>
-                                <td class="text-right">{{$result->total_price}}</td>
 
 
                             </tr>
@@ -142,11 +141,13 @@
                             <td><b>Total</b></td>
                             <td></td>
                             <td class="text-right">{{$grandTotal}}</td>
-                            <td class="text-right">{{$grandTotalPrice}}</td>
                         </tr>
 
                         </tbody>
                     </table>
+                @else
+                    <h4  style="color:red">No Search Result</h4>
+                @endif
 
                 </div>
             </div>

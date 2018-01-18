@@ -101,10 +101,8 @@ class ReportController extends Controller{
         }else{
             $branch_id = Session::get('user_branch');
         }
-
         $category_id = Input::get('category_id');
-        $results = $report->getStockCategoriesReportResult($branch_id,$category_id);
-
+        $results = $report->getStockCategoriesReportResult($branch_id, $category_id);
 
         return view('Reports.stockCategoriesReport')
             ->with('branch_id',$branch_id)

@@ -3,7 +3,7 @@
         /*$('#sale').modal('hide');
          $('body').removeClass('modal-open');
          $('.modal-backdrop').hide();*/
-        $("#expensePayment").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+        $("#expensePayment").modal('hide').on('hidden.bs.modal');
         $('.modal-backdrop').hide();
     }
 </script>
@@ -28,6 +28,13 @@
                 <div class="portlet-body form" id="testt">
                     <!-- BEGIN FORM-->
                     <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label col-md-4"></label>
+                            <div class="col-md-7 ">
+                                <h4 class="amount_msg" style="color:red"></h4>
+                            </div>
+                        </div>
+                        <input type="hidden" name="due"  class="due" value="{{ $totalExpense - $transactionsPaid[0]->totalPaid }}">
                         <div class="form-group">
                             {!!HTML::decode(Form::label('branch_id','Choose Branch<span class="required">*</span>',array('class'
                             => 'control-label col-md-4')))!!}
@@ -100,7 +107,7 @@
                                            'control-label col-md-4')))!!}
                             <div class="col-md-7">
                                 {!!Form::text('amount',null,array('placeholder' => 'Amount', 'class' =>
-                                               'form-control','id'=>'amount'))!!}
+                                               'form-control amount_payment'))!!}
                             </div>
                         </div>
                         <div class="form-group">
