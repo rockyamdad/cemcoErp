@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-             Stock Search Result
+                Stock Report Result Based On Entry Type
             </h3>
 
         </div>
@@ -20,11 +20,11 @@
                     $branch = \App\Branch::find($branch);
                         if ($branch) {
                     ?>
-                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result for {{$branch->name}}</div>
+                    <div class="caption"><i class="fa fa-reorder"></i>   Stock Report Result for {{$branch->name}}</div>
                         <?php
                             } else {
                         ?>
-                        <div class="caption"><i class="fa fa-reorder"></i>   Stock Search Result </div>
+                        <div class="caption"><i class="fa fa-reorder"></i>   Stock Report Result </div>
                         <?php
                         }
                         ?>

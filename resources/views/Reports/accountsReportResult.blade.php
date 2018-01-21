@@ -99,6 +99,7 @@
                                     @if($result->type != 'Receive')
                                         <?php
                                         $purchase = \App\PurchaseInvoice::where('invoice_id','=',$result->invoice_id)->first();
+                                        if ($purchase)
                                         $party = \App\Party::find($purchase->party_id);
                                         ?>
                                             @if($result->cheque_no)

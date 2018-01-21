@@ -212,6 +212,7 @@ class ReportController extends Controller{
         }
         $report = new Report();
         $results = $report->getSalesReport($date1,$date2,$branch_id);
+
         return view('Reports.salesReportResult',compact('results'))
             ->with('branch_id',$branch_id)
             ->with('date1',$date1)
@@ -548,7 +549,7 @@ class ReportController extends Controller{
     public function getSalespartyledger()
     {
         $parties = new Party();
-        $partiesAll = $parties->getPartiesDropDown();
+        $partiesAll = $parties->getBuyersDropDown();
         return view('Reports.salesPartyLedger')
             ->with('partiesAll',$partiesAll);
 
@@ -566,9 +567,14 @@ class ReportController extends Controller{
         $results = $report->getSalesPartyLedgerReport($date1,$date2,$party_id);
         $credit = $report->getCredit($date1,$date2,$party_id);
         $open_balance = Party::find($party_id);
+        if($open_balance) {
+            $balance = $open_balance->balance;
+        } else {
+            $balance = '';
+        }
         $debit = $report->getDebit($date1,$date2,$party_id);
-
-        $sql = "SELECT * FROM (SELECT A.invoice_id particular, (SUM(A.price * A.quantity) - (discount) )  amount, A.created_at FROM (
+        if($date1 and $date2) {
+            $sql = "SELECT * FROM (SELECT A.invoice_id particular, (SUM(A.price * A.quantity) - (discount) )  amount, A.created_at FROM (
 SELECT sale_details.invoice_id, sale_details.price, sale_details.quantity, sales.created_at, sales.discount_percentage discount FROM `sales` sales  LEFT JOIN sale_details sale_details ON sales.invoice_id = sale_details.invoice_id WHERE sales.party_id = ".$party_id." AND sales.is_sale = 1 AND sales.created_at BETWEEN '$date3' AND '$date4'
     ) A GROUP BY A.invoice_id
 
@@ -582,20 +588,24 @@ WHERE sales.party_id = ".$party_id." AND IF(transactions.payment_method='Check',
 ORDER BY allData.created_at";
 
 
-        $results2 = DB::select( DB::raw($sql) );
+            $results2 = DB::select( DB::raw($sql) );
+        } else {
+            $results2 = '';
+        }
+
 
         return view('Reports.salesPartyLedgerReportResult',compact('results','results2'))
             ->with('party_id',$party_id)
             ->with('date1',$date1)
             ->with('credit',$credit)
-            ->with('open_balance',$open_balance->balance)
+            ->with('open_balance',$balance)
             ->with('debit',$debit)
             ->with('date2',$date2);
     }
     public function getPurchasepartyledger()
     {
         $parties = new Party();
-        $partiesAll = $parties->getPartiesDropDown();
+        $partiesAll = $parties->getSuppliersDropDown();
         return view('Reports.purchasePartyLedger')
             ->with('partiesAll',$partiesAll);
     }
@@ -613,8 +623,14 @@ ORDER BY allData.created_at";
         $credit = $report->getCredit($date1,$date2,$party_id);
         $debit = $report->getDebit($date1,$date2,$party_id);
         $open_balance = Party::find($party_id);
+        if($open_balance) {
+            $balance = $open_balance->balance;
+        } else {
+            $balance = '';
+        }
 
-        $sql = "SELECT * FROM (SELECT A.detail_invoice_id particular, SUM(A.price * A.quantity)  amount, A.created_at FROM (
+        if($date1 and $date2) {
+            $sql = "SELECT * FROM (SELECT A.detail_invoice_id particular, SUM(A.price * A.quantity)  amount, A.created_at FROM (
 SELECT purchase_invoice_details.detail_invoice_id, purchase_invoice_details.price, purchase_invoice_details.quantity, purchase_invoices.created_at FROM `purchase_invoices` purchase_invoices  LEFT JOIN purchase_invoice_details purchase_invoice_details ON purchase_invoices.invoice_id = purchase_invoice_details.detail_invoice_id WHERE purchase_invoices.party_id = ".$party_id." AND purchase_invoices.created_at BETWEEN '$date3' AND '$date4')
     A GROUP BY A.detail_invoice_id
 UNION
@@ -626,13 +642,17 @@ JOIN transactions transactions ON purchase_invoices.invoice_id = transactions.in
 WHERE purchase_invoices.party_id = ".$party_id." AND IF(transactions.payment_method='Check', transactions.cheque_status, 1 ) = 1  AND transactions.created_at BETWEEN '$date3' AND '$date4') allData
 ORDER BY allData.created_at";
 
-        $results2 = DB::select( DB::raw($sql) );
+            $results2 = DB::select( DB::raw($sql) );
+        } else {
+            $results2 = '';
+        }
+
 
         return view('Reports.purchasePartyLedgerReportResult',compact('results','results2'))
             ->with('party_id',$party_id)
             ->with('date1',$date1)
             ->with('credit',$credit)
-            ->with('open_balance',$open_balance->balance)
+            ->with('open_balance', $balance)
             ->with('debit',$debit)
             ->with('date2',$date2);
 

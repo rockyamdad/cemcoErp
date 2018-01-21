@@ -53,7 +53,7 @@ class SalesReturnController extends Controller{
         $allStockInfos = $stockInfos->getStockInfoDropDown();
 
         $parties = new Party();
-        $partyAll = $parties->getPartiesDropDown();
+        $partyAll = $parties->getBuyersDropDown();
 
         $imports= new Import();
         $consignmentAll = $imports->getConsignmentNameDropDown();

@@ -46,13 +46,13 @@
                         $month1  = $date01[0];
                         $day1 = $date01[1];
                         $year1   = $date01[2];
-                        $date1 =$day1.'/'.$month1.'/'.$year1;
+                        $date11 =$day1.'/'.$month1.'/'.$year1;
 
                         $date02 = explode('/', $date2);
                         $month2  = $date02[0];
                         $day2 = $date02[1];
                         $year2   = $date02[2];
-                        $date2 =$day2.'/'.$month2.'/'.$year2;
+                        $date22 =$day2.'/'.$month2.'/'.$year2;
                     }
                     ?>
                     <div class="caption"><i class="fa fa-reorder"></i>
@@ -60,7 +60,7 @@
                         if ($date1 && $date2) {
                         ?>
 
-                        Date : {{$date1}} to {{$date2}}
+                        Date : {{$date11}} to {{$date22}}
                         <?php
                         } else {
                         ?>

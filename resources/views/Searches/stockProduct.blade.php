@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            Stock Product Search
+            Stock Product Report
         </h3>
 
         <!-- END PAGE TITLE & BREADCRUMB-->
@@ -20,7 +20,7 @@
     <!-- BEGIN VALIDATION STATES-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="fa fa-reorder"></i>  Search Stock Product</div>
+            <div class="caption"><i class="fa fa-reorder"></i>  Stock Product Report</div>
         </div>
         <div class="portlet-body form">
             <!-- BEGIN FORM-->

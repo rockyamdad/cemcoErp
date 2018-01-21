@@ -41,13 +41,13 @@
                         $month1  = $date01[0];
                         $day1 = $date01[1];
                         $year1   = $date01[2];
-                        $date1 =$day1.'/'.$month1.'/'.$year1;
+                        $date11 =$day1.'/'.$month1.'/'.$year1;
 
                         $date02 = explode('/', $date2);
                         $month2  = $date02[0];
                         $day2 = $date02[1];
                         $year2   = $date02[2];
-                        $date2 =$day2.'/'.$month2.'/'.$year2;
+                        $date22 =$day2.'/'.$month2.'/'.$year2;
                     }
                     ?>
                     <div class="caption"><i class="fa fa-reorder"></i>
@@ -55,11 +55,11 @@
                         if ($date1 && $date2) {
                         ?>
 
-                         Date : {{$date1}} to {{$date2}}
+                        Date : {{$date11}} to {{$date22}}
                         <?php
                         } else {
                         ?>
-                         No date selected
+                        No date selected
                         <?php
                         }
                         ?>
@@ -81,6 +81,7 @@
 
                             <th>Invoice No</th>
                             <th style="text-align: right;">Total Sale</th>
+                            <th style="text-align: right;">Total Discount</th>
                             <th style="text-align: right;">Total Payment </th>
                             <th style="text-align: right;">Due</th>
 
@@ -91,6 +92,7 @@
                         $totalSale = 0;
                         $totalPayment = 0;
                         $totalDue = 0;
+                        $totalDiscount = 0;
                         ?>
 
                         @foreach($results as $result )
@@ -101,7 +103,8 @@
 
                             <tr class="odd gradeX">
                                 <td><a target="_blank" href="{{URL::to('sales?invoice_id='.$result->invoice)}}">{{$result->invoice}}</a></td>
-                                <td style="text-align: right;">{{$result->totalSale-$result->discount_amount}}</td>
+                                <td style="text-align: right;">{{ $result->totalSale }}</td>
+                                <td style="text-align: right;">{{ ($result->discount_amount + $result->discount_amount_special) }}</td>
                                 <td style="text-align: right;">
                                     @if($payment[0]->totalPayment)
                                         {{$payment[0]->totalPayment}}
@@ -109,7 +112,7 @@
                                          {{0}}
                                     @endif
                                 </td>
-                                <td style="text-align: right;"><?php $res = $result->totalSale - $payment[0]->totalPayment - $result->discount_amount; if ($res>0) echo $res; else echo 0 ?></td>
+                                <td style="text-align: right;"><?php $res = $result->totalSale - $payment[0]->totalPayment - ($result->discount_amount + $result->discount_amount_special); if ($res>0) echo $res; else echo 0 ?></td>
 
 
                             </tr>
@@ -117,13 +120,16 @@
                                 $totalSale = $totalSale + $result->totalSale - $result->discount_amount;
                                 $totalPayment = $totalPayment + $payment[0]->totalPayment;
                                 $totalDue = $totalDue + ($result->totalSale - $payment[0]->totalPayment - $result->discount_amount);
+                                $totalDiscount = $totalDiscount + ($result->discount_amount + $result->discount_amount_special);
                             ?>
                         @endforeach
+
                         <tr>
                             <td><b>Grand Total</b></td>
                             <td style="text-align: right;">{{$totalSale}}</td>
-                            <td style="text-align: right;">{{$totalPayment}}</td>
-                            <td style="text-align: right;">{{$totalDue}}</td>
+                            <td style="text-align: right;">{{ $totalDiscount }}</td>
+                            <td style="text-align: right;">{{ $totalPayment }}</td>
+                            <td style="text-align: right;">{{ $totalDue }}</td>
 
                         </tr>
 
