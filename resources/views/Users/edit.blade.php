@@ -119,7 +119,6 @@
             <div class="form-actions fluid">
                 <div class="col-md-offset-3 col-md-9">
                     {!!Form::button('Save',array('type' => 'submit','class' => 'btn green','id' => 'save'))!!}
-                    {!!Form::button('Cancel',array('type'=>'reset', 'class' => 'btn default','id' => 'cancel'))!!}
 
                 </div>
             </div>

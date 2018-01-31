@@ -141,7 +141,7 @@
                                        <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make/'.$expense->invoice_id) }}" >
                                            <i class="fa fa-usd"></i> Payment</a>
                                     @endif
-                                   @if($transaction == NULL)
+                                   @if($transaction == NULL and Session::get('user_role') == "admin")
                                     <a class="btn red btn-sm" href="{{ URL::to('expenses/delete/'.$expense->id)}}"
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
                                             class="fa fa-trash-o"></i> Delete</a>
@@ -198,7 +198,6 @@
                                 <td>{{$expense->user->username}}</td>
 
                                 <td>
-                                    @if( Session::get('user_role') == "admin")
                                         @if($transaction == NULL)
                                             <a class="btn blue btn-sm"  href="{{ URL::to('expenses/edit/'. $expense->id ) }}"><i
                                                     class="fa fa-edit"></i>&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;</a>
@@ -211,13 +210,12 @@
                                             <a class="btn purple btn-sm makePayment"  rel="{{ $expense->invoice_id }}" data-toggle="modal"  data-target="#expensePayment" href="{{ URL::to('expenses/make/'.$expense->invoice_id) }}" >
                                                 <i class="fa fa-usd"></i> Payment</a>
                                         @endif
-                                        @if($transaction == NULL)
+                                            @if($transaction == NULL and Session::get('user_role') == "admin")
                                             <a class="btn red btn-sm" href="{{ URL::to('expenses/delete/'.$expense->id)}}"
                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                         class="fa fa-trash-o"></i> Delete</a>
                                         @endif
 
-                                    @endif
 
 
                                 </td>

@@ -88,7 +88,12 @@ jQuery(document).ready(function() {
     });
     function saleFormValidationEdit() {
 
-        var branch = $.trim($('#edit_branch_id').val());
+
+        if($('#edit_branch_id').val()) {
+            var branch = $.trim($('#edit_branch_id').val());
+        } else {
+            var branch = $.trim($('#branch_session').val());
+        }
         var stock = $.trim($('#stock_info_id').val());
         var party = $.trim($('#edit_party_id').val());
         var cash = $.trim($('#edit_cash_sale').val());
@@ -367,7 +372,12 @@ jQuery(document).ready(function() {
         substring = "edit";
 
     if(string.indexOf(substring) !== -1){
-        var branch_id = $('#edit_branch_id').val();
+        if ($('#edit_branch_id').val()) {
+            var branch_id = $('#edit_branch_id').val();
+        } else {
+            var branch_id = $('#branch_session').val();
+        }
+
         $('#edit_product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
         $('#edit_product_id').append(newOption);

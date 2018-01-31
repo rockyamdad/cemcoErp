@@ -120,6 +120,7 @@ class Sale extends Eloquent
             ->join('sale_details', 'sales.invoice_id', '=', 'sale_details.invoice_id')
             ->where('sale_details.branch_id', '=', $branch_id)
             ->orderBy('sales.id','DESC')
+            ->groupBy('sale_details.invoice_id')
             ->get();
     }
 

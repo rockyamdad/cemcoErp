@@ -219,7 +219,12 @@ class PurchaseInvoiceController extends Controller{
 
         $stockInvoces = new StockInvoice();
         $stockInvoiceId= StockInvoice::generateInvoiceId();
-        $stockInvoces->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $stockInvoces->branch_id = Input::get('branch_id');
+        }else{
+            $stockInvoces->branch_id = Session::get('user_branch');
+        }
+
         $stockInvoces->status = 'Activate';
         $stockInvoces->remarks = '';
         $stockInvoces->user_id = Session::get('user_id');
@@ -232,7 +237,12 @@ class PurchaseInvoiceController extends Controller{
 
 
         $stock = new StockDetail();
-        $stock->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $stock->branch_id = Input::get('branch_id');
+        }else{
+            $stock->branch_id = Session::get('user_branch');
+        }
+
         $stock->product_id =Input::get('product_id');
         $stock->product_type =  Input::get('product_type');
         $stock->quantity = Input::get('quantity');

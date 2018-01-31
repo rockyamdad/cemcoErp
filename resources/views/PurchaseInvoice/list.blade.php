@@ -129,10 +129,11 @@
                                            <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
                                                <i class="fa fa-usd"></i> Payment</a>
                                        @endif--}}
-
+                                    @if(Session::get('user_role') == "admin")
                                     <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
                                        onclick="return confirm('Are you sure you want to delete this item?');"><i
                                             class="fa fa-trash-o"></i> Delete</a>
+                                     @endif
                                 @endif
 
 
@@ -176,11 +177,11 @@
                                                 <a class="btn purple btn-sm makePayment"  rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchasePayment" href="{{ URL::to('purchases/make/'.$purchase->invoice_id) }}" >
                                                     <i class="fa fa-usd"></i> Payment</a>
                                             @endif--}}
-
+                                            @if(Session::get('user_role') == "admin")
                                             <a class="btn red btn-sm" href="{{ URL::to('purchases/del/'.$purchase->invoice_id)}}"
                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                         class="fa fa-trash-o"></i> Delete</a>
-
+                                            @endif
                                         @endif
 
 

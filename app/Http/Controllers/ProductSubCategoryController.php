@@ -51,7 +51,7 @@ class ProductSubCategoryController extends Controller{
             $subCategories = new SubCategory();
             $this->setSubCategoriesData($subCategories);
             $subCategories->save();
-            Session::flash('message', 'Product Category has been Successfully Created.');
+            Session::flash('message', 'Product Sub Category has been Successfully Created.');
             return Redirect::to('productsubcategories/index');
         }
     }
@@ -114,7 +114,12 @@ class ProductSubCategoryController extends Controller{
 
         $accountNames = new NameOfAccount();
         $accountNames->name = Input::get('name');
-        $accountNames->branch_id = Input::get('branch_id');
+        if(Session::get('user_role') == 'admin'){
+            $accountNames->branch_id = Input::get('branch_id');
+        }else{
+            $accountNames->branch_id = Session::get('user_branch');
+        }
+
         if(count($accountCat)>0){
             $accountNames->account_category_id = $accountCat[0]->id;
         }else{

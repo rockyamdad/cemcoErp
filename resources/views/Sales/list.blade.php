@@ -186,15 +186,16 @@
                             <?php
                             $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             $saleMan = \App\User::find($sale->sales_man_id);
-
+                            $party = \App\Party::find($sale->party_id);
+                            $user = \App\User::find($sale->user_id);
                             ?>
                             @if(count($hasDetails) > 0)
                                 <tr class="odd gradeX">
                                     <td><?php echo $sl; ?></td>
                                     <td>{{$sale->invoice_id}}</td>
                                     <td>
-                                        @if($sale->party)
-                                            {{$sale->party->name}}
+                                        @if($party)
+                                            {{$party->name}}
                                         @endif
                                     </td>
                                     <td>{{$sale->cash_sale}}</td>
@@ -211,13 +212,12 @@
                                         <td><span class="label label-sm label-success">Completed</span></td>
                                     @endif
                                     <td>
-                                        @if(($sale->user))
-                                            {{$sale->user->username}}
+                                        @if(($user))
+                                            {{$user->username}}
                                         @endif
                                     </td>
 
                                     <td>
-                                        @if( Session::get('user_role') == "admin")
                                             @if($sale->is_sale != 1)
                                                 <a class="btn blue btn-sm"  href="{{ URL::to('sales/edit/'. $sale->invoice_id ) }}"><i
                                                             class="fa fa-edit"></i>&nbsp;&nbsp; Edit &nbsp</a>
@@ -232,18 +232,17 @@
                                                                 class="fa fa-tasks"></i>Invoice&nbsp;</a>
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
 
-                                                    @if(!$sale->party && $sale->status != 'Completed')
+                                                    @if(!$party && $sale->status != 'Completed')
                                                         <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                        <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                     @endif
                                                 <span class="label label-sm label-success">SoldOut</span>
                                             @endif
-                                            @if($sale->is_sale != 1)
+                                            @if($sale->is_sale != 1 and Session::get('user_role') == "admin")
                                                 <a class="btn red btn-sm" href="{{ URL::to('sales/delete/'.$sale->invoice_id)}}"
                                                    onclick="return confirm('Are you sure you want to delete this item?');"><i
                                                             class="fa fa-trash-o"></i> Delete</a>
                                             @endif
-                                        @endif
 
 
                                     </td>

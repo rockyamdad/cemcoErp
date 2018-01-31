@@ -169,7 +169,7 @@ class SaleController extends Controller{
         $saleDetails->stock_info_id = Input::get('stock_info_id');
         $saleDetails->product_type = $product->product_type;
         $saleDetails->remarks = Input::get('remarks');
-        $saleDetails->save();
+
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
         if(empty($hasSale[0])){
 
@@ -189,8 +189,9 @@ class SaleController extends Controller{
 2. NO REPLACEMENT WARANTY';
             $sale->user_id = Session::get('user_id');
             $sale->save();
-        }
 
+        }
+        $saleDetails->save();
         $salesDetails = SAleDetail::find($saleDetails->id);
         $list = $this->saleDetailConvertToArray($salesDetails);
         return $list;

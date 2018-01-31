@@ -72,7 +72,12 @@ jQuery(document).ready(function() {
 
     function stockFormValidation() {
 
-        var branch = $.trim($('#branch_id').val());
+        if($('#branch_id').val()) {
+            var branch = $.trim($('#branch_id').val());
+        } else {
+            var branch = $.trim($('#branch_session').val());
+        }
+
         var stock = $.trim($('#stock_info_id').val());
         var type = $.trim($('#product_type').val());
         var entry_type = $.trim($('#entry_type').val());
@@ -126,10 +131,12 @@ jQuery(document).ready(function() {
                     } else if (stock.entry_type == "StockOut"){
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         html.push('<td>' + stock.remarks + '</td>');
                     } else if (stock.entry_type == "StockOut" || stock.entry_type ==  "Wastage"){
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
+                        html.push('<td>' + stock.price + '</td>');
                         if( stock.remarks == ''){
                             html.push('<td>' + "Not Available" + '</td>');
                         }else{
@@ -282,7 +289,7 @@ jQuery(document).ready(function() {
 
         $.ajax({
             type: "get",
-            url: "quantity/"+product_id,
+            url: "../quantity/"+product_id,
             data:{'stock_info_id':stock_info_id, 'product_id': product_id},
             success: function (html) {
                 //alert(html);
@@ -328,17 +335,17 @@ jQuery(document).ready(function() {
         $('.date-picker').datepicker();
     });
 
-    $('#product_id').live("change", function () {
+    /*$('#product_id').live("change", function () {
         var product_id = $('#product_id').val();
         $.ajax({
             type: "get",
-            url: "productprice/"+product_id,
+            url: "../productprice/"+product_id,
             success: function (html) {
                 $('#price').val(html);
 
             }
         });
-    });
+    });*/
     $('#edit_product_id').live("change", function () {
         var product_id = $('#edit_product_id').val();
         $.ajax({
