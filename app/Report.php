@@ -580,7 +580,7 @@ class Report extends Eloquent
             ->whereBetween('transactions.created_at', array(date('Y-m-d'.' 00:00:00'), date('Y-m-d H:i:s')))
             ->groupBy('transactions.branch_id')
             ->select(
-                DB::raw('SUM(transactions.amount) as todayPurchase')
+                DB::raw('SUM(transactions.amount) as todayPurchase'),'transactions.branch_id'
             )
             ->get();
     }

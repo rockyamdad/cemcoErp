@@ -124,24 +124,28 @@ class SalesReturnController extends Controller{
             return json_encode(($validate));
         }
         else{
+            $invoiceId = $this->generateInvoiceId();
             $salesreturn = new SalesReturnInvoice();
-            $this->setSalesReturnData($salesreturn);
+            $this->setSalesReturnData($salesreturn, $invoiceId);
+
             $salesReturnDetails = new SalesReturnDetail();
             $salesReturnDetails->product_type = Input::get('product_type');
-            $salesReturnDetails->stock_info_id = Input::get('stock_info_id');
+            if(Input::get('stock_info_id')){
+                $salesReturnDetails->stock_info_id = Input::get('stock_info_id');
+            }
+
             $salesReturnDetails->product_id = Input::get('product_id');
             $salesReturnDetails->quantity = Input::get('quantity');
             $salesReturnDetails->unit_price = Input::get('unit_price');
-            $salesReturnDetails->return_amount = ($salesReturnDetails->quantity*$salesReturnDetails->unit_price) - ($salesReturnDetails->quantity*$salesReturnDetails->unit_price)*((double)Input::get('discount_percentage')/100);
+            $salesReturnDetails->return_amount = ($salesReturnDetails->quantity * $salesReturnDetails->unit_price) - ($salesReturnDetails->quantity*$salesReturnDetails->unit_price)*((double)Input::get('discount_percentage')/100);
             $salesReturnDetails->consignment_name = Input::get('consignment_name');
 
-            $salesReturnDetails->invoice_id = Input::get('invoice_id');
+            $salesReturnDetails->invoice_id = $invoiceId;
             $salesReturnDetails->save();
 
             //automatically reduce sales payment starts
-            $unit_price=Input::get('unit_price');
+            $unit_price = Input::get('unit_price');
             $remaining_amount = $salesReturnDetails->return_amount;
-            //var_dump($remaining_amount);
             $partyId=Input::get('party_id');
             if($remaining_amount > 0)
             {
@@ -168,7 +172,9 @@ class SalesReturnController extends Controller{
                     $difference=$detailsPrice-$paid;
                     if($difference>0)
                     {
-
+                        $accountCategory = AccountCategory::where('name','=','Sales Return Category')->first();
+                        $accountname = NameOfAccount::where('name','=','Sales Return Account')->first();
+                        $voucherId = $this->generateVoucherId();
                         //echo 'greater than 0 difference';
                         if($remaining_amount<=$difference)
                         {
@@ -189,17 +195,18 @@ class SalesReturnController extends Controller{
                             $transaction->amount = $remaining_amount;
                             $transaction->type = 'Receive';
                             $transaction->payment_method = 'Sales Return';
-                            $transaction->account_category_id = 7;
-                            $transaction->remarks = Input::get('invoice_id');
-                            $transaction->account_name_id = 8;
+                            $transaction->account_category_id = $accountCategory->id;
+                            $transaction->remarks = Input::get('remarks');
+                            $transaction->account_name_id = $accountname->id;
                             $transaction->user_id = Session::get('user_id');
                             $transaction->cheque_no = '';
+                            $transaction->voucher_id = $voucherId;
                             $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                             $transaction->branch_id = $branch->branch_id;
 
                             $transaction->save();
-                                $remaining_amount = 0;
-                        }
+                            $remaining_amount = 0;
+                            }
 
                         }
                         elseif($remaining_amount>$difference)
@@ -218,11 +225,12 @@ class SalesReturnController extends Controller{
                                 $transaction->amount = $difference;
                                 $transaction->type = 'Receive';
                                 $transaction->payment_method = 'Sales Return';
-                                $transaction->account_category_id = 7;
-                                $transaction->remarks = Input::get('invoice_id');
-                                $transaction->account_name_id = 8;
+                                $transaction->account_category_id = $accountCategory->id;
+                                $transaction->remarks = Input::get('remarks');
+                                $transaction->account_name_id = $accountname->id;
                                 $transaction->user_id = Session::get('user_id');
                                 $transaction->cheque_no = '';
+                                $transaction->voucher_id = $voucherId;
                                 $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                 $transaction->branch_id = $branch->branch_id;
 
@@ -234,6 +242,7 @@ class SalesReturnController extends Controller{
 
                         }
                         $sale->save();
+
                         if(Input::get('product_status') == 'Intact'){
                             $stock_Count = StockCount::where('product_id','=', Input::get('product_id'))
                                 ->where('stock_info_id','=',Input::get('stock_info_id'))
@@ -255,7 +264,12 @@ class SalesReturnController extends Controller{
 
                             $stockInvoces = new StockInvoice();
                             $stockInvoiceId= StockInvoice::generateInvoiceId();
-                            $stockInvoces->branch_id = Input::get('branch_id');
+
+                            if(Session::get('user_role') == 'admin'){
+                                $stockInvoces->branch_id = Input::get('branch_id');
+                            }else{
+                                $stockInvoces->branch_id = Session::get('user_branch');
+                            }
                             $stockInvoces->status = 'Activate';
                             $stockInvoces->remarks = '';
                             $stockInvoces->user_id = Session::get('user_id');
@@ -268,7 +282,12 @@ class SalesReturnController extends Controller{
 
 
                             $stock = new StockDetail();
-                            $stock->branch_id = Input::get('branch_id');
+                            if(Session::get('user_role') == 'admin'){
+                                $stock->branch_id = Input::get('branch_id');
+                            }else{
+                                $stock->branch_id = Session::get('user_branch');
+                            }
+
                             $stock->product_id =Input::get('product_id');
                             $stock->product_type =  Input::get('product_type');
                             $stock->quantity = Input::get('quantity');
@@ -283,6 +302,8 @@ class SalesReturnController extends Controller{
                     }
                 }
             }
+
+            Session::flash('message', 'Sales has been Returned Successfully!!!');
             /*if($remaining_amount>0)
             {
                 echo "How come its possible! Consult with DEVELOPERS!!!";
@@ -292,17 +313,64 @@ class SalesReturnController extends Controller{
             return $this->saleReturnDetailConvertToArray($salesReturnDetails);
         }
     }
-    private function setSalesReturnData($salesreturn)
+    private function generateVoucherId()
     {
-            $this->insertSalesReturnData($salesreturn);
+        $invdesc = Transaction::orderBy('id', 'DESC')->first();
+        if ($invdesc != null) {
+            $invDescId = $invdesc->voucher_id;
+            $invDescIdNo = substr($invDescId, 9);
+
+            $subinv1 = substr($invDescId, 6);
+            $dd = substr($invDescId, 2, 2);
+            $mm = substr($invDescId, 4,2);
+            $yy = substr($invDescId, 6, 2);
+
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $dd2 = $explodToday[0];
+            $mm2 = $explodToday[1];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+            if ($dd == $dd2 && $yy == $yy2 && $mm == $mm2) {
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-".($invDescIdNo + 1);
+                return $invoiceidd;
+            } else {
+                $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+                return $invoiceidd;
+            }
+        } else {
+            $tz = 'Asia/Dhaka';
+            $timestamp = time();
+            $dt = new \DateTime("now", new \DateTimeZone($tz)); //first argument "must" be a string
+            $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+            $Today = $dt->format('d.m.Y');
+
+            $explodToday = explode(".", $Today);
+            $mm2 = $explodToday[1];
+            $dd2 = $explodToday[0];
+            $yy1 = $explodToday[2];
+            $yy2 = substr($yy1, 2);
+
+            $invoiceidd = "CV".$dd2 . $mm2 . $yy2 . "-1";
+
+            return $invoiceidd;
+        }
+    }
+    private function setSalesReturnData($salesreturn, $invoiceId)
+    {
+            $this->insertSalesReturnData($salesreturn, $invoiceId);
             $stock_invoices_check = SalesReturnInvoice::where('invoice_id','=',Input::get('invoice_id'))
                 ->get();
             if(empty($stock_invoices_check[0]))
                 $salesreturn->save();
-
-            Session::flash('message', 'Sales has been Returned Successfully!!!');
     }
-    private function insertSalesReturnData($salesreturn)
+    private function insertSalesReturnData($salesreturn, $invoiceId)
     {
         if(Session::get('user_role') == 'admin'){
             $salesreturn->branch_id = Input::get('branch_id');
@@ -313,7 +381,7 @@ class SalesReturnController extends Controller{
         $salesreturn->product_status = Input::get('product_status');
         $salesreturn->ref_no = Input::get('ref_no');
         $salesreturn->discount_percentage = Input::get('discount_percentage');
-        $salesreturn->invoice_id = Input::get('invoice_id');
+        $salesreturn->invoice_id = $invoiceId;
         //$salesreturn->status = "Activate";
         $salesreturn->user_id = Session::get('user_id');
     }

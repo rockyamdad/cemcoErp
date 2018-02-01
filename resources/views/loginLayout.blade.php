@@ -40,7 +40,7 @@
 </div>
 
 <div class="copyright">
-    2013 &copy; Cemco Dashboard Template.
+    2018 &copy; Cemco Dashboard Template.
 </div>
 <!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

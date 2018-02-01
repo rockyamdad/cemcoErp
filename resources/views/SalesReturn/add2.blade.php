@@ -79,8 +79,8 @@
                                     {!!Form::text('ref_no',null,array('placeholder' => 'Ref No.', 'id' => 'ref_no','class' =>
                                  'form-control'))!!}
                                 </div>
-
-                                <div class="col-md-3">
+                                <div></div>
+                                <div class="col-md-3" style="margin-top: 13px;">
                                     {!!Form::text('discount_percentage',null,array('placeholder' => 'discount percentage', 'id' => 'discount_percentage','class' =>
                                  'form-control'))!!}
                                 </div>

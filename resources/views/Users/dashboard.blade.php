@@ -709,9 +709,12 @@
                         $slNo = 1;
                         ?>
                         @foreach($totalPurchase as $purchase)
+                            <?php
+                              $branch = \App\Branch::find($purchase->branch_id);
+                            ?>
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$purchase->branch}}</td>
+                                <td>{{$branch->name}}</td>
                                 <td>{{$purchase->todayPurchase}}</td>
                             </tr>
                             <?php

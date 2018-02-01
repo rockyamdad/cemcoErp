@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
             <h3 class="page-title">
-                Stock Section
+                Sales Return Section
             </h3>
             <ul class="page-breadcrumb breadcrumb">
                 <li>
@@ -17,7 +17,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
 
-                <li><a href="{{URL::to('stocks/create')}}">Make Stock</a></li>
+                <li>Sales Return Edit</li>
             </ul>
             <!-- END PAGE TITLE & BREADCRUMB-->
         </div>
@@ -27,9 +27,9 @@
         <!-- BEGIN VALIDATION STATES-->
         <div class="portlet box purple">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-reorder"></i>Make Stock</div>
+                <div class="caption"><i class="fa fa-reorder"></i>Sales Return Edit</div>
                 <div class="actions">
-                    <a class="btn dark" href="{{ URL::to('stocks/index') }}">Stock List</a>
+                    <a class="btn dark" href="{{ URL::to('salesreturn/index') }}">Sales Return List</a>
                 </div>
             </div>
             <div class="portlet-body form">
@@ -264,6 +264,13 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <div class="form-group ">
+                                    <label class="control-label col-md-8"></label>
+                                    <div class="col-md-4 text-right">
+                                        <a class="btn btn-success" href="{{ URL::to('salesreturn/index') }}">Save & Continue</a>
+                                    </div>
+
+                                </div>
                                 <div class="form-group ">
                                     <label class="control-label col-md-4"></label>
                                     <div class="col-md-7 balance_show">

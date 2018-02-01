@@ -91,11 +91,14 @@
                                                 <i class="fa fa-eye"></i>&nbsp;&nbsp; Detail</a></td>
                                         <td><a class="btn blue btn-sm" href="{{ URL::to('salesreturn/edit/'.$row->id) }}"><i
                                                         class="fa fa-edit"></i>&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;</a></td>
-                                        <td><a class="btn blue btn-sm" href="{{ URL::to('salesreturn/showinvoice/'.$row->invoice_id ) }}"><i
-                                                        class="fa fa-edit"></i>Invoice</a></td>
-                                        <td><a class="btn red btn-sm" href="{{ URL::to('delsalesreturn/'.$row->id)}}"
+                                        <td><a class="btn blue btn-sm" href="{{ URL::to('salesreturn/showinvoice/'.$row->invoice_id ) }}">Invoice</a></td>
+                                        <td>
+                                            @if(Session::get('user_role') == "admin")
+                                            <a class="btn red btn-sm" href="{{ URL::to('delsalesreturn/'.$row->id)}}"
                                                onclick="return confirm('Are you sure you want to delete this item?');"><i
-                                                        class="fa fa-trash-o"></i> Delete</a></td>
+                                                        class="fa fa-trash-o"></i> Delete</a>
+                                                @endif
+                                        </td>
                                     </tr>
 
                                 </table>
