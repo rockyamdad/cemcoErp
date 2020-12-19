@@ -13,7 +13,7 @@ class DropInvoiceIdToPurchaseInvoiceDetails extends Migration {
 	public function up()
 	{
 		Schema::table('purchase_invoice_details', function(Blueprint $table){
-			$table->string('detail_invoice_id',255);
+			$table->string('detail_invoice_id',255)->change();
 		});
 	}
 

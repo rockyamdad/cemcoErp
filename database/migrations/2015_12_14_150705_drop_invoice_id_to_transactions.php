@@ -13,7 +13,7 @@ class DropInvoiceIdToTransactions extends Migration {
 	public function up()
 	{
 		Schema::table('transactions', function(Blueprint $table){
-			$table->string('invoice_id',255);
+			$table->string('invoice_id',255)->change();
 		});
 	}
 

@@ -118,7 +118,6 @@ class SalesReturnController extends Controller{
         );
         $validate = Validator::make(Input::all(), $ruless);
 
-
         if($validate->fails())
         {
             return json_encode(($validate));

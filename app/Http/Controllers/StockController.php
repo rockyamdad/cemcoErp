@@ -334,6 +334,7 @@ class StockController extends Controller{
         $stockDetails->entry_type = Input::get('entry_type');
         $stockDetails->product_type = Input::get('product_type');
         $stockDetails->stock_info_id = Input::get('stock_info_id');
+        $stockDetails->to_stock_info_id = Input::get('stock_info_id');
         $stockDetails->remarks = Input::get('remarks');
         $stockDetails->invoice_id = Input::get('invoice_id');
         $stockDetails->quantity = Input::get('product_quantity');
