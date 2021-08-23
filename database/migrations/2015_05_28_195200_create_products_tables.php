@@ -23,7 +23,7 @@ class CreateProductsTables extends Migration {
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('product_categories');
-            $table->unsignedInteger('sub_category_id');
+            $table->unsignedInteger('sub_category_id')->nullable();
             $table->foreign('sub_category_id')->references('id')->on('product_sub_categories');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

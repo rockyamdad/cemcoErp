@@ -164,14 +164,21 @@ class ProductController extends Controller{
 
     private function setProductsData($prodcuts)
     {
+        $productSubCategory = SubCategory::find(Input::get('sub_category_id'));
+
         $prodcuts->name = Input::get('name');
         if(Session::get('user_role') == 'admin'){
             $prodcuts->branch_id = Input::get('branch_id');
         }else{
             $prodcuts->branch_id = Session::get('user_branch');
         }
+        if($productSubCategory) {
+            $prodcuts->sub_category_id = $productSubCategory->id;
+        } else {
+            $prodcuts->sub_category_id = null;
+        }
         $prodcuts->category_id = Input::get('category_id');
-        $prodcuts->sub_category_id = Input::get('sub_category_id');
+
         $prodcuts->origin = '';
         $prodcuts->hs_code = '';
         $prodcuts->min_level = Input::get('min_level');

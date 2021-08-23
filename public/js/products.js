@@ -21,7 +21,15 @@ jQuery(document).ready(function() {
             },
             product_type: {
                 required: true
-            }
+            },
+            price: {
+                required: false,
+                digits:true
+            },
+            min_level: {
+                required: false,
+                digits:true
+            },
 
         },
 
@@ -92,7 +100,7 @@ jQuery(document).ready(function() {
             var branch_id = $('#products_branch_id').val();
         }
         $('#products_sub_category_id').empty();
-        var newOption = $('<option value="">Choose Sub Category</option>');
+        var newOption = $('<option value>Choose Sub Category</option>');
         $('#products_sub_category_id').append(newOption);
         $.ajax({
             type: "get",
