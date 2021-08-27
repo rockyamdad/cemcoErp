@@ -781,4 +781,4 @@ INSERT INTO `branches` (`id`, `name`, `location`, `description`, `status`, `user
 (1, 'Main Branch', 'Bangladesh', 'Main Branch of Bangladesh', 'Activate', 1, '2020-04-12 10:22:01', '2020-04-12 10:22:01', NULL);
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `phone`, `role`, `address`, `sex`, `status`, `deleted_at`, `created_at`, `updated_at`, `branch_id`) VALUES
-(1, 'Admin', 'admin', 'admin@email.com', '$2y$10$ZDIGvmWviW46PylmJH5fne/VKarXsauYNjj4Y72Z7wBa9/18fVjtC', '232329', 'admin', 'sds', 'male', 'Activate', NULL, '2020-04-12 10:24:31', '2020-04-12 10:24:31', 1);
+(1, 'Admin', 'admin', 'admin@email.com', '$2y$10$ZDIGvmWviW46PylmJH5fne/VKarXsauYNjj4Y72Z7wBa9/18fVjtC', '01675550199', 'admin', 'Bangladesh', 'm', 'Activate', NULL, '2020-04-12 10:24:31', '2020-04-12 10:24:31', 1);

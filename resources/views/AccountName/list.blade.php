@@ -87,7 +87,7 @@
                      <td>
                             <a class="btn blue btn-sm editAccountName" data-toggle="modal"  data-target="#ajax2" href="{{URL::to('accountnames/edit',$accountName->id )}}" >
                                 <i class="fa fa-edit"></i> Edit Account Name</a>
-                         @if(Session::get('user_role')=='admin'))
+                         @if(Session::get('user_role')=='admin')
                             <a class="btn red btn-sm" href="{{ URL::to('accountnames/delete',$accountName->id)}}"
                                onclick="return confirm('Are you sure you want to delete this item?');"><i
                                         class="fa fa-trash-o"></i> Delete</a>

@@ -34,7 +34,7 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Remarks</th>
-                    @if( Session::get('user_role') == "admin")
+                    @if( Session::get('user_role') == "admin" &&($stockDetails[0]->confirmation != 0))
                     <th>Action</th>
                     @endif
                 </tr>
@@ -63,11 +63,9 @@
                         @endif
 
                     </td>
-                    @if( Session::get('user_role') == "admin")
+                    @if( Session::get('user_role') == "admin" && $stock->confirmation == 0)
                     <td>
-                        @if ($stock->confirmation == 0)
                         <input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail" rel='{{$stockDetail->id}}' >
-                        @endif
                         {{--<a class="btn red btn-sm" href="{{ URL::to('/deleteDetail/'.$stockDetail->id)}}"--}}
                            {{--onclick="return confirm('Are you sure you want to delete this item?');"><i--}}
                                 {{--class="fa fa-trash-o"></i> Delete</a>--}}

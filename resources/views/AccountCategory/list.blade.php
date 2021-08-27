@@ -75,7 +75,7 @@
                         <td>
                             <a class="btn blue btn-sm editAccount" rel="{{ $category->id }}" data-ref="{{$category->name}}" data-toggle="modal" href="#editAccountCategory" >
                                 <i class="fa fa-edit"></i> Edit AccountCategory</a>
-                            @if(Session::get('user_role')=='admin'))
+                            @if(Session::get('user_role')=='admin')
                                 <a class="btn red btn-sm" href="{{ URL::to('accountcategory/delete/'.$category->id)}}"
                                    onclick="return confirm('Are you sure you want to delete this item?');"><i
                                             class="fa fa-trash-o"></i> Delete</a>

@@ -92,11 +92,15 @@ class ProductCategoryController extends Controller{
             Session::flash('error', 'This  Category can\'t delete because it  is used in sub category section');
 
         }else{
+
+            // Deletion Of Account Category (  This Feature is comment out due to client requirement )
+            /*
             $accountCategory = AccountCategory::where('name', '=', $category->name)->first();
             $nameOfAccount = NameOfAccount::where('account_category_id', '=', $accountCategory->id)->first();
             if (!$nameOfAccount) {
                 $accountCategory->delete();
             }
+            */
             $category->delete();
             Session::flash('message', ' Category has been Successfully Deleted.');
         }
@@ -115,10 +119,13 @@ class ProductCategoryController extends Controller{
 
         $categories->user_id = Session::get('user_id');
 
+        // Account Category Creation ( This Feature is comment out due to client requirement )
+        /*
         $aCategory = new AccountCategory();
         $aCategory->name = Input::get('name');
         $aCategory->user_id = Session::get('user_id');
         $aCategory->save();
+        */
 
 
     }
