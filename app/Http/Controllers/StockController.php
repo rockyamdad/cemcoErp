@@ -97,6 +97,10 @@ class StockController extends Controller{
 
         }
     }
+    public function getProductprice($id){
+        $product = Product::find($id);
+        return new JsonResponse($product->price);
+    }
     public  function getStocks()
     {
         $stocks = StockInfo::where('status','=','Activate')
@@ -488,43 +492,44 @@ class StockController extends Controller{
         $stock->delete();
         $stockCount = StockCount::where('product_id','=',$stock->product_id)
             ->where('stock_info_id','=',$stock->stock_info_id)
-            ->get();
+            ->first();
+        if(!empty($stockCount)) {
+            if($stock->entry_type=='StockIn'){
+                $stockCount->product_quantity = $stockCount->product_quantity - $stock->quantity;
+                $stockCount->total_price = $stockCount->total_price - ($stock->quantity*$stock->price);
+                $stockCount->save();
+            }elseif($stock->entry_type=='StockOut')
+            {
+                $stockCount->product_quantity = $stockCount->product_quantity + $stock->quantity;
+                $stockCount->total_price = $stockCount->total_price + ($stock->quantity*$stock->price);
+                $stockCount->save();
+            }elseif($stock->entry_type=='Transfer')
+            {
+                $stockCount->product_quantity = $stockCount->product_quantity + $stock->quantity;
+                $stockCount->total_price = $stockCount->total_price + ($stock->quantity*$stock->price);
+                $stockCount->save();
 
-        if($stock->entry_type=='StockIn'){
-            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $stock->quantity;
-            $stockCount[0]->total_price = $stockCount[0]->total_price - ($stock->quantity*$stock->price);
-            $stockCount[0]->save();
-        }elseif($stock->entry_type=='StockOut')
-        {
-            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + $stock->quantity;
-            $stockCount[0]->total_price = $stockCount[0]->total_price + ($stock->quantity*$stock->price);
-            $stockCount[0]->save();
-        }elseif($stock->entry_type=='Transfer')
-        {
-            $stockCount[0]->product_quantity = $stockCount[0]->product_quantity + $stock->quantity;
-            $stockCount[0]->total_price = $stockCount[0]->total_price + ($stock->quantity*$stock->price);
-            $stockCount[0]->save();
-
-            $stockCountTo = StockCount::where('product_id','=',$stock->product_id)
-                ->where('stock_info_id','=',$stock->to_stock_info_id)
-                ->get();
-            $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity - $stock->quantity;
-            $stockCountTo[0]->total_price = $stockCountTo[0]->total_price - ($stock->quantity*$stock->price);
-            $stockCountTo[0]->save();
+                $stockCountTo = StockCount::where('product_id','=',$stock->product_id)
+                    ->where('stock_info_id','=',$stock->to_stock_info_id)
+                    ->first();
+                if(!empty($stockCountTo)) {
+                    $stockCountTo->product_quantity = $stockCountTo->product_quantity - $stock->quantity;
+                    $stockCountTo->total_price = $stockCountTo->total_price - ($stock->quantity * $stock->price);
+                    $stockCountTo->save();
+                }
+            }
         }
 
         $invoice_id = $stock->invoice_id;
 
-        $checkStockDetailsRow = StockDetail::where('invoice_id','=',$invoice_id)
-            ->get();
-        if(empty($checkStockDetailsRow[0])) {
-            $stock_invoice = StockInvoice::where('invoice_id','=',$invoice_id)
-                ->get();
+        $checkStockDetailsRow = StockDetail::where('invoice_id','=',$invoice_id)->first();
+        if(empty($checkStockDetailsRow)) {
+            $stock_invoice = StockInvoice::where('invoice_id','=',$invoice_id)->first();
 
-            if(!empty($stock_invoice[0])) {
-                $stock_invoice[0]->delete();
+            if(!empty($stock_invoice)) {
+                $stock_invoice->delete();
             }
-            $message = '';
+            return Redirect::to('stocks/index');
         }else{
             $message = array('Sale Detail Successfully Deleted');
         }

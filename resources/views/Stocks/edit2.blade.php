@@ -102,7 +102,7 @@
                                     <?php
                                         if(!empty($stockDetails2)){
                                     foreach ($stockDetails2 as $stckDetail) {
-                                    $productsName2 = App\Product::find($stockDetails->product_id);
+                                    $productsName2 = App\Product::find($stckDetail->product_id);
                                     $category = $productsName2->category->name;
                                     $subCategoryName = '';
                                     if($productsName2->sub_category_id){
@@ -146,7 +146,7 @@
                                         <td>
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <select id="product_id" name="product_id" class="form-control productIdInEditStockInvoice">
+                                                    <select id="product_id" name="product_id" class="form-control">
                                                         <option value="">Select Product</option>
                                                         <?php
                                                         foreach ($productsName as $productName) {

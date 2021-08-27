@@ -34,7 +34,7 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Remarks</th>
-                    @if( Session::get('user_role') == "admin" &&($stockDetails[0]->confirmation != 0))
+                    @if( Session::get('user_role') == "admin" && $stock->confirmation == 0)
                     <th>Action</th>
                     @endif
                 </tr>

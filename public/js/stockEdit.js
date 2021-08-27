@@ -335,7 +335,7 @@ jQuery(document).ready(function() {
         $('.date-picker').datepicker();
     });
 
-    /*$('#product_id').live("change", function () {
+    $('#product_id').live("change", function () {
         var product_id = $('#product_id').val();
         $.ajax({
             type: "get",
@@ -345,7 +345,7 @@ jQuery(document).ready(function() {
 
             }
         });
-    });*/
+    });
     $('#edit_product_id').live("change", function () {
         var product_id = $('#edit_product_id').val();
         $.ajax({
@@ -372,10 +372,6 @@ jQuery(document).ready(function() {
                 success: function (data) {
                     console.log(data);
                     parent.remove();
-                    if(data == ''){
-                        window.history.back();
-                        location.reload();
-                    }
                 }
             });
         }
