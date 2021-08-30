@@ -166,7 +166,7 @@
                                     </td>
                                     <td >
                                         {{--<input type="submit" name="submit">--}}
-                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save saveStocks', 'style' => 'margin-top: 10%;'))!!}
+                                        {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save saveStocks', 'style' => 'margin-top: 12%;'))!!}
                                     </td>
                                 </tr>
                             </table>

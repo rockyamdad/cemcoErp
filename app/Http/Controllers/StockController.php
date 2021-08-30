@@ -10,6 +10,7 @@ use App\StockCount;
 use App\StockInfo;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -124,7 +125,7 @@ class StockController extends Controller{
             ->get();
         echo "<option value ='N/A' >N/A </option>";
         foreach ($imports as $import) {
-            echo "<option value = $import->consignment_name > $import->consignment_name</option> ";
+            echo "<option value = '$import->consignment_name' > $import->consignment_name</option> ";
         }
     }
     public  function getQuantity()
@@ -276,6 +277,9 @@ class StockController extends Controller{
         $imports = Import::where('status','=','Activate')
             ->get();
 
+        $stocks = StockInfo::where('status','=','Activate')
+            ->get();
+
         $productsName = Product::where('product_type','=',$stockDetails->product_type)
             ->where('branch_id','=',$stockDetails->branch_id)
             ->get();
@@ -286,7 +290,7 @@ class StockController extends Controller{
 
 
 
-        return view('Stocks.edit2',compact('buyersAll','invoiceId', 'stockInvoices', 'stockDetails', 'productsName', 'stockDetails2', 'imports'))
+        return view('Stocks.edit2',compact('buyersAll','invoiceId', 'stockInvoices', 'stockDetails', 'productsName', 'stockDetails2', 'imports','stocks'))
             ->with('branchAll',$branchAll)
             ->with('allStockInfos',$allStockInfos);
 
@@ -317,17 +321,10 @@ class StockController extends Controller{
     }
     private function setStockData($stockInvoces,$stockDetails)
     {
-        $this->insertStockData($stockInvoces);
-        $stock_invoices_check = StockInvoice::where('invoice_id','=',Input::get('invoice_id'))
-            ->get();
-        if(empty($stock_invoices_check[0]))
-            $stockInvoces->save();
-
-
 
         $stock_Count = StockCount::where('product_id','=',Input::get('product_id'))
             ->where('stock_info_id','=',Input::get('stock_info_id'))
-            ->get();
+            ->first();
 
         if(Session::get('user_role') == 'admin'){
             $stockDetails->branch_id = Input::get('branch_id');
@@ -348,35 +345,39 @@ class StockController extends Controller{
         {
             $stockDetails->consignment_name = Input::get('consignment_name');
 
-            if(empty($stock_Count[0]))
+            if(empty($stock_Count))
             {
                 $stock_Count = new StockCount();
                 $stock_Count->product_id = Input::get('product_id');
                 $stock_Count->stock_info_id = Input::get('stock_info_id');
                 $stock_Count->product_quantity = Input::get('product_quantity');
                 $stock_Count->total_price = Input::get('price')*Input::get('product_quantity');
-                $stock_Count->save();
-                $stockDetails->save();
+
+//                $stock_Count->save();
+//                $stockDetails->save();
+                $this->stockDataSave($stockInvoces, $stock_Count, $stockDetails);
                 $stockDetails = StockDetail::find($stockDetails->id);
                 return $this->stockDetailConvertToArray($stockDetails);
                 //$stockCounts->save();
             }else{
-                $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity + Input::get('product_quantity');
-                $stock_Count[0]->total_price = $stock_Count[0]->total_price + (Input::get('price')*Input::get('product_quantity'));
+                $stock_Count->product_quantity = $stock_Count->product_quantity + Input::get('product_quantity');
+                $stock_Count->total_price = $stock_Count->total_price + (Input::get('price')*Input::get('product_quantity'));
                 //$stock->save();
-                $stock_Count[0]->save();
-                $stockDetails->save();
+//                $stock_Count->save();
+//                $stockDetails->save();
+                $this->stockDataSave($stockInvoces, $stock_Count, $stockDetails);
                 $stockDetails = StockDetail::find($stockDetails->id);
                 return $this->stockDetailConvertToArray($stockDetails);
             }
             //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Added');
         }elseif(Input::get('entry_type') == 'StockOut' || Input::get('entry_type') == 'Wastage'){
-            if(!empty($stock_Count[0])) {
-                if ($stock_Count[0]->product_quantity >= Input::get('product_quantity')) {
-                    $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - Input::get('product_quantity');
-                    $stock_Count[0]->total_price = $stock_Count[0]->total_price - (Input::get('price')*Input::get('product_quantity'));
-                    $stock_Count[0]->save();
-                    $stockDetails->save();
+            if(!empty($stock_Count)) {
+                if ($stock_Count->product_quantity >= Input::get('product_quantity')) {
+                    $stock_Count->product_quantity = $stock_Count->product_quantity - Input::get('product_quantity');
+                    $stock_Count->total_price = $stock_Count->total_price - (Input::get('price')*Input::get('product_quantity'));
+//                    $stock_Count->save();
+//                    $stockDetails->save();
+                    $this->stockDataSave($stockInvoces, $stock_Count, $stockDetails);
                     $stockDetails = StockDetail::find($stockDetails->id);
                     return $this->stockDetailConvertToArray($stockDetails);
                     //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
@@ -393,21 +394,21 @@ class StockController extends Controller{
         }  elseif(Input::get('entry_type') == 'Transfer')
             {
                 $stockDetails->to_stock_info_id = Input::get('to_stock_info_id') ;
-                if(!empty($stock_Count[0])) {
-                    if ($stock_Count[0]->product_quantity >= Input::get('product_quantity')) {
-                        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - Input::get('product_quantity');
-                        $stock_Count[0]->total_price = $stock_Count[0]->total_price - (Input::get('price')*Input::get('product_quantity'));
-                        $stock_Count[0]->save();
-                        $stockDetails->save();
+                if(!empty($stock_Count)) {
+                    if ($stock_Count->product_quantity >= Input::get('product_quantity')) {
+                        $stock_Count->product_quantity = $stock_Count->product_quantity - Input::get('product_quantity');
+                        $stock_Count->total_price = $stock_Count->total_price - (Input::get('price')*Input::get('product_quantity'));
+//                        $stock_Count->save();
+//                        $stockDetails->save();
+                        $this->stockDataSave($stockInvoces, $stock_Count, $stockDetails);
                         $stockCountTo = StockCount::where('product_id','=',Input::get('product_id'))
                             ->where('stock_info_id','=',Input::get('to_stock_info_id'))
-                            ->get();
+                            ->first();
 
-                        if(!empty($stockCountTo[0])) {
-                            $stockCountTo[0]->product_quantity = $stockCountTo[0]->product_quantity + Input::get('product_quantity');
-                            $stockCountTo[0]->total_price = $stockCountTo[0]->total_price + (Input::get('price')*Input::get('product_quantity'));
-                            $stockCountTo[0]->save();
-
+                        if(!empty($stockCountTo)) {
+                            $stockCountTo->product_quantity = $stockCountTo->product_quantity + Input::get('product_quantity');
+                            $stockCountTo->total_price = $stockCountTo->total_price + (Input::get('price')*Input::get('product_quantity'));
+                            $stockCountTo->save();
                             $stockDetails = StockDetail::find($stockDetails->id);
                             return $this->stockDetailConvertToArray($stockDetails);
                         }else{
@@ -416,28 +417,29 @@ class StockController extends Controller{
                             $new_stockCount->stock_info_id = Input::get('to_stock_info_id');
                             $new_stockCount->product_quantity = Input::get('product_quantity');
                             $new_stockCount->total_price = Input::get('price') * Input::get('product_quantity');
-                            $new_stockCount->save();
+//                            $new_stockCount->save();
                             //$stockCounts->stock_info_id = Input::get('to_stock_info_id');
                             $stockDetails->quantity = Input::get('product_quantity');
                             //$stock->save();
-                            $stockDetails->save();
+//                            $stockDetails->save();
+                            $this->stockDataSave($stockInvoces, $new_stockCount, $stockDetails);
                             $stockDetails = StockDetail::find($stockDetails->id);
                             return $this->stockDetailConvertToArray($stockDetails);
                         }
-
-                        Session::flash('message', 'Product Has been successfully Transfered');
                     } else {
-                        Session::flash('message', 'You Dont have enough products in Stock');
+                        return '0';
+                        //Session::flash('message', 'You Dont have enough products in Stock');
                     }
                 }else{
-                    Session::flash('message', 'You Dont have This products in This Stock');
+                    return '0';
+                    //Session::flash('message', 'You Dont have This products in This Stock');
                 }
 
 
             }
         else{
-                $stockDetails->save();
-                $stockDetails = StockDetail::find($stockDetails->id);
+//                $stockDetails->save();
+//                $stockDetails = StockDetail::find($stockDetails->id);
                 return $this->stockDetailConvertToArray($stockDetails);
                 //Session::flash('message', 'Stock has been Successfully Created && Wastage Product saved');
         }
@@ -584,5 +586,31 @@ class StockController extends Controller{
         $stock->confirmation = 1;
         $stock->save();
         return Redirect::to('stocks/index');
+    }
+
+    /**
+     * @param $stockInvoces
+     * @param StockCount $stock_Count
+     * @param $stockDetails
+     */
+    private function stockDataSave($stockInvoces, StockCount $stock_Count, $stockDetails)
+    {
+        DB::beginTransaction();
+
+        try {
+            $this->insertStockData($stockInvoces);
+            $stock_invoices_check = StockInvoice::where('invoice_id', '=', Input::get('invoice_id'))
+                ->first();
+            if (empty($stock_invoices_check))
+                $stockInvoces->save();
+
+            $stock_Count->save();
+            $stockDetails->save();
+            // all good
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+        }
     }
 }

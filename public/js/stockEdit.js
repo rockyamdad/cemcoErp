@@ -15,6 +15,36 @@ jQuery(document).ready(function() {
     $("#stock_info_id").attr('readonly','readonly');
     $("#product_type").attr('readonly','readonly');
     $("#entry_type").attr('readonly','readonly');
+    var product_type = $('#product_type').val();
+    var entry_type = $('#entry_type').val();
+    if(entry_type==='Transfer')
+    {
+        $('.to_stock_section').show();
+        $('.consignment_name_section').hide();
+        $.ajax({
+            type: "get",
+            url:  "../stocks/infos",
+            success: function (html) {
+                $('#to_stock_info_id').html(html);
+            }
+        });
+
+    }
+    if((entry_type==='StockIn') && ((product_type ==='Foreign') || (product_type === 'Finish Goods') ))
+    {
+        $('.to_stock_section').hide();
+        $('.consignment_name_section').show();
+        $.ajax({
+            type: "get",
+            url: "../imports",
+            success: function (html) {
+
+                $('#consignment_name').html(html);
+
+            }
+        });
+
+    }
 
     $('#branch_id').live("change", function () {
         $("#branch_id").attr('readonly','readonly');
@@ -128,10 +158,11 @@ jQuery(document).ready(function() {
                         }else{
                             html.push('<td>' + stock.remarks + '</td>');
                         }
-                    } else if (stock.entry_type == "StockOut"){
+                    } else if (stock.entry_type == "Transfer"){
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
                         html.push('<td>' + stock.price + '</td>');
+                        html.push('<td>' + stock.stock_info_id + '</td>');
                         html.push('<td>' + stock.remarks + '</td>');
                     } else if (stock.entry_type == "StockOut" || stock.entry_type ==  "Wastage"){
                         html.push('<td>' + stock.product_id + '</td>');
@@ -157,7 +188,14 @@ jQuery(document).ready(function() {
                     html.push('<td><input type="button"   style="width:70px;" value="delete" class="btn red deleteStockDetail2" rel=' + stock.id + ' ></td>');
 
                     html = '<tr>' + html.join('') + '<tr>';
-                    $('#stockTable  > tbody:first').append(html);
+                    // alert(stock);
+                    if (stock == "0" || (Object.keys(stock).length === 0 && stock.constructor === Object)) {
+                        alert("You Dont have enough products in Stock");
+                    } else {
+                        $('#stockTable  > tbody:first').append(html);
+                    }
+                    $(".save" ).addClass("saveStocks");
+                    $(".save" ).text("Add");
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                     alert("Status: " + textStatus); alert("Error: " + errorThrown);
@@ -173,7 +211,7 @@ jQuery(document).ready(function() {
 
 
     $('#entry_type').live("change", function () {
-        $("#entry_type").attr('readonly','readonly');
+        // $("#entry_type").attr('readonly','readonly');
         var entry_type = $('#entry_type').val();
         var product_type = $('#product_type').val();
         if((entry_type=='StockIn') && ((product_type =='Foreign') || (product_type == 'Finish Goods') ))

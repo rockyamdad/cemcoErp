@@ -89,11 +89,17 @@ jQuery(document).ready(function() {
         var entry_type = $.trim($('#entry_type').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#product_quantity').val());
+        var stock_to = $.trim($('#to_stock_info_id').val());
         //var price = $.trim($('#price').val());
         //alert(branch+"_"+stock+"_"+type+"_"+entry_type+"_"+product+"_"+quantity);
         if ((entry_type === '') || (product === '') || (quantity === '') || (branch==='') || (stock === '') || (type === '')) {
             return false;
         } else {
+            if(entry_type==='Transfer'){
+                if(stock_to===''){
+                    return false;
+                }
+            }
             return true;
         }
     }
@@ -118,7 +124,6 @@ jQuery(document).ready(function() {
                     $("#remarks").val('');
                     $(".msg").hide();
                     $(".available").html('');
-
                     var html = [];
                     if (stock.entry_type == "StockIn") {
                         html.push('<td>' + stock.product_id + '</td>');
@@ -130,10 +135,11 @@ jQuery(document).ready(function() {
                         } else {
                             html.push('<td>' + stock.remarks + '</td>');
                         }
-                    } else if (stock.entry_type == "StockOut") {
+                    } else if (stock.entry_type == "Transfer") {
                         html.push('<td>' + stock.product_id + '</td>');
                         html.push('<td>' + stock.product_quantity + '</td>');
                         html.push('<td>' + stock.price + '</td>');
+                        html.push('<td>' + stock.stock_info_id + '</td>');
                         html.push('<td>' + stock.remarks + '</td>');
                     } else if (stock.entry_type == "StockOut" || stock.entry_type == "Wastage") {
                         html.push('<td>' + stock.product_id + '</td>');
@@ -160,7 +166,7 @@ jQuery(document).ready(function() {
 
                     html = '<tr>' + html.join('') + '<tr>';
                    // alert(stock);
-                    if (stock == "0") {
+                    if (stock == "0" || (Object.keys(stock).length === 0 && stock.constructor === Object)) {
                         alert("You Dont have enough products in Stock");
                     } else {
                         $('#stockTable  > tbody:first').append(html);

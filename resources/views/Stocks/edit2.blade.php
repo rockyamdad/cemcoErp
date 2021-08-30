@@ -126,7 +126,13 @@
                                         </td>
 
                                         <td  class="to_stock_section"  @if($stockDetails->entry_type != 'Transfer') style="display:none;" @endif>
-                                            <?php echo $stckDetail->to_stock_unfo_id; ?>
+
+                                                @foreach($stocks as $stock)
+                                                    @if($stock->id==$stckDetail->to_stock_info_id)
+                                                        {{$stock->name}}
+                                                    <?php break; ?>
+                                                    @endif
+                                                @endforeach
                                         </td>
 
                                         <td>
@@ -206,7 +212,7 @@
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     <div >
-                                                        <select class='form-control' id="to_stock_info_id" name='to_stock_info_id'>
+                                                        <select class='form-control select' id="to_stock_info_id" name='to_stock_info_id'>
                                                             <option value ='' >Select Stock </option>
 
                                                         </select>
@@ -226,7 +232,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save saveStocks'))!!}
+                                            {!!Form::button('Add',array('type' => 'button','class' => 'btn blue save saveStocks', 'style' => 'margin-top: 12%;'))!!}
                                         </td>
                                     </tr>
                                 </table>
