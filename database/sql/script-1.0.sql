@@ -557,7 +557,7 @@ create table stock_counts
     product_quantity int                                     not null,
     created_at       timestamp default '0000-00-00 00:00:00' not null,
     updated_at       timestamp default '0000-00-00 00:00:00' not null,
-    total_price      double(8, 2)                            not null,
+    total_price      double(20, 2)                           not null,
     constraint stock_counts_product_id_foreign
         foreign key (product_id) references products (id),
     constraint stock_counts_stock_info_id_foreign
@@ -687,7 +687,7 @@ create table transactions
     cheque_date         varchar(255)                            not null,
     cheque_bank         varchar(255)                            not null,
     cheque_status       double                                  not null,
-    voucher_id          bigint                                  not null,
+    voucher_id          varchar(255)                            not null,
     constraint transactions_account_category_id_foreign
         foreign key (account_category_id) references account_categories (id),
     constraint transactions_account_name_id_foreign

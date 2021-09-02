@@ -6,3 +6,7 @@
 .col-xs-12{
     width: 60%;
 }
+.sale-modal{
+    margin-top: 0px !important;
+    width: 1000px !important;
+}

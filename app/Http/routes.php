@@ -124,6 +124,7 @@ Route::controller('sales','SaleController');
 Route::post('saveSale','SaleController@postSaveSales');
 Route::post('updatePurchases/{id}','SaleController@updateSaleData');
 Route::get('/details/{id}','SaleController@getDetails');
+Route::get('/voucher/{voucherId}','SaleController@getVoucher');
 Route::get('/delete/{id}','SaleController@getDelete');
 Route::get('/deleteDetail/{id}','SaleController@getDeleteDetail');
 Route::get('/deleteSaleDetail/{id}','SaleController@getDeleteSaleDetail');

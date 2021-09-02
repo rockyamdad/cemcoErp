@@ -111,7 +111,7 @@
                     @if(count($saleInvoice)>0)
                         @foreach($saleInvoice as $sale )
                             <?php
-                            $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                            $hasDetails = \App\SaleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             $saleMan = \App\User::find($sale->sales_man_id);
                             ?>
                             @if(count($hasDetails) > 0)
@@ -184,7 +184,7 @@
                     @else
                         @foreach($sales as $sale )
                             <?php
-                            $hasDetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                            $hasDetails = \App\SaleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                             $saleMan = \App\User::find($sale->sales_man_id);
                             $party = \App\Party::find($sale->party_id);
                             $user = \App\User::find($sale->user_id);
@@ -230,7 +230,8 @@
                                             @if($sale->is_sale == 1)
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}"><i
                                                                 class="fa fa-tasks"></i>Invoice&nbsp;</a>
-                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
+                                                    <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}"><i
+                                                                class="fa fa-file"></i>&nbsp;&nbsp;Chalan&nbsp;</a>
 
                                                     @if(!$party && $sale->status != 'Completed')
                                                         <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >

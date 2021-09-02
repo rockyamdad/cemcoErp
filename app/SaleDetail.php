@@ -2,7 +2,7 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\DB;
 
-class SAleDetail extends Eloquent
+class SaleDetail extends Eloquent
 {
     protected $table = 'sale_details';
     public function product()

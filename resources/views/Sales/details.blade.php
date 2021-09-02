@@ -1,13 +1,4 @@
-<script>
-function closeModal() {
-    /*$('#sale').modal('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').hide();*/
-    $("#sale").modal('hide').on('hidden.bs.modal');
-    $('.modal-backdrop').hide();
-}
-</script>
-<div class="modal-dialog shape">
+<div class="modal-dialog sale-modal">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -21,7 +12,7 @@ function closeModal() {
                 <h3>Sales Detail for {{$sale->cash_sale}}</h3>
             @endif
             <?php
-                $saledetails = \App\SAleDetail::where('invoice_id','=',$sale->invoice_id)->first();
+                $saledetails = \App\SaleDetail::where('invoice_id','=',$sale->invoice_id)->first();
                 $branchname= \App\Branch::find($saledetails->branch_id);
             ?>
             <h3>Branch Name : <?php echo $branchname->name; ?></h3>
@@ -173,13 +164,7 @@ function closeModal() {
                 <div id="remrks"></div>
                 <div id="remrksForm">
                     <textarea class="col-xs-16" rows="5" cols="80" id="remIn">
-                        @if($sale->remarks)
-                           {{ $sale->remarks }}
-                         @else
-                            1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
-                            2. NO REPLACEMENT WARANTY
-                         @endif
-
+                       {{ $sale->remarks }}
                     </textarea>
                     <button class="btn btn-success" value="{{$sale->id}}" id="confirmRemarks">Confirm</button>
                 </div>
@@ -263,6 +248,14 @@ function closeModal() {
     </div>
 </div>
 <script>
+
+    function closeModal() {
+        /*$('#sale').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').hide();*/
+        $("#sale").modal('hide').on('hidden.bs.modal');
+        $('.modal-backdrop').hide();
+    }
     function calculate_amount(){
         var discount_percentage = $('#discount_percentage').val();
         var discount_special = $('#discount_special').val();

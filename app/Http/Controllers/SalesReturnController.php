@@ -11,7 +11,7 @@ use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\Sale;
-use App\SAleDetail;
+use App\SaleDetail;
 use App\SalesReturn;
 use App\SalesReturnInvoice;
 use App\SalesReturnDetail;
@@ -153,7 +153,7 @@ class SalesReturnController extends Controller{
                     ->get();
                 foreach($invoiceId as $invid)
                 {
-                    $price = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
+                    $price = SaleDetail::where('invoice_id','=',$invid->invoice_id)->get();
                     $detailsPrice=0;
                     foreach($price as $prc)
                     {
@@ -200,7 +200,7 @@ class SalesReturnController extends Controller{
                             $transaction->user_id = Session::get('user_id');
                             $transaction->cheque_no = '';
                             $transaction->voucher_id = $voucherId;
-                            $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                            $branch = SaleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                             $transaction->branch_id = $branch->branch_id;
 
                             $transaction->save();
@@ -230,7 +230,7 @@ class SalesReturnController extends Controller{
                                 $transaction->user_id = Session::get('user_id');
                                 $transaction->cheque_no = '';
                                 $transaction->voucher_id = $voucherId;
-                                $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                $branch = SaleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                 $transaction->branch_id = $branch->branch_id;
 
                                 $transaction->save();

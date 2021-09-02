@@ -1,6 +1,7 @@
 <?php
 $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
 ?>
+
 @extends('baseLayout')
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/plugins/select2/select2_metro.css') }}"/>
@@ -10,6 +11,7 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
     <div class="row">
 
         <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
+            <a class="btn btn-sm btn-success" href="{{ URL::to('sales/index') }}">Back</a>
             <a class="btn btn-sm blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
         </div>
     </div>
@@ -17,7 +19,7 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
         <div class="row invoice-logo">
             <div class="col-md-12 invoice-logo-space">
                 <?php
-                    $sale22 = \App\SAleDetail::where('invoice_id', '=', $transactions[0]->invoice_id)->first();
+                    $sale22 = \App\SaleDetail::where('invoice_id', '=', $transactions[0]->invoice_id)->first();
                     if ($sale22 == null){
                         $sale22 = \App\PurchaseInvoiceDetail::where('detail_invoice_id', '=', $transactions[0]->invoice_id)->first();
                     }

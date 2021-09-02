@@ -21,10 +21,10 @@
 @stop
 @section('content')
         <div class="row">
-
-            <div class="col-xs-2 invoice-block" style="margin-left: 880px;">
+            <div class="col-xs-offset-4 invoice-block" style="margin-left: 880px;">
+                <a class="btn btn-sm btn-success" href="{{ URL::to('sales/index') }}">Back</a>
+                <a class="btn btn-sm blue hidden-print" href="{{\Illuminate\Support\Facades\URL::to('sales/showinvoice2/'.$invoiceId)}}">Chalan <i class="fa fa-file"></i></a>
                 <a class="btn btn-sm blue hidden-print" onclick="getConfirmation();">Print <i class="fa fa-print"></i></a>
-                <a class="btn btn-sm blue hidden-print" href="{{\Illuminate\Support\Facades\URL::to('sales/showinvoice2/'.$invoiceId)}}">Print Details <i class="fa fa-print"></i></a>
             </div>
         </div>
     <div class="invoice">

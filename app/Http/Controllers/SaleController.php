@@ -10,7 +10,7 @@ use App\Product;
 use App\PurchaseInvoice;
 use App\PurchaseInvoiceDetail;
 use App\Sale;
-use App\SAleDetail;
+use App\SaleDetail;
 use App\Stock;
 use App\StockCount;
 use App\StockDetail;
@@ -22,6 +22,7 @@ use App\User;
 use Exception;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -107,7 +108,7 @@ class SaleController extends Controller{
         $branchAll = $branches->getBranchesDropDown();
         $sale[0] = Sale::where('invoice_id','=',$id)->get();
         $var = $sale[0];
-        $saleDetails = SAleDetail::where('invoice_id','=',$id)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$id)->get();
         if(count($saleDetails) < 1){
             return Redirect::to('sales/index');
         }
@@ -153,7 +154,7 @@ class SaleController extends Controller{
     private function setSaleData()
     {
         $sale = new Sale();
-        $saleDetails = new SAleDetail();
+        $saleDetails = new SaleDetail();
         $saleDetails->quantity = Input::get('quantity');
         $saleDetails->price = Input::get('price');
         $saleDetails->invoice_id = Input::get('invoice_id');
@@ -185,14 +186,14 @@ class SaleController extends Controller{
 
             $sale->status = "Activate";
             $sale->invoice_id = Input::get('invoice_id');
-            $sale->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
-2. NO REPLACEMENT WARANTY';
+            $sale->remarks = "1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH 
+                              2. NO REPLACEMENT WARRANTY";
             $sale->user_id = Session::get('user_id');
             $sale->save();
 
         }
         $saleDetails->save();
-        $salesDetails = SAleDetail::find($saleDetails->id);
+        $salesDetails = SaleDetail::find($saleDetails->id);
         $list = $this->saleDetailConvertToArray($salesDetails);
         return $list;
     }
@@ -216,7 +217,7 @@ class SaleController extends Controller{
     {
        // $sales =  SAleDetail::where('invoice_id','=',$id)->get();
         Sale::where('invoice_id','=',$id)->delete();
-        SAleDetail::where('invoice_id','=',$id)->delete();
+        SaleDetail::where('invoice_id','=',$id)->delete();
 
   /*      foreach($sales as $sale)
         {
@@ -233,7 +234,7 @@ class SaleController extends Controller{
     }
     public function getDetails($invoiceId)
     {
-        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
         $saleTransactions = Transaction::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         $s = new Sale();
@@ -245,7 +246,7 @@ class SaleController extends Controller{
     }
     public function getShowinvoice($invoiceId)
     {
-        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         return view('Sales.showInvoice',compact('saleDetails', 'invoiceId'))
             ->with('sale',$sale);
@@ -254,7 +255,7 @@ class SaleController extends Controller{
 
     public function getShowinvoice2($invoiceId)
     {
-        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
         return view('Sales.showInvoice2',compact('saleDetails'))
             ->with('sale',$sale);
@@ -263,12 +264,12 @@ class SaleController extends Controller{
     public function getMake($invoice_id)
     {
         $accountCategories = new AccountCategory();
-        $saleDetails = new SAleDetail();
+        $saleDetails = new SaleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $saleDetailsAmount = $saleDetails->getTotalAmount($invoice_id);
         $transactionsPaid = $transactions->getTotalPaid($invoice_id);
-        $saleDetailsBranch = SAleDetail::where('invoice_id','=',$invoice_id)->first();
+        $saleDetailsBranch = SaleDetail::where('invoice_id','=',$invoice_id)->first();
         $s = new Sale();
         $due = $s->getsalesdue($invoice_id);
         return view('Sales.paymentAdd',compact('accountCategoriesAll','due'))
@@ -280,7 +281,7 @@ class SaleController extends Controller{
     public function getMakeall()
     {
         $accountCategories = new AccountCategory();
-        $saleDetails = new SAleDetail();
+        $saleDetails = new SaleDetail();
         $transactions = new Transaction();
         $accountCategoriesAll = $accountCategories->getAccountCategoriesDropDown();
         $branches = new Branch();
@@ -336,7 +337,7 @@ class SaleController extends Controller{
 
         $totalAmount = 0;
         $totalPrice = 0;
-        $saleDetails = SAleDetail::where('invoice_id','=',$saleTransaction->invoice_id)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$saleTransaction->invoice_id)->get();
         $transactions = Transaction::where('invoice_id','=',$saleTransaction->invoice_id)->get();
 
         foreach($saleDetails as $saleDetail)
@@ -375,7 +376,7 @@ class SaleController extends Controller{
 
     public function getDeleteDetail($id)
     {
-        $saleDetail = SAleDetail::find($id);
+        $saleDetail = SaleDetail::find($id);
         $saleDetail->delete();
 
     /*    $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
@@ -390,7 +391,7 @@ class SaleController extends Controller{
     }
     public function getDeleteSaleDetail($id)
     {
-        $saleDetail = SAleDetail::find($id);
+        $saleDetail = SaleDetail::find($id);
         $saleFound = Sale::where('invoice_id', '=', $saleDetail->invoice_id)->get();
         if(!empty($saleFound[0])) {
             $saleFound[0]->discount_percentage = 0.00;
@@ -412,119 +413,54 @@ class SaleController extends Controller{
     }
     public function getSale($invoice_id)
     {
-        $saleDetails = SAleDetail::where('invoice_id','=',$invoice_id)->get();
-        $sale = Sale::where('invoice_id','=',$invoice_id)->get();
-        $temp = 0;
-
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoice_id)->get();
+        $sale = Sale::where('invoice_id','=',$invoice_id)->first();
         $stockInvoiceId= StockInvoice::generateInvoiceId();
-
         foreach($saleDetails as $saleDetail)
         {
-
             $stock_Count = StockCount::where('product_id','=',$saleDetail->product_id)
                 ->where('stock_info_id','=',$saleDetail->stock_info_id)
-                ->get();
+                ->first();
 
-            if(!empty($stock_Count[0])) {
-                if ($stock_Count[0]->product_quantity >=$saleDetail->quantity) {
+            if(!empty($stock_Count)) {
+                if ($stock_Count->product_quantity >=$saleDetail->quantity) {
+
+                    $sale->is_sale = 1;
+
+                    $stockInvoice = new StockInvoice();
+                    $stockInvoice->branch_id = $saleDetail->branch_id;
+                    $stockInvoice->status = 'Activate';
+                    $stockInvoice->remarks = '';
+                    $stockInvoice->user_id = Session::get('user_id');
+                    $stockInvoice->invoice_id = $stockInvoiceId;
+
+                    $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
+                        ->first();
+
+                    $stock = new StockDetail();
+                    $stock->branch_id = $saleDetail->branch_id;
+                    $stock->product_id = $saleDetail->product_id;
+                    $stock->product_type = $saleDetail->product_type;
+                    $stock->quantity = $saleDetail->quantity;
+                    $stock->price = $saleDetail->price;
+                    $stock->entry_type = "StockOut";
+                    $stock->remarks = $saleDetail->remarks;
+                    $stock->invoice_id = $stockInvoiceId;
+                    $stock->stock_info_id = $saleDetail->stock_info_id;
+                    $stock->to_stock_info_id = $saleDetail->stock_info_id;
+
+                    $stock_Count->product_quantity = $stock_Count->product_quantity - $stock->quantity;
+                    $stock_Count->total_price = $stock_Count->total_price - ($stock->price*$stock->quantity);
+
+                    $this->saveSalesData($stock_invoices_check, $stock_Count, $stockInvoice, $stock, $sale);
                 } else {
-                    $temp++;
                     Session::flash('message', 'You Dont have enough products in Stock');
                 }
             }else{
-                $temp++;
                 Session::flash('message', 'You Dont have This products in This Stock');
             }
 
         }
-
-        if ($temp == 0) {
-
-            foreach ($saleDetails as $saleDetail) {
-                $stockInvoces = new StockInvoice();
-
-                $stockInvoces->branch_id = $saleDetail->branch_id;
-                $stockInvoces->status = 'Activate';
-                $stockInvoces->remarks = '';
-                $stockInvoces->user_id = Session::get('user_id');
-                $stockInvoces->invoice_id = $stockInvoiceId;
-
-                $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
-                    ->get();
-                if (empty($stock_invoices_check[0]))
-                    $stockInvoces->save();
-
-
-                $stock = new StockDetail();
-                $stock->branch_id = $saleDetail->branch_id;
-                $stock->product_id = $saleDetail->product_id;
-                $stock->product_type = $saleDetail->product_type;
-                $stock->quantity = $saleDetail->quantity;
-                $stock->price = $saleDetail->price;
-                $stock->entry_type = "StockOut";
-                $stock->remarks = $saleDetail->remarks;
-                $stock->invoice_id = $stockInvoiceId;
-                $stock->stock_info_id = $saleDetail->stock_info_id;
-
-                $stock_Count = StockCount::where('product_id', '=', $saleDetail->product_id)
-                    ->where('stock_info_id', '=', $saleDetail->stock_info_id)
-                    ->get();
-
-                if (!empty($stock_Count[0])) {
-                    if ($stock_Count[0]->product_quantity >= $stock->quantity) {
-                        $stock_Count[0]->product_quantity = $stock_Count[0]->product_quantity - $stock->quantity;
-                        $stock_Count[0]->total_price = $stock_Count[0]->total_price - ($stock->price*$stock->quantity);
-                        //$stock->save();
-                        $stock_Count[0]->save();
-                        $stock->save();
-
-                        $sale[0]->is_sale = 1;
-                        $sale[0]->save();
-                        //Session::flash('message', 'Stock has been Successfully Created && Product Quantity Subtracted');
-                    } else {
-                        Session::flash('message', 'You Dont have enough products in Stock');
-                    }
-                } else {
-                    Session::flash('message', 'You Dont have This products in This Stock');
-                }
-
-            }
-        }
-//        if($temp == 0) {
-//            foreach($saleDetails as $saleDetail)
-//            {
-//                $stock = new Stock();
-//                $stock->branch_id = $saleDetail->branch_id;
-//                $stock->product_id = $saleDetail->product_id;
-//                $stock->product_type = $saleDetail->product_type;
-//                $stock->product_quantity = $saleDetail->quantity;
-//                $stock->entry_type = "StockOut";
-//                $stock->remarks = $saleDetail->remarks;
-//                $stock->user_id = Session::get('user_id');
-//                $stock->stock_info_id = $saleDetail->stock_info_id;
-//                $stock->status = "Activate";
-//
-//                $stockCount = StockCount::where('product_id','=',$saleDetail->product_id)
-//                    ->where('stock_info_id','=',$saleDetail->stock_info_id)
-//                    ->get();
-//
-//
-//
-//                if(!empty($stockCount[0])) {
-//
-//                    if ($stockCount[0]->product_quantity >= $saleDetail->quantity) {
-//
-//                        $stockCount[0]->product_quantity = $stockCount[0]->product_quantity - $saleDetail->quantity;
-//                        $stock->save();
-//                        $stockCount[0]->save();
-//                        $sale[0]->is_sale=1;
-//                        $sale[0]->save();
-//                        //Session::flash('message', 'Stock  has been Successfully Balanced.');
-//                    }
-//                }
-//            }
-//
-//        }
         return Redirect::to('sales/index');
     }
     public function getDeleteTransaction($id)
@@ -681,7 +617,7 @@ class SaleController extends Controller{
                 $subCategoryName = '';
             }
 
-            echo "<option value = $productName->id > $productName->name ($category) ($subCategoryName) </option> ";
+            echo "<option value = $productName->id > $productName->name ($category) $subCategoryName </option> ";
 
         }
     }
@@ -734,7 +670,7 @@ class SaleController extends Controller{
 
             foreach ($partySales as $sale) {
 
-                $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                $saleDetails = SaleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                 $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)
                     ->where('payment_method', '=', 'Check')
                     ->where('type', '=', 'Receive')
@@ -783,7 +719,7 @@ class SaleController extends Controller{
 
             foreach ($partySales as $sale) {
 
-                $saleDetails = SAleDetail::where('invoice_id','=',$sale->invoice_id)->get();
+                $saleDetails = SaleDetail::where('invoice_id','=',$sale->invoice_id)->get();
                 $transactions = Transaction::where('invoice_id','=',$sale->invoice_id)
                     ->where('payment_method', '=', 'Check')
                     ->where('type', '=', 'Receive')
@@ -852,12 +788,12 @@ class SaleController extends Controller{
                     {
                         $detailsPrice = 0;
                         $paid = 0;
-                        $saleDetails = SAleDetail::where('invoice_id','=',$invid->invoice_id)->get();
+                        $saleDetails = SaleDetail::where('invoice_id','=',$invid->invoice_id)->get();
                         $transactions = Transaction::where('invoice_id','=',$invid->invoice_id)
                             ->where('payment_method', '=', 'Check')
                             ->where('type', '=', 'Receive')
                             ->where('cheque_status', '=', 1)->get();
-                        $salef = Sale::find( $invid->id);
+                        $sale = Sale::find( $invid->id);
                         foreach($saleDetails as $saleDetail)
                         {
                             $salePriceCalculated = ($saleDetail->price * $saleDetail->quantity);
@@ -907,7 +843,7 @@ class SaleController extends Controller{
                                     $transaction->user_id = Session::get('user_id');
                                     $transaction->cheque_no = Input::get('cheque_no');
                                     $transaction->voucher_id = $voucherId;
-                                    $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                    $branch = SaleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
                                     $transaction->cheque_date = Input::get('cheque_date');
                                     $transaction->cheque_bank = Input::get('cheque_bank');
@@ -946,7 +882,7 @@ class SaleController extends Controller{
                                     $transaction->user_id = Session::get('user_id');
                                     $transaction->cheque_no = Input::get('cheque_no');
                                     $transaction->voucher_id = $voucherId;
-                                    $branch = SAleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
+                                    $branch = SaleDetail::where('invoice_id', '=', $invid->invoice_id)->first();
                                     $transaction->branch_id = $branch->branch_id;
                                     $transaction->cheque_date = Input::get('cheque_date');
                                     $transaction->cheque_bank = Input::get('cheque_bank');
@@ -1095,6 +1031,32 @@ class SaleController extends Controller{
         $sales = Sale::find($saleId);
         $sales->remarks = Input::get('data');
         $sales->save();
+    }
+
+    /**
+     * @param $stock_invoices_check
+     * @param $stock_Count
+     * @param StockInvoice $stockInvoice
+     * @param StockDetail $stock
+     * @param $sale
+     */
+    private function saveSalesData($stock_invoices_check, $stock_Count, StockInvoice $stockInvoice, StockDetail $stock, $sale)
+    {
+        DB::beginTransaction();
+        try {
+            if (empty($stock_invoices_check))
+                $stockInvoice->save();
+            $stock_Count->save();
+            $stock->save();
+            $sale->save();
+            // all good
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
+        }
+
+
     }
 
 

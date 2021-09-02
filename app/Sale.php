@@ -82,7 +82,7 @@ class Sale extends Eloquent
         $totalPrice = 0;
         $totalAmount = 0;
         $sale = Sale::where('invoice_id','=',$invoiceId)->first();
-        $saleDetails = SAleDetail::where('invoice_id','=',$invoiceId)->get();
+        $saleDetails = SaleDetail::where('invoice_id','=',$invoiceId)->get();
         $transactions = Transaction::where('invoice_id','=',$invoiceId)
             ->where('payment_method', '=', 'Check')
             ->where('type', '=', 'Receive')
