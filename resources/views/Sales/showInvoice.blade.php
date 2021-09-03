@@ -22,7 +22,7 @@
 @section('content')
         <div class="row">
             <div class="col-xs-offset-4 invoice-block" style="margin-left: 880px;">
-                <a class="btn btn-sm btn-success" href="{{ URL::to('sales/index') }}">Back</a>
+                <a class="btn btn-sm btn-success" onclick="javascript:history.back();">Back</a>
                 <a class="btn btn-sm blue hidden-print" href="{{\Illuminate\Support\Facades\URL::to('sales/showinvoice2/'.$invoiceId)}}">Chalan <i class="fa fa-file"></i></a>
                 <a class="btn btn-sm blue hidden-print" onclick="getConfirmation();">Print <i class="fa fa-print"></i></a>
             </div>
