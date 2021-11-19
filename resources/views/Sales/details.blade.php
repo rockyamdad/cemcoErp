@@ -246,28 +246,27 @@
 
         </div>
     </div>
-</div>
-<script>
+    <script>
 
-    function closeModal() {
-        /*$('#sale').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').hide();*/
-        $("#sale").modal('hide').on('hidden.bs.modal');
-        $('.modal-backdrop').hide();
-    }
-    function calculate_amount(){
-        var discount_percentage = $('#discount_percentage').val();
-        var discount_special = $('#discount_special').val();
-        var amount = <?=$total?>;
-        var discount_amount = ((amount*discount_percentage)/100);
-        amount -= discount_amount;
-        amount -= discount_special;
-        $('#amount').html(amount);
-        $('#discount_amount').val(discount_amount);
+        function closeModal() {
+            /*$('#sale').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').hide();*/
+            $("#sale").modal('hide').on('hidden.bs.modal');
+            $('.modal-backdrop').hide();
+        }
+        function calculate_amount(){
+            var discount_percentage = $('#discount_percentage').val();
+            var discount_special = $('#discount_special').val();
+            var amount = <?=$total?>;
+            var discount_amount = ((amount*discount_percentage)/100);
+            amount -= discount_amount;
+            amount -= discount_special;
+            $('#amount').html(amount);
+            $('#discount_amount').val(discount_amount);
 
-    }
-    function calculate_amount2(){
+        }
+        function calculate_amount2(){
             var discount_percentage = $('#discount_percentage').val();
             var discount_special = $('#discount_special').val();
             var amount = <?=$total?>;
@@ -278,47 +277,48 @@
 
         }
 
-    function calculate_grand_amount(){
-        var discount_amount = $('#discount_amount').val();
-        var amount = <?=$total?>;
-        amount -= discount_amount;
-        $('#amount').html(amount);
+        function calculate_grand_amount(){
+            var discount_amount = $('#discount_amount').val();
+            var amount = <?=$total?>;
+            amount -= discount_amount;
+            $('#amount').html(amount);
 
-    }
+        }
 
-    function save_da(){
-        var discount_amount = $('#discount_amount').val();
-        var discount_special  = $('#discount_special').val();
-        var discount_percentage  = $('#discount_percentage').val();
+        function save_da(){
+            var discount_amount = $('#discount_amount').val();
+            var discount_special  = $('#discount_special').val();
+            var discount_percentage  = $('#discount_percentage').val();
 
-        $.ajax({
-            type: "get",
-            url: "savediscount/{{$sale->id}}",
-            data:{'data': discount_amount, 'discount_special': discount_special, 'discount_percentage': discount_percentage },
-            success: function (html) {
-                alert('Your discount is saved');
+            $.ajax({
+                type: "get",
+                url: "savediscount/{{$sale->id}}",
+                data:{'data': discount_amount, 'discount_special': discount_special, 'discount_percentage': discount_percentage },
+                success: function (html) {
+                    alert('Your discount is saved');
 
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Status: " + textStatus); alert("Error: " + errorThrown);
-            }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                }
+            });
+        }
+
+        $('#confirmRemarks').live("click", function () {
+            var salesId = $(this).val();
+            var remarks = $('#remIn').val();
+            $.ajax({
+                type: "get",
+                url: "confirm/"+salesId,
+                data:{'data':remarks},
+                success: function (html) {
+                    var html =[];
+                    html.push('Remarks updated');
+                    $('.remarks-msg').html(html);
+                    $('.remarks-section').hide();
+
+                }
+            });
         });
-    }
-
-    $('#confirmRemarks').live("click", function () {
-       var salesId = $(this).val();
-       var remarks = $('#remIn').val();
-        $.ajax({
-            type: "get",
-            url: "confirm/"+salesId,
-            data:{'data':remarks},
-            success: function (html) {
-                var html =[];
-                html.push('Remarks updated');
-                $('.remarks-msg').html(html);
-                $('.remarks-section').hide();
-
-            }
-        });
-    });
-</script>
+    </script>
+</div>

@@ -1,10 +1,3 @@
-<script>
-    function closingM() {
-        $("#purchaseInvoice").modal('hide').on('hidden.bs.modal');
-        $('.modal-backdrop').hide();
-        $('.modal-scrollable').hide();
-    }
-</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -159,4 +152,11 @@
 
         </div>
     </div>
+    <script>
+        function closingM() {
+            $("#purchaseInvoice").modal('hide').on('hidden.bs.modal');
+            $('.modal-backdrop').hide();
+            $('.modal-scrollable').hide();
+        }
+    </script>
 </div>

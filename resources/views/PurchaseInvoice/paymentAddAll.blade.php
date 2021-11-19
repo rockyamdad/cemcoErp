@@ -1,9 +1,3 @@
-<script>
-function closeModal() {
-    $("#salePayment2").modal('hide').on('hidden.bs.modal');
-    $('.modal-backdrop').hide();
-}
-</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -151,7 +145,12 @@ function closeModal() {
 
         </div>
     </div>
+    <script>
+        $('.date-picker').datepicker();
+
+        function closeModal() {
+            $("#salePayment2").modal('hide').on('hidden.bs.modal');
+            $('.modal-backdrop').hide();
+        }
+    </script>
 </div>
-<script>
-    $('.date-picker').datepicker();
-</script>

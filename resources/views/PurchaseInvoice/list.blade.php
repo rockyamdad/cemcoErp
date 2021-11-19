@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="btn-group">
-                            <a class="btn purple makePayment"   data-toggle="modal"  data-target="#salePayment2" href="{{ URL::to('purchases/makeall/') }}" >
+                            <a class="btn purple makePayment"   data-toggle="modal"  href="{{ URL::to('purchases/makeall/') }}" >
                                 <i class="fa fa-plus"></i>Make Payment</a>
                         </div>
 
@@ -166,7 +166,7 @@
                                     <td>{{$purchase->user->username}}</td>
 
                                     <td>
-                                        <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  data-target="#purchaseInvoice" href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
+                                        <a class="btn dark btn-sm " rel="{{ $purchase->invoice_id }}" data-toggle="modal"  href="{{ URL::to('purchases/details/'. $purchase->invoice_id ) }}" >
                                             <i class="fa fa-eye"></i> Detail</a>
 
                                         @if(!$hasPayment)

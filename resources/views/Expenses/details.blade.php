@@ -1,12 +1,3 @@
-<script>
-    function closeModal() {
-        /*$('#sale').modal('hide');
-         $('body').removeClass('modal-open');
-         $('.modal-backdrop').hide();*/
-        $("#Expense").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
-        $('.modal-backdrop').hide();
-    }
-</script>
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
@@ -87,4 +78,13 @@
 
         </div>
     </div>
+    <script>
+        function closeModal() {
+            /*$('#sale').modal('hide');
+             $('body').removeClass('modal-open');
+             $('.modal-backdrop').hide();*/
+            $("#Expense").modal('hide').on('hidden.bs.modal', functionThatEndsUpDestroyingTheDOM);
+            $('.modal-backdrop').hide();
+        }
+    </script>
 </div>
