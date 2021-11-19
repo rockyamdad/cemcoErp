@@ -110,7 +110,7 @@
                                 <td>{{$stock->user->username}}</td>
                                 <!--  <td>{{$stock->status}}</td>-->
                                 <td>
-                                    <a class="btn dark btn-sm" rel="{{ $stock->invoice_id }}" data-toggle="modal"  data-target="#sale" href="{{ URL::to('stocks/details/'. $stock->invoice_id ) }}" >
+                                    <a class="btn dark btn-sm" rel="{{ $stock->invoice_id }}" data-toggle="modal" href="{{ URL::to('stocks/details/'. $stock->invoice_id ) }}" >
                                         <i class="fa fa-eye"></i> Detail</a>
                                     @if($stock->confirmation == 0)<a class="btn blue btn-sm" href="{{ URL::to('stocks/edit/'. $stock->id ) }}"><i
                                                 class="fa fa-edit"></i>Edit</a>@endif
