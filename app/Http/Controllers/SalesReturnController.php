@@ -124,8 +124,8 @@ class SalesReturnController extends Controller{
         }
         else{
             $invoiceId = $this->generateInvoiceId();
-            $salesreturn = new SalesReturnInvoice();
-            $this->setSalesReturnData($salesreturn, $invoiceId);
+            $salesReturnInvoice = new SalesReturnInvoice();
+            $this->setSalesReturnInvoiceData($salesReturnInvoice, $invoiceId);
 
             $salesReturnDetails = new SalesReturnDetail();
             $salesReturnDetails->product_type = Input::get('product_type');
@@ -194,7 +194,7 @@ class SalesReturnController extends Controller{
                             $transaction->amount = $remaining_amount;
                             $transaction->type = 'Receive';
                             $transaction->payment_method = 'Sales Return';
-                            $transaction->account_category_id = $accountCategory->id;
+                            $transaction->account_category_id = $accountCategory?$accountCategory->id:null;
                             $transaction->remarks = Input::get('remarks');
                             $transaction->account_name_id = $accountname->id;
                             $transaction->user_id = Session::get('user_id');
@@ -361,13 +361,13 @@ class SalesReturnController extends Controller{
             return $invoiceidd;
         }
     }
-    private function setSalesReturnData($salesreturn, $invoiceId)
+    private function setSalesReturnInvoiceData($salesReturnInvoice, $invoiceId)
     {
-            $this->insertSalesReturnData($salesreturn, $invoiceId);
+            $this->insertSalesReturnData($salesReturnInvoice, $invoiceId);
             $stock_invoices_check = SalesReturnInvoice::where('invoice_id','=',Input::get('invoice_id'))
                 ->get();
             if(empty($stock_invoices_check[0]))
-                $salesreturn->save();
+                $salesReturnInvoice->save();
     }
     private function insertSalesReturnData($salesreturn, $invoiceId)
     {

@@ -27,8 +27,8 @@ create table tt_charges
     tt_amount   double(8, 2)                            not null,
     dollar_rate double(8, 2)                            not null,
     import_id   int                                     not null,
-    created_at  timestamp default '0000-00-00 00:00:00' not null,
-    updated_at  timestamp default '0000-00-00 00:00:00' not null,
+    created_at  timestamp default CURRENT_TIMESTAMP not null,
+    updated_at  timestamp default CURRENT_TIMESTAMP not null,
     deleted_at  timestamp                               null
 )
     collate = utf8_unicode_ci;
@@ -66,8 +66,8 @@ create table account_categories
     name       varchar(255)                            not null,
     user_id    int unsigned                            not null,
     deleted_at timestamp                               null,
-    created_at timestamp default '0000-00-00 00:00:00' not null,
-    updated_at timestamp default '0000-00-00 00:00:00' not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp default CURRENT_TIMESTAMP not null,
     constraint account_categories_user_id_foreign
         foreign key (user_id) references users (id)
 )
@@ -86,8 +86,8 @@ create table expenses
     status     varchar(255)                            not null,
     user_id    int unsigned                            not null,
     deleted_at timestamp                               null,
-    created_at timestamp default '0000-00-00 00:00:00' not null,
-    updated_at timestamp default '0000-00-00 00:00:00' not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp default CURRENT_TIMESTAMP not null,
     branch_id  int unsigned                            not null,
     constraint expenses_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -106,8 +106,8 @@ create table imports
     branch_id        int unsigned                            not null,
     user_id          int unsigned                            not null,
     status           varchar(255)                            not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     deleted_at       timestamp                               null,
     constraint imports_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -133,8 +133,8 @@ create table bank_costs
     total_bank_cost      double                                  not null,
     import_id            int unsigned                            not null,
     deleted_at           timestamp                               null,
-    created_at           timestamp default '0000-00-00 00:00:00' not null,
-    updated_at           timestamp default '0000-00-00 00:00:00' not null,
+    created_at           timestamp default CURRENT_TIMESTAMP not null,
+    updated_at           timestamp default CURRENT_TIMESTAMP not null,
     lc_date              varchar(255)                            not null,
     constraint bank_costs_import_id_foreign
         foreign key (import_id) references imports (id)
@@ -160,8 +160,8 @@ create table cnf_costs
     total_cnf_cost      double                                  not null,
     import_id           int unsigned                            not null,
     deleted_at          timestamp                               null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
     clearing_date       varchar(255)                            not null,
     constraint cnf_costs_import_id_foreign
         foreign key (import_id) references imports (id)
@@ -175,8 +175,8 @@ create table name_of_accounts
     name                varchar(255)                            not null,
     account_category_id int unsigned                            not null,
     user_id             int unsigned                            not null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
     opening_balance     double(8, 2)                            not null,
     branch_id           int unsigned                            not null,
     constraint name_of_accounts_account_category_id_foreign
@@ -201,8 +201,8 @@ create table balance_transfers
     amount                   double(8, 2)                            not null,
     remarks                  text                                    not null,
     user_id                  int unsigned                            not null,
-    created_at               timestamp default '0000-00-00 00:00:00' not null,
-    updated_at               timestamp default '0000-00-00 00:00:00' not null,
+    created_at               timestamp default CURRENT_TIMESTAMP not null,
+    updated_at               timestamp default CURRENT_TIMESTAMP not null,
     constraint balance_transfers_from_account_category_id_foreign
         foreign key (from_account_category_id) references account_categories (id),
     constraint balance_transfers_from_account_name_id_foreign
@@ -228,8 +228,8 @@ create table other_costs
     tt_charge         double                                  not null,
     import_id         int unsigned                            not null,
     deleted_at        timestamp                               null,
-    created_at        timestamp default '0000-00-00 00:00:00' not null,
-    updated_at        timestamp default '0000-00-00 00:00:00' not null,
+    created_at        timestamp default CURRENT_TIMESTAMP not null,
+    updated_at        timestamp default CURRENT_TIMESTAMP not null,
     constraint other_costs_import_id_foreign
         foreign key (import_id) references imports (id)
 )
@@ -248,8 +248,8 @@ create table parties
     address             text                                    not null,
     user_id             int unsigned                            not null,
     deleted_at          timestamp                               null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
     balance             double                                  not null,
     constraint parties_user_id_foreign
         foreign key (user_id) references users (id)
@@ -263,8 +263,8 @@ create table product_categories
     name       varchar(255)                            not null,
     branch_id  int unsigned                            not null,
     user_id    int unsigned                            not null,
-    created_at timestamp default '0000-00-00 00:00:00' not null,
-    updated_at timestamp default '0000-00-00 00:00:00' not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp default CURRENT_TIMESTAMP not null,
     deleted_at timestamp                               null,
     constraint product_categories_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -281,8 +281,8 @@ create table product_sub_categories
     branch_id   int unsigned                            not null,
     category_id int unsigned                            not null,
     user_id     int unsigned                            not null,
-    created_at  timestamp default '0000-00-00 00:00:00' not null,
-    updated_at  timestamp default '0000-00-00 00:00:00' not null,
+    created_at  timestamp default CURRENT_TIMESTAMP not null,
+    updated_at  timestamp default CURRENT_TIMESTAMP not null,
     deleted_at  timestamp                               null,
     constraint product_sub_categories_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -332,8 +332,8 @@ create table import_details
     import_num          int unsigned                            not null,
     product_id          int unsigned                            not null,
     user_id             int unsigned                            not null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
     deleted_at          timestamp                               null,
     stock_in_status     int                                     not null,
     constraint import_details_import_num_foreign
@@ -354,8 +354,8 @@ create table proforma_invoices
     terms            varchar(255)                            not null,
     import_id        int unsigned                            not null,
     deleted_at       timestamp                               null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     constraint proforma_invoices_import_id_foreign
         foreign key (import_id) references imports (id)
 )
@@ -369,8 +369,8 @@ create table purchase_invoices
     party_id   int unsigned                            not null,
     status     varchar(255)                            not null,
     user_id    int unsigned                            not null,
-    created_at timestamp default '0000-00-00 00:00:00' not null,
-    updated_at timestamp default '0000-00-00 00:00:00' not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp default CURRENT_TIMESTAMP not null,
     deleted_at timestamp                               null,
     constraint purchase_invoices_party_id_foreign
         foreign key (party_id) references parties (id),
@@ -387,8 +387,8 @@ create table sales
     party_id                int unsigned                            null,
     status                  varchar(255)                            not null,
     user_id                 int unsigned                            not null,
-    created_at              timestamp default '0000-00-00 00:00:00' not null,
-    updated_at              timestamp default '0000-00-00 00:00:00' not null,
+    created_at              timestamp default CURRENT_TIMESTAMP not null,
+    updated_at              timestamp default CURRENT_TIMESTAMP not null,
     is_sale                 tinyint(1)                              not null,
     discount_percentage     double(255, 2)                          not null,
     discount_special        double(255, 2)                          not null,
@@ -415,8 +415,8 @@ create table stock_infos
     status     varchar(255)                            not null,
     branch_id  int unsigned                            not null,
     user_id    int unsigned                            not null,
-    created_at timestamp default '0000-00-00 00:00:00' not null,
-    updated_at timestamp default '0000-00-00 00:00:00' not null,
+    created_at timestamp default CURRENT_TIMESTAMP not null,
+    updated_at timestamp default CURRENT_TIMESTAMP not null,
     deleted_at timestamp                               null,
     constraint stock_infos_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -434,8 +434,8 @@ create table purchase_invoice_details
     quantity          int                                     not null,
     price             double(8, 2)                            not null,
     remarks           text                                    not null,
-    created_at        timestamp default '0000-00-00 00:00:00' not null,
-    updated_at        timestamp default '0000-00-00 00:00:00' not null,
+    created_at        timestamp default CURRENT_TIMESTAMP not null,
+    updated_at        timestamp default CURRENT_TIMESTAMP not null,
     deleted_at        timestamp                               null,
     branch_id         int unsigned                            not null,
     stock_info_id     int unsigned                            not null,
@@ -458,8 +458,8 @@ create table sale_details
     quantity      int                                     not null,
     price         double(8, 2)                            not null,
     remarks       text                                    not null,
-    created_at    timestamp default '0000-00-00 00:00:00' not null,
-    updated_at    timestamp default '0000-00-00 00:00:00' not null,
+    created_at    timestamp default CURRENT_TIMESTAMP not null,
+    updated_at    timestamp default CURRENT_TIMESTAMP not null,
     deleted_at    timestamp                               null,
     branch_id     int unsigned                            not null,
     stock_info_id int unsigned                            not null,
@@ -485,8 +485,8 @@ create table sales_return
     quantity         int                                     not null,
     return_amount    double(8, 2)                            not null,
     remarks          text                                    not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     to_stock_info_id int unsigned                            not null,
     constraint sales_return_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -511,8 +511,8 @@ create table sales_return_details
     consignment_name varchar(255)                            not null,
     remarks          text                                    not null,
     invoice_id       varchar(255)                            not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     deleted_at       timestamp                               null,
     stock_info_id    int unsigned                            null,
     constraint sales_return_details_product_id_foreign
@@ -533,9 +533,9 @@ create table sales_return_invoices
     discount_percentage double(255, 2)                          not null,
     user_id             int unsigned                            not null,
     invoice_id          varchar(255)                            not null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
-    to_stock_info_id    int unsigned                            not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
+    to_stock_info_id    int unsigned                            null,
     stock_invoice_id    text                                    not null,
     constraint sales_return_invoices_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -555,8 +555,8 @@ create table stock_counts
     product_id       int unsigned                            not null,
     stock_info_id    int unsigned                            not null,
     product_quantity int                                     not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     total_price      double(20, 2)                           not null,
     constraint stock_counts_product_id_foreign
         foreign key (product_id) references products (id),
@@ -579,8 +579,8 @@ create table stock_details
     to_stock_info_id int unsigned                            not null,
     invoice_id       varchar(255)                            not null,
     remarks          text                                    not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     deleted_at       timestamp                               null,
     price            double                                  not null,
     constraint stock_details_branch_id_foreign
@@ -602,8 +602,8 @@ create table stock_invoices
     status       varchar(255)                            not null,
     user_id      int unsigned                            not null,
     invoice_id   varchar(255)                            not null,
-    created_at   timestamp default '0000-00-00 00:00:00' not null,
-    updated_at   timestamp default '0000-00-00 00:00:00' not null,
+    created_at   timestamp default CURRENT_TIMESTAMP not null,
+    updated_at   timestamp default CURRENT_TIMESTAMP not null,
     confirmation int                                     not null,
     remarks      text                                    not null,
     constraint stock_invoices_branch_id_foreign
@@ -625,8 +625,8 @@ create table stock_requisitions
     remarks              varchar(255)                            not null,
     status               varchar(255)                            not null,
     user_id              int unsigned                            not null,
-    created_at           timestamp default '0000-00-00 00:00:00' not null,
-    updated_at           timestamp default '0000-00-00 00:00:00' not null,
+    created_at           timestamp default CURRENT_TIMESTAMP not null,
+    updated_at           timestamp default CURRENT_TIMESTAMP not null,
     branch_id            int unsigned                            not null,
     constraint stock_requisitions_branch_id_foreign
         foreign key (branch_id) references branches (id),
@@ -651,8 +651,8 @@ create table stocks
     remarks          text                                    not null,
     consignment_name varchar(255)                            not null,
     user_id          int unsigned                            not null,
-    created_at       timestamp default '0000-00-00 00:00:00' not null,
-    updated_at       timestamp default '0000-00-00 00:00:00' not null,
+    created_at       timestamp default CURRENT_TIMESTAMP not null,
+    updated_at       timestamp default CURRENT_TIMESTAMP not null,
     to_stock_info_id int                                     null,
     product_type     varchar(255)                            not null,
     branch_id        int unsigned                            not null,
@@ -679,8 +679,8 @@ create table transactions
     remarks             text                                    not null,
     account_name_id     int unsigned                            not null,
     user_id             int unsigned                            not null,
-    created_at          timestamp default '0000-00-00 00:00:00' not null,
-    updated_at          timestamp default '0000-00-00 00:00:00' not null,
+    created_at          timestamp default CURRENT_TIMESTAMP not null,
+    updated_at          timestamp default CURRENT_TIMESTAMP not null,
     deleted_at          timestamp                               null,
     cheque_no           varchar(255)                            not null,
     branch_id           int unsigned                            not null,
