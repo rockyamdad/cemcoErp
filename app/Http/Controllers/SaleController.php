@@ -377,6 +377,11 @@ class SaleController extends Controller{
     public function getDeleteDetail($id)
     {
         $saleDetail = SaleDetail::find($id);
+        $saleDetails = SaleDetail::where('invoice_id', '=', $saleDetail->invoice_id)->get();
+        if(count($saleDetails)==1){
+            $sale=Sale::where('invoice_id', '=', $saleDetail->invoice_id)->first();
+            $sale->delete();
+        }
         $saleDetail->delete();
 
     /*    $stock_Count = StockCount::where('product_id','=', $saleDetail->product_id)
@@ -999,6 +1004,18 @@ class SaleController extends Controller{
 
     }
     public function postVoucher(){
+        $ruless = array(
+            'from_date' => 'required',
+            'to_date' => 'required',
+            'party_id' => 'required',
+        );
+        $validate = Validator::make(Input::all(), $ruless);
+
+        if($validate->fails())
+        {
+            return Redirect::to('sales/voucherlist/')
+                ->withErrors($validate);
+        }
         $date1 = Input::get('from_date');
         $buyers = new Party();
         $buyersAll = $buyers->getBuyersDropDown();

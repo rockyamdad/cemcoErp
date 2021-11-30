@@ -51,7 +51,7 @@
 
                 <div class="table-toolbar">
                     <div class="btn-group">
-                        <a class="btn green" data-toggle="modal"  data-target="#ajax" href="{{URL::to('accountnames/create')}}" >Add Account Name &nbsp;&nbsp;<i class="fa fa-plus"></i></a>
+                        <a class="btn green" data-toggle="modal"  href="{{URL::to('accountnames/create')}}" >Add Account Name &nbsp;&nbsp;<i class="fa fa-plus"></i></a>
 
                     </div>
 

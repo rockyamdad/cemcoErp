@@ -159,7 +159,7 @@
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice/'. $sale->invoice_id ) }}">Invoice&nbsp;</a>
                                                     <a class="btn blue btn-sm" href="{{ URL::to('sales/showinvoice2/'. $sale->invoice_id ) }}">&nbsp;&nbsp;Chalan&nbsp;</a>
                                                     @if(!$sale->party && $sale->status != 'Completed')
-                                                        <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
+                                                        <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                             <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                     @endif
                                                     <span class="label label-sm label-success">SoldOut</span>
@@ -234,7 +234,7 @@
                                                                 class="fa fa-file"></i>&nbsp;&nbsp;Chalan&nbsp;</a>
 
                                                     @if(!$party && $sale->status != 'Completed')
-                                                        <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  data-target="#salePayment" href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
+                                                        <a class="btn purple btn-sm makePayment"  rel="{{ $sale->invoice_id }}" data-toggle="modal"  href="{{ URL::to('sales/make/'.$sale->invoice_id) }}" >
                                                        <i class="fa fa-usd"></i>&nbsp&nbsp&nbsp Pay &nbsp&nbsp</a>
                                                     @endif
                                                 <span class="label label-sm label-success">SoldOut</span>
