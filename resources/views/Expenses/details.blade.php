@@ -1,7 +1,7 @@
 <div class="modal-dialog shape">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <button type="button" class="close" data-dismiss="modal"  onclick="closeModal()" aria-hidden="true"></button>
             <h3>Expense Transaction</h3>
         </div>
         <div class="modal-body">

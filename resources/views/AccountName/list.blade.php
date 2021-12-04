@@ -85,7 +85,7 @@
                         <td>{{$accountName->opening_balance}}</td>
                         <td>{{$accountName->user->username}}</td>
                      <td>
-                            <a class="btn blue btn-sm editAccountName" data-toggle="modal"  data-target="#ajax2" href="{{URL::to('accountnames/edit',$accountName->id )}}" >
+                            <a class="btn blue btn-sm editAccountName" data-toggle="modal"  href="{{URL::to('accountnames/edit',$accountName->id )}}" >
                                 <i class="fa fa-edit"></i> Edit Account Name</a>
                          @if(Session::get('user_role')=='admin')
                             <a class="btn red btn-sm" href="{{ URL::to('accountnames/delete',$accountName->id)}}"

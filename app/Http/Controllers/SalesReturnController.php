@@ -225,7 +225,7 @@ class SalesReturnController extends Controller{
                                 $transaction->type = 'Receive';
                                 $transaction->payment_method = 'Sales Return';
                                 $transaction->account_category_id = $accountCategory->id;
-                                $transaction->remarks = Input::get('remarks');
+                                $transaction->remarks = Input::get('remarks')?Input::get('remarks'):'N/A';
                                 $transaction->account_name_id = $accountname->id;
                                 $transaction->user_id = Session::get('user_id');
                                 $transaction->cheque_no = '';
