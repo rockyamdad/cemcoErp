@@ -90,7 +90,7 @@
                         'rows'=>'3'))!!}
                     </div>
                 </div>
-                @if(Session::get('user_role')== 'admin' )
+               {{-- @if(Session::get('user_role')== 'admin' )
                 <div class="form-group">
                     {!!HTML::decode(Form::label('role','Role<span class="required">*</span>',array('class' =>
                     'control-label col-md-3')))!!}
@@ -99,7 +99,7 @@
                         'Stock InCharge','user'=>'Office Manager','sales_man'=>'Sales Man'),$userdata->role, array('class'=>'form-control'))!!}
                     </div>
                 </div>
-                @endif
+                @endif--}}
                 <div class="form-group">
                     {!!HTML::decode(Form::label('sex','Gender',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
@@ -108,13 +108,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                {{--<div class="form-group">
                     {!!HTML::decode(Form::label('branch_id','User Branch<span class="required">*</span>',array('class'
                     => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
                         {!!Form::select('branch_id',$branchAll,$userdata->branch_id, array('class'=>'form-control') )!!}
                     </div>
-                </div>
+                </div>--}}
             </div>
             <div class="form-actions fluid">
                 <div class="col-md-offset-3 col-md-9">

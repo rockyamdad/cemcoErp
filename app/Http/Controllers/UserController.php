@@ -152,12 +152,10 @@ class UserController extends Controller{
     {
         $ruless = array(
             'username' => 'required|Unique:users',
-            'role' => 'required',
             'email' =>  'required|email|unique:users|Unique:users',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
-            'sex' => 'required',
-            'branch_id' => 'required'
+            'sex' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -195,8 +193,7 @@ class UserController extends Controller{
         $ruless = array(
             'username' => 'required',
             'email' =>  'required|email|Unique:users,email,'.$id,
-            'sex' => 'required',
-            'branch_id' => 'required'
+            'sex' => 'required'
 
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -235,10 +232,16 @@ class UserController extends Controller{
         $user->password = Hash::make(Input::get('password'));
         $user->phone = Input::get('phone');
         $user->address = Input::get('address');
-        $user->role = Input::get('role');
+
+        // Making Default Role = 'admin';
+        // $user->role = Input::get('role');
+        $user->role = 'admin';
         $user->sex = Input::get('sex');
         //$user->created_by = Session::get('user_id');
-        $user->branch_id = Input::get('branch_id');
+
+        // Making Default Branch ID = 1;
+        // $user->branch_id = Input::get('branch_id');
+        $user->branch_id = 1;
         $user->status = "Activate";
     }
     private function updateUserData($user)
@@ -248,12 +251,12 @@ class UserController extends Controller{
         $user->email = Input::get('email');
         $user->phone = Input::get('phone');
         $user->address = Input::get('address');
-        if(Session::get('user_role') == 'admin'){
+        /*if(Session::get('user_role') == 'admin'){
             $user->role = Input::get('role');
-        }
+        }*/
 
         $user->sex = Input::get('sex');
-        $user->branch_id = Input::get('branch_id');
+        /*$user->branch_id = Input::get('branch_id');*/
         $user->status = "Activate";
     }
 

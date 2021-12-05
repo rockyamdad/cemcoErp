@@ -59,9 +59,9 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>UserName</th>
-                            <th>Role</th>
+                            {{--<th>Role</th>--}}
                             <th>Gender</th>
-                            <th>Branch</th>
+                            {{--<th>Branch</th>--}}
                             <th>Address</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -81,7 +81,7 @@
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->username}}</td>
-                        <td>
+                        {{--<td>
                             @if($user->role == 'admin')
                                 Admin
                             @elseif($user->role == 'manager')
@@ -91,13 +91,13 @@
                             @else
                                 Office Manager
                             @endif
-                        </td>
+                        </td>--}}
                         @if($user->sex == "m")
                         <td>Male</td>
                         @else
                         <td>Female</td>
                         @endif
-                        <td>{{$branchName->name}}</td>
+                        {{--<td>{{$branchName->name}}</td>--}}
                         <td>{{$user->address}}</td>
                         @if($user->status == "Activate")
                         <td class="user-status"><span class="label label-sm label-success">Activate</span></td>

@@ -108,14 +108,14 @@
                         'rows'=>'3'))!!}
                     </div>
                 </div>
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('role','Role<span class="required">*</span>',array('class' =>
-                    'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!! Form::select('role',[null=>'Please Select Role'] + array('admin' => 'Admin', 'manager' =>
-                        'Stock InCharge','user'=>'Office Manager','sales_man'=>'Sales Man'),'null', array('class'=>'form-control'))!!}
-                    </div>
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    {!!HTML::decode(Form::label('role','Role<span class="required">*</span>',array('class' =>--}}
+{{--                    'control-label col-md-3')))!!}--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        {!! Form::select('role',[null=>'Please Select Role'] + array('admin' => 'Admin', 'manager' =>--}}
+{{--                        'Stock InCharge','user'=>'Office Manager','sales_man'=>'Sales Man'),'null', array('class'=>'form-control'))!!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="form-group">
                     {!!HTML::decode(Form::label('sex','Gender<span class="required">*</span>',array('class' => 'control-label col-md-3')))!!}
                     <div class="col-md-4">
@@ -124,13 +124,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    {!!HTML::decode(Form::label('branch_id','User Branch<span class="required">*</span>',array('class'
-                    => 'control-label col-md-3')))!!}
-                    <div class="col-md-4">
-                        {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null', array('class'=>'form-control') )!!}
-                    </div>
-                </div>
+{{--                <div class="form-group">--}}
+{{--                    {!!HTML::decode(Form::label('branch_id','User Branch',array('class'--}}
+{{--                    => 'control-label col-md-3')))!!}--}}
+{{--                    <div class="col-md-4">--}}
+{{--                        {!!Form::select('branch_id',[null=>'Please Select Branch'] +$branchAll,'null', array('class'=>'form-control') )!!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
             <div class="form-actions fluid">
                 <div class="col-md-offset-3 col-md-9">
