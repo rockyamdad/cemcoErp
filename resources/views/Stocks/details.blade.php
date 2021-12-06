@@ -13,7 +13,6 @@
                 $stockName = \App\StockInfo::find($stockdetails->stock_info_id);
             ?>
 
-            <h4>Branch Name : <?php echo $branchName->name; ?></h4>
             <h4>Stock Name : <?php echo $stockName->name; ?></h4>
             <h4>Product Type : <?php echo $stockdetails->product_type; ?></h4>
         </div>

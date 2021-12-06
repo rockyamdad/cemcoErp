@@ -326,11 +326,13 @@ class StockController extends Controller{
             ->where('stock_info_id','=',Input::get('stock_info_id'))
             ->first();
 
-        if(Session::get('user_role') == 'admin'){
+        // Setting Default Branch =1
+        $stockDetails->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $stockDetails->branch_id = Input::get('branch_id');
         }else{
             $stockDetails->branch_id = Session::get('user_branch');
-        }
+        }*/
         $stockDetails->product_id = Input::get('product_id');
         $stockDetails->entry_type = Input::get('entry_type');
         $stockDetails->product_type = Input::get('product_type');
@@ -559,11 +561,12 @@ class StockController extends Controller{
      */
     private function insertStockData($stockInvoces)
     {
-        if(Session::get('user_role') == 'admin'){
+        $stockInvoces->branch_id=1;
+        /*if(Session::get('user_role') == 'admin'){
             $stockInvoces->branch_id = Input::get('branch_id');
         }else{
             $stockInvoces->branch_id = Session::get('user_branch');
-        }
+        }*/
         $stockInvoces->status = 'Activate';
         $stockInvoces->remarks = '1. PAYMENT MUST BE MAID WITHIN 15 DAYS BY CHEQUE OR CASH
                                   2. NO REPLACEMENT WARANTY';

@@ -61,7 +61,7 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Branch</th>
+                        {{--<th>Branch</th>--}}
                         <th>Product</th>
                         <th> Stock</th>
                         <th>To Stock</th>
@@ -86,7 +86,7 @@
                         ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$stock->branch->name}}</td>
+                        {{--<td>{{$stock->branch->name}}</td>--}}
                         <td>{{$stock->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
                         <td>{{$stock->stockInfo->name}}</td>
                         <td>{{$stock->to_stock_info_id ? $stockTo->name : '' }}</td>

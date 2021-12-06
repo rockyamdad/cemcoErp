@@ -3,6 +3,16 @@ jQuery(document).ready(function() {
      "bPaginate": false
      });*/
 
+    // Setting Default branch=1
+    $.ajax({
+        type: "get",
+        url: "products/"+1,
+        success: function (html) {
+            $('#product_id').append(html);
+
+        }
+    });
+
     $('#stock_table').DataTable({
         "bPaginate": false
     });
@@ -57,11 +67,14 @@ jQuery(document).ready(function() {
     $('#product_type').live("change", function () {
         $("#product_type").attr('readonly','readonly');
         var product_type = $('#product_type').val();
-        if($('#role_session').val() != 'admin') {
+
+        //Setting Default branch=1
+        var branch = 1;
+        /*if($('#role_session').val() != 'admin') {
             var branch = $('#branch_session').val();
         }else{
             var branch = $('#branch_id').val();
-        }
+        }*/
         $('#product_id').empty();
         var newOption = $('<option value="">Select Product</option>');
         $('#product_id').append(newOption);
@@ -81,9 +94,9 @@ jQuery(document).ready(function() {
 
 
     function stockFormValidation() {
-        if($('#role_session').val() == 'admin') {
+        /*if($('#role_session').val() == 'admin') {
             var branch = $.trim($('#branch_id').val());
-        }
+        }*/
         var stock = $.trim($('#stock_info_id').val());
         var type = $.trim($('#product_type').val());
         var entry_type = $.trim($('#entry_type').val());
@@ -92,7 +105,7 @@ jQuery(document).ready(function() {
         var stock_to = $.trim($('#to_stock_info_id').val());
         //var price = $.trim($('#price').val());
         //alert(branch+"_"+stock+"_"+type+"_"+entry_type+"_"+product+"_"+quantity);
-        if ((entry_type === '') || (product === '') || (quantity === '') || (branch==='') || (stock === '') || (type === '')) {
+        if ((entry_type === '') || (product === '') || (quantity === '') ||  (stock === '') || (type === '')) {
             return false;
         } else {
             if(entry_type==='Transfer'){

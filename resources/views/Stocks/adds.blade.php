@@ -61,11 +61,11 @@
                             <div class="form-group">
                                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                                @if(Session::get('user_role')=='admin')
+                                {{--@if(Session::get('user_role')=='admin')
                                     <div class="col-md-3">
                                         {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                                     </div>
-                                @endif
+                                @endif--}}
                                 <div class="col-md-3">
                                     {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control stock_id_val','id'=>'stock_info_id') )!!}
                                 </div>
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     {!! Form::select('entry_type',[null=>'Please Select Entry Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
-                            'StockOut','Wastage'=>'Wastage','Transfer'=>'Transfer'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
+                            'StockOut'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}
                                 </div>
                             </div>
 
@@ -220,10 +220,5 @@
     {!! HTML::script('assets/plugins/select2/select2.min.js') !!}
 
 @stop
-
-<script>
-    $('.consignment_name_section').show();
-
-</script>
 
 
