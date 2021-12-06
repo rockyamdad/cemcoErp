@@ -70,7 +70,6 @@ class ProductSubCategoryController extends Controller{
     {
         $ruless = array(
             'name' => 'required',
-            'branch_id' => 'required',
             'category_id' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
@@ -101,11 +100,13 @@ class ProductSubCategoryController extends Controller{
     private function setSubCategoriesData($SubCategories)
     {
         $SubCategories->name = Input::get('name');
-        if(Session::get('user_role') == 'admin'){
+        //Making Default Branch=1
+        $SubCategories->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $SubCategories->branch_id = Input::get('branch_id');
         }else{
             $SubCategories->branch_id = Session::get('user_branch');
-        }
+        }*/
         $SubCategories->category_id = Input::get('category_id');
         $SubCategories->user_id = Session::get('user_id');
 

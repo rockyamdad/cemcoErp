@@ -88,7 +88,7 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
-                        <th>Branch</th>
+                        {{--<th>Branch</th>--}}
                         <th>Category</th>
                         <th>Sub Category</th>
 
@@ -96,7 +96,7 @@
                         <th>Min Level</th>
                         <th>Created By</th>
                         @if(Session::get('user_role') == 'admin')
-                        <th width="200px;">Action</th>
+                        <th>Action</th>
                         @endif
                     </tr>
                     </thead>
@@ -113,7 +113,7 @@
                             <tr class="odd gradeX">
                                 <td><?php echo $sl; ?></td>
                                 <td>{{$product->name}}</td>
-                                <td>{{$product->branch->name}}</td>
+                                {{--<td>{{$product->branch->name}}</td>--}}
                                 <td>{{$product->category->name}}</td>
                                 @if($product->sub_category_id == 0)
                                     <td>N/A</td>
@@ -149,7 +149,7 @@
                             <tr class="odd gradeX">
                                 <td><?php echo $sl; ?></td>
                                 <td>{{$product->name}}</td>
-                                <td>{{$product->branch->name}}</td>
+                                {{--<td>{{$product->branch->name}}</td>--}}
                                 <td>{{$product->category->name}}</td>
                                 @if($product->sub_category_id == 0)
                                     <td>N/A</td>

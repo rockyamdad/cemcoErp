@@ -53,7 +53,7 @@
                         'name'))!!}
                     </div>
                 </div>
-                @if(Session::get('user_role') == 'admin')
+                {{--@if(Session::get('user_role') == 'admin')
                     <div class="form-group">
                         {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
                         => 'control-label col-md-3')))!!}
@@ -62,7 +62,7 @@
                             array('class'=>'form-control ','id'=>'add_branch_id') )!!}
                         </div>
                     </div>
-                @endif
+                @endif--}}
 
                 <div class="form-actions fluid">
                     <div class="col-md-offset-3 col-md-9">

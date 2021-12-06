@@ -66,8 +66,7 @@ class ProductCategoryController extends Controller{
     public function postUpdateCategory($id)
     {
         $ruless = array(
-            'name' => 'required',
-            'branch_id' => 'required',
+            'name' => 'required'
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -111,13 +110,17 @@ class ProductCategoryController extends Controller{
     private function setCategoriesData($categories)
     {
         $categories->name = Input::get('name');
-        if(Session::get('user_role') == 'admin'){
+        // Making Default Branch =1
+        //$categories->branch_id = Input::get('branch_id');
+        $categories->branch_id = 1;
+        $categories->user_id = Session::get('user_id');
+
+        /*if(Session::get('user_role') == 'admin'){
             $categories->branch_id = Input::get('branch_id');
         }else{
             $categories->branch_id = Session::get('user_branch');
-        }
+        }*/
 
-        $categories->user_id = Session::get('user_id');
 
         // Account Category Creation ( This Feature is comment out due to client requirement )
         /*

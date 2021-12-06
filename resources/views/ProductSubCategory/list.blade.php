@@ -62,7 +62,7 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
-                        <th>Branch</th>
+                        {{--<th>Branch</th>--}}
                         <th>Category</th>
                         <th>Created By</th>
                         @if(Session::get('user_role') == 'admin')
@@ -78,7 +78,7 @@
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
                         <td>{{$subCategory->name}}</td>
-                        <td>{{$subCategory->branch->name}}</td>
+                        {{--<td>{{$subCategory->branch->name}}</td>--}}
                         <td>{{$subCategory->category->name}}</td>
                         <td>{{$subCategory->user->username}}</td>
                         @if(Session::get('user_role') == 'admin')

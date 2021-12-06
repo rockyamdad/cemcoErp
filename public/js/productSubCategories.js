@@ -5,6 +5,16 @@ jQuery(document).ready(function() {
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
+    //Getting Product category with Default branch=1
+    $.ajax({
+        type: "get",
+        url: "branchCategory/"+1,
+        success: function (html) {
+            $('#add_category_id').html(html);
+
+        }
+    });
+
     form.validate({
         errorElement: 'span', //default input error message container
        errorClass: 'help-block', // default input error message class

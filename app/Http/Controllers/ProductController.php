@@ -167,11 +167,13 @@ class ProductController extends Controller{
         $productSubCategory = SubCategory::find(Input::get('sub_category_id'));
 
         $prodcuts->name = Input::get('name');
-        if(Session::get('user_role') == 'admin'){
+        // Set Default Branch =1
+        $prodcuts->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $prodcuts->branch_id = Input::get('branch_id');
         }else{
             $prodcuts->branch_id = Session::get('user_branch');
-        }
+        }*/
         if($productSubCategory) {
             $prodcuts->sub_category_id = $productSubCategory->id;
         } else {

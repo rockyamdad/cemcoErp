@@ -44,7 +44,7 @@
                     <button data-close="alert" class="close"></button>
                     Your form validation is successful!
                 </div>
-                @if(Session::get('user_role')=='admin')
+                {{--@if(Session::get('user_role')=='admin')
                     <div class="form-group">
                         {!!HTML::decode(Form::label('branch_id','Product Branch<span class="required">*</span>',array('class'
                         => 'control-label col-md-3')))!!}
@@ -53,7 +53,7 @@
                             +$branchAll,$subCategory->branch_id,array('class'=>'form-control ','id'=>'edit_branch_id') )!!}
                         </div>
                     </div>
-                @endif
+                @endif--}}
                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
                 <div class="form-group">

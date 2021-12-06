@@ -157,25 +157,25 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         </li>
 
 
-        <li class="@if (Request::is('branchAdd')||Request::is('branchList'))active @endif">
-            <a href="javascript:;">
-                <i class="fa fa-puzzle-piece"></i>
-                <span class="title">Branch</span>
-                @if (Request::is('branches/*'))<span class="selected"></span>@endif
-                <span class="arrow @if (Request::is('branches/*'))open @endif"></span>
-            </a>
+            {{--<li class="@if (Request::is('branchAdd')||Request::is('branchList'))active @endif">
+                <a href="javascript:;">
+                    <i class="fa fa-puzzle-piece"></i>
+                    <span class="title">Branch</span>
+                    @if (Request::is('branches/*'))<span class="selected"></span>@endif
+                    <span class="arrow @if (Request::is('branches/*'))open @endif"></span>
+                </a>
 
-                <ul class="sub-menu">
-                    <li
-                    @if (Request::is('branchAdd/'))class="active"@endif>
-                    <a href="{{ URL::to('branchAdd') }}">Add Branch </a>
-            </li>
-            <li
-            @if (Request::is('branchList/'))class="active"@endif>
-            <a href="{{ URL::to('branchList') }}">Branch List </a>
-            </li>
-            </ul>
-        </li>
+                    <ul class="sub-menu">
+                        <li
+                        @if (Request::is('branchAdd/'))class="active"@endif>
+                        <a href="{{ URL::to('branchAdd') }}">Add Branch </a>
+                </li>
+                <li
+                @if (Request::is('branchList/'))class="active"@endif>
+                <a href="{{ URL::to('branchList') }}">Branch List </a>
+                </li>
+                </ul>
+            </li>--}}
             @endif
 
         <li class="@if (Request::is('productCategories/*')||Request::is('productsubcategories/*')||Request::is('products/*'))active @endif">

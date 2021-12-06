@@ -4,6 +4,15 @@ jQuery(document).ready(function() {
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
+    //Getting Product category with Default branch=1
+    $.ajax({
+        type: "get",
+        url: "category/"+1,
+        success: function (html) {
+            $('#products_category_id').append(html);
+
+        }
+    });
     form.validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block', // default input error message class
@@ -102,10 +111,12 @@ jQuery(document).ready(function() {
         $('#products_sub_category_id').empty();
         var newOption = $('<option value>Choose Sub Category</option>');
         $('#products_sub_category_id').append(newOption);
+
+        //Getting Product with Default branch=1
         $.ajax({
             type: "get",
             url: "sub/"+category_id,
-            data: "branch_id=" + branch_id ,
+            data: "branch_id=" + 1 ,
             success: function (html) {
                 $('#products_sub_category_id').append(html);
 
