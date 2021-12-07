@@ -59,11 +59,11 @@
                             <div class="form-group">
                                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                                @if(Session::get('user_role')=='admin')
+                                {{--@if(Session::get('user_role')=='admin')
                                 <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,$saleDetails[0]->branch_id, array('class'=>'form-control branch_id_val','id'=>'edit_branch_id') )!!}
                                 </div>
-                                @endif
+                                @endif--}}
                                 <div class="col-md-3">
                                     {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,$sale[0]->party_id, array('class'=>'form-control party_id_val','id'=>'edit_party_id') )!!}
                                 </div>
@@ -75,9 +75,9 @@
                                     {!!Form::textArea('address',$sale[0]->address,array('placeholder' => 'Address', 'class' =>
                                     'form-control','id'=>'address', 'rows'=>'3'))!!}
                                 </div>
-                                <div class="col-md-2">
+                                {{--<div class="col-md-2">
                                     {!!Form::select('sales_man_id',[null=>'Select Sales Head'] + $salesMan,$sale[0]->sales_man_id, array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val_edit') )!!}
-                                </div>
+                                </div>--}}
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5">

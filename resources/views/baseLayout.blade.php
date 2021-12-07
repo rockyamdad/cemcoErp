@@ -246,7 +246,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </li>
 
         </ul>
-        </li>
+        {{--</li>
             @if(Session::get('user_role') == 'admin')
             <li class="@if (Request::is('balancetransfers/*'))active @endif">
                 <a href="javascript:;">
@@ -289,7 +289,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <a href="{{ URL::to('requisitions/index') }}">Order Requisition List </a>
         </li>
 
-        </ul>
+        </ul>--}}
         </li>
             @if(Session::get('user_role') != 'manager')
             <li class="@if (Request::is('accountcategory/*')||Request::is('accountnames/*')||Request::is('sales/*')||Request::is('salesreturn/*')||Request::is('purchases/*')||Request::is('expenses/*'))active @endif">

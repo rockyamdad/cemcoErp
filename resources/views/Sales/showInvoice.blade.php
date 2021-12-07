@@ -53,8 +53,7 @@
                     <img src="../../assets/img/pad/me-invoice.jpg" style="width: 100%;"  alt="" />
                 @endif--}}
                     <div class="col-md-8 " >
-                        <h3>{{$branch->name}}</h3>
-                        <span style="width: 20px;">{{$branch->location}}</span>
+                        <h3>{{$branch->location}}</h3>
                     </div>
                     <div  class="col-md-4 companyLogo">
                         <img style="margin-left: -250px;width: 120px" src="../../assets/img/cemco.jpg"  alt="" />

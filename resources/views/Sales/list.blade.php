@@ -97,7 +97,7 @@
                         <th>Sales Invoice Id</th>
                         <th>Party Name</th>
                         <th>Customer Name</th>
-                        <th>Sales Head</th>
+                        {{--<th>Sales Head</th>--}}
                         <th>Status</th>
                         <th>Created By</th>
                         <th>Action</th>
@@ -127,10 +127,10 @@
                                             {{$sale->cash_sale}}
                                         @endif
                                     </td>
-                                    <td> @if(isset($sale->user))
+                                    {{--<td> @if(isset($sale->user))
                                             {{$sale->user->username}}
                                         @endif
-                                    </td>
+                                    </td>--}}
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
                                     @elseif($sale->status == 'Partial')
@@ -200,10 +200,10 @@
                                     </td>
                                     <td>{{$sale->cash_sale}}</td>
 
-                                    <td>@if($saleMan)
+                                    {{--<td>@if($saleMan)
                                             {{$saleMan->username}}
                                         @endif
-                                    </td>
+                                    </td>--}}
                                     @if($sale->status == 'Activate')
                                         <td><span class="label label-sm label-danger">Due</span></td>
                                     @elseif($sale->status == 'Partial')

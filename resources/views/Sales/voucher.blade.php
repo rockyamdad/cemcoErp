@@ -49,8 +49,7 @@ $account = \App\NameOfAccount::find($transactions[0]->account_name_id);
                     ?>
 
                     <div class="col-md-8">
-                        <h2>{{$branch->name}}</h2>
-                        <p1>{{$branch->location}}</p1>
+                        <h2>{{$branch->location}}</h2>
                     </div>
                     <div class="col-md-4">
                         <img src="../../assets/img/cemco.jpg" alt="" />

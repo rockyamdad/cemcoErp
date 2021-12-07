@@ -15,7 +15,6 @@
                 $saledetails = \App\SaleDetail::where('invoice_id','=',$sale->invoice_id)->first();
                 $branchname= \App\Branch::find($saledetails->branch_id);
             ?>
-            <h3>Branch Name : <?php echo $branchname->name; ?></h3>
             <p>Invoice Id : <?php echo $sale->invoice_id; ?></p>
             <p>Date : <?php echo \App\Transaction::convertDate($sale->created_at); ?></p>
 

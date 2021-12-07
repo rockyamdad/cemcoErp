@@ -2,6 +2,16 @@ jQuery(document).ready(function() {
   /*  $('#salestable').DataTable({
         "bPaginate": false
     });*/
+
+    // Getting Default Branch product
+    $.ajax({
+        type: "get",
+        url: "products/"+1,
+        success: function (html) {
+            $('#product_id').append(html);
+
+        }
+    });
     $(".saveSales").live("click", function () {
         if(saleFormValidation()){
             $(".save" ).removeClass("saveSales");
@@ -101,7 +111,7 @@ jQuery(document).ready(function() {
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '')) {
+        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (stock === '')) {
             return false;
         } else {
             return true;
@@ -119,7 +129,7 @@ jQuery(document).ready(function() {
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') ) {
+        if ((party === '' && cash === '') || (product === '') || (quantity === '' || price==='') || (stock === '') ) {
             return false;
         } else {
             return true;

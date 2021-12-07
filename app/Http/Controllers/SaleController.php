@@ -160,12 +160,12 @@ class SaleController extends Controller{
         $saleDetails->invoice_id = Input::get('invoice_id');
         $saleDetails->product_id = Input::get('product_id');
 
-
-        if(Session::get('user_role') == 'admin'){
+        $saleDetails->branch_id =1;
+        /*if(Session::get('user_role') == 'admin'){
             $saleDetails->branch_id = Input::get('branch_id');
         }else{
             $saleDetails->branch_id = Session::get('user_branch');
-        }
+        }*/
         $product = Product::find(Input::get('product_id'));
         $saleDetails->stock_info_id = Input::get('stock_info_id');
         $saleDetails->product_type = $product->product_type;
@@ -364,7 +364,8 @@ class SaleController extends Controller{
 
         $accountPayment->opening_balance = $accountPayment->opening_balance + Input::get('amount');
 
-        $saleTransaction->branch_id = Input::get('branch_id');
+        $saleTransaction->branch_id = 1;
+        /*$saleTransaction->branch_id = Input::get('branch_id');*/
         $saleTransaction->save();
         $sale->save();
         $accountPayment->save();
@@ -762,7 +763,7 @@ class SaleController extends Controller{
         $ruless = array(
             'party_id' => 'required',
             //'cus_ref_no' => 'required',
-            'branch_id' => 'required',
+            //'branch_id' => 'required',
             'account_category_id' => 'required',
             'account_name_id' => 'required',
             'payment_method' => 'required',
@@ -926,7 +927,8 @@ class SaleController extends Controller{
                         $transaction->user_id = Session::get('user_id');
                         $transaction->cheque_no = Input::get('cheque_no');
                         $transaction->voucher_id = $voucherId;
-                        $transaction->branch_id = Input::get('branch_id');
+                        $transaction->branch_id = 1;
+                        /*$transaction->branch_id = Input::get('branch_id');*/
                         $transaction->cheque_date = Input::get('cheque_date');
                         $transaction->cheque_bank = Input::get('cheque_bank');
 

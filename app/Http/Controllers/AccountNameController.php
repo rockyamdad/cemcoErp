@@ -99,11 +99,12 @@ class AccountNameController extends Controller{
     {
 
         $accountNames->name = Input::get('name');
-        if(Session::get('user_role') == 'admin'){
+        $accountNames->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $accountNames->branch_id = Input::get('branch_id');
         }else{
             $accountNames->branch_id = Session::get('user_branch');
-        }
+        }*/
 
         $accountNames->account_category_id = Input::get('account_category_id');
         $accountNames->opening_balance = Input::get('opening_balance');

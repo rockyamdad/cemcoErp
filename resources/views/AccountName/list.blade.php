@@ -60,7 +60,7 @@
                     <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Branch Name</th>
+                        {{--<th>Branch Name</th>--}}
                         <th>Name</th>
                         <th>Category</th>
                         <th>Balance</th>
@@ -79,7 +79,7 @@
                                 ?>
                     <tr class="odd gradeX">
                         <td><?php echo $sl; ?></td>
-                        <td>{{$branch->name}}</td>
+                        {{--<td>{{$branch->name}}</td>--}}
                         <td>{{$accountName->name}}</td>
                         <td>{{$accounts->name}}</td>
                         <td>{{$accountName->opening_balance}}</td>

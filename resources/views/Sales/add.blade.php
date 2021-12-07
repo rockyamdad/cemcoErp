@@ -59,11 +59,11 @@
                         <div class="form-group">
                             <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                             <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                            @if(Session::get('user_role')=='admin')
+                            {{--@if(Session::get('user_role')=='admin')
                                 <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                                 </div>
-                            @endif
+                            @endif--}}
 
                             <div class="col-md-3">
                                 {!!Form::select('party_id',[null=>'Please Select Party'] + $buyersAll,'null', array('class'=>'form-control party_id_val','id'=>'party_id') )!!}
@@ -76,9 +76,9 @@
                                 {!!Form::textArea('address',null,array('placeholder' => 'Address', 'class' =>
                                 'form-control','id'=>'address', 'rows'=>'3'))!!}
                             </div>
-                            <div class="col-md-2">
+                            {{--<div class="col-md-2">
                                 {!!Form::select('sales_man_id',[null=>'Select Sales Head'] +$salesMan,'null', array('class'=>'form-control sales_man_id_val','id'=>'sales_man_id_val') )!!}
-                            </div>
+                            </div>--}}
 
                         </div>
 

@@ -13,9 +13,9 @@ jQuery(document).ready(function() {
             focusInvalid: false, // do not focus the last invalid input
             ignore: "",
             rules: {
-                branch_id: {
+               /* branch_id: {
                     required: true
-                },
+                },*/
                 party_id: {
                     required: true
                 },
@@ -141,7 +141,8 @@ jQuery(document).ready(function() {
 
     $('#p_account_category_id').live("change", function () {
         var account_category = $('#p_account_category_id').val();
-        var branch = $('#p_branch_id').val();
+        var branch = 1;
+        /*var branch = $('#p_branch_id').val();*/
         $('#p_account_name_id').empty();
         var newOption = $('<option value="">Select Account</option>');
         $('#p_account_name_id').append(newOption);
