@@ -77,7 +77,8 @@ class Product extends Eloquent
     }
     public function getFinishGoodsDropDown()
     {
-        $finishGoods = Product::where('product_type','Finish Goods')->get();
+        /*$finishGoods = Product::where('product_type','Finish Goods')->get();*/
+        $finishGoods = Product::get();
         $array = array();
 
         foreach ($finishGoods as $productName) {

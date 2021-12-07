@@ -69,10 +69,10 @@
                                 <div class="col-md-3">
                                     {!!Form::select('stock_info_id',[null=>'Select Stock'] +$allStockInfos,'null', array('class'=>'form-control stock_id_val','id'=>'stock_info_id') )!!}
                                 </div>
-                                <div class="col-md-3">
+                                {{--<div class="col-md-3">
                                     {!! Form::select('product_type',[null=>'Please Select Product Type'] + array('Local' => 'Local', 'Foreign' =>
                             'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
-                                </div>
+                                </div>--}}
                                 <div class="col-md-3">
                                     {!! Form::select('entry_type',[null=>'Please Select Entry Type'] + array('StockIn' => 'StockIn', 'StockOut' =>
                             'StockOut'),'null', array('class'=>'form-control','id'=>'entry_type'))!!}

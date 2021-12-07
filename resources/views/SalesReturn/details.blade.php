@@ -2,7 +2,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" onclick="closeModal()" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h3>Sales Detail for {{$sr->branch->name}}</h3>
+            <h3>Sales Detail</h3>
             <?php
 
             $party = \App\Party::where('id','=',$sr->party_id)->first();

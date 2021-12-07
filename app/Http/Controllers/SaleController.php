@@ -63,13 +63,13 @@ class SaleController extends Controller{
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
         $branches = new Branch();
-        $branchAll = $branches->getBranchesDropDown();
+        /*$branchAll = $branches->getBranchesDropDown();*/
     // Invoice Id Generation Starts
         $invoiceid =$this->generateInvoiceId();
 
         return view('Sales.add',compact('buyersAll'))
             ->with('finishGoods',$finishGoods)
-            ->with('branchAll',$branchAll)
+            /*->with('branchAll',$branchAll)*/
             ->with('salesMan',$salesMan)
             ->with('invoiceid',$invoiceid)
             ->with('allStockInfos',$allStockInfos);
@@ -168,7 +168,7 @@ class SaleController extends Controller{
         }*/
         $product = Product::find(Input::get('product_id'));
         $saleDetails->stock_info_id = Input::get('stock_info_id');
-        $saleDetails->product_type = $product->product_type;
+        /*$saleDetails->product_type = $product->product_type;*/
         $saleDetails->remarks = Input::get('remarks');
 
         $hasSale = Sale::where('invoice_id','=',Input::get('invoice_id'))->get();
@@ -206,7 +206,7 @@ class SaleController extends Controller{
         $array['id'] = $salesDetails->id;
         $array['branch_id'] = $branchName->name;
         $array['stock_info_id'] = $stockName->name;
-        $array['product_type'] = $salesDetails->product_type;
+        /*$array['product_type'] = $salesDetails->product_type;*/
         $array['product_id'] = $salesDetails->product->name;
         $array['price'] = $salesDetails->price;
         $array['quantity']   = $salesDetails->quantity;
@@ -446,7 +446,7 @@ class SaleController extends Controller{
                     $stock = new StockDetail();
                     $stock->branch_id = $saleDetail->branch_id;
                     $stock->product_id = $saleDetail->product_id;
-                    $stock->product_type = $saleDetail->product_type;
+                    /*$stock->product_type = $saleDetail->product_type;*/
                     $stock->quantity = $saleDetail->quantity;
                     $stock->price = $saleDetail->price;
                     $stock->entry_type = "StockOut";
@@ -630,9 +630,7 @@ class SaleController extends Controller{
     public  function getProduct($type)
     {
         $branch= Input::get('data');
-        $productsName = Product::where('product_type','=',$type)
-            ->where('branch_id','=',$branch)
-            ->get();
+        $productsName = Product::get();
 
         foreach ($productsName as $productName) {
 

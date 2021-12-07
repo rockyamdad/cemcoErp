@@ -56,7 +56,7 @@
                         <th>SL</th>
                         <th>Name</th>
                         <th>Location</th>
-                        <th>Branch</th>
+                        {{--<th>Branch</th>--}}
                         <th>Created By</th>
                         <th>Status</th>
                         <th >Action</th>
@@ -71,7 +71,7 @@
                         <td><?php echo $sl; ?></td>
                         <td>{{$stockInfo->name}}</td>
                         <td>{{$stockInfo->location}}</td>
-                        <td>{{$stockInfo->branch->name}}</td>
+                        {{--<td>{{$stockInfo->branch->name}}</td>--}}
                         <td>{{$stockInfo->user->username}}</td>
 
                         @if($stockInfo->status == "Activate")

@@ -102,20 +102,20 @@ jQuery(document).ready(function() {
 
     function stockFormValidation() {
 
-        if($('#branch_id').val()) {
+        /*if($('#branch_id').val()) {
             var branch = $.trim($('#branch_id').val());
         } else {
             var branch = $.trim($('#branch_session').val());
-        }
+        }*/
 
         var stock = $.trim($('#stock_info_id').val());
-        var type = $.trim($('#product_type').val());
+        /*var type = $.trim($('#product_type').val());*/
         var entry_type = $.trim($('#entry_type').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#product_quantity').val());
         //var price = $.trim($('#price').val());
         //alert(branch+"_"+stock+"_"+type+"_"+entry_type+"_"+product+"_"+quantity);
-        if ((entry_type === '') || (product === '') || (quantity === '') || (branch==='') || (stock === '') || (type === '')) {
+        if ((entry_type === '') || (product === '') || (quantity === '') || (stock === '')) {
             return false;
         } else {
             return true;

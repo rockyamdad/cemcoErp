@@ -71,9 +71,7 @@ class StockController extends Controller{
 
     public  function getProducts($type)
     {
-        $productsName = Product::where('product_type','=',$type)
-            ->where('branch_id','=',Input::get('data'))
-            ->get();
+        $productsName = Product::get();
         $product_id= Input::get('product_id');
 
 
@@ -177,7 +175,6 @@ class StockController extends Controller{
     {
         $ruless = array(
             'stock_info_id' => 'required',
-            'product_type' => 'required',
             'product_id' => 'required',
             'product_quantity' => 'required',
         );
@@ -280,9 +277,7 @@ class StockController extends Controller{
         $stocks = StockInfo::where('status','=','Activate')
             ->get();
 
-        $productsName = Product::where('product_type','=',$stockDetails->product_type)
-            ->where('branch_id','=',$stockDetails->branch_id)
-            ->get();
+        $productsName = Product::get();
    /*     $stockDetailsCheck = StockDetail::where('invoice_id','=',$id)->get();
         if(count($stockDetailsCheck) < 1){
             return Redirect::to('stocks/index');
@@ -335,7 +330,6 @@ class StockController extends Controller{
         }*/
         $stockDetails->product_id = Input::get('product_id');
         $stockDetails->entry_type = Input::get('entry_type');
-        $stockDetails->product_type = Input::get('product_type');
         $stockDetails->stock_info_id = Input::get('stock_info_id');
         $stockDetails->to_stock_info_id = Input::get('stock_info_id');
         $stockDetails->remarks = Input::get('remarks');
@@ -459,7 +453,6 @@ class StockController extends Controller{
         $array['id'] = $stockDetails->id;
         $array['branch_id'] = $branchName->name;
         $array['stock_info_id'] = $stockName->name;
-        $array['product_type'] = $stockDetails->product_type;
         $productsName = Product::find($stockDetails->product_id);
         $category = $productsName->category->name;
         $subCategoryName = '';

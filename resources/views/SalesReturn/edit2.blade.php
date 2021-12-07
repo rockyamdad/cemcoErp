@@ -62,24 +62,21 @@
                             <div class="form-group">
                                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                                @if(Session::get('user_role')=='admin')
+                                {{--@if(Session::get('user_role')=='admin')
                                 <div class="col-md-3">
                                     Branch
                                 </div>
                                 <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,$stockInvoices->branch_id, array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                                 </div>
-                                @endif
+                                @endif--}}
                                 <div class="col-md-3">
                                     Party
                                 </div>
                                 <div class="col-md-3">
                                     {!! Form::select('party_id',[null=>'Please Select Party'] + $partyAll, $stockInvoices->party_id, array('class'=>'form-control','id'=>'party_id'))!!}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-body">
-                            <div class="form-group">
+
                                 <div class="col-md-3">
                                     Product Status
                                 </div>
@@ -88,6 +85,10 @@
                                     {!! Form::select('product_status',[null=>'Please Select Product Status'] + array('Defective' => 'Defective', 'Intact' =>
                             'Intact'),$stockInvoices->product_status, array('class'=>'form-control','id'=>'product_status'))!!}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <div class="form-group">
 
                                 <div class="col-md-3">
                                     Ref No.
@@ -96,11 +97,6 @@
                                     {!!Form::text('ref_no',$stockInvoices->ref_no,array('placeholder' => 'Ref No.', 'id' => 'ref_no','class' =>
                                  'form-control'))!!}
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-body">
-                            <div class="form-group">
-
                                 <div class="col-md-3">
                                     Discount percentage
                                 </div>
@@ -110,7 +106,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-body">
 
 
@@ -118,14 +113,6 @@
                                 <table class="table table-striped table-bordered table-primary table-condensed" id="stockTable">
                                     <thead>
                                     <tr>
-                                        <th width="">Product Type</th>
-                                        <?php
-                                        if($stockInvoices->product_status == 'Intact'){
-                                        ?>
-                                        <th width="" class="stock">Stock</th>
-                                        <?php
-                                        }
-                                        ?>
                                         <th width="">Product Name</th>
                                         <th width="">Quantity</th>
                                         <th width="">Unit Price</th>
@@ -141,18 +128,6 @@
                                             $stock = \App\StockInfo::find( $stckDetail->stock_info_id);
                                     ?>
                                     <tr class="clone_">
-                                        <td>
-                                            <?php echo $stckDetail->product_type; ?>
-                                        </td>
-                                        <?php
-                                            if($stockInvoices->product_status == 'Intact'){
-                                            ?>
-                                        <td>
-                                            <?php echo $stock->name; ?>
-                                        </td>
-                                        <?php
-                                            }
-                                            ?>
                                         <td>
                                             <?php echo $stckDetail->product->name; ?>
                                         </td>
@@ -176,7 +151,7 @@
 
 
                                     <tr class="clone_">
-                                        <td>
+                                        {{--<td>
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
@@ -184,7 +159,7 @@
 
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>--}}
                                         <?php
                                         if($stockInvoices->product_status == 'Intact'){
                                         ?>

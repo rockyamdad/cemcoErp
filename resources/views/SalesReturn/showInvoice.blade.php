@@ -45,10 +45,7 @@
 
             <div class="col-xs-8">
                 <table>
-                    <tr>
-                        <td><b>Branch #</b></td>
-                        <td>: {{$srInvoice->branch->name}}</td>
-                    </tr>
+
                     <tr>
                         <td><b>Party</b></td>
                         <?php $party = \App\Party::find($srInvoice->party_id)?>

@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 
     $(".saveSalesReturn").live("click", function () {
 
-        var product_type = $('#product_type').val();
+        /*var product_type = $('#product_type').val();*/
         var branch = $('#branch_id').val();
         var party_id = $('#party_id').val();
         var product_status = $('#product_status').val();
@@ -55,7 +55,7 @@ jQuery(document).ready(function() {
         var consignment_name = $('#consignment_name').val();
         var remarks = $('#remarks').val();
 
-        if (product_type != '' && branch != '' && party_id != '' && product_status != '' && ref_no != '' && discount_percentage != '' && product_type != '' && product_id != '' && product_quantity != '' && unit_price != '') {
+        if (branch != '' && party_id != '' && product_status != '' && ref_no != '' && discount_percentage != '' && product_id != '' && product_quantity != '' && unit_price != '') {
             $.ajax({
                 type: "POST",
                 url: "../../saveSalesReturn",
@@ -69,7 +69,7 @@ jQuery(document).ready(function() {
                     //$("#product_type").select2('val', '');
                     //$("#entry_type").select2('val', '');
 
-                    $("#product_type").select2('val', '');
+                    /*$("#product_type").select2('val', '');*/
                     $("#product_id").select2('val', '');
                     $("#quantity").val('');
                     $("#remarks").val('');
@@ -77,7 +77,7 @@ jQuery(document).ready(function() {
                     $(".available").html('');
 
                     var html = [];
-                    html.push('<td>' + stock.product_type + '</td>');
+                    /*html.push('<td>' + stock.product_type + '</td>');*/
                     html.push('<td>' + stock.product_id + '</td>');
                     html.push('<td>' + stock.quantity + '</td>');
                     html.push('<td>' + stock.unit_price + '</td>');

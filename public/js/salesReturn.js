@@ -3,6 +3,14 @@ jQuery(document).ready(function() {
     var error1 = $('.alert-danger', form);
     var success1 = $('.alert-success', form);
 
+    $.ajax({
+        type: "get",
+        url: "product/" + 1,
+        success: function (html) {
+            $('#product_id').append(html);
+        }
+    });
+
     //form.validate({
     //    errorElement: 'span', //default input error message container
     //    errorClass: 'help-block', // default input error message class
@@ -132,10 +140,10 @@ jQuery(document).ready(function() {
     });
 
     $('.saveSalesReturn').live("click", function () {
-        var product_type = $('#product_type').val();
-        if($('#role_session').val() == 'admin') {
+        /*var product_type = $('#product_type').val();*/
+        /*if($('#role_session').val() == 'admin') {
             var branch = $.trim($('#branch_id').val());
-        }
+        }*/
         var party_id = $('#party_id').val();
         var product_status = $('#product_status').val();
         var ref_no = $('#ref_no').val();
@@ -146,14 +154,14 @@ jQuery(document).ready(function() {
         var consignment_name = $('#consignment_name').val();
         var remarks = $('#remarks').val();
 
-        if (product_type != '' && branch != '' && party_id != '' && product_status != '' && ref_no != '' && discount_percentage != '' && product_type != '' && product_id != '' && product_quantity != '' && unit_price != '') {
+        if (party_id != '' && product_status != '' && ref_no != '' && discount_percentage != '' && product_id != '' && product_quantity != '' && unit_price != '') {
             $.ajax({
                 type: "POST",
                 data :  $('#sales_return_form').serialize(),
                 url: "../saveSalesReturn",
                 dataType:'json',
                 success: function (stock) {
-                    $("#product_type").select2('val', '');
+                    /*$("#product_type").select2('val', '');*/
                     $("#product_id").select2('val', '');
                     $("#consignment_name").select2('val', '');
                     $("#quantity").val('');
@@ -163,7 +171,7 @@ jQuery(document).ready(function() {
                     $(".available").html('');
 
                     var html = [];
-                    html.push('<td>' + stock.product_type + '</td>');
+                    /*html.push('<td>' + stock.product_type + '</td>');*/
                     if(stock.product_status == 'Intact'){
                         html.push('<td>' + stock.stock_name + '</td>');
                     }

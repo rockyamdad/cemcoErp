@@ -14,7 +14,6 @@
             ?>
 
             <h4>Stock Name : <?php echo $stockName->name; ?></h4>
-            <h4>Product Type : <?php echo $stockdetails->product_type; ?></h4>
         </div>
         <div class="modal-body">
             <table class="table table-striped table-bordered table-hover"  id="saleDetailtable">

@@ -70,7 +70,6 @@ class ProductController extends Controller{
         $ruless = array(
             'name' => 'required',
             'category_id' => 'required',
-            'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -144,7 +143,6 @@ class ProductController extends Controller{
         $ruless = array(
             'name' => 'required',
             'category_id' => 'required',
-            'product_type' => 'required',
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -184,7 +182,7 @@ class ProductController extends Controller{
         $prodcuts->origin = '';
         $prodcuts->hs_code = '';
         $prodcuts->min_level = Input::get('min_level');
-        $prodcuts->product_type = Input::get('product_type');
+        /*$prodcuts->product_type = Input::get('product_type');*/
         $prodcuts->total_quantity = 0;
         $prodcuts->price = Input::get('price');
         $prodcuts->user_id = Session::get('user_id');

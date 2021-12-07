@@ -62,7 +62,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Invoice Id</th>
-                            <th>Branch</th>
+                            {{--<th>Branch</th>--}}
                             <th>Party</th>
                             <th>Created By</th>
                             <!-- <th>Status</th>-->
@@ -77,7 +77,7 @@
                         <tr class="odd gradeX">
                             <td><?php echo $sl; ?></td>
                             <td>{{$row->invoice_id}}</td>
-                            <td>{{$row->branch->name}}</td>
+                            {{--<td>{{$row->branch->name}}</td>--}}
                             <?php $party = \App\Party::find($row->party_id); ?>
                             <td>{{$party->name}}</td>
                             <td>{{$row->user->name}}</td>

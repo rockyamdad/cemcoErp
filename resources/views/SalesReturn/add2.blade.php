@@ -63,11 +63,11 @@
                             <div class="form-group">
                                 <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                                 <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                                @if(Session::get('user_role')=='admin')
+                                {{--@if(Session::get('user_role')=='admin')
                                 <div class="col-md-3">
                                     {!!Form::select('branch_id',[null=>'Please Select Branch'] + $branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                                 </div>
-                                @endif
+                                @endif--}}
                                 <div class="col-md-3">
                                     {!! Form::select('party_id',[null=>'Please Select Party'] + $partyAll,'null', array('class'=>'form-control','id'=>'party_id'))!!}
                                 </div>
@@ -93,7 +93,7 @@
                                 <table class="table table-striped table-bordered table-primary table-condensed" id="stockTable">
                                     <thead>
                                     <tr>
-                                        <th width="">Product Type</th>
+                                        {{--<th width="">Product Type</th>--}}
                                         <th width="" class="stock">Stock</th>
                                         <th width="">Product Name</th>
                                         <th width="">Quantity</th>
@@ -109,7 +109,7 @@
                                     </tbody>
 
                                     <tr class="clone_">
-                                        <td>
+                                        {{--<td>
                                             <div class="form-body">
                                                 <div class="form-group">
                                                     {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
@@ -117,7 +117,7 @@
 
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>--}}
                                         <td class="stock">
                                             <div class="form-body">
                                                 <div class="form-group" style="width: 220px;">

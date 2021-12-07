@@ -96,11 +96,12 @@ class StockInfoController extends Controller{
     }
     private function setStockInfoData($party)
     {
-        if(Session::get('user_role') == 'admin'){
+        $party->branch_id = 1;
+       /* if(Session::get('user_role') == 'admin'){
             $party->branch_id = Input::get('branch_id');
         }else{
             $party->branch_id = Session::get('user_branch');
-        }
+        }*/
         $party->name = Input::get('name');
 
         $party->location = Input::get('location');

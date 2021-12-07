@@ -69,11 +69,10 @@ class SalesReturnController extends Controller{
     }
     public  function getProduct($type)
     {
-        $product_type = Input::get('product_type');
-        $branch= Input::get('branch');
-        $productsName = Product::where('product_type','=',$product_type)
-            ->where('branch_id','=',$branch)
-            ->get();
+        /*$product_type = Input::get('product_type');*/
+        $branch= 1;
+        /*$branch= Input::get('branch');*/
+        $productsName = Product::get();
 
         foreach ($productsName as $productName) {
 
@@ -99,7 +98,7 @@ class SalesReturnController extends Controller{
         }
 
         $array['id'] = $saleRetrnDetails->id;
-        $array['product_type'] = $saleRetrnDetails->product_type;
+        /*$array['product_type'] = $saleRetrnDetails->product_type;*/
         $array['product_status'] = Input::get('product_status');
         $array['product_id'] = $saleRetrnDetails->product->name;
         $array['quantity']   = $saleRetrnDetails->quantity;
@@ -114,7 +113,6 @@ class SalesReturnController extends Controller{
     {
         $ruless = array(
             'party_id' => 'required'
-
         );
         $validate = Validator::make(Input::all(), $ruless);
 
@@ -128,7 +126,7 @@ class SalesReturnController extends Controller{
             $this->setSalesReturnInvoiceData($salesReturnInvoice, $invoiceId);
 
             $salesReturnDetails = new SalesReturnDetail();
-            $salesReturnDetails->product_type = Input::get('product_type');
+            /*$salesReturnDetails->product_type = Input::get('product_type');*/
             if(Input::get('stock_info_id')){
                 $salesReturnDetails->stock_info_id = Input::get('stock_info_id');
             }
@@ -195,7 +193,7 @@ class SalesReturnController extends Controller{
                             $transaction->type = 'Receive';
                             $transaction->payment_method = 'Sales Return';
                             $transaction->account_category_id = $accountCategory?$accountCategory->id:null;
-                            $transaction->remarks = Input::get('remarks');
+                            $transaction->remarks = Input::get('remarks')?Input::get('remarks'):'N/A';
                             $transaction->account_name_id = $accountname->id;
                             $transaction->user_id = Session::get('user_id');
                             $transaction->cheque_no = '';
@@ -264,11 +262,12 @@ class SalesReturnController extends Controller{
                             $stockInvoces = new StockInvoice();
                             $stockInvoiceId= StockInvoice::generateInvoiceId();
 
-                            if(Session::get('user_role') == 'admin'){
+                            $stockInvoces->branch_id=1;
+                            /*if(Session::get('user_role') == 'admin'){
                                 $stockInvoces->branch_id = Input::get('branch_id');
                             }else{
                                 $stockInvoces->branch_id = Session::get('user_branch');
-                            }
+                            }*/
                             $stockInvoces->status = 'Activate';
                             $stockInvoces->remarks = '';
                             $stockInvoces->user_id = Session::get('user_id');
@@ -281,18 +280,19 @@ class SalesReturnController extends Controller{
 
 
                             $stock = new StockDetail();
-                            if(Session::get('user_role') == 'admin'){
+                            $stock->branch_id=1;
+                            /*if(Session::get('user_role') == 'admin'){
                                 $stock->branch_id = Input::get('branch_id');
                             }else{
                                 $stock->branch_id = Session::get('user_branch');
-                            }
+                            }*/
 
                             $stock->product_id =Input::get('product_id');
-                            $stock->product_type =  Input::get('product_type');
+                            /*$stock->product_type =  Input::get('product_type');*/
                             $stock->quantity = Input::get('quantity');
                             $stock->price = Input::get('unit_price');
                             $stock->entry_type = "StockIn";
-                            $stock->remarks = Input::get('remarks');
+                            $stock->remarks = Input::get('remarks')?Input::get('remarks'):'N/A';
                             $stock->invoice_id = $stockInvoiceId;
                             $stock->stock_info_id = Input::get('stock_info_id');
                             $stock->save();
@@ -371,11 +371,12 @@ class SalesReturnController extends Controller{
     }
     private function insertSalesReturnData($salesreturn, $invoiceId)
     {
-        if(Session::get('user_role') == 'admin'){
+        $salesreturn->branch_id =1;
+        /*if(Session::get('user_role') == 'admin'){
             $salesreturn->branch_id = Input::get('branch_id');
         }else{
             $salesreturn->branch_id = Session::get('user_branch');
-        }
+        }*/
         $salesreturn->party_id = Input::get('party_id');
         $salesreturn->product_status = Input::get('product_status');
         $salesreturn->ref_no = Input::get('ref_no');
@@ -564,8 +565,7 @@ class SalesReturnController extends Controller{
         $imports = Import::where('status','=','Activate')
             ->get();
 
-        $productsName = Product::where('product_type','=',$stockDetails->product_type)
-            ->get();
+        $productsName = Product::get();
 
         $stockInfos = new StockInfo();
         $allStockInfos = $stockInfos->getStockInfoDropDown();
