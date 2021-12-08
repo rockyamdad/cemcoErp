@@ -162,11 +162,12 @@ class ExpenseController extends Controller{
     {
         $expense =Expense::find($id);
         $expense->invoice_id = Input::get('invoice_id');
-        if(Session::get('user_role') == 'admin'){
+        $expense->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $expense->branch_id = Input::get('branch_id');
         }else{
             $expense->branch_id = Session::get('user_branch');
-        }
+        }*/
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -180,11 +181,12 @@ class ExpenseController extends Controller{
     {
         $expense = new Expense();
         $expense->invoice_id = Input::get('invoice_id');
-        if(Session::get('user_role') == 'admin'){
+        $expense->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $expense->branch_id = Input::get('branch_id');
         }else{
             $expense->branch_id = Session::get('user_branch');
-        }
+        }*/
         $expense->category = Input::get('category');
         $expense->particular = Input::get('particular');
         $expense->purpose = Input::get('purpose');
@@ -261,7 +263,8 @@ class ExpenseController extends Controller{
             $voucherId = '';
             $voucherId = $this->generateVoucherId();
             $expenseTransaction = new Transaction();
-            $expenseTransaction->branch_id = Input::get('branch_id');
+            $expenseTransaction->branch_id = 1;
+            /*$expenseTransaction->branch_id = Input::get('branch_id');*/
             $expenseTransaction->account_category_id = Input::get('account_category_id');
             $expenseTransaction->account_name_id = Input::get('account_name_id');
             $expenseTransaction->amount = Input::get('amount');

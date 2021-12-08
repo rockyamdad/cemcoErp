@@ -10,7 +10,7 @@
                 <thead style="background-color:dodgerblue">
                 <tr>
                     <th>Date</th>
-                    <th>Branch</th>
+                    {{--<th>Branch</th>--}}
                     <th>Account Category</th>
                     <th>Account Name</th>
                     <th>Payment Method</th>
@@ -28,7 +28,7 @@
                     ?>
                     <tr class="odd gradeX">
                         <td>{{\App\Transaction::convertDate($expenseTransaction->created_at)}}</td>
-                        <td>{{$branch->name}}</td>
+                        {{--<td>{{$branch->name}}</td>--}}
                         <td>{{$expenseTransaction->accountCategory->name}}</td>
                         <td>{{$expenseTransaction->accountName->name}}</td>
                         <td>{{$expenseTransaction->payment_method}}</td>
@@ -58,10 +58,9 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                     <td> {{ $totalTransaction }}</td>
+                    <td></td>
+                    <td></td>
                 </tr>
 
                 </tbody>
