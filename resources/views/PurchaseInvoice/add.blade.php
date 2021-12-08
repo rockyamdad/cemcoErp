@@ -62,11 +62,11 @@
                             </div>
                             <input type="hidden" name="branch_session" id="branch_session" value="{{Session::get('user_branch')}}">
                             <input type="hidden" name="role_session" id="role_session" value="{{Session::get('user_role')}}">
-                            @if(Session::get('user_role')=='admin')
+                            {{--@if(Session::get('user_role')=='admin')
                             <div class="col-md-5" >
                                 {!!Form::select('branch_id',[null=>'Select branch'] +$branchAll,'null', array('class'=>'form-control branch_id_val','id'=>'branch_id') )!!}
                             </div>
-                                @endif
+                                @endif--}}
                         </div>
                         <div class="form-group">
                             <div class="col-md-5">
@@ -79,7 +79,7 @@
                                 <thead>
                                 <tr>
                                     <th width="">Stock Name</th>
-                                    <th width="">Product Type</th>
+                                    {{--<th width="">Product Type</th>--}}
                                     <th width="">Product Name</th>
                                     <th width="">Price</th>
                                     <th width="">Quantity</th>
@@ -99,14 +99,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    {{--<td>
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 180px;">
                                                 {!! Form::select('product_type',[null=>'Select Type'] + array('Local' => 'Local', 'Foreign' =>
                                                 'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control type_val','id'=>'product_type'))!!}
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>--}}
                                     <td>
                                         <div class="form-group">
                                             <div class="col-md-11" style="width: 300px;">

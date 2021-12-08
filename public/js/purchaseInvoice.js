@@ -23,7 +23,6 @@ jQuery(document).ready(function() {
 
                     var html = [];
                     html.push('<td>' + purchase.stock_info_id + '</td>');
-                    html.push('<td>' + purchase.product_type + '</td>');
                     html.push('<td>' + purchase.product_id + '</td>');
                     html.push('<td>' + purchase.price + '</td>');
                     html.push('<td>' + purchase.quantity + '</td>');
@@ -66,7 +65,6 @@ jQuery(document).ready(function() {
 
                     var html = [];
                     html.push('<td>' + purchase.stock_info_id + '</td>');
-                    html.push('<td>' + purchase.product_type + '</td>');
                     html.push('<td>' + purchase.product_id + '</td>');
                     html.push('<td>' + purchase.price + '</td>');
                     html.push('<td>' + purchase.quantity + '</td>');
@@ -88,17 +86,17 @@ jQuery(document).ready(function() {
         }
     });
     function saleFormValidationEdit() {
-        if($('#role_session').val() == 'admin') {
+        /*if($('#role_session').val() == 'admin') {
             var branch = $.trim($('#edit_branch_id').val());
-        }
+        }*/
         var stock = $.trim($('#stock_info_id').val());
-        var type = $.trim($('#edit_product_type').val());
+        /*var type = $.trim($('#edit_product_type').val());*/
         var party = $.trim($('#edit_party_id').val());
         var product = $.trim($('#edit_product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+        if ((party === '') || (product === '') || (quantity === '' || price==='') || (stock === '')) {
             return false;
         } else {
             return true;
@@ -106,17 +104,17 @@ jQuery(document).ready(function() {
     }
     function saleFormValidation() {
 
-        if($('#role_session').val() == 'admin') {
+        /*if($('#role_session').val() == 'admin') {
             var branch = $.trim($('#branch_id').val());
-        }
+        }*/
         var stock = $.trim($('#stock_info_id').val());
-        var type = $.trim($('#product_type').val());
+        /*var type = $.trim($('#product_type').val());*/
         var party = $.trim($('#party_id').val());
         var product = $.trim($('#product_id').val());
         var quantity = $.trim($('#quantity').val());
         var price = $.trim($('#price').val());
 
-        if ((party === '') || (product === '') || (quantity === '' || price==='') || (branch==='') || (stock === '') || (type === '')) {
+        if ((party === '') || (product === '') || (quantity === '' || price==='') || (stock === '')) {
             return false;
         } else {
             return true;
@@ -182,7 +180,7 @@ jQuery(document).ready(function() {
             });
         }
     });
-    if($('#role_session').val() != 'admin'){
+    /*if($('#role_session').val() != 'admin'){
         var branch_id = $('#branch_session').val();
         $.ajax({
             type: "get",
@@ -192,7 +190,7 @@ jQuery(document).ready(function() {
 
             }
         });
-    }
+    }*/
 
     $('#branch_id').live("change", function () {
         var branch_id = $('#branch_id').val();

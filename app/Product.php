@@ -65,7 +65,7 @@ class Product extends Eloquent
     }
     public function getLocalProductsDropDown()
     {
-        $localProducts = Product::where('product_type','Local')->get();
+        $localProducts = Product::get();
 
         $array = array();
 

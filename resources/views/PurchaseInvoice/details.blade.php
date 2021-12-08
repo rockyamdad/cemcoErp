@@ -13,7 +13,6 @@
             <table class="table table-striped table-bordered table-hover"  id="PurchaseDetailtable">
                 <thead style="background-color: #68bbec">
                 <tr>
-                    <th>Branch Name</th>
                     <th>Stock Name</th>
                     <th>Product Type</th>
                     <th>Product Name</th>
@@ -37,7 +36,6 @@
                     $subCategoryName = \App\SubCategory::find($purchaseInvoiceDetail->product->sub_category_id);
                     ?>
                     <tr class="odd gradeX">
-                        <td>{{$branchName->name}}</td>
                         <td>{{$stockName->name}}</td>
                         <td>{{$purchaseInvoiceDetail->product_type}}</td>
                         <td>{{$purchaseInvoiceDetail->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')'}}</td>
@@ -65,7 +63,6 @@
                 @endforeach
                 <tr style="background-color:#b2b2b2">
                     <td>Total Amount</td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

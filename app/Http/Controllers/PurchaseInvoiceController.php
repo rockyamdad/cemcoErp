@@ -70,7 +70,6 @@ class PurchaseInvoiceController extends Controller{
     {
         $ruless = array(
             'stock_info_id' => 'required',
-            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -152,7 +151,6 @@ class PurchaseInvoiceController extends Controller{
 
         $ruless = array(
             'stock_info_id' => 'required',
-            'product_type' => 'required',
             'party_id' => 'required',
             'product_id' => 'required',
             'price' => 'required',
@@ -179,14 +177,13 @@ class PurchaseInvoiceController extends Controller{
         $purchaseDetails->price = Input::get('price');
         $purchaseDetails->detail_invoice_id = Input::get('invoice_id');
         $purchaseDetails->product_id = Input::get('product_id');
-        if(Session::get('user_role') == 'admin'){
+        $purchaseDetails->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $purchaseDetails->branch_id = Input::get('branch_id');
         }else{
             $purchaseDetails->branch_id = Session::get('user_branch');
-        }
-
+        }*/
         $purchaseDetails->stock_info_id = Input::get('stock_info_id');
-        $purchaseDetails->product_type = Input::get('product_type');
         $purchaseDetails->remarks = Input::get('remarks');
         $purchaseDetails->save();
 
@@ -219,11 +216,12 @@ class PurchaseInvoiceController extends Controller{
 
         $stockInvoces = new StockInvoice();
         $stockInvoiceId= StockInvoice::generateInvoiceId();
-        if(Session::get('user_role') == 'admin'){
+        $stockInvoces->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $stockInvoces->branch_id = Input::get('branch_id');
         }else{
             $stockInvoces->branch_id = Session::get('user_branch');
-        }
+        }*/
 
         $stockInvoces->status = 'Activate';
         $stockInvoces->remarks = '';
@@ -237,14 +235,14 @@ class PurchaseInvoiceController extends Controller{
 
 
         $stock = new StockDetail();
-        if(Session::get('user_role') == 'admin'){
+        $stock->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $stock->branch_id = Input::get('branch_id');
         }else{
             $stock->branch_id = Session::get('user_branch');
-        }
+        }*/
 
         $stock->product_id =Input::get('product_id');
-        $stock->product_type =  Input::get('product_type');
         $stock->quantity = Input::get('quantity');
         $stock->price = Input::get('price');
         $stock->entry_type = "StockIn";
@@ -266,12 +264,11 @@ class PurchaseInvoiceController extends Controller{
         $array['id'] = $purchaseInvoiceDetails->id;
         $array['branch_id'] = $branchName->name;
         $array['stock_info_id'] = $stockName->name;
-        $array['product_type'] = $purchaseInvoiceDetails->product_type;
 
         $categoryName = \App\Category::find($purchaseInvoiceDetails->product->category_id);
         $subCategoryName = \App\SubCategory::find($purchaseInvoiceDetails->product->sub_category_id);
 
-        $array['product_id'] = $purchaseInvoiceDetails->product->name.'('.$categoryName->name.')'.'('.$subCategoryName->name.')';
+        $array['product_id'] = $purchaseInvoiceDetails->product->name;
         $array['price'] = $purchaseInvoiceDetails->price;
         $array['quantity']   = $purchaseInvoiceDetails->quantity;
         $array['remarks'] = $purchaseInvoiceDetails->remarks;
@@ -494,11 +491,10 @@ class PurchaseInvoiceController extends Controller{
 
         }
     }
-    public  function getProduct($type)
+    public  function getProduct()
     {
         $branch= Input::get('data');
-        $productsName = Product::where('product_type','=',$type)
-            ->where('branch_id','=',$branch)
+        $productsName = Product::where('branch_id','=',$branch)
             ->get();
 
         foreach ($productsName as $productName) {
@@ -569,7 +565,6 @@ class PurchaseInvoiceController extends Controller{
         $ruless = array(
             'party_id' => 'required',
             //'cus_ref_no' => 'required',
-            'branch_id' => 'required',
             'account_category_id' => 'required',
             'account_name_id' => 'required',
             'payment_method' => 'required',
@@ -718,7 +713,7 @@ class PurchaseInvoiceController extends Controller{
                         $transaction->account_name_id = Input::get('account_name_id');
                         $transaction->user_id = Session::get('user_id');
                         $transaction->cheque_no = Input::get('cheque_no');
-                        $transaction->branch_id = Input::get('branch_id');
+                        $transaction->branch_id = 1;
                         $transaction->voucher_id = $voucherId;
                         $transaction->cheque_date = Input::get('cheque_date');
                         $transaction->cheque_bank = Input::get('cheque_bank');
