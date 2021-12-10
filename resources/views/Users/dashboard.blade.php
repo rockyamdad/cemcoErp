@@ -103,9 +103,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Party Name</th>
-                                    @if(Session::get('user_role') == 'admin')
-                                        <th>Branch Name</th>
-                                    @endif
                                     <th>Bank Name</th>
                                     <th>Cheque No</th>
                                     <th>Cheque Date</th>
@@ -133,9 +130,6 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$partyname->name}}</td>
-                                        @if(Session::get('user_role') == 'admin')
-                                            <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$branch->name}}</td>
-                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
@@ -152,9 +146,6 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$partyname->name}}</td>
-                                        @if(Session::get('user_role') == 'admin')
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$branch->name}}</td>
-                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
@@ -203,9 +194,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Party Name</th>
-                                    @if(Session::get('user_role') == 'admin')
-                                        <th>Branch Name</th>
-                                    @endif
                                     <th>Bank Name</th>
                                     <th>Cheque No</th>
                                     <th>Cheque Date</th>
@@ -238,9 +226,6 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
-                                        @if(Session::get('user_role') == 'admin')
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$branch->name}}</td>
-                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blink'";}?>><?php if ($reg->cheque_date != '') {?>{{\App\Transaction::convertDate($reg->cheque_date)}}<?php } ?> </td>
@@ -257,9 +242,6 @@
                                     <tr>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$slNo}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>><?php if($reg->type=='Payment'){ ?>{{$partyname->name}} <?php } else echo "Expense"; ?></td>
-                                        @if(Session::get('user_role') == 'admin')
-                                        <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$branch->name}}</td>
-                                        @endif
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_bank}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>{{$reg->cheque_no}}</td>
                                         <td <?php if($newformat >= $today -2 && $newformat <= $today + 2){ echo "class='blinks'";}?>>open cheque</td>
@@ -372,7 +354,7 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Branch Name</th>
+                               {{-- <th>Branch Name</th>--}}
                                 <th>Account Name</th>
                                 <th>Balance</th>
                             </tr>
@@ -383,11 +365,11 @@
                             ?>
                                 @foreach($accountsBalance as $account)
                                     <?php
-                                        $branch = \App\Branch::find($account->branch_id);
-                                    ?>
+/*                                        $branch = \App\Branch::find($account->branch_id);
+                                    */?>
                                     <tr>
                                         <td>{{$slNo}}</td>
-                                        <td>{{$branch->name}}</td>
+                                        {{--<td>{{$branch->name}}</td>--}}
                                         <td>{{$account->name}}</td>
                                         <td>{{$account->opening_balance}}</td>
                                     </tr>
@@ -535,7 +517,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Branch Name</th>
+                            {{--<th>Branch Name</th>--}}
                             <th>Total StocktIn</th>
                             <th>Total StocktOut</th>
                             <th>Total StocktTransfer</th>
@@ -555,7 +537,7 @@
                             ?>
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$branchs->name}}</td>
+                                {{--<td>{{$branchs->name}}</td>--}}
                                 <td>{{$stockIn[0]->totalStockIn}}</td>
                                 <td>{{$stockOut[0]->totalStockOut}}</td>
                                 <td>{{$stockTransfer[0]->totalStockTransfer}}</td>
@@ -657,7 +639,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Branch Name</th>
+                            {{--<th>Branch Name</th>--}}
                             <th>Sales Amount</th>
                         </tr>
                         </thead>
@@ -668,7 +650,7 @@
                         @foreach($totalSales as $sale)
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$sale->branch}}</td>
+                                {{--<td>{{$sale->branch}}</td>--}}
                                 <td>{{$sale->todaySale}}</td>
                             </tr>
                             <?php
@@ -700,7 +682,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Branch Name</th>
+                            {{--<th>Branch Name</th>--}}
                             <th>Purchase Amount</th>
                         </tr>
                         </thead>
@@ -710,11 +692,11 @@
                         ?>
                         @foreach($totalPurchase as $purchase)
                             <?php
-                              $branch = \App\Branch::find($purchase->branch_id);
-                            ?>
+/*                              $branch = \App\Branch::find($purchase->branch_id);
+                            */?>
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$branch->name}}</td>
+                                {{--<td>{{$branch->name}}</td>--}}
                                 <td>{{$purchase->todayPurchase}}</td>
                             </tr>
                             <?php
@@ -735,7 +717,7 @@
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet box yellow">
             <div class="portlet-title">
-                <div class="caption"><i class="fa fa-cogs"></i>Minimum Product Quantity Branch Wise</div>
+                <div class="caption"><i class="fa fa-cogs"></i>Minimum Product Quantity</div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse"></a>
                     <a href="javascript:;" class="reload"></a>
@@ -748,7 +730,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Branch Name</th>
+                            {{--<th>Branch Name</th>--}}
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>MInimum Level</th>
@@ -760,11 +742,11 @@
                         ?>
                         @foreach($results as $result)
                             <?php
-                            $branch = \App\Branch::find($result->branch_id);
-                            ?>
+/*                            $branch = \App\Branch::find($result->branch_id);
+                            */?>
                             <tr>
                                 <td>{{$slNo}}</td>
-                                <td>{{$branch->name}}</td>
+                                {{--<td>{{$branch->name}}</td>--}}
                                 <td>{{$result->name}}</td>
                                 <td>{{$result->quantity}}</td>
                                 <td>{{$result->min_level}}</td>
