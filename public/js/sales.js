@@ -4,14 +4,14 @@ jQuery(document).ready(function() {
     });*/
 
     // Getting Default Branch product
-    $.ajax({
-        type: "get",
-        url: "products/"+1,
-        success: function (html) {
-            $('#product_id').append(html);
-
-        }
-    });
+    // $.ajax({
+    //     type: "get",
+    //     url: "products/"+1,
+    //     success: function (html) {
+    //         $('#product_id').append(html);
+    //
+    //     }
+    // });
     $(".saveSales").live("click", function () {
         if(saleFormValidation()){
             $(".save" ).removeClass("saveSales");

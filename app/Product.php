@@ -45,7 +45,7 @@ class Product extends Eloquent
 
     public function getProductsDropDownForeign()
     {
-        $products = Product::where('product_type','Foreign')->get();
+        $products = Product::get();
 
         $array = array();
 

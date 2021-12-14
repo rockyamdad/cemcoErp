@@ -472,11 +472,12 @@ class ImportController extends Controller{
     {
 
         $import->import_num = $import_num;
-        if(Session::get('user_role') == 'admin'){
+        $import->branch_id = 1;
+        /*if(Session::get('user_role') == 'admin'){
             $import->branch_id = Input::get('branch_id');
         }else{
             $import->branch_id = Session::get('user_branch');
-        }
+        }*/
 
         $import->consignment_name = Input::get('consignment_name');
         $import->description = Input::get('description');
