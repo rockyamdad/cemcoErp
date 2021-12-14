@@ -227,6 +227,8 @@ class PurchaseInvoiceController extends Controller{
         $stockInvoces->remarks = '';
         $stockInvoces->user_id = Session::get('user_id');
         $stockInvoces->invoice_id = $stockInvoiceId;
+        //By Default Making Confirmed Stock status
+        //$stockInvoces->confirmation = 1;
 
         $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
             ->get();

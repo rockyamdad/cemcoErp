@@ -439,6 +439,8 @@ class SaleController extends Controller{
                     $stockInvoice->remarks = '';
                     $stockInvoice->user_id = Session::get('user_id');
                     $stockInvoice->invoice_id = $stockInvoiceId;
+                    //By Default Making Confirmed Stock status
+                    $stockInvoice->confirmation = 1;
 
                     $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
                         ->first();

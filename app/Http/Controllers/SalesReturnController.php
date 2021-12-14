@@ -135,7 +135,7 @@ class SalesReturnController extends Controller{
             $salesReturnDetails->quantity = Input::get('quantity');
             $salesReturnDetails->unit_price = Input::get('unit_price');
             $salesReturnDetails->return_amount = ($salesReturnDetails->quantity * $salesReturnDetails->unit_price) - ($salesReturnDetails->quantity*$salesReturnDetails->unit_price)*((double)Input::get('discount_percentage')/100);
-            $salesReturnDetails->consignment_name = Input::get('consignment_name');
+            $salesReturnDetails->consignment_name = Input::get('consignment_name')?Input::get('consignment_name'):'N/A';
 
             $salesReturnDetails->invoice_id = $invoiceId;
             $salesReturnDetails->save();
@@ -272,6 +272,8 @@ class SalesReturnController extends Controller{
                             $stockInvoces->remarks = '';
                             $stockInvoces->user_id = Session::get('user_id');
                             $stockInvoces->invoice_id = $stockInvoiceId;
+                            //By Default Making Confirmed Stock status
+                            //$stockInvoces->confirmation = 1;
 
                             $stock_invoices_check = StockInvoice::where('invoice_id', '=', $stockInvoiceId)
                                 ->get();
@@ -295,6 +297,7 @@ class SalesReturnController extends Controller{
                             $stock->remarks = Input::get('remarks')?Input::get('remarks'):'N/A';
                             $stock->invoice_id = $stockInvoiceId;
                             $stock->stock_info_id = Input::get('stock_info_id');
+                            $stock->to_stock_info_id = Input::get('stock_info_id');
                             $stock->save();
                         }
 

@@ -5,6 +5,7 @@ use App\Branch;
 use App\Category;
 use App\NameOfAccount;
 use App\Product;
+use App\StockDetail;
 use App\SubCategory;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
@@ -190,9 +191,15 @@ class ProductController extends Controller{
     }
     public function getDelete($id)
     {
-        $product = Product::find($id);
-        $product->delete();
-        Session::flash('error', 'Product  has been Successfully Deleted.');
+        $productDetails=StockDetail::where('product_id','=',$id)->first();
+        if(!$productDetails){
+            $product = Product::find($id);
+            $product->delete();
+            Session::flash('error', 'Product has been Successfully Deleted.');
+        }else{
+            Session::flash('error', 'This Product can\'t delete because it is used in stock section');
+        }
+
         return Redirect::to('products/index');
     }
     public function getProducts($category_id)
