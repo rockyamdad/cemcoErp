@@ -50,25 +50,25 @@ class ReportController extends Controller{
         }
 
         $category_id = Input::get('category_id');
-        $product_type = Input::get('product_type');
+        //$product_type = Input::get('product_type');
         $report = new Report();
-        $results = $report->getStockReport($product_type,$date1,$date2,$branch_id,$category_id);
+        $results = $report->getStockReport($date1,$date2,$branch_id,$category_id);
         return view('Reports.stockReport',compact('results'))
-            ->with('product_type',$product_type)
+            //->with('product_type',$product_type)
             ->with('branch_id',$branch_id)
             ->with('category_id',$category_id)
             ->with('date1',$date1)
             ->with('date2',$date2);
     }
 
-    public function getPrint($date1,$date2,$type,$branch_id,$category_id)
+    public function getPrint($date1,$date2,$branch_id,$category_id)
     {
         $startDate = date('Y/m/d',strtotime($date1));
         $endDate = date('Y/m/d',strtotime($date2));
         $report = new Report();
-        $results = $report->getStockReport($type,$startDate,$endDate,$branch_id,$category_id);
+        $results = $report->getStockReport($startDate,$endDate,$branch_id,$category_id);
         return view('Reports.stockReportPrint',compact('results'))
-            ->with('product_type',$type)
+            //->with('product_type',$type)
             ->with('branch_id',$branch_id)
             ->with('category_id',$category_id)
             ->with('date1',$startDate)

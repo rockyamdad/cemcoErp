@@ -53,14 +53,14 @@
                             {!!Form::select('category_id',[null=>'Please Select Category'] +$categoriesAll,'null', array('class'=>'form-control ','id'=>'category_id') )!!}
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         {!!HTML::decode(Form::label('product_type','Product Type<span class="required">*</span>',array('class' =>
                         'control-label col-md-3')))!!}
                         <div class="col-md-4">
                             {!! Form::select('product_type',[null=>'Please Select Type'] + array('Local' => 'Local', 'Foreign' =>
                             'Foreign','Finish Goods'=>'Finish Goods'),'null', array('class'=>'form-control','id'=>'product_type'))!!}
                         </div>
-                    </div>
+                    </div>--}}
 
                     <div class="form-group">
 

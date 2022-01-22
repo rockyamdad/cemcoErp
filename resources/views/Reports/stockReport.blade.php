@@ -17,8 +17,8 @@
             use Illuminate\Support\Facades\URL;
             $sDate = date('Ymd', strtotime($date1));
             $eDate = date('Ymd', strtotime($date2));
-            $type  = $product_type;
-            $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$type.'/'.$branch_id.'/'.$category_id);
+            //$type  = $product_type;
+            $url = URL::to('reports/print/'.$sDate.'/'.$eDate.'/'.$branch_id.'/'.$category_id);
             ?>
 
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -45,7 +45,7 @@
                             if ($date1 && $date2) {
                         ?>
 
-                            Stock Report of {{$date11}} to {{$date22}} for {{$product_type}} Products
+                            Stock Report of {{$date11}} to {{$date22}}
                         <?php
                         } else {
                         ?>
@@ -95,11 +95,11 @@
                                     $stocks = new \App\Report();
                                     $sub_category = new \App\SubCategory();
                                     $sub_categoryName = \App\SubCategory::find($result->subCategory);
-                                    $bfIn = $stocks->getStockBf($product_type,$date1,$result->product_id);
-                                    $bfOut = $stocks->getStockBfOut($product_type,$date1,$result->product_id);
-                                    $stockIn = $stocks->getStockIn($product_type,$date1,$date2,$result->product_id);
-                                    $stockOut = $stocks->getStockOut($product_type,$date1,$date2,$result->product_id);
-                                    $wastage = $stocks->getStockWastage($product_type,$date1,$date2,$result->product_id);
+                                    $bfIn = $stocks->getStockBf($date1,$result->product_id);
+                                    $bfOut = $stocks->getStockBfOut($date1,$result->product_id);
+                                    $stockIn = $stocks->getStockIn($date1,$date2,$result->product_id);
+                                    $stockOut = $stocks->getStockOut($date1,$date2,$result->product_id);
+                                    $wastage = $stocks->getStockWastage($date1,$date2,$result->product_id);
                                     $bf = $bfIn[0]->stockBf - $bfOut[0]->stockBfOut;
                                     $totalIn = $bf + $stockIn[0]->stockIn;
                                     $balance =  $totalIn - $stockOut[0]->stockOut;
