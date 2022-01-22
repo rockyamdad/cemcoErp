@@ -98,7 +98,7 @@ class ImportController extends Controller{
             $this->setImportDetailsData($importDetail);
             $importDetail->save();
             Session::flash('message', 'Import Details has been Successfully Created.');
-            return Redirect::to('imports/detail/'.$id);
+            return Redirect::to('imports/index');
         }
     }
     public function postSaveBankCost()
@@ -337,6 +337,10 @@ class ImportController extends Controller{
         $importDetails = new ImportDetail();
 
         $imports = $importDetails->getLandingCostData($id);
+        if(count($imports)==0){
+            Session::flash('message', 'All information is not added.');
+            return Redirect::to('imports/costs/'.$id);
+        }
        // var_dump($imports);exit;
         $detailsQuantity = ImportDetail::where('import_num','=',$id)->get();
         $totalQuantitySum = $detailsQuantity->sum('quantity');
@@ -688,8 +692,9 @@ class ImportController extends Controller{
         $stockDetails->entry_type = "StockIn";
 
         $product = Product::find($import_details->product_id);
-        $stockDetails->product_type = $product->product_type;
+        //$stockDetails->product_type = $product->product_type;
         $stockDetails->stock_info_id = $to_stock_id;
+        $stockDetails->to_stock_info_id = $to_stock_id;
         $stockDetails->remarks = "";
         $stockDetails->invoice_id = $invoiceId;
         $stockDetails->quantity = $import_details->quantity;

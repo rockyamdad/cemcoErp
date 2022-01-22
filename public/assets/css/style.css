@@ -1563,7 +1563,7 @@ Box portlet
 /* portlet buttons */
 .portlet.box > .portlet-body {
   background-color: #fff;
-  padding: 10px;
+  padding: 25px;
 }
 
 .portlet.box > .portlet-title {  
